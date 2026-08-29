@@ -545,9 +545,9 @@ button,input,select,textarea{ font:inherit; color:inherit; }
 }
 /* second line pulls back in width — the wordmark breathes */
 .hero__title span:nth-child(2){
-  font-variation-settings:"wdth" 78,"wght" 700;
-  font-size:.42em;
-  letter-spacing:.06em;
+  font-variation-settings:"wdth" 84,"wght" 600;
+  font-size:.36em;
+  letter-spacing:.30em;
   color:var(--ink-dim);
   background:none;
   -webkit-text-fill-color:currentColor;
@@ -1023,37 +1023,70 @@ button,input,select,textarea{ font:inherit; color:inherit; }
 }
 
 /* ============================================================
-   Quotes
+   Credentials + safety
    ============================================================ */
-.quotes{
+.creds{
   display:grid;
-  gap:clamp(1rem,2.5vw,1.5rem);
+  gap:clamp(2.5rem,6vw,4.5rem);
 }
-@media (min-width:860px){ .quotes{ grid-template-columns:repeat(3,1fr); } }
+@media (min-width:880px){
+  .creds{ grid-template-columns:.8fr 1.2fr; }
+}
+.creds__col{
+  display:grid;
+  gap:clamp(1rem,2.4vw,1.5rem);
+  align-content:start;
+}
 
-.quote{
-  display:flex;
-  flex-direction:column;
-  gap:1.25rem;
-  padding:clamp(1.4rem,3vw,2rem);
-  border:1px solid var(--hairline);
-  border-radius:14px;
-  background:linear-gradient(180deg,rgba(23,16,8,.9),rgba(10,7,5,.94));
-}
-.quote blockquote{
+.tvlist{
+  list-style:none;
   margin:0;
-  font-size:var(--t-md);
-  line-height:1.45;
-  color:var(--ink);
-  text-wrap:pretty;
+  padding:0;
+  display:grid;
+  gap:.55rem;
 }
-.quote figcaption{
+.tvlist li{
+  font-family:var(--f-display);
+  font-variation-settings:"wdth" 104,"wght" 700;
+  font-size:clamp(1.1rem,2.6vw,1.6rem);
+  line-height:1.1;
+  letter-spacing:-.01em;
+  text-transform:uppercase;
+  color:var(--ink);
+  padding-bottom:.55rem;
+  border-bottom:1px solid var(--hairline);
+  transition:color .35s var(--ease), font-variation-settings .55s var(--ease);
+}
+.tvlist li:hover{
+  color:var(--flame);
+  font-variation-settings:"wdth" 120,"wght" 800;
+}
+
+.safety{
+  margin:0;
+  display:grid;
+  gap:clamp(1rem,2.4vw,1.5rem);
+}
+.safety > div{
+  display:grid;
+  gap:.4rem;
+  padding:clamp(1rem,2.4vw,1.4rem);
+  border:1px solid var(--hairline);
+  border-radius:12px;
+  background:linear-gradient(180deg,rgba(23,16,8,.88),rgba(10,7,5,.92));
+}
+.safety dt{
   font-family:var(--f-mono);
   font-size:var(--t-xs);
-  letter-spacing:.14em;
+  letter-spacing:.18em;
   text-transform:uppercase;
-  color:var(--smoke);
-  margin-top:auto;
+  color:var(--flame);
+}
+.safety dd{
+  margin:0;
+  font-size:var(--t-sm);
+  color:var(--ink-dim);
+  max-width:56ch;
 }
 
 /* ============================================================
@@ -1328,6 +1361,7 @@ body.has-spark.spark-hot #spark{ scale:2.1; }
     <a class="nav__link" href="#shows">Shows</a>
     <a class="nav__link" href="#reel">Showreel</a>
     <a class="nav__link" href="#werk">Werk</a>
+    <a class="nav__link" href="#over">Zekerheid</a>
     <a class="nav__link" href="#boeken">Boeken</a>
   </nav>
 
@@ -1338,8 +1372,9 @@ body.has-spark.spark-hot #spark{ scale:2.1; }
   <a href="#shows">Shows</a>
   <a href="#reel">Showreel</a>
   <a href="#werk">Werk</a>
+  <a href="#over">Zekerheid</a>
   <a href="#boeken">Boeken</a>
-  <p class="menu__meta">Beschikbaar in heel Nederland &amp; België</p>
+  <p class="menu__meta">Nederland, België &amp; internationaal &middot; +31 6 200 207 23</p>
 </nav>
 
 <main class="shell" id="top">
@@ -1348,9 +1383,8 @@ body.has-spark.spark-hot #spark{ scale:2.1; }
        Hero
        ========================================================== -->
   <section class="hero wrap">
-    <!-- Drop hero footage in assets/media/. The video only becomes
-         visible once it genuinely plays; otherwise the live flame
-         behind it carries the hero on its own. -->
+    <!-- Drop hero footage in assets/media/. The video only becomes visible
+         once it genuinely plays; otherwise the live flame carries the hero. -->
     <div class="hero__reel" aria-hidden="true">
       <video id="heroVideo" muted loop playsinline autoplay preload="auto"
              poster="assets/media/hero-poster.jpg">
@@ -1360,25 +1394,25 @@ body.has-spark.spark-hot #spark{ scale:2.1; }
     </div>
 
     <div class="hero__body">
-      <p class="eyebrow rise">Vuurshow &middot; LED-show &middot; Vonkenshow</p>
+      <p class="eyebrow rise">Vuurshow &middot; Fakir &middot; Mentalisme</p>
 
       <h1 class="hero__title rise" data-delay="1">
         <span>Vuurspuwer</span>
-        <span>Vlammen op commando</span>
+        <span>Nuno</span>
       </h1>
 
       <div class="hero__meta rise" data-delay="2">
-        <p class="lede">Een act van vijf tot vijfenveertig minuten die een plein stillegt.</p>
+        <p class="lede">Zeventien jaar vuur, glas en spijkers &mdash; en een publiek dat vergeet te ademen.</p>
       </div>
 
       <div class="hero__actions rise" data-delay="3">
         <a class="btn" href="#boeken"><span class="btn__dot"></span>Check je datum</a>
-        <a class="btn btn--ghost" href="#reel">Bekijk de showreel</a>
+        <a class="btn btn--ghost" href="https://wa.me/31620020723">WhatsApp direct</a>
       </div>
     </div>
 
     <div class="hero__foot">
-      <div class="scrollcue rise" data-delay="4"><i></i><span>Scroll — en het vuur volgt</span></div>
+      <div class="scrollcue rise" data-delay="4"><i></i><span>Scroll &mdash; en het vuur volgt</span></div>
       <div class="readout rise" data-delay="4">
         <div>Vlamhoogte <b id="roHeight">0.0</b> m</div>
         <div>Hitte <b id="roHeat">0</b> %</div>
@@ -1393,19 +1427,21 @@ body.has-spark.spark-hot #spark{ scale:2.1; }
     <div class="ticker__track" id="ticker">
       <div class="ticker__group">
         <span>Vuurspuwen</span><span>&#9679;</span>
-        <span>Fire Show</span><span>&#9679;</span>
-        <span>LED Show</span><span>&#9679;</span>
-        <span>Vonkenshow</span><span>&#9679;</span>
-        <span>Walking Act</span><span>&#9679;</span>
-        <span>Fakir</span><span>&#9679;</span>
+        <span>Vuurshow</span><span>&#9679;</span>
+        <span>Fakirshow</span><span>&#9679;</span>
+        <span>Glaslopen</span><span>&#9679;</span>
+        <span>Spijkerbed</span><span>&#9679;</span>
+        <span>Reptielenshow</span><span>&#9679;</span>
+        <span>Mentalisme</span><span>&#9679;</span>
       </div>
       <div class="ticker__group">
         <span>Vuurspuwen</span><span>&#9679;</span>
-        <span>Fire Show</span><span>&#9679;</span>
-        <span>LED Show</span><span>&#9679;</span>
-        <span>Vonkenshow</span><span>&#9679;</span>
-        <span>Walking Act</span><span>&#9679;</span>
-        <span>Fakir</span><span>&#9679;</span>
+        <span>Vuurshow</span><span>&#9679;</span>
+        <span>Fakirshow</span><span>&#9679;</span>
+        <span>Glaslopen</span><span>&#9679;</span>
+        <span>Spijkerbed</span><span>&#9679;</span>
+        <span>Reptielenshow</span><span>&#9679;</span>
+        <span>Mentalisme</span><span>&#9679;</span>
       </div>
     </div>
   </div>
@@ -1415,10 +1451,10 @@ body.has-spark.spark-hot #spark{ scale:2.1; }
        ========================================================== -->
   <section class="bay wrap manifesto">
     <div class="manifesto__grid">
-      <p data-split>Vuur is het enige effect dat niemand wegkijkt. Geen scherm, geen playback — alleen hitte, timing en een publiek dat vergeet te ademen.</p>
+      <p data-split>Het begon met een fascinatie voor vuur. Zeventien jaar later is het een internationale carrière &mdash; en staat een plein nog steeds stil.</p>
       <div class="prose rise">
-        <p>Ik werk sinds jaren als vuurspuwer op festivals, bedrijfsfeesten, bruiloften en openingen. Elke show wordt op de plek gebouwd: de ruimte, de wind, het moment in het programma en wat het publiek op dat punt van de avond nodig heeft.</p>
-        <p>Binnen zonder vergunning? Dan draaien we dezelfde choreografie in LED of met koud vuur. Hetzelfde effect, nul vlam.</p>
+        <p>Ik ben Nuno: vuurspuwer, fakir en mentalist. Wat begon met vuur groeide uit tot een repertoire van vuurshows, glaslopen en spijkerbed, exotische reptielen en gedachtelezen &mdash; op bruiloften, bedrijfsfeesten, festivals, productlanceringen en openingen, in Nederland, België en daarbuiten.</p>
+        <p>Onderweg optredens voor SBS6, RTL, VTM en producties in Engeland, en een plek in de televisieshow van Uri Geller. Elke show wordt op de plek gebouwd: de ruimte, de wind, het moment in het programma en wat jouw publiek op dat punt van de avond nodig heeft.</p>
       </div>
     </div>
   </section>
@@ -1428,45 +1464,45 @@ body.has-spark.spark-hot #spark{ scale:2.1; }
        ========================================================== -->
   <section class="bay wrap" id="shows">
     <div class="bay__head">
-      <p class="eyebrow eyebrow--dim rise">De acts</p>
+      <p class="eyebrow eyebrow--dim rise">De shows</p>
       <h2 class="bay__title rise" data-delay="1">Kies op <em>vlam</em>, ruimte en speelduur</h2>
     </div>
 
     <div class="acts">
       <article class="act rise" tabindex="0">
-        <div class="chips"><span class="chip" data-heat="fire">Echt vuur</span><span class="chip">Buiten</span><span class="chip">5–10 min</span></div>
-        <h3 class="act__name">Vuurspuwen</h3>
-        <p class="act__desc">De klassieker. Vlammen tot meters hoog, op de tel van de muziek. Kort, hard en het beeld waar iedereen de telefoon voor omhoog haalt.</p>
+        <div class="chips"><span class="chip" data-heat="fire">Echt vuur</span><span class="chip">Binnen &amp; buiten</span><span class="chip">5&ndash;10 min</span></div>
+        <h3 class="act__name">Power-Act</h3>
+        <p class="act__desc">Korte klap. Als opening of als slotact waar het feest op piekt: metershoge vlammen, op de tel van de muziek, en daarna is iedereen wakker.</p>
       </article>
 
       <article class="act rise" data-delay="1" tabindex="0">
-        <div class="chips"><span class="chip" data-heat="fire">Echt vuur</span><span class="chip">Binnen &amp; buiten</span><span class="chip">15–45 min</span></div>
-        <h3 class="act__name">Fire Show</h3>
-        <p class="act__desc">Volledige choreografie met poi, staff en fans. Opgebouwd rond jouw programma, met een licht- en muziekcue die op de seconde klopt.</p>
+        <div class="chips"><span class="chip" data-heat="fire">Echt vuur</span><span class="chip">Binnen &amp; buiten</span><span class="chip">20&ndash;30 min</span></div>
+        <h3 class="act__name">Complete Vuurshow</h3>
+        <p class="act__desc">Het volledige repertoire: vuurketting, vuurjongleren, vuurwaaiers, vuur eten en body fire, met fakir-elementen en publieksinteractie ertussen.</p>
       </article>
 
       <article class="act rise" data-delay="2" tabindex="0">
-        <div class="chips"><span class="chip" data-heat="cold">Geen vlam</span><span class="chip">Binnen</span><span class="chip">15–45 min</span></div>
-        <h3 class="act__name">LED Show</h3>
-        <p class="act__desc">Dezelfde routine in programmeerbaar licht. Geen vergunning, geen rook, geen brandmelder — wel de kleuren van je huisstijl.</p>
+        <div class="chips"><span class="chip" data-heat="hybrid">Glas &amp; spijkers</span><span class="chip">Binnen &amp; buiten</span><span class="chip">Op maat</span></div>
+        <h3 class="act__name">Fakirshow</h3>
+        <p class="act__desc">De klassieke fakir op glas en spijkers. Blootsvoets over scherven, languit op het spijkerbed &mdash; van ongeloof naar applaus, op korte afstand van het publiek.</p>
       </article>
 
       <article class="act rise" data-delay="3" tabindex="0">
-        <div class="chips"><span class="chip" data-heat="hybrid">Koud vuur</span><span class="chip">Binnen</span><span class="chip">Op cue</span></div>
-        <h3 class="act__name">Vonkenshow</h3>
-        <p class="act__desc">Vonkenfonteinen voor het moment zelf: de entree van het bruidspaar, de onthulling, de aftrap. Koud, rookarm en binnen inzetbaar.</p>
+        <div class="chips"><span class="chip" data-heat="cold">Geen vuur</span><span class="chip">Binnen</span><span class="chip">Educatief</span></div>
+        <h3 class="act__name">Reptielenshow</h3>
+        <p class="act__desc">Oog in oog met exotische slangen en reptielen. Leerzaam, veilig begeleid en het gesprek van de avond &mdash; ook voor wie eerst niet durfde.</p>
       </article>
 
       <article class="act rise" data-delay="4" tabindex="0">
-        <div class="chips"><span class="chip" data-heat="fire">Echt vuur</span><span class="chip">Buiten</span><span class="chip">Doorlopend</span></div>
-        <h3 class="act__name">Walking Act</h3>
-        <p class="act__desc">Mobiel over het terrein, meerdere korte uitbarstingen door de avond heen. Houdt een festivalplein of markt de hele avond in beweging.</p>
+        <div class="chips"><span class="chip" data-heat="cold">Geen vuur</span><span class="chip">Binnen</span><span class="chip">Interactief</span></div>
+        <h3 class="act__name">Mentalisme</h3>
+        <p class="act__desc">Gedachten lezen waar je publiek bij zit. Interactief, dichtbij, en zonder vuur inzetbaar in zalen waar geen vlam mag branden.</p>
       </article>
 
       <article class="act rise" data-delay="5" tabindex="0">
-        <div class="chips"><span class="chip" data-heat="fire">Echt vuur</span><span class="chip">Binnen &amp; buiten</span><span class="chip">10–20 min</span></div>
-        <h3 class="act__name">Fakir</h3>
-        <p class="act__desc">Vuur eten, glaslopen en spijkerbed — langzaam opgebouwd, van ongeloof naar applaus. Werkt op korte afstand van het publiek.</p>
+        <div class="chips"><span class="chip" data-heat="fire">Echt vuur</span><span class="chip">Buiten</span><span class="chip">Groepen</span></div>
+        <h3 class="act__name">Workshop vuurspuwen</h3>
+        <p class="act__desc">Zelf de vlam maken, onder begeleiding. Een origineel idee voor teambuilding, een vrijgezellenfeest of een bedrijfsuitje dat blijft hangen.</p>
       </article>
     </div>
   </section>
@@ -1494,7 +1530,7 @@ body.has-spark.spark-hot #spark{ scale:2.1; }
         </button>
         <p>Showreel volgt<span>assets/media/showreel.mp4</span></p>
       </div>
-      <div class="reel__hud"><span>Vuurspuwer — showreel</span><span id="reelTime">00:00</span></div>
+      <div class="reel__hud"><span>Vuurspuwer Nuno &mdash; showreel</span><span id="reelTime">00:00</span></div>
     </div>
   </section>
 
@@ -1510,36 +1546,53 @@ body.has-spark.spark-hot #spark{ scale:2.1; }
   </section>
 
   <!-- ==========================================================
-       Show specs
+       Numbers — all four are real and sourced; see README
        ========================================================== -->
-  <section class="specs" aria-label="Showspecificaties">
-    <div class="spec rise"><div class="spec__val" data-count="6" data-dec="1">0<i>m</i></div><div class="spec__key">Vlamhoogte</div></div>
-    <div class="spec rise" data-delay="1"><div class="spec__val" data-count="45">0<i>min</i></div><div class="spec__key">Maximale showtijd</div></div>
-    <div class="spec rise" data-delay="2"><div class="spec__val" data-count="30">0<i>min</i></div><div class="spec__key">Opbouwtijd</div></div>
-    <div class="spec rise" data-delay="3"><div class="spec__val" data-count="0">0<i>vlam</i></div><div class="spec__key">In de LED-variant</div></div>
+  <section class="specs" aria-label="In cijfers">
+    <div class="spec rise"><div class="spec__val" data-count="17">0<i>jaar</i></div><div class="spec__key">Op het podium</div></div>
+    <div class="spec rise" data-delay="1"><div class="spec__val" data-count="4.9" data-dec="1">0<i>/5</i></div><div class="spec__key">Gemiddelde beoordeling</div></div>
+    <div class="spec rise" data-delay="2"><div class="spec__val" data-count="134">0</div><div class="spec__key">Beoordelingen via ShowBird</div></div>
+    <div class="spec rise" data-delay="3"><div class="spec__val" data-count="30">0<i>min</i></div><div class="spec__key">Langste vuurshow</div></div>
   </section>
 
   <!-- ==========================================================
-       Quotes
+       Credentials + safety — what an event planner actually checks
        ========================================================== -->
-  <section class="bay wrap">
+  <section class="bay wrap" id="over">
     <div class="bay__head">
-      <p class="eyebrow eyebrow--dim rise">Reacties</p>
-      <h2 class="bay__title rise" data-delay="1">Wat opdrachtgevers <em>zeggen</em></h2>
+      <p class="eyebrow eyebrow--dim rise">Zekerheid</p>
+      <h2 class="bay__title rise" data-delay="1">Spektakel is het <em>makkelijke</em> deel</h2>
     </div>
-    <div class="quotes">
-      <figure class="quote rise">
-        <blockquote>Het plein was binnen dertig seconden stil. Daarna ging iedereen tegelijk klappen. Precies het moment waar we het programma omheen hadden gebouwd.</blockquote>
-        <figcaption>[Naam] &mdash; Programmeur, [Festival]</figcaption>
-      </figure>
-      <figure class="quote rise" data-delay="1">
-        <blockquote>Binnen mocht er geen vlam aan te pas komen. De LED-variant deed er niets voor onder — onze gasten hadden niet door dat het een alternatief was.</blockquote>
-        <figcaption>[Naam] &mdash; Eventmanager, [Bedrijf]</figcaption>
-      </figure>
-      <figure class="quote rise" data-delay="2">
-        <blockquote>Op tijd, eigen materiaal, alles zelf geregeld met de brandweer. Als leverancier is dat minstens zo fijn als de show zelf.</blockquote>
-        <figcaption>[Naam] &mdash; Productie, [Locatie]</figcaption>
-      </figure>
+
+    <div class="creds">
+      <div class="creds__col rise">
+        <p class="eyebrow eyebrow--dim">Bekend van</p>
+        <ul class="tvlist">
+          <li>SBS6</li>
+          <li>RTL</li>
+          <li>VTM</li>
+          <li>De televisieshow van Uri Geller</li>
+          <li>Producties in Engeland</li>
+        </ul>
+      </div>
+
+      <div class="creds__col rise" data-delay="1">
+        <p class="eyebrow eyebrow--dim">Veiligheid</p>
+        <dl class="safety">
+          <div>
+            <dt>Gecertificeerd</dt>
+            <dd>Volledig gecertificeerd als vuurspuwer en fakir. Professioneel materiaal en veilige vloeistoffen.</dd>
+          </div>
+          <div>
+            <dt>Vergunning en afstand</dt>
+            <dd>Ik werk binnen de vergunningseisen en houd de voorgeschreven veiligheidsafstanden tot publiek en omgeving aan.</dd>
+          </div>
+          <div>
+            <dt>Binnen of buiten</dt>
+            <dd>Buiten altijd. Binnen zodra de locatie het toelaat &mdash; en anders draaien we de avond op mentalisme of reptielen, zonder vlam.</dd>
+          </div>
+        </dl>
+      </div>
     </div>
   </section>
 
@@ -1555,18 +1608,22 @@ body.has-spark.spark-hot #spark{ scale:2.1; }
     <div class="book">
       <div class="contact rise">
         <div class="contact__line">
-          <span class="eyebrow eyebrow--dim">Mail</span>
-          <b><a href="mailto:info@vuurspuwer.com">info@vuurspuwer.com</a></b>
+          <span class="eyebrow eyebrow--dim">Telefoon &mdash; ma t/m za, 9:00&ndash;18:00</span>
+          <b><a href="tel:+31620020723">+31 6 200 207 23</a></b>
         </div>
         <div class="contact__line">
-          <span class="eyebrow eyebrow--dim">Telefoon</span>
-          <b><a href="tel:+31000000000">+31 (0)00 000 0000</a></b>
+          <span class="eyebrow eyebrow--dim">WhatsApp</span>
+          <b><a href="https://wa.me/31620020723">Stuur een bericht</a></b>
+        </div>
+        <div class="contact__line">
+          <span class="eyebrow eyebrow--dim">Mail</span>
+          <b><a href="mailto:contact@fakir-show.nl">contact@fakir-show.nl</a></b>
         </div>
         <div class="contact__line">
           <span class="eyebrow eyebrow--dim">Werkgebied</span>
-          <b>Nederland, België &amp; op aanvraag daarbuiten</b>
+          <b>Nederland, België &amp; internationaal</b>
         </div>
-        <p class="form__note">Meestal reactie binnen 24 uur. Voor een datum binnen twee weken: bel even, dan gaat het sneller.</p>
+        <p class="form__note">Voor een datum binnen twee weken: bel of app even, dan gaat het sneller dan mail.</p>
       </div>
 
       <form class="form rise" data-delay="1" id="bookForm" novalidate>
@@ -1576,15 +1633,15 @@ body.has-spark.spark-hot #spark{ scale:2.1; }
         </div>
         <div class="form__row">
           <label class="field"><span>Datum</span><input type="date" name="datum"></label>
-          <label class="field"><span>Act</span>
+          <label class="field"><span>Show</span>
             <select name="act">
               <option>Weet ik nog niet</option>
-              <option>Vuurspuwen</option>
-              <option>Fire Show</option>
-              <option>LED Show</option>
-              <option>Vonkenshow</option>
-              <option>Walking Act</option>
-              <option>Fakir</option>
+              <option>Power-Act</option>
+              <option>Complete Vuurshow</option>
+              <option>Fakirshow</option>
+              <option>Reptielenshow</option>
+              <option>Mentalisme</option>
+              <option>Workshop vuurspuwen</option>
             </select>
           </label>
         </div>
@@ -1605,7 +1662,7 @@ body.has-spark.spark-hot #spark{ scale:2.1; }
         <div>
           <button class="btn" type="submit"><span class="btn__dot"></span>Verstuur aanvraag</button>
         </div>
-        <p class="form__note">Demo — dit formulier is nog niet gekoppeld aan een backend. Mail zolang naar <a href="mailto:info@vuurspuwer.com">info@vuurspuwer.com</a>.</p>
+        <p class="form__note">Dit formulier is nog niet gekoppeld. Het opent je aanvraag in je eigen mailprogramma &mdash; of app <a href="https://wa.me/31620020723">direct via WhatsApp</a>.</p>
       </form>
     </div>
   </section>
@@ -1614,9 +1671,10 @@ body.has-spark.spark-hot #spark{ scale:2.1; }
 <footer class="foot shell wrap">
   <p class="foot__word">Vuurspuwer</p>
   <div class="foot__bar">
-    <span>&copy; <span id="year">2026</span> Vuurspuwer</span>
-    <span><a href="mailto:info@vuurspuwer.com">info@vuurspuwer.com</a></span>
-    <span>Nederland &amp; België</span>
+    <span>&copy; <span id="year">2026</span> Vuurspuwer Nuno</span>
+    <span><a href="tel:+31620020723">+31 6 200 207 23</a></span>
+    <span><a href="mailto:contact@fakir-show.nl">contact@fakir-show.nl</a></span>
+    <span>Nederland, België &amp; internationaal</span>
   </div>
 </footer>
 
@@ -2055,12 +2113,12 @@ body.has-spark.spark-hot #spark{ scale:2.1; }
      9. Gallery — procedural fire plates, with slots for real photos
      ============================================================== */
   const WORK = [
-    { title: "Festivalplein",  meta: "Vuurspuwen",  hue: 16,  seed: 3,  kind: "circle" },
-    { title: "Bedrijfsfeest",  meta: "Fire Show",   hue: 30,  seed: 11, kind: "eight"  },
-    { title: "Bruiloft",       meta: "Vonkenshow",  hue: 46,  seed: 27, kind: "spiral" },
-    { title: "Opening",        meta: "LED Show",    hue: 202, seed: 41, kind: "circle" },
-    { title: "Straattheater",  meta: "Walking Act", hue: 8,   seed: 58, kind: "wave"   },
-    { title: "Theaterzaal",    meta: "Fakir",       hue: 352, seed: 73, kind: "eight"  }
+    { title: "Festival",         meta: "Complete Vuurshow",   hue: 16,  seed: 3,  kind: "circle" },
+    { title: "Bruiloft",         meta: "Power-Act",           hue: 30,  seed: 11, kind: "eight"  },
+    { title: "Bedrijfsfeest",    meta: "Fakirshow",           hue: 46,  seed: 27, kind: "spiral" },
+    { title: "Productlancering", meta: "Mentalisme",          hue: 202, seed: 41, kind: "circle" },
+    { title: "Opening",          meta: "Workshop vuurspuwen", hue: 8,   seed: 58, kind: "wave"   },
+    { title: "Themafeest",       meta: "Reptielenshow",       hue: 352, seed: 73, kind: "eight"  }
   ];
 
   /* A fire act photographed at night is a light trail: poi draw circles
@@ -2349,8 +2407,8 @@ body.has-spark.spark-hot #spark{ scale:2.1; }
       ].join("\n");
 
       status.innerHTML =
-        "Demo &mdash; deze aanvraag wordt nog nergens naartoe verstuurd. " +
-        '<a href="mailto:info@vuurspuwer.com?subject=' +
+        "Nog niet gekoppeld &mdash; deze aanvraag wordt nog nergens naartoe verstuurd. " +
+        '<a href="mailto:contact@fakir-show.nl?subject=' +
         encodeURIComponent("Aanvraag " + naam) + "&body=" + encodeURIComponent(body) +
         '">Open dezelfde aanvraag in je mailprogramma</a>.';
     });
