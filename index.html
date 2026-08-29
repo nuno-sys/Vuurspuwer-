@@ -1,0 +1,2413 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0A0705">
+<meta name="description" content="Vuurspuwer — vuurshows, LED-shows en vonkenshows voor evenementen. Boek een act die je publiek niet vergeet.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!--A:HEAD-->
+<title>Vuurspuwer</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* ============================================================
+   VUURSPUWER — single dark stage.
+   The page has one persistent light source: a live WebGL flame
+   burning along the bottom edge of the viewport. Everything
+   else is soot, and every surface is transparent enough to let
+   that light through.
+   ============================================================ */
+
+:root{
+  /* ground + surfaces --------------------------------------- */
+  --soot:      #0A0705;
+  --soot-deep: #050302;
+  --ash:       #171008;
+  --ash-hi:    #241708;
+  --night:     #0C1A2B;   /* cold counter-accent: night behind the fire */
+
+  /* heat ---------------------------------------------------- */
+  --ember:     #FF4D0A;
+  --flame:     #FFB020;
+  --core:      #FFF3D6;
+
+  /* type ---------------------------------------------------- */
+  --ink:       #FFF3D6;
+  --ink-dim:   #C6B29E;
+  --smoke:     #8A7A6D;
+  --hairline:  rgba(255,176,32,.16);
+
+  --f-display: "Archivo", "Arial Black", system-ui, sans-serif;
+  --f-body:    "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:    "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* type scale ---------------------------------------------- */
+  --t-xs:  clamp(.66rem, .62rem + .18vw, .76rem);
+  --t-sm:  clamp(.82rem, .78rem + .2vw,  .94rem);
+  --t-md:  clamp(1rem, .95rem + .28vw,   1.16rem);
+  --t-lg:  clamp(1.25rem, 1.05rem + .9vw, 1.75rem);
+  --t-xl:  clamp(1.9rem, 1.3rem + 2.8vw, 3.4rem);
+  --t-2xl: clamp(2.6rem, 1.4rem + 5.6vw, 6rem);
+  --t-3xl: clamp(2.9rem, .2rem + 10.6vw, 11rem);
+
+  /* rhythm -------------------------------------------------- */
+  --gutter: clamp(1.15rem, .6rem + 2.6vw, 3.5rem);
+  --bay:    clamp(3.75rem, 1.6rem + 7.2vw, 8rem);
+  --maxw:   1400px;
+
+  --ease: cubic-bezier(.19,1,.22,1);
+  --ease-io: cubic-bezier(.6,.02,.2,1);
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+
+html{
+  -webkit-text-size-adjust:100%;
+  scroll-behavior:smooth;
+  overflow-x:clip;
+}
+
+body{
+  margin:0;
+  background:var(--soot);
+  color:var(--ink);
+  font-family:var(--f-body);
+  font-size:var(--t-md);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+  overscroll-behavior-y:none;
+}
+
+body.is-locked{ overflow:hidden; }
+
+img,svg,video,canvas{ display:block; max-width:100%; }
+a{ color:inherit; text-decoration:none; }
+button,input,select,textarea{ font:inherit; color:inherit; }
+
+:focus-visible{
+  outline:2px solid var(--flame);
+  outline-offset:3px;
+  border-radius:2px;
+}
+
+::selection{ background:var(--ember); color:#fff; }
+
+/* --- shared type roles ------------------------------------- */
+.eyebrow{
+  font-family:var(--f-mono);
+  font-size:var(--t-xs);
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--flame);
+  margin:0;
+}
+.eyebrow--dim{ color:var(--smoke); }
+
+.display{
+  font-family:var(--f-display);
+  font-weight:900;
+  font-variation-settings:"wdth" 118,"wght" 900;
+  line-height:.86;
+  letter-spacing:-.02em;
+  text-transform:uppercase;
+  text-wrap:balance;
+  margin:0;
+}
+
+.lede{
+  font-size:var(--t-lg);
+  line-height:1.35;
+  color:var(--ink-dim);
+  max-width:22ch;
+  text-wrap:balance;
+  margin:0;
+}
+
+.prose{ max-width:62ch; color:var(--ink-dim); }
+.prose p{ margin:0 0 1em; }
+
+/* ============================================================
+   Ambient layers — the flame lives behind the whole document
+   ============================================================ */
+.stage{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  overflow:hidden;
+  pointer-events:none;
+}
+
+/* WebGL flame, burning up from the bottom edge */
+#flame{
+  position:absolute;
+  left:0; right:0; bottom:0;
+  width:100%;
+  height:min(54vh, 560px);
+  opacity:.95;
+}
+
+/* Scrim: opaque soot at the top, open flame at the bottom.
+   This is what keeps text readable as it rises past the fire. */
+.stage__scrim{
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(120% 70% at 50% 108%, rgba(255,77,10,.16) 0%, transparent 62%),
+    linear-gradient(to top,
+      rgba(10,7,5,0)    0%,
+      rgba(10,7,5,.22) calc(9%  + var(--sh, 0%)),
+      rgba(10,7,5,.62) calc(18% + var(--sh, 0%)),
+      rgba(10,7,5,.88) calc(27% + var(--sh, 0%)),
+      rgba(10,7,5,.97) calc(36% + var(--sh, 0%)),
+      var(--soot)      calc(44% + var(--sh, 0%)));
+}
+
+/* Cold night wash so the heat has something to burn against */
+.stage__night{
+  position:absolute;
+  inset:0;
+  background:radial-gradient(150% 90% at 50% 0%, rgba(12,26,43,.55) 0%, transparent 55%);
+}
+
+@media (max-width:760px){
+  #flame{ height:min(40vh, 380px); }
+}
+@media (max-width:640px){
+  .readout{ display:none; }
+}
+
+#embers{
+  position:absolute;
+  inset:0;
+  width:100%; height:100%;
+  opacity:.85;
+}
+
+/* Fine grain — stops the big gradients from banding */
+.stage__grain{
+  position:absolute;
+  inset:-50%;
+  opacity:.035;
+  background-image:radial-gradient(rgba(255,243,214,.9) .5px, transparent .5px);
+  background-size:3px 3px;
+  animation:grain 6s steps(6) infinite;
+}
+@keyframes grain{
+  0%,100%{ transform:translate(0,0); }
+  20%{ transform:translate(-1%,1%); }
+  40%{ transform:translate(1%,-1%); }
+  60%{ transform:translate(-1%,-1%); }
+  80%{ transform:translate(1%,1%); }
+}
+
+/* Everything readable sits above the stage */
+.shell{ position:relative; z-index:2; }
+
+.wrap{
+  width:100%;
+  max-width:var(--maxw);
+  margin-inline:auto;
+  padding-inline:var(--gutter);
+}
+
+/* ============================================================
+   Ignition — page load sequence
+   ============================================================ */
+#ignition{
+  position:fixed;
+  inset:0;
+  z-index:200;
+  display:grid;
+  place-items:center;
+  background:var(--soot-deep);
+  transition:opacity .7s var(--ease), visibility .7s;
+}
+#ignition.is-out{ opacity:0; visibility:hidden; }
+
+.ignition__mark{
+  width:clamp(64px,14vw,110px);
+  filter:drop-shadow(0 0 34px rgba(255,77,10,.65));
+  animation:flicker 1.6s ease-in-out infinite;
+}
+.ignition__bar{
+  position:absolute;
+  left:50%; bottom:14%;
+  translate:-50% 0;
+  width:min(240px,48vw);
+  height:2px;
+  background:rgba(255,243,214,.14);
+  overflow:hidden;
+}
+.ignition__bar i{
+  display:block;
+  height:100%;
+  width:var(--p,0%);
+  background:linear-gradient(90deg,var(--ember),var(--flame),var(--core));
+  transition:width .25s linear;
+}
+.ignition__pct{
+  position:absolute;
+  left:50%; bottom:calc(14% + 18px);
+  translate:-50% 0;
+  font-family:var(--f-mono);
+  font-size:var(--t-xs);
+  letter-spacing:.24em;
+  color:var(--smoke);
+}
+
+@keyframes flicker{
+  0%,100%{ opacity:1;   transform:scale(1)      rotate(-.4deg); }
+  25%    { opacity:.86; transform:scale(1.035)  rotate(.5deg); }
+  50%    { opacity:1;   transform:scale(.985)   rotate(-.2deg); }
+  75%    { opacity:.92; transform:scale(1.02)   rotate(.3deg); }
+}
+
+/* ============================================================
+   Logo mark
+   ============================================================ */
+.mark{ overflow:visible; }
+.mark__core{
+  transform-origin:50% 72%;
+  animation:flicker 1.9s ease-in-out infinite;
+}
+
+/* ============================================================
+   Navigation — app chrome
+   ============================================================ */
+.nav{
+  position:fixed;
+  top:0; left:0; right:0;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  padding:clamp(.75rem,1.6vw,1.25rem) var(--gutter);
+  padding-top:max(clamp(.75rem,1.6vw,1.25rem), env(safe-area-inset-top));
+  transition:background .45s var(--ease), backdrop-filter .45s var(--ease), border-color .45s var(--ease);
+  border-bottom:1px solid transparent;
+}
+.nav.is-stuck{
+  background:rgba(10,7,5,.72);
+  backdrop-filter:blur(14px) saturate(140%);
+  -webkit-backdrop-filter:blur(14px) saturate(140%);
+  border-bottom-color:var(--hairline);
+}
+
+.nav__brand{
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+  flex:0 0 auto;
+}
+.nav__brand svg{ width:26px; height:26px; }
+.nav__word{
+  font-family:var(--f-display);
+  font-variation-settings:"wdth" 108,"wght" 800;
+  font-size:var(--t-sm);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+
+.nav__links{
+  display:flex;
+  align-items:center;
+  gap:clamp(1rem,2.4vw,2.2rem);
+}
+.nav__link{
+  position:relative;
+  font-family:var(--f-mono);
+  font-size:var(--t-xs);
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--ink-dim);
+  padding-block:.4rem;
+  transition:color .3s var(--ease);
+}
+.nav__link::after{
+  content:"";
+  position:absolute;
+  left:0; bottom:0;
+  width:100%; height:1px;
+  background:var(--flame);
+  transform:scaleX(0);
+  transform-origin:right;
+  transition:transform .45s var(--ease);
+}
+.nav__link:hover{ color:var(--core); }
+.nav__link:hover::after{ transform:scaleX(1); transform-origin:left; }
+
+@media (max-width:900px){
+  .nav__links{ display:none; }
+}
+
+/* burger */
+.burger{
+  display:none;
+  width:44px; height:44px;
+  align-items:center; justify-content:center;
+  background:none; border:1px solid var(--hairline);
+  border-radius:50%;
+  cursor:pointer;
+}
+.burger i{
+  position:relative;
+  display:block;
+  width:16px; height:1.5px;
+  background:var(--core);
+  transition:background .3s var(--ease);
+}
+.burger i::before,.burger i::after{
+  content:"";
+  position:absolute; left:0;
+  width:100%; height:100%;
+  background:var(--core);
+  transition:transform .45s var(--ease);
+}
+.burger i::before{ transform:translateY(-5px); }
+.burger i::after{  transform:translateY(5px); }
+.burger[aria-expanded="true"] i{ background:transparent; }
+.burger[aria-expanded="true"] i::before{ transform:rotate(45deg); }
+.burger[aria-expanded="true"] i::after{  transform:rotate(-45deg); }
+@media (max-width:900px){ .burger{ display:flex; } }
+
+/* fullscreen menu */
+.menu{
+  position:fixed;
+  inset:0;
+  z-index:99;
+  display:grid;
+  align-content:center;
+  gap:.2rem;
+  padding:var(--gutter);
+  background:rgba(5,3,2,.94);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  clip-path:inset(0 0 100% 0);
+  transition:clip-path .8s var(--ease);
+}
+.menu.is-open{ clip-path:inset(0 0 0 0); }
+.menu a{
+  font-family:var(--f-display);
+  font-variation-settings:"wdth" 112,"wght" 800;
+  font-size:clamp(2rem,10vw,3.6rem);
+  line-height:1.04;
+  text-transform:uppercase;
+  color:var(--ink);
+  opacity:0;
+  transform:translateY(24px);
+  transition:opacity .5s var(--ease), transform .5s var(--ease), color .3s ease;
+}
+.menu.is-open a{ opacity:1; transform:none; }
+.menu a:hover{ color:var(--flame); }
+.menu__meta{
+  margin-top:2rem;
+  font-family:var(--f-mono);
+  font-size:var(--t-xs);
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--smoke);
+}
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+.btn{
+  --btn-bg:var(--ember);
+  --btn-fg:#170800;
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  gap:.6rem;
+  padding:.85em 1.5em;
+  border:none;
+  border-radius:999px;
+  background:var(--btn-bg);
+  color:var(--btn-fg);
+  font-family:var(--f-mono);
+  font-size:var(--t-xs);
+  font-weight:500;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  cursor:pointer;
+  overflow:hidden;
+  isolation:isolate;
+  transition:transform .4s var(--ease), box-shadow .4s var(--ease), color .35s var(--ease);
+  box-shadow:0 0 0 rgba(255,77,10,0);
+}
+.btn::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:linear-gradient(100deg,var(--flame),var(--core));
+  transform:translateY(101%);
+  transition:transform .5s var(--ease);
+}
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 40px -8px rgba(255,77,10,.7);
+}
+.btn:hover::before{ transform:translateY(0); }
+.btn--ghost{
+  --btn-bg:transparent;
+  --btn-fg:var(--ink);
+  box-shadow:inset 0 0 0 1px var(--hairline);
+}
+.btn--ghost:hover{ --btn-fg:#170800; }
+
+.btn__dot{
+  width:6px; height:6px;
+  border-radius:50%;
+  background:currentColor;
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{
+  0%,100%{ opacity:1; transform:scale(1); }
+  50%    { opacity:.35; transform:scale(.7); }
+}
+</style>
+<style>
+/* ============================================================
+   Hero — the thesis: a fullscreen night with fire in it
+   ============================================================ */
+.hero{
+  position:relative;
+  min-height:100svh;
+  min-height:100dvh;
+  display:grid;
+  grid-template-rows:1fr auto;
+  /* the bottom third belongs to the fire — keep the content out of it */
+  padding-block:clamp(5.5rem,13vh,8rem) clamp(7rem,19vh,11rem);
+  padding-bottom:max(clamp(7rem,19vh,11rem), env(safe-area-inset-bottom));
+}
+
+/* Video slot. Stays invisible until a file actually plays, so the
+   WebGL flame carries the hero on its own when no footage exists. */
+.hero__reel{
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  overflow:hidden;
+}
+.hero__reel video{
+  position:absolute;
+  inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  opacity:0;
+  transition:opacity 1.6s var(--ease);
+}
+.hero__reel video.is-live{ opacity:.55; }
+.hero__reel.has-video::after{ opacity:1; }
+.hero__reel::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  opacity:0;
+  transition:opacity 1.4s var(--ease);
+  background:
+    linear-gradient(to bottom, rgba(10,7,5,.86) 0%, rgba(10,7,5,.35) 45%, rgba(10,7,5,.8) 100%),
+    radial-gradient(90% 60% at 50% 42%, transparent 0%, rgba(10,7,5,.65) 100%);
+}
+
+.hero__body{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  justify-content:center;
+  gap:clamp(1.25rem,3vw,2rem);
+}
+
+.hero__title{
+  min-width:0;
+  font-family:var(--f-display);
+  font-weight:900;
+  font-size:var(--t-3xl);
+  line-height:.82;
+  letter-spacing:-.035em;
+  text-transform:uppercase;
+  margin:0;
+  font-variation-settings:"wdth" 125,"wght" 900;
+}
+.hero__title span{
+  display:block;
+  white-space:nowrap;
+  background:linear-gradient(178deg,var(--core) 8%,var(--flame) 52%,var(--ember) 96%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  filter:drop-shadow(0 6px 40px rgba(255,77,10,.35));
+}
+/* second line pulls back in width — the wordmark breathes */
+.hero__title span:nth-child(2){
+  font-variation-settings:"wdth" 78,"wght" 700;
+  font-size:.42em;
+  letter-spacing:.06em;
+  color:var(--ink-dim);
+  background:none;
+  -webkit-text-fill-color:currentColor;
+  filter:none;
+  margin-top:.55em;
+}
+
+.hero__meta{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:clamp(.75rem,2vw,1.5rem);
+}
+.hero__actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.75rem;
+}
+
+.hero__foot{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:1.5rem;
+  flex-wrap:wrap;
+}
+
+.scrollcue{
+  display:flex;
+  align-items:center;
+  gap:.7rem;
+  font-family:var(--f-mono);
+  font-size:var(--t-xs);
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--smoke);
+}
+.scrollcue i{
+  display:block;
+  width:1px; height:44px;
+  background:linear-gradient(to bottom,var(--flame),transparent);
+  animation:drop 2.4s var(--ease-io) infinite;
+  transform-origin:top;
+}
+@keyframes drop{
+  0%     { transform:scaleY(0);   opacity:0; }
+  35%    { transform:scaleY(1);   opacity:1; }
+  100%   { transform:scaleY(1) translateY(44px); opacity:0; }
+}
+
+/* live spec readout, bottom right of the hero */
+.readout{
+  display:grid;
+  gap:.35rem;
+  font-family:var(--f-mono);
+  font-size:var(--t-xs);
+  letter-spacing:.12em;
+  color:var(--smoke);
+  text-align:right;
+  margin-left:auto;
+}
+.readout b{
+  color:var(--flame);
+  font-weight:500;
+  font-variant-numeric:tabular-nums;
+}
+
+/* ============================================================
+   Ticker
+   ============================================================ */
+.ticker{
+  position:relative;
+  border-block:1px solid var(--hairline);
+  padding-block:clamp(.7rem,1.6vw,1.1rem);
+  overflow:hidden;
+  background:rgba(23,16,8,.35);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+}
+.ticker__track{
+  display:flex;
+  width:max-content;
+  gap:0;
+  animation:slide 38s linear infinite;
+}
+.ticker:hover .ticker__track{ animation-play-state:paused; }
+.ticker__group{
+  display:flex;
+  align-items:center;
+  gap:clamp(1.5rem,4vw,3rem);
+  padding-right:clamp(1.5rem,4vw,3rem);
+}
+.ticker__group span{
+  font-family:var(--f-display);
+  font-variation-settings:"wdth" 100,"wght" 700;
+  font-size:clamp(.95rem,2.4vw,1.5rem);
+  letter-spacing:.02em;
+  text-transform:uppercase;
+  color:var(--ink-dim);
+  white-space:nowrap;
+}
+.ticker__group span:nth-child(even){
+  color:var(--ember);
+  font-variation-settings:"wdth" 70,"wght" 900;
+}
+@keyframes slide{ to{ transform:translateX(-50%); } }
+
+/* ============================================================
+   Section frame — asymmetric editorial grid
+   ============================================================ */
+.bay{ padding-block:var(--bay); }
+
+.bay__head{
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:clamp(1rem,2.5vw,1.75rem);
+  margin-bottom:clamp(2rem,4.5vw,3.5rem);
+}
+@media (min-width:880px){
+  .bay__head{
+    grid-template-columns:14rem minmax(0,1fr);
+    align-items:start;
+    gap:clamp(2rem,5vw,4rem);
+  }
+  .bay__head .eyebrow{ padding-top:.7em; }
+}
+.bay__title{
+  text-shadow:0 2px 34px rgba(10,7,5,.9), 0 0 90px rgba(10,7,5,.7);
+  font-family:var(--f-display);
+  font-weight:900;
+  font-variation-settings:"wdth" 116,"wght" 900;
+  font-size:var(--t-2xl);
+  line-height:.88;
+  letter-spacing:-.028em;
+  text-transform:uppercase;
+  margin:0;
+  text-wrap:balance;
+}
+.bay__title em{
+  font-style:normal;
+  color:var(--ember);
+}
+
+/* ============================================================
+   Manifesto — word-by-word reveal
+   ============================================================ */
+.manifesto [data-split]{
+  text-shadow:0 2px 34px rgba(10,7,5,.9);
+  font-family:var(--f-display);
+  font-variation-settings:"wdth" 92,"wght" 600;
+  font-size:var(--t-xl);
+  line-height:1.14;
+  letter-spacing:-.015em;
+  margin:0;
+  max-width:19ch;
+  text-wrap:balance;
+}
+.manifesto .w{
+  display:inline-block;
+  opacity:.12;
+  transition:opacity .5s var(--ease), color .5s var(--ease);
+}
+.manifesto .w.lit{ opacity:1; }
+.manifesto .w.hot{ color:var(--flame); }
+
+.manifesto__grid{
+  display:grid;
+  gap:clamp(2rem,6vw,4rem);
+}
+@media (min-width:980px){
+  .manifesto__grid{ grid-template-columns:1.25fr .85fr; align-items:end; }
+}
+
+/* ============================================================
+   Acts — chips carry the real booking information
+   ============================================================ */
+.acts{
+  display:grid;
+  gap:1px;
+  background:var(--hairline);
+  border:1px solid var(--hairline);
+  border-radius:clamp(14px,2vw,22px);
+  overflow:hidden;
+}
+@media (min-width:700px){ .acts{ grid-template-columns:repeat(2,1fr); } }
+@media (min-width:1140px){ .acts{ grid-template-columns:repeat(3,1fr); } }
+
+.act{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+  padding:clamp(1.4rem,3vw,2.25rem);
+  background:rgba(10,7,5,.84);
+  isolation:isolate;
+  transition:background .5s var(--ease);
+  min-height:clamp(240px,32vw,320px);
+}
+/* heat bleeding in from the bottom on hover */
+.act::before{
+  content:"";
+  position:absolute;
+  inset:auto 0 0 0;
+  height:70%;
+  z-index:-1;
+  background:radial-gradient(90% 100% at 50% 130%, rgba(255,77,10,.55) 0%, rgba(255,77,10,.12) 45%, transparent 72%);
+  opacity:0;
+  transform:translateY(28%);
+  transition:opacity .6s var(--ease), transform .8s var(--ease);
+}
+.act:hover::before,.act:focus-within::before{ opacity:1; transform:translateY(0); }
+.act:hover,.act:focus-within{ background:rgba(23,16,8,.82); }
+
+.act__name{
+  font-family:var(--f-display);
+  font-variation-settings:"wdth" 104,"wght" 800;
+  font-size:var(--t-lg);
+  line-height:.98;
+  letter-spacing:-.015em;
+  text-transform:uppercase;
+  margin:0;
+  transition:font-variation-settings .6s var(--ease);
+}
+.act:hover .act__name{ font-variation-settings:"wdth" 122,"wght" 900; }
+
+.act__desc{
+  font-size:var(--t-sm);
+  color:var(--ink-dim);
+  margin:0;
+  flex:1;
+}
+
+.chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.4rem;
+}
+.chip{
+  font-family:var(--f-mono);
+  font-size:.66rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  padding:.34em .7em;
+  border-radius:999px;
+  border:1px solid var(--hairline);
+  color:var(--smoke);
+  white-space:nowrap;
+}
+.chip[data-heat="fire"]{ color:var(--ember); border-color:rgba(255,77,10,.4); }
+.chip[data-heat="hybrid"]{ color:var(--flame); border-color:rgba(255,176,32,.4); }
+.chip[data-heat="cold"]{ color:#7FB6E8; border-color:rgba(127,182,232,.35); }
+</style>
+<style>
+/* ============================================================
+   Showreel
+   ============================================================ */
+.reel{
+  position:relative;
+  border-radius:clamp(14px,2vw,22px);
+  overflow:hidden;
+  border:1px solid var(--hairline);
+  background:var(--ash);
+  aspect-ratio:16/9;
+  isolation:isolate;
+}
+@media (max-width:620px){ .reel{ aspect-ratio:4/5; } }
+
+.reel video{
+  position:absolute;
+  inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  opacity:0;
+  transition:opacity 1.2s var(--ease);
+}
+.reel video.is-live{ opacity:1; }
+
+/* Placeholder that shows when no footage is dropped in yet */
+.reel__holder{
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-content:center;
+  justify-items:center;
+  gap:1rem;
+  text-align:center;
+  padding:var(--gutter);
+  isolation:isolate;
+}
+.reel__plate{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  width:100%; height:100%;
+}
+.reel__holder p{
+  position:relative;
+  z-index:1;
+  font-family:var(--f-display);
+  font-variation-settings:"wdth" 112,"wght" 800;
+  font-size:clamp(1.4rem,3.6vw,2.2rem);
+  line-height:1.05;
+  letter-spacing:-.015em;
+  text-transform:uppercase;
+  color:var(--core);
+  margin:0;
+}
+.reel__holder p span{
+  display:block;
+  margin-top:.6em;
+  font-family:var(--f-mono);
+  font-variation-settings:normal;
+  font-size:var(--t-xs);
+  font-weight:400;
+  letter-spacing:.18em;
+  text-transform:none;
+  color:var(--smoke);
+}
+.reel__play{
+  position:relative;
+  z-index:1;
+  width:clamp(64px,9vw,92px);
+  aspect-ratio:1;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(255,176,32,.45);
+  background:rgba(10,7,5,.5);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  cursor:pointer;
+  transition:transform .5s var(--ease), background .4s var(--ease), border-color .4s var(--ease);
+}
+.reel__play:hover{
+  transform:scale(1.08);
+  background:var(--ember);
+  border-color:var(--ember);
+}
+.reel__play svg{ width:20px; height:20px; margin-left:3px; fill:var(--core); }
+.reel__play:hover svg{ fill:#170800; }
+
+.reel__hud{
+  position:absolute;
+  left:0; right:0; bottom:0;
+  display:flex;
+  justify-content:space-between;
+  gap:1rem;
+  padding:clamp(.9rem,2vw,1.4rem);
+  font-family:var(--f-mono);
+  font-size:var(--t-xs);
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--ink-dim);
+  background:linear-gradient(to top,rgba(5,3,2,.85),transparent);
+  pointer-events:none;
+}
+
+/* ============================================================
+   Gallery — drag-scroll filmstrip
+   ============================================================ */
+.strip{
+  display:flex;
+  gap:clamp(.75rem,1.6vw,1.25rem);
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  padding-inline:var(--gutter);
+  padding-bottom:1.25rem;
+  scrollbar-width:thin;
+  scrollbar-color:var(--ember) transparent;
+  cursor:grab;
+}
+.strip.is-dragging{ cursor:grabbing; scroll-snap-type:none; }
+.strip::-webkit-scrollbar{ height:3px; }
+.strip::-webkit-scrollbar-thumb{ background:var(--ember); }
+.strip::-webkit-scrollbar-track{ background:rgba(255,243,214,.08); }
+
+.frame{
+  position:relative;
+  flex:0 0 clamp(230px,46vw,400px);
+  aspect-ratio:4/5;
+  border-radius:12px;
+  overflow:hidden;
+  border:1px solid var(--hairline);
+  scroll-snap-align:center;
+  isolation:isolate;
+  transition:transform .6s var(--ease);
+}
+.frame:hover{ transform:translateY(-8px); }
+.frame canvas{
+  position:absolute;
+  inset:0;
+  width:100%; height:100%;
+}
+.frame img{
+  position:absolute;
+  inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  opacity:0;
+  transition:opacity 1s var(--ease);
+}
+.frame img.is-live{ opacity:1; }
+.frame__cap{
+  position:absolute;
+  left:0; right:0; bottom:0;
+  display:grid;
+  gap:.35rem;
+  padding:clamp(1rem,2.4vw,1.4rem);
+  background:linear-gradient(to top,rgba(5,3,2,.92) 15%,rgba(5,3,2,.55) 55%,transparent);
+}
+.frame__cap span{
+  font-family:var(--f-mono);
+  font-size:var(--t-xs);
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--flame);
+}
+.frame__cap b{
+  font-family:var(--f-display);
+  font-variation-settings:"wdth" 108,"wght" 800;
+  font-size:clamp(1.35rem,3.4vw,1.9rem);
+  line-height:.95;
+  letter-spacing:-.015em;
+  text-transform:uppercase;
+  color:var(--core);
+  font-weight:400;
+  transition:font-variation-settings .6s var(--ease);
+}
+.frame:hover .frame__cap b{ font-variation-settings:"wdth" 124,"wght" 900; }
+
+/* ============================================================
+   Specs — show parameters, not marketing numbers
+   ============================================================ */
+.specs{
+  display:grid;
+  gap:1px;
+  background:var(--hairline);
+  border-block:1px solid var(--hairline);
+}
+@media (min-width:640px){ .specs{ grid-template-columns:repeat(2,1fr); } }
+@media (min-width:1040px){ .specs{ grid-template-columns:repeat(4,1fr); } }
+
+.spec{
+  background:var(--soot);
+  padding:clamp(1.5rem,3.5vw,2.5rem) clamp(1.1rem,2.5vw,1.75rem);
+  display:grid;
+  gap:.5rem;
+  align-content:start;
+}
+.spec__val{
+  font-family:var(--f-display);
+  font-variation-settings:"wdth" 120,"wght" 900;
+  font-size:clamp(2.4rem,6vw,4rem);
+  line-height:.86;
+  letter-spacing:-.03em;
+  color:var(--core);
+  font-variant-numeric:tabular-nums;
+}
+.spec__val i{
+  font-style:normal;
+  font-size:.4em;
+  color:var(--ember);
+  vertical-align:super;
+  margin-left:.1em;
+  font-variation-settings:"wdth" 80,"wght" 700;
+}
+.spec__key{
+  font-family:var(--f-mono);
+  font-size:var(--t-xs);
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--smoke);
+}
+
+/* ============================================================
+   Quotes
+   ============================================================ */
+.quotes{
+  display:grid;
+  gap:clamp(1rem,2.5vw,1.5rem);
+}
+@media (min-width:860px){ .quotes{ grid-template-columns:repeat(3,1fr); } }
+
+.quote{
+  display:flex;
+  flex-direction:column;
+  gap:1.25rem;
+  padding:clamp(1.4rem,3vw,2rem);
+  border:1px solid var(--hairline);
+  border-radius:14px;
+  background:linear-gradient(180deg,rgba(23,16,8,.5),rgba(10,7,5,.5));
+}
+.quote blockquote{
+  margin:0;
+  font-size:var(--t-md);
+  line-height:1.45;
+  color:var(--ink);
+  text-wrap:pretty;
+}
+.quote figcaption{
+  font-family:var(--f-mono);
+  font-size:var(--t-xs);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--smoke);
+  margin-top:auto;
+}
+
+/* ============================================================
+   Booking
+   ============================================================ */
+.book{
+  display:grid;
+  gap:clamp(2rem,6vw,4rem);
+}
+@media (min-width:960px){ .book{ grid-template-columns:.85fr 1.15fr; align-items:start; } }
+
+.form{
+  display:grid;
+  gap:clamp(1rem,2.2vw,1.4rem);
+}
+.form__row{
+  display:grid;
+  gap:clamp(1rem,2.2vw,1.4rem);
+}
+@media (min-width:560px){ .form__row{ grid-template-columns:1fr 1fr; } }
+
+.field{
+  position:relative;
+  display:grid;
+  gap:.45rem;
+}
+.field > span{
+  font-family:var(--f-mono);
+  font-size:var(--t-xs);
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--smoke);
+}
+.field input,.field select,.field textarea{
+  width:100%;
+  padding:.85em 1em;
+  background:rgba(23,16,8,.5);
+  border:1px solid var(--hairline);
+  border-radius:10px;
+  color:var(--ink);
+  font-size:var(--t-sm);
+  transition:border-color .35s var(--ease), background .35s var(--ease), box-shadow .35s var(--ease);
+  appearance:none;
+}
+.field textarea{ resize:vertical; min-height:7rem; }
+.field select{
+  background-image:linear-gradient(45deg,transparent 50%,var(--flame) 50%),linear-gradient(135deg,var(--flame) 50%,transparent 50%);
+  background-position:calc(100% - 20px) 55%, calc(100% - 14px) 55%;
+  background-size:6px 6px,6px 6px;
+  background-repeat:no-repeat;
+}
+.field select option{ background:var(--ash); color:var(--ink); }
+.field input:focus,.field select:focus,.field textarea:focus{
+  outline:none;
+  border-color:var(--ember);
+  background:rgba(23,16,8,.85);
+  box-shadow:0 0 0 3px rgba(255,77,10,.16), 0 0 30px -10px rgba(255,77,10,.6);
+}
+
+.form__note{
+  font-family:var(--f-mono);
+  font-size:var(--t-xs);
+  letter-spacing:.1em;
+  color:var(--smoke);
+  margin:0;
+  line-height:1.7;
+}
+.form__note a{ color:var(--flame); text-decoration:underline; text-underline-offset:3px; }
+
+.status{
+  font-family:var(--f-mono);
+  font-size:var(--t-xs);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  padding:.9em 1.1em;
+  border-radius:10px;
+  border:1px solid rgba(255,176,32,.4);
+  background:rgba(255,176,32,.08);
+  color:var(--flame);
+  line-height:1.6;
+}
+.status[hidden]{ display:none !important; }
+
+.contact{
+  display:grid;
+  gap:1.4rem;
+  align-content:start;
+}
+.contact__line{
+  display:grid;
+  gap:.3rem;
+  padding-bottom:1.2rem;
+  border-bottom:1px solid var(--hairline);
+}
+.contact__line b{
+  font-family:var(--f-display);
+  font-variation-settings:"wdth" 100,"wght" 700;
+  font-size:var(--t-lg);
+  letter-spacing:-.01em;
+  font-weight:400;
+}
+.contact__line a:hover{ color:var(--flame); }
+
+/* ============================================================
+   Footer
+   ============================================================ */
+.foot{
+  padding-block:clamp(3rem,7vw,5rem) clamp(2rem,4vw,3rem);
+  padding-bottom:max(clamp(2rem,4vw,3rem), env(safe-area-inset-bottom));
+}
+.foot__word{
+  min-width:0;
+  white-space:nowrap;
+  font-family:var(--f-display);
+  font-variation-settings:"wdth" 125,"wght" 900;
+  font-size:clamp(2.4rem,14vw,13rem);
+  line-height:.78;
+  letter-spacing:-.045em;
+  text-transform:uppercase;
+  margin:0 0 clamp(2rem,5vw,3.5rem);
+  background:linear-gradient(180deg,rgba(255,243,214,.22) 0%,rgba(255,77,10,.55) 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.foot__bar{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  gap:1rem 2rem;
+  padding-top:1.5rem;
+  border-top:1px solid var(--hairline);
+  font-family:var(--f-mono);
+  font-size:var(--t-xs);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--smoke);
+}
+.foot__bar a:hover{ color:var(--flame); }
+
+/* ============================================================
+   Scroll reveal + cursor
+   ============================================================ */
+.rise{
+  opacity:0;
+  transform:translateY(38px);
+  transition:opacity .9s var(--ease), transform 1.1s var(--ease);
+}
+.rise.seen{ opacity:1; transform:none; }
+.rise[data-delay="1"]{ transition-delay:.09s; }
+.rise[data-delay="2"]{ transition-delay:.18s; }
+.rise[data-delay="3"]{ transition-delay:.27s; }
+.rise[data-delay="4"]{ transition-delay:.36s; }
+.rise[data-delay="5"]{ transition-delay:.45s; }
+
+#spark{
+  position:fixed;
+  top:0; left:0;
+  z-index:150;
+  width:26px; height:26px;
+  margin:-13px 0 0 -13px;
+  border-radius:50%;
+  pointer-events:none;
+  mix-blend-mode:screen;
+  background:radial-gradient(circle,rgba(255,176,32,.85) 0%,rgba(255,77,10,.35) 45%,transparent 70%);
+  opacity:0;
+  transition:opacity .3s ease, scale .3s var(--ease);
+}
+body.has-spark #spark{ opacity:1; }
+body.has-spark.spark-hot #spark{ scale:2.1; }
+@media (hover:none),(pointer:coarse){ #spark{ display:none; } }
+
+/* progress bar — how far the fire has travelled */
+#burn{
+  position:fixed;
+  top:0; left:0;
+  z-index:101;
+  height:2px;
+  width:0%;
+  background:linear-gradient(90deg,var(--ember),var(--flame),var(--core));
+  box-shadow:0 0 12px rgba(255,120,20,.9);
+  pointer-events:none;
+}
+
+/* ============================================================
+   Reduced motion — keep the design, drop the movement
+   ============================================================ */
+@media (prefers-reduced-motion:reduce){
+  html{ scroll-behavior:auto; }
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+  }
+  .rise{ opacity:1; transform:none; }
+  .manifesto .w{ opacity:1; }
+  .stage__grain{ display:none; }
+  #flame{ display:none; }
+  .stage__scrim{
+    background:
+      radial-gradient(120% 60% at 50% 108%, rgba(255,77,10,.5) 0%, rgba(255,77,10,.12) 40%, transparent 68%),
+      linear-gradient(to top, rgba(10,7,5,.2) 0%, var(--soot) 42%);
+  }
+}
+</style>
+<!--A:/HEAD-->
+</head>
+<body>
+<!--A:BODY-->
+
+<!-- ============================================================
+     Ignition
+     ============================================================ -->
+<div id="ignition" role="status" aria-label="Site wordt geladen">
+  <svg class="ignition__mark" viewBox="0 0 64 64" aria-hidden="true">
+    <defs>
+      <linearGradient id="gFlame" x1="0" y1="1" x2="0" y2="0">
+        <stop offset="0%" stop-color="#FF4D0A"/>
+        <stop offset="60%" stop-color="#FFB020"/>
+        <stop offset="100%" stop-color="#FFF3D6"/>
+      </linearGradient>
+    </defs>
+    <path d="M32 3c6 12 18 17 18 31 0 11-8 19-18 19s-18-8-18-19c0-8 5-13 9-19 1 4 3 7 6 9 2-8 3-14 3-21z" fill="url(#gFlame)"/>
+    <path d="M32 30c3 5 8 8 8 14 0 5-4 9-8 9s-8-4-8-9c0-5 5-9 8-14z" fill="#FFF3D6" opacity=".9"/>
+  </svg>
+  <div class="ignition__pct" id="ignPct">00</div>
+  <div class="ignition__bar"><i id="ignBar"></i></div>
+</div>
+
+<!-- ============================================================
+     Ambient stage — one light source for the whole document
+     ============================================================ -->
+<div class="stage" aria-hidden="true">
+  <div class="stage__night"></div>
+  <canvas id="flame"></canvas>
+  <div class="stage__scrim"></div>
+  <canvas id="embers"></canvas>
+  <div class="stage__grain"></div>
+</div>
+
+<div id="spark" aria-hidden="true"></div>
+<div id="burn" aria-hidden="true"></div>
+
+<!-- ============================================================
+     Chrome
+     ============================================================ -->
+<header class="nav" id="nav">
+  <a class="nav__brand" href="#top" aria-label="Vuurspuwer, naar boven">
+    <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+      <defs>
+        <linearGradient id="gNav" x1="0" y1="1" x2="0" y2="0">
+          <stop offset="0%" stop-color="#FF4D0A"/>
+          <stop offset="60%" stop-color="#FFB020"/>
+          <stop offset="100%" stop-color="#FFF3D6"/>
+        </linearGradient>
+      </defs>
+      <path d="M32 3c6 12 18 17 18 31 0 11-8 19-18 19s-18-8-18-19c0-8 5-13 9-19 1 4 3 7 6 9 2-8 3-14 3-21z" fill="url(#gNav)"/>
+      <path class="mark__core" d="M32 30c3 5 8 8 8 14 0 5-4 9-8 9s-8-4-8-9c0-5 5-9 8-14z" fill="#FFF3D6" opacity=".92"/>
+    </svg>
+    <span class="nav__word">Vuurspuwer</span>
+  </a>
+
+  <nav class="nav__links" aria-label="Hoofdmenu">
+    <a class="nav__link" href="#shows">Shows</a>
+    <a class="nav__link" href="#reel">Showreel</a>
+    <a class="nav__link" href="#werk">Werk</a>
+    <a class="nav__link" href="#boeken">Boeken</a>
+  </nav>
+
+  <button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Menu openen"><i></i></button>
+</header>
+
+<nav class="menu" id="menu" aria-label="Mobiel menu">
+  <a href="#shows">Shows</a>
+  <a href="#reel">Showreel</a>
+  <a href="#werk">Werk</a>
+  <a href="#boeken">Boeken</a>
+  <p class="menu__meta">Beschikbaar in heel Nederland &amp; België</p>
+</nav>
+
+<main class="shell" id="top">
+
+  <!-- ==========================================================
+       Hero
+       ========================================================== -->
+  <section class="hero wrap">
+    <!-- Drop hero footage in assets/media/. The video only becomes
+         visible once it genuinely plays; otherwise the live flame
+         behind it carries the hero on its own. -->
+    <div class="hero__reel" aria-hidden="true">
+      <video id="heroVideo" muted loop playsinline autoplay preload="auto"
+             poster="assets/media/hero-poster.jpg">
+        <source src="assets/media/hero.webm" type="video/webm">
+        <source src="assets/media/hero.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="hero__body">
+      <p class="eyebrow rise">Vuurshow &middot; LED-show &middot; Vonkenshow</p>
+
+      <h1 class="hero__title rise" data-delay="1">
+        <span>Vuurspuwer</span>
+        <span>Vlammen op commando</span>
+      </h1>
+
+      <div class="hero__meta rise" data-delay="2">
+        <p class="lede">Een act van vijf tot vijfenveertig minuten die een plein stillegt.</p>
+      </div>
+
+      <div class="hero__actions rise" data-delay="3">
+        <a class="btn" href="#boeken"><span class="btn__dot"></span>Check je datum</a>
+        <a class="btn btn--ghost" href="#reel">Bekijk de showreel</a>
+      </div>
+    </div>
+
+    <div class="hero__foot">
+      <div class="scrollcue rise" data-delay="4"><i></i><span>Scroll — en het vuur volgt</span></div>
+      <div class="readout rise" data-delay="4">
+        <div>Vlamhoogte <b id="roHeight">0.0</b> m</div>
+        <div>Hitte <b id="roHeat">0</b> %</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       Ticker
+       ========================================================== -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__track" id="ticker">
+      <div class="ticker__group">
+        <span>Vuurspuwen</span><span>&#9679;</span>
+        <span>Fire Show</span><span>&#9679;</span>
+        <span>LED Show</span><span>&#9679;</span>
+        <span>Vonkenshow</span><span>&#9679;</span>
+        <span>Walking Act</span><span>&#9679;</span>
+        <span>Fakir</span><span>&#9679;</span>
+      </div>
+      <div class="ticker__group">
+        <span>Vuurspuwen</span><span>&#9679;</span>
+        <span>Fire Show</span><span>&#9679;</span>
+        <span>LED Show</span><span>&#9679;</span>
+        <span>Vonkenshow</span><span>&#9679;</span>
+        <span>Walking Act</span><span>&#9679;</span>
+        <span>Fakir</span><span>&#9679;</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================
+       Manifesto
+       ========================================================== -->
+  <section class="bay wrap manifesto">
+    <div class="manifesto__grid">
+      <p data-split>Vuur is het enige effect dat niemand wegkijkt. Geen scherm, geen playback — alleen hitte, timing en een publiek dat vergeet te ademen.</p>
+      <div class="prose rise">
+        <p>Ik werk sinds jaren als vuurspuwer op festivals, bedrijfsfeesten, bruiloften en openingen. Elke show wordt op de plek gebouwd: de ruimte, de wind, het moment in het programma en wat het publiek op dat punt van de avond nodig heeft.</p>
+        <p>Binnen zonder vergunning? Dan draaien we dezelfde choreografie in LED of met koud vuur. Hetzelfde effect, nul vlam.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       Acts
+       ========================================================== -->
+  <section class="bay wrap" id="shows">
+    <div class="bay__head">
+      <p class="eyebrow eyebrow--dim rise">De acts</p>
+      <h2 class="bay__title rise" data-delay="1">Kies op <em>vlam</em>, ruimte en speelduur</h2>
+    </div>
+
+    <div class="acts">
+      <article class="act rise" tabindex="0">
+        <div class="chips"><span class="chip" data-heat="fire">Echt vuur</span><span class="chip">Buiten</span><span class="chip">5–10 min</span></div>
+        <h3 class="act__name">Vuurspuwen</h3>
+        <p class="act__desc">De klassieker. Vlammen tot meters hoog, op de tel van de muziek. Kort, hard en het beeld waar iedereen de telefoon voor omhoog haalt.</p>
+      </article>
+
+      <article class="act rise" data-delay="1" tabindex="0">
+        <div class="chips"><span class="chip" data-heat="fire">Echt vuur</span><span class="chip">Binnen &amp; buiten</span><span class="chip">15–45 min</span></div>
+        <h3 class="act__name">Fire Show</h3>
+        <p class="act__desc">Volledige choreografie met poi, staff en fans. Opgebouwd rond jouw programma, met een licht- en muziekcue die op de seconde klopt.</p>
+      </article>
+
+      <article class="act rise" data-delay="2" tabindex="0">
+        <div class="chips"><span class="chip" data-heat="cold">Geen vlam</span><span class="chip">Binnen</span><span class="chip">15–45 min</span></div>
+        <h3 class="act__name">LED Show</h3>
+        <p class="act__desc">Dezelfde routine in programmeerbaar licht. Geen vergunning, geen rook, geen brandmelder — wel de kleuren van je huisstijl.</p>
+      </article>
+
+      <article class="act rise" data-delay="3" tabindex="0">
+        <div class="chips"><span class="chip" data-heat="hybrid">Koud vuur</span><span class="chip">Binnen</span><span class="chip">Op cue</span></div>
+        <h3 class="act__name">Vonkenshow</h3>
+        <p class="act__desc">Vonkenfonteinen voor het moment zelf: de entree van het bruidspaar, de onthulling, de aftrap. Koud, rookarm en binnen inzetbaar.</p>
+      </article>
+
+      <article class="act rise" data-delay="4" tabindex="0">
+        <div class="chips"><span class="chip" data-heat="fire">Echt vuur</span><span class="chip">Buiten</span><span class="chip">Doorlopend</span></div>
+        <h3 class="act__name">Walking Act</h3>
+        <p class="act__desc">Mobiel over het terrein, meerdere korte uitbarstingen door de avond heen. Houdt een festivalplein of markt de hele avond in beweging.</p>
+      </article>
+
+      <article class="act rise" data-delay="5" tabindex="0">
+        <div class="chips"><span class="chip" data-heat="fire">Echt vuur</span><span class="chip">Binnen &amp; buiten</span><span class="chip">10–20 min</span></div>
+        <h3 class="act__name">Fakir</h3>
+        <p class="act__desc">Vuur eten, glaslopen en spijkerbed — langzaam opgebouwd, van ongeloof naar applaus. Werkt op korte afstand van het publiek.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       Showreel
+       ========================================================== -->
+  <section class="bay wrap" id="reel">
+    <div class="bay__head">
+      <p class="eyebrow eyebrow--dim rise">Showreel</p>
+      <h2 class="bay__title rise" data-delay="1">Zestig seconden, <em>geen filter</em></h2>
+    </div>
+
+    <div class="reel rise">
+      <video id="reelVideo" muted loop playsinline preload="metadata" poster="assets/media/reel-poster.jpg">
+        <source src="assets/media/showreel.webm" type="video/webm">
+        <source src="assets/media/showreel.mp4" type="video/mp4">
+      </video>
+      <!-- Drop showreel.mp4 / .webm into assets/media and this placeholder
+           steps aside on its own. -->
+      <div class="reel__holder" id="reelHolder">
+        <canvas class="reel__plate" id="reelPlate" aria-hidden="true"></canvas>
+        <button class="reel__play" id="reelPlay" aria-label="Showreel afspelen">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <p>Showreel volgt<span>assets/media/showreel.mp4</span></p>
+      </div>
+      <div class="reel__hud"><span>Vuurspuwer — showreel</span><span id="reelTime">00:00</span></div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       Gallery
+       ========================================================== -->
+  <section class="bay" id="werk">
+    <div class="wrap bay__head">
+      <p class="eyebrow eyebrow--dim rise">Werk</p>
+      <h2 class="bay__title rise" data-delay="1">Sleep opzij</h2>
+    </div>
+    <div class="strip" id="strip"></div>
+  </section>
+
+  <!-- ==========================================================
+       Show specs
+       ========================================================== -->
+  <section class="specs" aria-label="Showspecificaties">
+    <div class="spec rise"><div class="spec__val" data-count="6" data-dec="1">0<i>m</i></div><div class="spec__key">Vlamhoogte</div></div>
+    <div class="spec rise" data-delay="1"><div class="spec__val" data-count="45">0<i>min</i></div><div class="spec__key">Maximale showtijd</div></div>
+    <div class="spec rise" data-delay="2"><div class="spec__val" data-count="30">0<i>min</i></div><div class="spec__key">Opbouwtijd</div></div>
+    <div class="spec rise" data-delay="3"><div class="spec__val" data-count="0">0<i>vlam</i></div><div class="spec__key">In de LED-variant</div></div>
+  </section>
+
+  <!-- ==========================================================
+       Quotes
+       ========================================================== -->
+  <section class="bay wrap">
+    <div class="bay__head">
+      <p class="eyebrow eyebrow--dim rise">Reacties</p>
+      <h2 class="bay__title rise" data-delay="1">Wat opdrachtgevers <em>zeggen</em></h2>
+    </div>
+    <div class="quotes">
+      <figure class="quote rise">
+        <blockquote>Het plein was binnen dertig seconden stil. Daarna ging iedereen tegelijk klappen. Precies het moment waar we het programma omheen hadden gebouwd.</blockquote>
+        <figcaption>[Naam] &mdash; Programmeur, [Festival]</figcaption>
+      </figure>
+      <figure class="quote rise" data-delay="1">
+        <blockquote>Binnen mocht er geen vlam aan te pas komen. De LED-variant deed er niets voor onder — onze gasten hadden niet door dat het een alternatief was.</blockquote>
+        <figcaption>[Naam] &mdash; Eventmanager, [Bedrijf]</figcaption>
+      </figure>
+      <figure class="quote rise" data-delay="2">
+        <blockquote>Op tijd, eigen materiaal, alles zelf geregeld met de brandweer. Als leverancier is dat minstens zo fijn als de show zelf.</blockquote>
+        <figcaption>[Naam] &mdash; Productie, [Locatie]</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       Booking
+       ========================================================== -->
+  <section class="bay wrap" id="boeken">
+    <div class="bay__head">
+      <p class="eyebrow eyebrow--dim rise">Boeken</p>
+      <h2 class="bay__title rise" data-delay="1">Check je <em>datum</em></h2>
+    </div>
+
+    <div class="book">
+      <div class="contact rise">
+        <div class="contact__line">
+          <span class="eyebrow eyebrow--dim">Mail</span>
+          <b><a href="mailto:info@vuurspuwer.com">info@vuurspuwer.com</a></b>
+        </div>
+        <div class="contact__line">
+          <span class="eyebrow eyebrow--dim">Telefoon</span>
+          <b><a href="tel:+31000000000">+31 (0)00 000 0000</a></b>
+        </div>
+        <div class="contact__line">
+          <span class="eyebrow eyebrow--dim">Werkgebied</span>
+          <b>Nederland, België &amp; op aanvraag daarbuiten</b>
+        </div>
+        <p class="form__note">Meestal reactie binnen 24 uur. Voor een datum binnen twee weken: bel even, dan gaat het sneller.</p>
+      </div>
+
+      <form class="form rise" data-delay="1" id="bookForm" novalidate>
+        <div class="form__row">
+          <label class="field"><span>Naam</span><input type="text" name="naam" autocomplete="name" required></label>
+          <label class="field"><span>E-mail</span><input type="email" name="email" autocomplete="email" required></label>
+        </div>
+        <div class="form__row">
+          <label class="field"><span>Datum</span><input type="date" name="datum"></label>
+          <label class="field"><span>Act</span>
+            <select name="act">
+              <option>Weet ik nog niet</option>
+              <option>Vuurspuwen</option>
+              <option>Fire Show</option>
+              <option>LED Show</option>
+              <option>Vonkenshow</option>
+              <option>Walking Act</option>
+              <option>Fakir</option>
+            </select>
+          </label>
+        </div>
+        <div class="form__row">
+          <label class="field"><span>Locatie</span><input type="text" name="locatie" placeholder="Plaats of zaal"></label>
+          <label class="field"><span>Binnen of buiten</span>
+            <select name="ruimte">
+              <option>Buiten</option>
+              <option>Binnen</option>
+              <option>Allebei</option>
+            </select>
+          </label>
+        </div>
+        <label class="field"><span>Vertel kort over het evenement</span><textarea name="bericht" rows="4"></textarea></label>
+
+        <div class="status" id="formStatus" hidden role="status"></div>
+
+        <div>
+          <button class="btn" type="submit"><span class="btn__dot"></span>Verstuur aanvraag</button>
+        </div>
+        <p class="form__note">Demo — dit formulier is nog niet gekoppeld aan een backend. Mail zolang naar <a href="mailto:info@vuurspuwer.com">info@vuurspuwer.com</a>.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="foot shell wrap">
+  <p class="foot__word">Vuurspuwer</p>
+  <div class="foot__bar">
+    <span>&copy; <span id="year">2026</span> Vuurspuwer</span>
+    <span><a href="mailto:info@vuurspuwer.com">info@vuurspuwer.com</a></span>
+    <span>Nederland &amp; België</span>
+  </div>
+</footer>
+
+<script>
+(() => {
+  "use strict";
+
+  const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const COARSE  = window.matchMedia("(pointer: coarse)").matches;
+  const $  = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const lerp  = (a, b, t) => a + (b - a) * t;
+
+  /* --------------------------------------------------------------
+     Shared scroll state — one rAF loop drives everything
+     -------------------------------------------------------------- */
+  const S = {
+    y: 0,          /* scrollY                       */
+    vel: 0,        /* smoothed scroll velocity 0..1 */
+    heat: 0.55,    /* flame intensity               */
+    mx: 0.5,       /* pointer, normalised           */
+    my: 0.5
+  };
+
+  /* ==============================================================
+     1. Flame — WebGL. This is the page's only light source.
+     ============================================================== */
+  const VERT = `
+    attribute vec2 p;
+    void main(){ gl_Position = vec4(p, 0.0, 1.0); }
+  `;
+
+  const FRAG = `
+    precision highp float;
+    uniform vec2  uRes;
+    uniform float uTime;
+    uniform float uHeat;
+    uniform float uLean;
+    uniform float uGain;
+
+    float hash(vec2 p){
+      p = fract(p * vec2(123.34, 456.21));
+      p += dot(p, p + 45.32);
+      return fract(p.x * p.y);
+    }
+    float noise(vec2 p){
+      vec2 i = floor(p), f = fract(p);
+      f = f * f * (3.0 - 2.0 * f);
+      float a = hash(i);
+      float b = hash(i + vec2(1.0, 0.0));
+      float c = hash(i + vec2(0.0, 1.0));
+      float d = hash(i + vec2(1.0, 1.0));
+      return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
+    }
+    float fbm(vec2 p){
+      float v = 0.0, a = 0.5;
+      for (int i = 0; i < 5; i++){
+        v += a * noise(p);
+        p *= 2.03;
+        a *= 0.5;
+      }
+      return v;
+    }
+
+    void main(){
+      vec2 uv = gl_FragCoord.xy / uRes.xy;
+      float aspect = uRes.x / uRes.y;
+      vec2 p = vec2(uv.x * aspect, uv.y);
+
+      float t = uTime * 0.42;
+
+      /* rising, domain-warped smoke field */
+      vec2 q = vec2(p.x * 1.35, p.y * 0.95 - t);
+      float warp = fbm(q * 1.9 + vec2(0.0, -t * 1.35));
+      float n = fbm(q * 3.1 + warp * 1.15);
+
+      /* the plume leans toward the pointer, like a draught in the room */
+      float cx = uv.x - 0.5 + uLean * 0.12 * (1.0 - uv.y);
+      float spread = mix(0.62, 1.5, uv.y);
+      float plume = exp(-pow(abs(cx) / spread, 2.2) * 3.4);
+
+      /* hot at the floor, gone by the top of the layer */
+      float rise = pow(1.0 - uv.y, 1.35);
+
+      float f = n * rise * mix(0.35, 1.0, plume);
+      f = pow(f, 1.55) * (2.15 + uHeat * 1.9) * uGain;
+
+      /* licks of flame that break away from the body */
+      float tongue = fbm(q * 5.4 + warp * 1.3) * rise * plume;
+      f += pow(tongue, 2.15) * (1.35 + uHeat * 1.2);
+
+      vec3 col = vec3(0.0);
+      col += vec3(0.42, 0.05, 0.01) * smoothstep(0.10, 0.48, f);
+      col += vec3(1.00, 0.30, 0.02) * smoothstep(0.30, 0.80, f);
+      col += vec3(1.00, 0.69, 0.16) * smoothstep(0.58, 1.05, f);
+      col += vec3(1.00, 0.95, 0.82) * smoothstep(0.88, 1.35, f);
+
+      /* cold night bleeding in at the edges so the heat reads hotter */
+      col += vec3(0.03, 0.07, 0.13) * (1.0 - plume) * rise * 0.5
+             * (1.0 - smoothstep(0.04, 0.30, f));
+
+      float a = clamp(f * 1.35, 0.0, 1.0);
+      a *= smoothstep(0.0, 0.16, 1.0 - uv.y);
+
+      gl_FragColor = vec4(col, a);
+    }
+  `;
+
+  function initFlame(){
+    const cv = $("#flame");
+    if (!cv || REDUCED) return null;
+
+    const gl = cv.getContext("webgl", {
+      alpha: true, premultipliedAlpha: false, antialias: false, depth: false
+    }) || cv.getContext("experimental-webgl");
+    if (!gl) { cv.style.display = "none"; return null; }
+
+    const compile = (type, src) => {
+      const sh = gl.createShader(type);
+      gl.shaderSource(sh, src);
+      gl.compileShader(sh);
+      if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) {
+        console.warn(gl.getShaderInfoLog(sh));
+        return null;
+      }
+      return sh;
+    };
+
+    const vs = compile(gl.VERTEX_SHADER, VERT);
+    const fs = compile(gl.FRAGMENT_SHADER, FRAG);
+    if (!vs || !fs) { cv.style.display = "none"; return null; }
+
+    const prog = gl.createProgram();
+    gl.attachShader(prog, vs);
+    gl.attachShader(prog, fs);
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) { cv.style.display = "none"; return null; }
+    gl.useProgram(prog);
+
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(prog, "p");
+    gl.enableVertexAttribArray(loc);
+    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+    const uRes  = gl.getUniformLocation(prog, "uRes");
+    const uTime = gl.getUniformLocation(prog, "uTime");
+    const uHeat = gl.getUniformLocation(prog, "uHeat");
+    const uLean = gl.getUniformLocation(prog, "uLean");
+    const uGain = gl.getUniformLocation(prog, "uGain");
+
+    function resize(){
+      const dpr = clamp(window.devicePixelRatio || 1, 1, innerWidth < 700 ? 1.2 : 1.6);
+      const w = Math.round(cv.clientWidth  * dpr);
+      const h = Math.round(cv.clientHeight * dpr);
+      if (cv.width !== w || cv.height !== h) {
+        cv.width = w; cv.height = h;
+        gl.viewport(0, 0, w, h);
+      }
+      gl.uniform2f(uRes, cv.width, cv.height);
+    }
+    resize();
+    addEventListener("resize", resize, { passive: true });
+
+    return function draw(t){
+      resize();
+      gl.uniform1f(uTime, t);
+      gl.uniform1f(uHeat, S.heat);
+      gl.uniform1f(uLean, (S.mx - 0.5) * 2);
+      /* a narrow viewport is all plume and no dark edge — pull it back */
+      gl.uniform1f(uGain, innerWidth < 760 ? 0.74 : 1.0);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    };
+  }
+
+  /* ==============================================================
+     2. Embers — 2D canvas, sparse and slow
+     ============================================================== */
+  function initEmbers(){
+    const cv = $("#embers");
+    if (!cv || REDUCED) return null;
+    const ctx = cv.getContext("2d");
+    let dpr = 1, parts = [];
+
+    function size(){
+      dpr = clamp(window.devicePixelRatio || 1, 1, 2);
+      cv.width  = Math.round(innerWidth  * dpr);
+      cv.height = Math.round(innerHeight * dpr);
+    }
+    function spawn(seed){
+      return {
+        x: Math.random() * innerWidth,
+        y: seed ? Math.random() * innerHeight : innerHeight + 20,
+        r: 0.6 + Math.random() * 1.9,
+        v: 0.25 + Math.random() * 0.85,
+        sway: 0.4 + Math.random() * 1.4,
+        phase: Math.random() * Math.PI * 2,
+        life: 0,
+        max: 320 + Math.random() * 520,
+        hot: Math.random()
+      };
+    }
+    function reset(){
+      size();
+      const n = innerWidth < 760 ? 26 : 62;
+      parts = Array.from({ length: n }, () => spawn(true));
+    }
+    reset();
+    addEventListener("resize", reset, { passive: true });
+
+    return function draw(t){
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, innerWidth, innerHeight);
+      ctx.globalCompositeOperation = "lighter";
+
+      const push = 0.6 + S.heat * 1.5;
+      for (const p of parts) {
+        p.life++;
+        p.y -= p.v * push;
+        p.x += Math.sin(t * 0.6 + p.phase) * p.sway * 0.35;
+        if (p.life > p.max || p.y < -30) Object.assign(p, spawn(false));
+
+        const k = 1 - p.life / p.max;
+        const a = Math.sin(Math.PI * k) * 0.85;
+        const col = p.hot > 0.72 ? "255,243,214" : p.hot > 0.34 ? "255,176,32" : "255,77,10";
+
+        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 5);
+        g.addColorStop(0,   "rgba(" + col + "," + (a * 0.95).toFixed(3) + ")");
+        g.addColorStop(0.4, "rgba(" + col + "," + (a * 0.28).toFixed(3) + ")");
+        g.addColorStop(1,   "rgba(" + col + ",0)");
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r * 5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalCompositeOperation = "source-over";
+    };
+  }
+
+  /* ==============================================================
+     3. Master loop
+     ============================================================== */
+  const drawFlame  = initFlame();
+  const drawEmbers = initEmbers();
+
+  let last = S.y = window.scrollY || 0;
+  let rawVel = 0, running = true, t0 = performance.now();
+
+  const roHeight = $("#roHeight"), roHeat = $("#roHeat");
+  const burn = $("#burn");
+  const stage = $(".stage");
+
+  function frame(now){
+    if (!running) return;
+    const t = (now - t0) / 1000;
+
+    /* scroll + velocity */
+    const y = window.scrollY || 0;
+    rawVel = lerp(rawVel, clamp(Math.abs(y - last) / 42, 0, 1), 0.14);
+    S.vel = rawVel;
+    last = y;
+    S.y = y;
+
+    /* the fire is tallest at the top of the page, and flares when you move */
+    const heroFade = 1 - clamp(y / (innerHeight * 0.9), 0, 1);
+    S.heat = lerp(S.heat, Math.min(0.28 + heroFade * 0.52 + S.vel * 0.32, 1.02), 0.08);
+
+    /* on the hero the fire stands tall; past it, it settles into a floor */
+    if (stage) stage.style.setProperty("--sh", (heroFade * (innerWidth < 760 ? 5 : 10)).toFixed(2) + "%");
+
+    if (drawFlame)  drawFlame(t);
+    if (drawEmbers) drawEmbers(t);
+
+    if (burn) {
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - innerHeight;
+      burn.style.width = (max > 0 ? clamp(y / max, 0, 1) * 100 : 0).toFixed(2) + "%";
+    }
+    if (roHeight) roHeight.textContent = (2 + S.heat * 4.4).toFixed(1);
+    if (roHeat)   roHeat.textContent   = Math.round(clamp(S.heat, 0, 1.3) / 1.3 * 100);
+
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) { running = false; }
+    else { running = true; t0 = performance.now() - 1000; requestAnimationFrame(frame); }
+  });
+
+  addEventListener("pointermove", (e) => {
+    S.mx = e.clientX / innerWidth;
+    S.my = e.clientY / innerHeight;
+  }, { passive: true });
+
+  /* ==============================================================
+     4. Ignition — hold the page until the fonts and shader are up
+     ============================================================== */
+  (function ignition(){
+    const wrap = $("#ignition"), bar = $("#ignBar"), pct = $("#ignPct");
+    if (!wrap) return;
+
+    let p = 0, done = false;
+    const ready = Promise.all([
+      document.fonts ? document.fonts.ready : Promise.resolve(),
+      new Promise((res) => {
+        if (document.readyState === "complete") res();
+        else addEventListener("load", res, { once: true });
+      })
+    ]);
+
+    const tick = setInterval(() => {
+      p = Math.min(p + Math.random() * 9 + 3, done ? 100 : 92);
+      if (bar) bar.style.setProperty("--p", p.toFixed(0) + "%");
+      if (pct) pct.textContent = String(Math.floor(p)).padStart(2, "0");
+      if (p >= 100) {
+        clearInterval(tick);
+        wrap.classList.add("is-out");
+        document.body.classList.remove("is-locked");
+        setTimeout(() => wrap.remove(), 800);
+        start();
+      }
+    }, 90);
+
+    document.body.classList.add("is-locked");
+    ready.then(() => setTimeout(() => { done = true; }, 320));
+  })();
+
+  /* ==============================================================
+     5. Chrome — sticky nav and the fullscreen menu
+     ============================================================== */
+  (function chrome(){
+    const nav = $("#nav"), burger = $("#burger"), menu = $("#menu");
+
+    const onScroll = () => nav && nav.classList.toggle("is-stuck", (window.scrollY || 0) > 24);
+    addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    if (!burger || !menu) return;
+
+    const links = $$("a", menu);
+    links.forEach((a, i) => { a.style.transitionDelay = (0.08 + i * 0.06) + "s"; });
+
+    const setOpen = (open) => {
+      menu.classList.toggle("is-open", open);
+      burger.setAttribute("aria-expanded", String(open));
+      burger.setAttribute("aria-label", open ? "Menu sluiten" : "Menu openen");
+      document.body.classList.toggle("is-locked", open);
+    };
+
+    burger.addEventListener("click", () => setOpen(burger.getAttribute("aria-expanded") !== "true"));
+    links.forEach((a) => a.addEventListener("click", () => setOpen(false)));
+    addEventListener("keydown", (e) => { if (e.key === "Escape") setOpen(false); });
+  })();
+
+  /* ==============================================================
+     6. Reveal on scroll
+     ============================================================== */
+  const seen = new IntersectionObserver((entries) => {
+    for (const en of entries) {
+      if (!en.isIntersecting) continue;
+      en.target.classList.add("seen");
+      seen.unobserve(en.target);
+      if (en.target.matches(".spec")) countUp(en.target);
+    }
+  }, { rootMargin: "0px 0px -12% 0px", threshold: 0.12 });
+
+  $$(".rise").forEach((el) => seen.observe(el));
+
+  /* ==============================================================
+     7. Manifesto — words catch light as they pass the middle
+     ============================================================== */
+  (function manifesto(){
+    const el = $("[data-split]");
+    if (!el) return;
+
+    const words = el.textContent.trim().split(/\s+/);
+    el.textContent = "";
+    words.forEach((w, i) => {
+      const s = document.createElement("span");
+      s.className = "w";
+      s.textContent = w;
+      if (/vuur|hitte|ademen/i.test(w)) s.dataset.hot = "1";
+      el.appendChild(s);
+      if (i < words.length - 1) el.appendChild(document.createTextNode(" "));
+    });
+
+    const spans = $$(".w", el);
+    let ticking = false;
+
+    function light(){
+      ticking = false;
+      const r = el.getBoundingClientRect();
+      const span = r.height + innerHeight * 0.55;
+      const progress = clamp((innerHeight * 0.82 - r.top) / span, 0, 1);
+      const upto = Math.round(progress * spans.length * 1.25);
+      spans.forEach((s, i) => {
+        const on = i < upto;
+        s.classList.toggle("lit", on);
+        s.classList.toggle("hot", on && s.dataset.hot === "1");
+      });
+    }
+    addEventListener("scroll", () => {
+      if (!ticking) { ticking = true; requestAnimationFrame(light); }
+    }, { passive: true });
+    addEventListener("resize", light, { passive: true });
+    light();
+  })();
+
+  /* ==============================================================
+     8. Spec counters
+     ============================================================== */
+  function countUp(scope){
+    const el = $(".spec__val", scope);
+    if (!el || el.dataset.ran) return;
+    el.dataset.ran = "1";
+
+    const target = parseFloat(el.dataset.count || "0");
+    const dec = parseInt(el.dataset.dec || "0", 10);
+    if (REDUCED || target === 0) {
+      el.firstChild.nodeValue = target.toFixed(dec);
+      return;
+    }
+    const dur = 1200, t1 = performance.now();
+    (function step(now){
+      const k = clamp((now - t1) / dur, 0, 1);
+      const eased = 1 - Math.pow(1 - k, 3);
+      el.firstChild.nodeValue = (target * eased).toFixed(dec);
+      if (k < 1) requestAnimationFrame(step);
+    })(t1);
+  }
+
+  /* ==============================================================
+     9. Gallery — procedural fire plates, with slots for real photos
+     ============================================================== */
+  const WORK = [
+    { title: "Festivalplein",  meta: "Vuurspuwen",  hue: 16,  seed: 3,  kind: "circle" },
+    { title: "Bedrijfsfeest",  meta: "Fire Show",   hue: 30,  seed: 11, kind: "eight"  },
+    { title: "Bruiloft",       meta: "Vonkenshow",  hue: 46,  seed: 27, kind: "spiral" },
+    { title: "Opening",        meta: "LED Show",    hue: 202, seed: 41, kind: "circle" },
+    { title: "Straattheater",  meta: "Walking Act", hue: 8,   seed: 58, kind: "wave"   },
+    { title: "Theaterzaal",    meta: "Fakir",       hue: 352, seed: 73, kind: "eight"  }
+  ];
+
+  /* A fire act photographed at night is a light trail: poi draw circles
+     and figure-eights, a staff draws a spiral, a breath draws a burst.
+     Each plate is one of those trails, stroked as a long exposure. */
+  function trailPoints(kind, w, h, rnd){
+    const cx = w * 0.5, cy = h * 0.5;
+    const R = Math.min(w, h) * 0.30;
+    const pts = [];
+    /* one low-frequency wobble, not per-point noise — a burning wick
+       drifts, it does not crackle */
+    const ph = rnd() * 6.28, ph2 = rnd() * 6.28;
+    const wob = (k) => Math.sin(k * 7.3 + ph) * R * 0.020 + Math.sin(k * 17.1 + ph2) * R * 0.008;
+
+    if (kind === "eight") {
+      for (let i = 0; i <= 220; i++) {
+        const t = (i / 220) * Math.PI * 2;
+        const j = wob(i / 220);
+        pts.push([cx + Math.sin(t) * R * 1.15 + j,
+                  cy + Math.sin(t * 2) * R * 0.62 + j * 0.8]);
+      }
+    } else if (kind === "circle") {
+      for (let i = 0; i <= 200; i++) {
+        const t = (i / 200) * Math.PI * 2;
+        const r = R * (1 + Math.sin(t * 3) * 0.04) + wob(i / 200);
+        pts.push([cx + Math.cos(t) * r,
+                  cy + Math.sin(t) * r * 1.05]);
+      }
+    } else if (kind === "spiral") {
+      const turns = 3.2;
+      for (let i = 0; i <= 300; i++) {
+        const k = i / 300;
+        const t = k * Math.PI * 2 * turns;
+        const r = R * (0.14 + k * 0.95) + wob(k);
+        pts.push([cx + Math.cos(t) * r,
+                  cy + Math.sin(t) * r]);
+      }
+    } else {                                   /* wave — a walking act */
+      for (let i = 0; i <= 220; i++) {
+        const k = i / 220;
+        pts.push([-w * 0.1 + k * w * 1.2,
+                  cy + Math.sin(k * Math.PI * 3.2) * R * 0.72 + wob(k)]);
+      }
+    }
+    return pts;
+  }
+
+  function stroke(c, pts, hue, scale, alpha){
+    c.lineJoin = "round";
+    c.lineCap = "round";
+    const passes = [[30, 0.05, 54], [15, 0.10, 62], [7, 0.22, 70], [2.8, 0.52, 80], [1.1, 0.8, 91]];
+    for (const [lw, a, light] of passes) {
+      c.strokeStyle = "hsla(" + hue + ",100%," + light + "%," + (a * alpha).toFixed(3) + ")";
+      c.lineWidth = lw * scale;
+      c.beginPath();
+      for (let i = 0; i < pts.length; i++) {
+        if (i) c.lineTo(pts[i][0], pts[i][1]);
+        else c.moveTo(pts[i][0], pts[i][1]);
+      }
+      c.stroke();
+    }
+  }
+
+  function plate(cv, cfg){
+    const dpr = clamp(window.devicePixelRatio || 1, 1, 2);
+    const w = cv.clientWidth || 300, h = cv.clientHeight || 400;
+    cv.width = Math.round(w * dpr);
+    cv.height = Math.round(h * dpr);
+    const c = cv.getContext("2d");
+    c.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    /* deterministic per-plate randomness, so redraws are identical */
+    let s = cfg.seed * 9301 + 49297;
+    const rnd = () => { s = (s * 9301 + 49297) % 233280; return s / 233280; };
+
+    /* night ground */
+    const bg = c.createLinearGradient(0, 0, 0, h);
+    bg.addColorStop(0,    "#0B1522");
+    bg.addColorStop(0.45, "#080604");
+    bg.addColorStop(1,    "#040201");
+    c.fillStyle = bg;
+    c.fillRect(0, 0, w, h);
+
+    c.globalCompositeOperation = "lighter";
+
+    /* stage wash along the floor */
+    const wash = c.createRadialGradient(w * 0.5, h * 1.02, 0, w * 0.5, h * 1.02, h * 0.62);
+    wash.addColorStop(0,   "hsla(" + cfg.hue + ",100%,58%,.38)");
+    wash.addColorStop(0.4, "hsla(" + cfg.hue + ",96%,48%,.12)");
+    wash.addColorStop(1,   "hsla(" + cfg.hue + ",90%,45%,0)");
+    c.fillStyle = wash;
+    c.fillRect(0, 0, w, h);
+
+    /* the trail itself — a faint earlier revolution, then the bright one */
+    const scale = Math.min(w, h) / 340;
+    c.save();
+    c.translate(w * 0.5, h * 0.46);
+    c.rotate((rnd() - 0.5) * 0.5);
+    c.translate(-w * 0.5, -h * 0.46);
+    stroke(c, trailPoints(cfg.kind, w, h * 0.92, rnd), cfg.hue + 6, scale * 1.25, 0.28);
+    stroke(c, trailPoints(cfg.kind, w, h * 0.92, rnd), cfg.hue, scale, 1);
+    c.restore();
+
+    /* sparks thrown off the trail */
+    for (let i = 0; i < 70; i++) {
+      const t = rnd();
+      const x = w * (0.12 + rnd() * 0.76);
+      const y = h - t * h * 0.9;
+      const r = rnd() * 1.2 + 0.3;
+      c.fillStyle = "hsla(" + (cfg.hue + rnd() * 18) + ",100%," + (70 + rnd() * 26).toFixed(0) + "%," + (0.1 + (1 - t) * 0.45).toFixed(2) + ")";
+      c.beginPath();
+      c.arc(x, y, r, 0, Math.PI * 2);
+      c.fill();
+    }
+
+    c.globalCompositeOperation = "source-over";
+
+    /* vignette, weighted so the caption has a ground to sit on */
+    const v = c.createLinearGradient(0, 0, 0, h);
+    v.addColorStop(0,    "rgba(4,2,1,.62)");
+    v.addColorStop(0.38, "rgba(4,2,1,0)");
+    v.addColorStop(1,    "rgba(4,2,1,.62)");
+    c.fillStyle = v;
+    c.fillRect(0, 0, w, h);
+
+    /* grain, so the gradients do not band */
+    for (let i = 0; i < (w * h) / 900; i++) {
+      c.fillStyle = "rgba(255,243,214," + (rnd() * 0.05).toFixed(3) + ")";
+      c.fillRect(rnd() * w, rnd() * h, 1, 1);
+    }
+  }
+
+  function buildStrip(){
+    const strip = $("#strip");
+    if (!strip) return;
+
+    WORK.forEach((cfg, i) => {
+      const fig = document.createElement("figure");
+      fig.className = "frame";
+      fig.innerHTML =
+        '<canvas></canvas>' +
+        '<img alt="" loading="lazy" src="assets/media/work-' + (i + 1) + '.jpg">' +
+        '<figcaption class="frame__cap"><span>' + cfg.meta + '</span><b>' + cfg.title + '</b></figcaption>';
+      strip.appendChild(fig);
+
+      const cv = $("canvas", fig);
+      requestAnimationFrame(() => plate(cv, cfg));
+
+      /* a real photograph, if one has been dropped in, wins */
+      const img = $("img", fig);
+      img.addEventListener("load", () => img.classList.add("is-live"));
+      img.addEventListener("error", () => img.remove());
+    });
+
+    /* drag to scroll */
+    let down = false, sx = 0, sl = 0;
+    strip.addEventListener("pointerdown", (e) => {
+      down = true; sx = e.clientX; sl = strip.scrollLeft;
+      strip.classList.add("is-dragging");
+      strip.setPointerCapture(e.pointerId);
+    });
+    strip.addEventListener("pointermove", (e) => {
+      if (!down) return;
+      strip.scrollLeft = sl - (e.clientX - sx);
+    });
+    const up = () => { down = false; strip.classList.remove("is-dragging"); };
+    strip.addEventListener("pointerup", up);
+    strip.addEventListener("pointercancel", up);
+  }
+
+  /* ==============================================================
+     10. Video slots — reveal only when footage genuinely plays
+     ============================================================== */
+  const REEL_PLATE = { hue: 26, seed: 91, kind: "eight" };
+
+  function initVideo(){
+    const hero = $("#heroVideo");
+    if (hero) {
+      const live = () => {
+        hero.classList.add("is-live");
+        if (hero.parentElement) hero.parentElement.classList.add("has-video");
+      };
+      hero.addEventListener("playing", live);
+      hero.addEventListener("loadeddata", () => { if (hero.readyState >= 2) live(); });
+      const p = hero.play();
+      if (p && p.catch) p.catch(() => { /* no footage yet — the flame carries it */ });
+    }
+
+    const reel = $("#reelVideo"), holder = $("#reelHolder"),
+          play = $("#reelPlay"), time = $("#reelTime");
+    if (!reel || !play) return;
+
+    const rp = $("#reelPlate");
+    if (rp) requestAnimationFrame(() => plate(rp, REEL_PLATE));
+
+    let has = false;
+    reel.addEventListener("loadeddata", () => {
+      has = true;
+      reel.classList.add("is-live");
+      if (holder) holder.style.display = "none";
+    });
+
+    play.addEventListener("click", () => {
+      if (!has) {
+        const note = $("p", holder);
+        if (note) note.innerHTML = "Nog geen video<br><span>zet showreel.mp4 in assets/media</span>";
+        return;
+      }
+      if (reel.paused) reel.play(); else reel.pause();
+    });
+
+    reel.addEventListener("timeupdate", () => {
+      if (!time || !isFinite(reel.duration)) return;
+      const s = Math.floor(reel.currentTime);
+      time.textContent = String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0");
+    });
+
+    /* only run the reel while it is actually on screen */
+    new IntersectionObserver((es) => {
+      for (const e of es) {
+        if (!has) continue;
+        if (e.isIntersecting) reel.play().catch(() => {});
+        else reel.pause();
+      }
+    }, { threshold: 0.35 }).observe(reel);
+  }
+
+  /* ==============================================================
+     11. Cursor — an ember that follows the pointer
+     ============================================================== */
+  function initSpark(){
+    const el = $("#spark");
+    if (!el || COARSE || REDUCED) return;
+
+    let x = innerWidth / 2, y = innerHeight / 2, tx = x, ty = y;
+    document.body.classList.add("has-spark");
+
+    addEventListener("pointermove", (e) => { tx = e.clientX; ty = e.clientY; }, { passive: true });
+
+    const hot = "a, button, input, select, textarea, .act, .frame";
+    addEventListener("pointerover", (e) => {
+      if (e.target instanceof Element) {
+        document.body.classList.toggle("spark-hot", !!e.target.closest(hot));
+      }
+    }, { passive: true });
+
+    (function trail(){
+      x = lerp(x, tx, 0.18);
+      y = lerp(y, ty, 0.18);
+      el.style.transform = "translate3d(" + x.toFixed(1) + "px," + y.toFixed(1) + "px,0)";
+      requestAnimationFrame(trail);
+    })();
+  }
+
+  /* ==============================================================
+     12. Booking form
+     ============================================================== */
+  function initForm(){
+    const form = $("#bookForm"), status = $("#formStatus");
+    if (!form || !status) return;
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const naam = String(data.get("naam") || "").trim();
+      const mail = String(data.get("email") || "").trim();
+
+      status.hidden = false;
+
+      if (!naam || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)) {
+        status.textContent = "Vul je naam en een geldig e-mailadres in, dan kan ik reageren.";
+        (naam ? form.querySelector('[name="email"]') : form.querySelector('[name="naam"]')).focus();
+        return;
+      }
+
+      /* Demo build: nothing is sent anywhere. Point this at a real
+         endpoint and replace the message below. */
+      const body = [
+        "Naam: " + naam,
+        "E-mail: " + mail,
+        "Datum: " + (data.get("datum") || "-"),
+        "Act: " + (data.get("act") || "-"),
+        "Locatie: " + (data.get("locatie") || "-"),
+        "Ruimte: " + (data.get("ruimte") || "-"),
+        "", String(data.get("bericht") || "")
+      ].join("\n");
+
+      status.innerHTML =
+        "Demo &mdash; deze aanvraag wordt nog nergens naartoe verstuurd. " +
+        '<a href="mailto:info@vuurspuwer.com?subject=' +
+        encodeURIComponent("Aanvraag " + naam) + "&body=" + encodeURIComponent(body) +
+        '">Open dezelfde aanvraag in je mailprogramma</a>.';
+    });
+  }
+
+  /* ==============================================================
+     13. Fit the wordmark to the page — measured, not guessed, so
+     "VUURSPUWER" spans the full width at every viewport
+     ============================================================== */
+  function fitWord(box, measured, cap){
+    if (!box || !measured) return;
+
+    box.style.fontSize = "10px";
+    const avail = box.clientWidth;
+    if (!avail) { box.style.fontSize = ""; return; }
+
+    box.style.fontSize = "200px";
+    const natural = measured.scrollWidth;
+    if (!natural) { box.style.fontSize = ""; return; }
+
+    box.style.fontSize = Math.min(cap, Math.floor(200 * avail / natural)) + "px";
+  }
+
+  function fitHero(){
+    const h1 = $(".hero__title");
+    if (h1) fitWord(h1, h1.firstElementChild, 300);
+
+    const foot = $(".foot__word");
+    if (foot) fitWord(foot, foot, 340);
+  }
+
+  /* ==============================================================
+     14. Go
+     ============================================================== */
+  function start(){
+    if (start.done) return;
+    start.done = true;
+    fitHero();
+    buildStrip();
+    initVideo();
+    initSpark();
+    initForm();
+
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitHero);
+
+    const yr = $("#year");
+    if (yr) yr.textContent = String(new Date().getFullYear());
+
+    /* redraw the generated plates when the layout changes shape */
+    let rt;
+    addEventListener("resize", () => {
+      clearTimeout(rt);
+      fitHero();
+      rt = setTimeout(() => {
+        $$(".frame canvas").forEach((cv, i) => { if (WORK[i]) plate(cv, WORK[i]); });
+        const rp = $("#reelPlate");
+        if (rp && rp.isConnected) plate(rp, REEL_PLATE);
+      }, 220);
+    }, { passive: true });
+  }
+
+  /* safety net: if the loader never resolves, run anyway */
+  setTimeout(start, 4200);
+})();
+</script>
+<!--A:/BODY-->
+</body>
+</html>
