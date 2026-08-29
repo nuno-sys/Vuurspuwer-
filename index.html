@@ -384,9 +384,9 @@ button,input,select,textarea{ font:inherit; color:inherit; }
   align-content:center;
   gap:.2rem;
   padding:var(--gutter);
-  background:rgba(5,3,2,.94);
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
+  background:rgba(5,3,2,.82);
+  backdrop-filter:blur(22px) saturate(130%);
+  -webkit-backdrop-filter:blur(22px) saturate(130%);
   clip-path:inset(0 0 100% 0);
   transition:clip-path .8s var(--ease);
 }
@@ -1038,7 +1038,7 @@ button,input,select,textarea{ font:inherit; color:inherit; }
   padding:clamp(1.4rem,3vw,2rem);
   border:1px solid var(--hairline);
   border-radius:14px;
-  background:linear-gradient(180deg,rgba(23,16,8,.5),rgba(10,7,5,.5));
+  background:linear-gradient(180deg,rgba(23,16,8,.9),rgba(10,7,5,.94));
 }
 .quote blockquote{
   margin:0;
@@ -1059,9 +1059,17 @@ button,input,select,textarea{ font:inherit; color:inherit; }
 /* ============================================================
    Booking
    ============================================================ */
+/* Everything else on this page floats over the fire. The booking block
+   does not — a form you actually have to fill in gets a real surface. */
 .book{
   display:grid;
   gap:clamp(2rem,6vw,4rem);
+  padding:clamp(1.4rem,3.6vw,3rem);
+  border:1px solid var(--hairline);
+  border-radius:clamp(14px,2vw,22px);
+  background:linear-gradient(180deg,rgba(23,16,8,.94) 0%,rgba(10,7,5,.97) 100%);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
 }
 @media (min-width:960px){ .book{ grid-template-columns:.85fr 1.15fr; align-items:start; } }
 
