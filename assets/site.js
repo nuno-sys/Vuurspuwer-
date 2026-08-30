@@ -266,8 +266,13 @@
     /* on the hero the fire stands tall; past it, it settles into a floor */
     if (stage) stage.style.setProperty("--sh", (heroFade * (innerWidth < 760 ? 5 : 10)).toFixed(2) + "%");
 
-    if (drawFlame)  drawFlame(t);
-    if (drawEmbers) drawEmbers(t);
+    /* de sfeerlagen (vlam + vonken) op 30 fps: visueel gelijk, maar
+       het scheelt de helft van het tekenwerk op de hoofdthread */
+    S.tick = (S.tick || 0) ^ 1;
+    if (S.tick) {
+      if (drawFlame)  drawFlame(t);
+      if (drawEmbers) drawEmbers(t);
+    }
     burnFrame();
     galleryFrame();
 
@@ -308,6 +313,29 @@
 
     if (!wrap || !flyer) { if (brand) brand.classList.add("is-landed"); start(); return; }
 
+    /* De volledige vuurshow-intro alleen op de homepage en alleen de
+       eerste keer deze sessie. Onderliggende pagina's en herhaalbezoek
+       openen direct — dat scheelt seconden op de gemeten laadtijd. */
+    let full = false;
+    try {
+      full = location.pathname === "/" && !sessionStorage.getItem("ignited");
+      sessionStorage.setItem("ignited", "1");
+    } catch (e) { full = location.pathname === "/"; }
+
+    if (!full) {
+      /* een tik wachten zodat het hele script eerst geladen is;
+         daarna direct openen met alleen de korte vuurveeg */
+      setTimeout(() => {
+        if (brand) brand.classList.add("is-landed");
+        wrap.classList.add("is-open");
+        start();
+        sweep();
+        wrap.classList.add("is-out");
+        setTimeout(() => wrap.remove(), 620);
+      }, 0);
+      return;
+    }
+
     document.body.classList.add("is-locked");
 
     let p = 0, ready = false, flown = false;
@@ -318,14 +346,14 @@
         if (document.readyState === "complete") res();
         else addEventListener("load", res, { once: true });
       })
-    ]).then(() => setTimeout(() => { ready = true; }, 240));
+    ]).then(() => setTimeout(() => { ready = true; }, 80));
 
     const tick = setInterval(() => {
-      p = Math.min(p + Math.random() * 11 + 6, ready ? 100 : 94);
+      p = Math.min(p + Math.random() * 14 + 10, ready ? 100 : 94);
       if (bar) bar.style.setProperty("--p", p.toFixed(0) + "%");
       if (pct) pct.textContent = String(Math.floor(p));
       if (p >= 100) { clearInterval(tick); fly(); }
-    }, 70);
+    }, 50);
 
     /* Two movements, deliberately separate. First the wordmark catches
        from the left, letter by letter, with the fire front travelling
@@ -344,7 +372,7 @@
         return;
       }
 
-      const REVEAL = 1700;
+      const REVEAL = 1000;
       const t0 = performance.now();
       flyer.style.setProperty("--edge", "1");
 
@@ -356,7 +384,7 @@
         else {
           flyer.style.setProperty("--reveal", "1");
           flyer.style.setProperty("--edge", "0");
-          setTimeout(depart, 420);
+          setTimeout(depart, 220);
         }
       })(t0);
     }
@@ -380,7 +408,7 @@
           filter: "drop-shadow(0 0 24px rgba(255,90,10,.4))", offset: 0.56 },
         { transform: "translate(" + dx.toFixed(1) + "px," + dy.toFixed(1) + "px) scale(" + sc.toFixed(3) + ")",
           filter: "drop-shadow(0 0 2px rgba(255,90,10,0))" }
-      ], { duration: 1600, easing: "cubic-bezier(.58,0,.16,1)", fill: "forwards" });
+      ], { duration: 1000, easing: "cubic-bezier(.58,0,.16,1)", fill: "forwards" });
 
       anim.finished.then(land, land);
     }
@@ -413,6 +441,8 @@
       menu.classList.toggle("is-open", open);
       burger.setAttribute("aria-expanded", String(open));
       burger.setAttribute("aria-label", open ? "Menu sluiten" : "Menu openen");
+      const btxt = burger.querySelector(".burger__txt");
+      if (btxt) btxt.textContent = open ? "Sluit" : "Menu";
       document.body.classList.toggle("is-locked", open);
     };
 
@@ -883,9 +913,20 @@
 
       const arm = () => {
         if (vid.src) return;
+        /* dezelfde autoplay-eisen als de herovideo: expliciet gedempt
+           en inline, anders weigeren telefoons het stille afspelen */
+        vid.muted = true;
+        vid.defaultMuted = true;
+        vid.playsInline = true;
+        vid.setAttribute("muted", "");
         vid.src = vid.dataset.src || "";
         vid.preload = "auto";
         vid.load();
+        vid.addEventListener("canplay", () => {
+          if (fig.classList.contains("in-view") && vid.paused) {
+            vid.play().catch(() => {});
+          }
+        }, { once: true });
       };
 
       btn.addEventListener("click", () => {
@@ -910,14 +951,16 @@
 
       new IntersectionObserver((es) => {
         for (const e of es) {
+          fig.classList.toggle("in-view", e.isIntersecting);
           if (e.isIntersecting) { arm(); vid.play().catch(() => {}); }
           else vid.pause();
         }
-      }, { threshold: 0.4 }).observe(fig);
+      }, { threshold: 0.3 }).observe(fig);
     });
 
-    /* mobiel vangnet: weigerde de browser stille autoplay, start dan
-       bij de eerste aanraking alsnog de zichtbare reels */
+    /* mobiel vangnet: weigert de browser stille autoplay (bijv. bij
+       energiebesparing), probeer het bij elke aanraking opnieuw voor
+       de reels die in beeld staan */
     const kickReels = () => {
       for (const vid of players) {
         const r = vid.getBoundingClientRect();
@@ -927,7 +970,7 @@
       }
     };
     ["touchstart", "pointerdown"].forEach((ev) =>
-      addEventListener(ev, kickReels, { once: true, passive: true }));
+      addEventListener(ev, kickReels, { passive: true }));
   }
 
   /* ==============================================================
