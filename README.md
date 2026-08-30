@@ -104,19 +104,40 @@ endpoint.
 WhatsApp loopt nu via een directe `wa.me/31620020723`-link in de hero, de
 contactkolom en onder het formulier — daar is geen backend voor nodig.
 
-## Deployen naar Cloudflare Pages
+## Bouwen en deployen
 
-Er valt niets te bouwen. In het Pages-project:
+De site wordt gegenereerd uit de WordPress-export. `build.py` leest die uit en
+schrijft alles naar `dist/`:
 
-- **Build command**: leeg laten
-- **Build output directory**: `/`
+    python3 build.py
 
-```
-npx wrangler pages deploy . --project-name=vuurspuwer
-```
+Dat levert 138 pagina's op: 20 stadspagina's, 106 blogposts en de vaste
+pagina's, plus `sitemap.xml`, `robots.txt` en `_redirects`. De homepage,
+`assets/` en `_headers` gaan mee.
 
-`_headers` zet caching en een paar security-headers. Externe verzoeken beperken zich
-tot Google Fonts (`fonts.googleapis.com`, `fonts.gstatic.com`).
+In Cloudflare Pages:
+
+- **Build command**: `python3 build.py`
+- **Build output directory**: `dist`
+
+`dist/` staat ook in de repo, dus je kunt de build ook overslaan en Pages
+direct op die map zetten.
+
+### Webadressen
+
+Elke pagina houdt exact het adres dat hij nu heeft, inclusief het lelijke
+`-utrecht-2` — dat is het adres dat Google kent en dat verander je niet.
+
+`_redirects` vangt de rest op, 685 regels: dubbelingen met een cijfer aan het
+eind gaan naar het origineel, de 581 stadspagina's die niet meegaan naar de
+locatiepagina, en al het overige naar de homepage. Er wordt dus niets een 404.
+
+### Beeld in de artikelen
+
+De uitgelichte afbeeldingen komen uit de export en verwijzen nog naar
+`vuurspuwer.com/wp-content/uploads/`. Dat werkt in de browser van de bezoeker,
+maar houdt de nieuwe site afhankelijk van de oude host. Zodra de uploads-map
+is aangeleverd worden die verwijzingen omgezet naar lokale bestanden.
 
 ### Als er later een Worker bij komt
 
