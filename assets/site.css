@@ -2706,3 +2706,26 @@ body.is-locked .wa{ opacity:0; pointer-events:none; transition:opacity .3s var(-
 @media (prefers-reduced-motion:reduce){
   .nav__call::after, .burger::after{ animation:none; transform:translateX(-26%); }
 }
+
+/* ============================================================
+   Formulier: echte verzending
+   ============================================================ */
+/* honingpot tegen spamrobots: onzichtbaar voor mensen */
+.hp{
+  position:absolute !important;
+  left:-9999px !important;
+  width:1px; height:1px;
+  overflow:hidden;
+  opacity:0;
+  pointer-events:none;
+}
+/* de veld- en begeleidende teksten iets lichter, beter leesbaar */
+.field > span,
+.form__note,
+.contact__line .eyebrow{
+  --burn-a:var(--ink-dim);
+  --burn-b:var(--ink-dim);
+  color:var(--ink-dim);
+}
+.field input::placeholder,
+.field textarea::placeholder{ color:#9a8a7a; opacity:1; }

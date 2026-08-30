@@ -938,7 +938,7 @@
     const form = $("#bookForm"), status = $("#formStatus");
     if (!form || !status) return;
 
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const data = new FormData(form);
       const naam = String(data.get("naam") || "").trim();
@@ -952,26 +952,50 @@
         return;
       }
 
-      /* Demo build: nothing is sent anywhere. Point this at a real
-         endpoint and replace the message below. */
-      const body = [
-        "Naam: " + naam,
-        "E-mail: " + mail,
-        (data.get("telefoon") ? "Telefoon: " + data.get("telefoon") : null),
-        "Datum: " + (data.get("datum") || "-"),
-        "Act: " + (data.get("act") || "-"),
-        "Locatie: " + (data.get("locatie") || "-"),
-        "Ruimte: " + (data.get("ruimte") || "-"),
-        "", String(data.get("bericht") || "")
-      ].filter((l) => l !== null).join("\n");
+      const payload = {};
+      for (const [k, v] of data.entries()) payload[k] = String(v);
 
-      status.innerHTML =
-        "Je aanvraag staat klaar &mdash; " +
-        '<a href="mailto:nuno@vuurspuwer.com?subject=' +
-        encodeURIComponent("Aanvraag " + naam) + "&body=" + encodeURIComponent(body) +
-        '">verstuur hem via je eigen mailprogramma</a> of ' +
-        '<a href="https://wa.me/31620020723?text=' + encodeURIComponent(body) +
-        '" rel="noopener">app hem direct via WhatsApp</a>.';
+      const knop = form.querySelector('button[type="submit"]');
+      if (knop) knop.disabled = true;
+      status.textContent = "Versturen…";
+
+      try {
+        const r = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        const uit = await r.json().catch(() => ({}));
+        if (!r.ok || !uit.ok) throw new Error("send");
+
+        status.innerHTML =
+          "\u{1F525} Gelukt &mdash; je aanvraag is verstuurd! Je ontvangt direct " +
+          "een bevestiging per e-mail en ik reageer <b>binnen 24 uur</b>.";
+        form.reset();
+      } catch {
+        /* vangnet: lukt het versturen niet (offline, of de mailfunctie is
+           nog niet geconfigureerd), dan staat de aanvraag klaar als mail */
+        const body = [
+          "Naam: " + naam,
+          "E-mail: " + mail,
+          (payload.telefoon ? "Telefoon: " + payload.telefoon : null),
+          "Datum: " + (payload.datum || "-"),
+          "Act: " + (payload.act || "-"),
+          "Locatie: " + (payload.locatie || "-"),
+          "Ruimte: " + (payload.ruimte || "-"),
+          "", String(payload.bericht || "")
+        ].filter((l) => l !== null).join("\n");
+
+        status.innerHTML =
+          "Versturen lukte net niet &mdash; " +
+          '<a href="mailto:nuno@vuurspuwer.com?subject=' +
+          encodeURIComponent("Aanvraag " + naam) + "&body=" + encodeURIComponent(body) +
+          '">stuur je aanvraag via je eigen mailprogramma</a> of ' +
+          '<a href="https://wa.me/31620020723?text=' + encodeURIComponent(body) +
+          '" rel="noopener">app hem via WhatsApp</a>.';
+      } finally {
+        if (knop) knop.disabled = false;
+      }
     });
   }
 

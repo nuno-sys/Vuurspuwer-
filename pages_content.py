@@ -533,13 +533,14 @@ CONTACT_FORM = '''
       </div>
       <label class="field"><span>Locatie</span><input type="text" name="locatie" placeholder="Plaats of zaal, bijv. Utrecht of De Vereeniging"></label>
       <label class="field"><span>Vertel kort over het evenement</span><textarea name="bericht" rows="4" placeholder="Bijv. bedrijfsfeest voor 80 personen, show rond 21:00 uur"></textarea></label>
+      <label class="hp" aria-hidden="true"><span>Website</span><input type="text" name="website" tabindex="-1" autocomplete="off"></label>
 
       <div class="status" id="formStatus" hidden role="status"></div>
 
       <div>
         <button class="btn" type="submit"><span class="btn__dot"></span>Verstuur aanvraag</button>
       </div>
-      <p class="form__note">Dit formulier opent je aanvraag in je eigen mailprogramma &mdash; of app <a href="https://wa.me/31620020723" rel="noopener">direct via WhatsApp</a>.</p>
+      <p class="form__note">Je ontvangt direct een bevestiging per e-mail &mdash; en binnen 24 uur een persoonlijke reactie.</p>
     </form>
   </div>
 </section>

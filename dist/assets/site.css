@@ -2075,3 +2075,18 @@ box-shadow:0 0 0 3px rgba(5,3,2,.85), 0 10px 30px -8px rgba(255,90,10,.7);}
 .burger[aria-expanded="true"] i{ background:transparent; }
 @media (prefers-reduced-motion:reduce){
 .nav__call::after, .burger::after{ animation:none; transform:translateX(-26%); }}
+.hp{
+position:absolute !important;
+left:-9999px !important;
+width:1px; height:1px;
+overflow:hidden;
+opacity:0;
+pointer-events:none;}
+.field > span,
+.form__note,
+.contact__line .eyebrow{
+--burn-a:var(--ink-dim);
+--burn-b:var(--ink-dim);
+color:var(--ink-dim);}
+.field input::placeholder,
+.field textarea::placeholder{ color:#9a8a7a; opacity:1; }

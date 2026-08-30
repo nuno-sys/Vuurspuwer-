@@ -220,10 +220,14 @@ def render(p, kind, extra_schema=None, extra_html=""):
     crumb_html, crumb_data = crumbs(trail)
 
     # een korte eigen intro: de eerste alinea, tenzij die de titel herhaalt
-    first = re.search(r"<p>(.*?)</p>", p["body"], re.S)
-    intro = text_of(first.group(1), 190) if first else ""
-    if intro and intro.lower().startswith(p["title"][:24].lower()):
-        intro = ""
+    # (of de pagina er expliciet géén wil, zoals de contactpagina)
+    if "intro" in p:
+        intro = p["intro"]
+    else:
+        first = re.search(r"<p>(.*?)</p>", p["body"], re.S)
+        intro = text_of(first.group(1), 190) if first else ""
+        if intro and intro.lower().startswith(p["title"][:24].lower()):
+            intro = ""
 
     if p.get("img"):
         iu, ia = p["img"]
@@ -494,6 +498,7 @@ for slug in KEEP_PAGES:
              "seo_title": "\U0001F525 Contact | Vuurspuwer Nuno boeken — binnen 24 uur antwoord",
              "seo_desc": "Vuurshow, fakirshow of workshop boeken? Bel, app of mail Nuno, of stuur het aanvraagformulier met datum en locatie. Binnen 24 uur een vrijblijvende offerte.",
              "body": PC.contact_body(),
+             "intro": "",  # geen tekst in de paginakop; de uitleg staat in de pagina zelf
              "eyebrow": "Contact",
              "img": ("/assets/media/themafeest-1080.webp",
                      "Vuurspuwer bij een vintage bus tijdens een themafeest in de avond")}
