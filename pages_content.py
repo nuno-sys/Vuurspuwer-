@@ -502,6 +502,7 @@ CONTACT_FORM = '''
     </div>
 
     <form class="form rise" data-delay="1" id="bookForm" novalidate>
+      <input type="hidden" name="lang" value="nl">
       <div class="form__row">
         <label class="field"><span>Naam</span><input type="text" name="naam" autocomplete="name" required></label>
         <label class="field"><span>E-mail</span><input type="email" name="email" autocomplete="email" required></label>

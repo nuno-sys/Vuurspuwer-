@@ -439,7 +439,9 @@
       burger.setAttribute("aria-expanded", String(open));
       burger.setAttribute("aria-label", open ? "Menu sluiten" : "Menu openen");
       const btxt = burger.querySelector(".burger__txt");
-      if (btxt) btxt.textContent = open ? "Sluit" : "Menu";
+      if (btxt) btxt.textContent = open
+        ? (burger.dataset.txtOpen || "Sluit")
+        : (burger.dataset.txtClosed || "Menu");
       document.body.classList.toggle("is-locked", open);
     };
 
@@ -987,7 +989,8 @@
       status.hidden = false;
 
       if (!naam || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)) {
-        status.textContent = "Vul je naam en een geldig e-mailadres in, dan kan ik reageren.";
+        status.textContent = form.dataset.msgInvalid ||
+          "Vul je naam en een geldig e-mailadres in, dan kan ik reageren.";
         (naam ? form.querySelector('[name="email"]') : form.querySelector('[name="naam"]')).focus();
         return;
       }
@@ -997,7 +1000,7 @@
 
       const knop = form.querySelector('button[type="submit"]');
       if (knop) knop.disabled = true;
-      status.textContent = "Versturen…";
+      status.textContent = form.dataset.msgBusy || "Versturen…";
 
       try {
         const r = await fetch("/api/contact", {
@@ -1008,9 +1011,9 @@
         const uit = await r.json().catch(() => ({}));
         if (!r.ok || !uit.ok) throw new Error("send");
 
-        status.innerHTML =
-          "\u{1F525} Gelukt &mdash; je aanvraag is verstuurd! Je ontvangt direct " +
-          "een bevestiging per e-mail en ik reageer <b>binnen 24 uur</b>.";
+        status.innerHTML = form.dataset.msgOk ||
+          ("\u{1F525} Gelukt &mdash; je aanvraag is verstuurd! Je ontvangt direct " +
+           "een bevestiging per e-mail en ik reageer <b>binnen 24 uur</b>.");
         form.reset();
       } catch {
         /* vangnet: lukt het versturen niet (offline, of de mailfunctie is
@@ -1026,13 +1029,16 @@
           "", String(payload.bericht || "")
         ].filter((l) => l !== null).join("\n");
 
-        status.innerHTML =
-          "Versturen lukte net niet &mdash; " +
-          '<a href="mailto:nuno@vuurspuwer.com?subject=' +
-          encodeURIComponent("Aanvraag " + naam) + "&body=" + encodeURIComponent(body) +
-          '">stuur je aanvraag via je eigen mailprogramma</a> of ' +
-          '<a href="https://wa.me/31620020723?text=' + encodeURIComponent(body) +
-          '" rel="noopener">app hem via WhatsApp</a>.';
+        const mailHref = "mailto:nuno@vuurspuwer.com?subject=" +
+          encodeURIComponent("Aanvraag " + naam) + "&body=" + encodeURIComponent(body);
+        const waHref = "https://wa.me/31620020723?text=" + encodeURIComponent(body);
+        status.innerHTML = form.dataset.msgFail
+          ? form.dataset.msgFail +
+            ' <a href="' + mailHref + '">E-mail →</a> &middot; ' +
+            '<a href="' + waHref + '" rel="noopener">WhatsApp →</a>'
+          : "Versturen lukte net niet &mdash; " +
+            '<a href="' + mailHref + '">stuur je aanvraag via je eigen mailprogramma</a> of ' +
+            '<a href="' + waHref + '" rel="noopener">app hem via WhatsApp</a>.';
       } finally {
         if (knop) knop.disabled = false;
       }
@@ -1104,7 +1110,9 @@
         } catch (e) { open = true; }
         wa.classList.toggle("is-online", open);
         const st = $("#waStatus");
-        if (st) st.textContent = open ? "Online" : "Reageert snel";
+        if (st) st.textContent = open
+          ? (wa.dataset.online || "Online")
+          : (wa.dataset.offline || "Reageert snel");
       };
       setStatus();
       setInterval(setStatus, 60000);

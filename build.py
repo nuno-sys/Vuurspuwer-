@@ -11,6 +11,7 @@ from datetime import date
 from html.parser import HTMLParser
 
 import pages_content as PC
+import i18n as I
 
 TODAY = date.today().isoformat()
 MONTHS_NL = ["", "januari", "februari", "maart", "april", "mei", "juni", "juli",
@@ -210,15 +211,141 @@ def crumbs(items):
                                 for k, (n, u) in enumerate(items)]}
     return f'<nav class="crumbs" aria-label="Kruimelpad"><ol>{li}</ol></nav>', data
 
-def render(p, kind, extra_schema=None, extra_html=""):
+# --------------------------------------------- meertalige chrome en helpers
+# vertaalde kop- en voetstukken: de NL-blokken uit index.html met de
+# menulinks, labels en teksten omgezet per taal. Alles wat geen eigen
+# vertaling heeft, blijft gewoon naar de NL-pagina wijzen.
+_FOOTER_LABELS = {
+ "en": {">Reptielenshow<": ">Reptile show<", ">Workshop vuurspuwen<": ">Fire-breathing workshop<",
+        ">Mentalisme<": ">Mentalism<", ">Themafeesten<": ">Theme parties<",
+        ">Over Nuno<": ">About Nuno<", ">Beoordelingen<": ">Reviews<", ">Locaties<": ">Locations<",
+        ">Aanvraagformulier<": ">Request form<", ">Algemene voorwaarden<": ">Terms &amp; conditions<",
+        ">Privacybeleid<": ">Privacy policy<", "<h2>Shows</h2>": "<h2>Shows</h2>",
+        "<h2>Site</h2>": "<h2>Site</h2>", "<h2>Contact</h2>": "<h2>Contact</h2>",
+        ">Foto&rsquo;s<": ">Photos<", ">Video&rsquo;s<": ">Videos<",
+        "Nederland, Belgi&euml; &amp; internationaal": "Netherlands, Belgium &amp; international"},
+ "de": {">Reptielenshow<": ">Reptilienshow<", ">Workshop vuurspuwen<": ">Feuerspucker-Workshop<",
+        ">Mentalisme<": ">Mentalismus<", ">Themafeesten<": ">Mottopartys<",
+        ">Over Nuno<": ">Über Nuno<", ">Beoordelingen<": ">Bewertungen<", ">Locaties<": ">Standorte<",
+        ">Aanvraagformulier<": ">Anfrageformular<", ">Algemene voorwaarden<": ">AGB<",
+        ">Privacybeleid<": ">Datenschutz<", "<h2>Shows</h2>": "<h2>Shows</h2>",
+        "<h2>Site</h2>": "<h2>Website</h2>", "<h2>Contact</h2>": "<h2>Kontakt</h2>",
+        ">Foto&rsquo;s<": ">Fotos<", ">Video&rsquo;s<": ">Videos<",
+        "Nederland, Belgi&euml; &amp; internationaal": "Niederlande, Belgien &amp; international"},
+ "fr": {">Reptielenshow<": ">Spectacle de reptiles<", ">Workshop vuurspuwen<": ">Atelier cracheur de feu<",
+        ">Mentalisme<": ">Mentalisme<", ">Themafeesten<": ">Fêtes à thème<",
+        ">Over Nuno<": ">À propos de Nuno<", ">Beoordelingen<": ">Avis<", ">Locaties<": ">Villes<",
+        ">Aanvraagformulier<": ">Formulaire de demande<", ">Algemene voorwaarden<": ">Conditions générales<",
+        ">Privacybeleid<": ">Confidentialité<", "<h2>Shows</h2>": "<h2>Spectacles</h2>",
+        "<h2>Site</h2>": "<h2>Site</h2>", "<h2>Contact</h2>": "<h2>Contact</h2>",
+        ">Foto&rsquo;s<": ">Photos<", ">Video&rsquo;s<": ">Vidéos<",
+        "Nederland, Belgi&euml; &amp; internationaal": "Pays-Bas, Belgique &amp; international"},
+}
+_WA_TEXT = {
+ "en": "Hello%20Nuno%2C%20I%20have%20a%20question%20about%20a%20booking",
+ "de": "Hallo%20Nuno%2C%20ich%20habe%20eine%20Frage%20zu%20einer%20Buchung",
+ "fr": "Bonjour%20Nuno%2C%20j%27ai%20une%20question%20concernant%20une%20r%C3%A9servation",
+}
+_WA_ARIA = {"en": "Chat with Nuno on WhatsApp", "de": "Mit Nuno auf WhatsApp chatten",
+            "fr": "Discuter avec Nuno sur WhatsApp"}
+_BRAND_ARIA = {"en": "Fire breather Nuno, to the homepage", "de": "Feuerspucker Nuno, zur Startseite",
+               "fr": "Cracheur de feu Nuno, vers l'accueil"}
+_CALL_ARIA = {"en": "Call Nuno on +31 6 200 207 23", "de": "Nuno anrufen unter +31 6 200 207 23",
+              "fr": "Appeler Nuno au +31 6 200 207 23"}
+
+_CHROME_CACHE = {}
+def chrome(lang):
+    """(header, footer) voor een taal; NL is het origineel."""
+    if lang == "nl":
+        return HEADER, FOOTER
+    if lang in _CHROME_CACHE:
+        return _CHROME_CACHE[lang]
+    L = I.UI[lang]; M = L["menu"]
+    h, f = HEADER, FOOTER
+    # paginalinks naar de vertaalde tegenhangers (header, menu én footer)
+    for nl_slug in I.SLUGS:
+        if nl_slug == "": continue
+        h = h.replace(f'href="/{nl_slug}/"', f'href="{I.url_of(lang, nl_slug)}"')
+        f = f.replace(f'href="/{nl_slug}/"', f'href="{I.url_of(lang, nl_slug)}"')
+    h = h.replace('href="/"', f'href="/{lang}/"')
+    h = h.replace('href="/#top"', f'href="/{lang}/"')
+    # zichtbare labels
+    lbl = {">Home<": f'>{M["home"]}<', ">Foto's<": f'>{M["fotos"]}<', ">Video's<": f'>{M["videos"]}<',
+           ">Vuurshow<": f'>{M["vuurshow"]}<', ">Workshop<": f'>{M["workshop"]}<',
+           ">Fakirshow<": f'>{M["fakirshow"]}<', ">Contact<": f'>{M["contact"]}<',
+           ">Reviews<": f'>{M["reviews"]}<',
+           ">Offerte aanvragen<": f'>{L["offerte"]}<',
+           '<span class="burger__txt">Menu</span>': f'<span class="burger__txt">{L["menu_btn"]}</span>',
+           'aria-label="Vuurspuwer Nuno, naar de homepagina"': f'aria-label="{_BRAND_ARIA[lang]}"',
+           'aria-label="4,9 van de 5 sterren uit 134 reviews — lees de beoordelingen"': f'aria-label="{L["stars_label"]}"',
+           '4.9 &middot; 134 reviews': L["stars_txt"].replace("·", "&middot;"),
+           'aria-label="Bel Nuno op +31 6 200 207 23"': f'aria-label="{_CALL_ARIA[lang]}"',
+           'aria-label="Menu openen"': f'aria-label="{L["menu_btn"]}"',
+           'data-i18n-open="Menu"': "",
+           }
+    for a, b in lbl.items(): h = h.replace(a, b)
+    h = h.replace("Nederland, Belgi&euml; &amp; internationaal",
+                  _FOOTER_LABELS[lang]["Nederland, Belgi&euml; &amp; internationaal"])
+    # de burger wisselt open/dicht-tekst via data-attributen
+    h = h.replace('<button class="burger"',
+                  f'<button class="burger" data-txt-open="{L["close_btn"]}" data-txt-closed="{L["menu_btn"]}"')
+    for a, b in _FOOTER_LABELS[lang].items(): f = f.replace(a, b)
+    f = f.replace(">Vuurshow<", f'>{M["vuurshow"]}<')
+    f = f.replace(">Fakirshow<", f'>{M["fakirshow"]}<')
+    f = f.replace('href="/"', f'href="/{lang}/"')
+    # WhatsApp-knop: taalversie van tekst, label en statuswoorden
+    f = f.replace("Hallo%20Nuno%2C%20ik%20heb%20een%20vraag%20over%20een%20boeking", _WA_TEXT[lang])
+    f = f.replace('aria-label="Chat met Nuno op WhatsApp"', f'aria-label="{_WA_ARIA[lang]}"')
+    f = f.replace('<a class="wa" ', f'<a class="wa" data-online="{L["wa_status_on"]}" data-offline="{L["wa_status_off"]}" ')
+    f = f.replace('>Online</b>', f'>{L["wa_status_on"]}</b>')
+    _CHROME_CACHE[lang] = (h, f)
+    return h, f
+
+def alternates_for(nl_slug):
+    return {l: I.url_of(l, nl_slug) for l in ("nl", "en", "de", "fr")}
+
+def regio_alternates(nl_city):
+    """hreflang voor een NL-stadspagina met een Duitse of Franse versie."""
+    for lang, mapping in I.REGIO_SLUGS.items():
+        if nl_city in mapping:
+            return {"nl": f"/{nl_city}/", lang: f"/{lang}/{mapping[nl_city]}/"}
+    return None
+
+def lang_row(lang, alternates):
+    """De taalkeuze in de footer: linkt naar déze pagina in elke taal."""
+    parts = []
+    for l in ("nl", "en", "de", "fr"):
+        href = (alternates or {}).get(l) or ("/" if l == "nl" else f"/{l}/")
+        name = I.LANG_NAMES[l]
+        if l == lang:
+            parts.append(f'<b aria-current="true">{name}</b>')
+        else:
+            parts.append(f'<a href="{href}" hreflang="{l}" lang="{l}">{name}</a>')
+    return ('<div class="foot__langs">\U0001F310 ' + " &middot; ".join(parts) + "</div>")
+
+def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alternates=None):
+    L = I.UI[lang]
     title = p["seo_title"] or f'{p["title"]} | Vuurspuwer Nuno'
     desc  = p["seo_desc"] or text_of(p["body"], 155)
-    url   = f'{SITE}/{p["slug"]}/'
-    trail = [("Home", "/")]
+    path  = path or (f'/{p["slug"]}/' if p["slug"] else "/")
+    url   = SITE + path
+    home  = "/" if lang == "nl" else f"/{lang}/"
+    trail = [(L["crumb_home"], home)]
     if kind == "post":   trail.append(("Blog", "/blog/"))
-    elif kind == "city": trail.append(("Locaties", "/locaties-vuurshows-nederland-belgie/"))
+    elif kind == "city" and lang == "nl":
+        trail.append(("Locaties", "/locaties-vuurshows-nederland-belgie/"))
     trail.append((p["title"], None))
     crumb_html, crumb_data = crumbs(trail)
+
+    # hreflang-verwijzingen tussen de taalversies van deze pagina
+    hreflang = ""
+    if alternates:
+        for l in ("nl", "en", "de", "fr"):
+            if l in alternates:
+                hreflang += f'<link rel="alternate" hreflang="{l}" href="{SITE}{alternates[l]}">\n'
+        hreflang += f'<link rel="alternate" hreflang="x-default" href="{SITE}{alternates["nl"]}">'
+    HDR, FTR = chrome(lang)
+    FTR = FTR.replace('<div class="foot__bar">', lang_row(lang, alternates) + '\n  <div class="foot__bar">')
 
     # een korte eigen intro: de eerste alinea, tenzij die de titel herhaalt
     # (of de pagina er expliciet géén wil, zoals de contactpagina)
@@ -250,8 +377,8 @@ def render(p, kind, extra_schema=None, extra_html=""):
     # De kop van elke pagina: de uitgelichte foto beeldvullend, tot achter
     # het menu, en nooit bijgesneden — de foto zelf past er volledig in
     # (contain), met dezelfde foto wazig als decor eromheen (cover).
-    eyebrow = p.get("eyebrow") or ("Vuurshow op locatie" if kind == "city"
-                                   else "Blog" if kind == "post" else "Vuurspuwer Nuno")
+    eyebrow = p.get("eyebrow") or ("Vuurshow op locatie" if kind == "city" and lang == "nl"
+                                   else "Blog" if kind == "post" else L["eyebrow_default"])
     preload = ""
     if p.get("img"):
         iu, ia = p["img"]
@@ -292,7 +419,7 @@ def render(p, kind, extra_schema=None, extra_html=""):
     ld = "\n".join(f'<script type="application/ld+json">{json.dumps(g, ensure_ascii=False)}</script>' for g in graph)
 
     return f'''<!doctype html>
-<html lang="nl">
+<html lang="{I.HTML_LANG[lang]}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -301,6 +428,7 @@ def render(p, kind, extra_schema=None, extra_html=""):
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{url}">
+{hreflang}
 <meta property="og:type" content="{'article' if kind == 'post' else 'website'}">
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(desc)}">
@@ -316,8 +444,8 @@ def render(p, kind, extra_schema=None, extra_html=""):
 {ld}
 </head>
 <body>
-<a class="skip" href="#top">Naar de inhoud</a>
-{IGNITION}{STAGE}{HEADER}
+<a class="skip" href="#top">{L.get("skip", "Naar de inhoud")}</a>
+{IGNITION}{STAGE}{HDR}
 <main class="shell" id="top">
   {hero}
 
@@ -328,16 +456,16 @@ def render(p, kind, extra_schema=None, extra_html=""):
   </div>
 {extra_html}
   <section class="wrap bay cta">
-    <h2 class="bay__title">Check je <em>datum</em></h2>
-    <p class="lede">Bel of app even, dan weet je binnen een minuut of het kan.</p>
+    <h2 class="bay__title">{L["cta_title"]}</h2>
+    <p class="lede">{L["cta_lede"]}</p>
     <div class="hero__actions">
       <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
-      <a class="btn btn--ghost" href="https://wa.me/31620020723">WhatsApp direct</a>
-      <a class="btn btn--ghost" href="/contact-3/">Stuur een aanvraag</a>
+      <a class="btn btn--ghost" href="https://wa.me/31620020723">{L["cta_whatsapp"]}</a>
+      <a class="btn btn--ghost" href="{I.url_of(lang, "contact-3")}">{L["cta_form"]}</a>
     </div>
   </section>
 </main>
-{FOOTER}
+{FTR}
 <script src="/assets/site.js?v={VER}" defer></script>
 </body>
 </html>
@@ -441,7 +569,8 @@ for slug in CITIES:
            "provider": {"@id": f"{SITE}/#business"},
            "areaServed": {"@type": "City", "name": city},
            "url": f"{SITE}/{slug}/"}
-    write(slug, render(p, "city", svc, near)); built.append(slug)
+    write(slug, render(p, "city", svc, near, alternates=regio_alternates(slug)))
+    built.append(slug)
 
 posts = [p for p in pages.values() if p["kind"] == "post"]
 for p in posts:
@@ -453,6 +582,8 @@ for p in posts:
 for slug in KEEP_PAGES:
     p = pages.get(slug)
     if not p: missing.append(slug); continue
+    # taalversies (en/de/fr) verwijzen naar elkaar via hreflang
+    alts = alternates_for(slug) if slug in I.SLUGS else None
     if slug == "videos":
         p = {**p, "title": "Video's van de shows",
              "seo_title": "Video's | Vuurshow & fakirshow in actie | Vuurspuwer Nuno",
@@ -461,7 +592,7 @@ for slug in KEEP_PAGES:
              "eyebrow": "Video's",
              "img": ("/assets/media/reel-1-poster.webp",
                      "Vuurspuwer Nuno tijdens een vuurshow op locatie")}
-        write(slug, render(p, "page", PC.videos_schema()))
+        write(slug, render(p, "page", PC.videos_schema(), alternates=alts))
         built.append(slug); continue
     if slug in PC.SHOW_PAGES:
         sp = PC.SHOW_PAGES[slug]
@@ -472,7 +603,7 @@ for slug in KEEP_PAGES:
         if sp["fotos"]:
             extra += ('<section class="wrap bay"><div class="prose--page" style="max-width:none">'
                       + PC._fotorij(sp["fotos"]) + "</div></section>")
-        write(slug, render(p, "page", PC.show_schema(slug, sp), extra))
+        write(slug, render(p, "page", PC.show_schema(slug, sp), extra, alternates=alts))
         built.append(slug); continue
     if slug == "fotos":
         p = {**p, "title": "Foto's van de shows",
@@ -482,7 +613,7 @@ for slug in KEEP_PAGES:
              "eyebrow": "Foto's",
              "img": ("/assets/media/festival-1600.webp",
                      "Vuurspuwer Nuno spuwt een vuurbal op een festivalplein")}
-        write(slug, render(p, "page", fotos_schema()))
+        write(slug, render(p, "page", fotos_schema(), alternates=alts))
         built.append(slug); continue
     if slug == "beoordelingen":
         p = {**p, "title": "4,9 uit 134 beoordelingen",
@@ -492,7 +623,7 @@ for slug in KEEP_PAGES:
              "eyebrow": "Beoordelingen",
              "img": ("/assets/media/festival-1600.webp",
                      "Vuurspuwer Nuno spuwt een vuurbal op een festivalplein voor een groot publiek")}
-        write(slug, render(p, "page", PC.reviews_schema()))
+        write(slug, render(p, "page", PC.reviews_schema(), alternates=alts))
         built.append(slug); continue
     if slug == "contact-3":
         p = {**p, "title": "Samenwerken met Nuno? Check je datum",
@@ -503,7 +634,7 @@ for slug in KEEP_PAGES:
              "eyebrow": "Contact",
              "img": ("/assets/media/themafeest-1080.webp",
                      "Vuurspuwer bij een vintage bus tijdens een themafeest in de avond")}
-        write(slug, render(p, "page", PC.contact_schema(), PC.CONTACT_FORM))
+        write(slug, render(p, "page", PC.contact_schema(), PC.CONTACT_FORM, alternates=alts))
         built.append(slug); continue
     if slug == "blog":
         cards = []
@@ -541,9 +672,9 @@ for slug in KEEP_PAGES:
              "eyebrow": "Blog",
              "img": ("/assets/media/post-cover.webp",
                      "Vuurspuwer Nuno met een metershoge vuurbal tegen een zwarte nachtlucht")}
-        write(slug, render(p, "page", blog_ld))
+        write(slug, render(p, "page", blog_ld, alternates=alts))
         built.append(slug); continue
-    write(slug, render(p, "page")); built.append(slug)
+    write(slug, render(p, "page", alternates=alts)); built.append(slug)
 
 hp = PC.SHOW_PAGES["halloween"]
 p = {"slug": "halloween", "kind": "page", "title": hp["title"],
@@ -552,8 +683,250 @@ p = {"slug": "halloween", "kind": "page", "title": hp["title"],
 extra = PC.show_faq_html(hp)
 extra += ('<section class="wrap bay"><div class="prose--page" style="max-width:none">'
           + PC._fotorij(hp["fotos"]) + "</div></section>")
-write("halloween", render(p, "page", PC.show_schema("halloween", hp), extra))
+write("halloween", render(p, "page", PC.show_schema("halloween", hp), extra,
+                          alternates=alternates_for("halloween")))
 built.append("halloween")
+
+# ------------------------------------------------- vertaalde pagina's
+# Engels, Duits en Frans: alles wat in het menu staat, plus de Duitse
+# en Franstalige regiopagina's. hreflang verbindt de taalversies.
+FAQ_HEAD = {
+ "nl": ("Veelgestelde vragen", "Eerst even <em>zeker weten</em>"),
+ "en": ("Frequently asked questions", "Good to <em>know first</em>"),
+ "de": ("Häufige Fragen", "Vorab <em>gut zu wissen</em>"),
+ "fr": ("Questions fréquentes", "Bon à <em>savoir</em>"),
+}
+FOTORIJ_HEAD = {"en": "Photos from the show", "de": "Fotos aus der Show", "fr": "Photos du spectacle"}
+
+def lang_faq_html(lang, faq):
+    if not faq: return ""
+    eye, tit = FAQ_HEAD[lang]
+    items = "".join(f'<details class="faq__item"><summary>{q}</summary><p>{a}</p></details>'
+                    for q, a in faq)
+    return ('<section class="wrap bay">'
+            f'<div class="bay__head"><p class="eyebrow eyebrow--dim rise">{eye}</p>'
+            f'<h2 class="bay__title rise" data-delay="1">{tit}</h2></div>'
+            f'<div class="faq">{items}</div></section>')
+
+def lang_fotorij(lang, items):
+    tiles = []
+    for thumb, full, w, h, cap, alt in items:
+        ss = PC._srcset(thumb)
+        ss_attr = f' srcset="{ss}" sizes="(max-width:760px) 46vw, 31vw"' if ss else ""
+        tiles.append(f'<a href="/assets/media/{full}" data-lightbox data-cap="{esc(cap)}">'
+                     f'<img src="/assets/media/{thumb}"{ss_attr} width="{w}" height="{h}" loading="lazy" '
+                     f'decoding="async" alt="{esc(alt)}"></a>')
+    return f'<h2>{FOTORIJ_HEAD[lang]}</h2><div class="fgrid">{"".join(tiles)}</div>'
+
+def lang_schema(lang, path, T, kind="page"):
+    """WebPage + eventuele Service/FAQ met inLanguage voor een taalpagina."""
+    url = SITE + path
+    out = [{"@context": "https://schema.org", "@type": "WebPage",
+            "@id": url + "#page", "url": url, "name": T["title"],
+            "inLanguage": I.HTML_LANG[lang],
+            "about": {"@id": f"{SITE}/#business"}}]
+    svc = T.get("service")
+    if svc:
+        out.append({"@context": "https://schema.org", "@type": "Service",
+                    "@id": url + "#service", "name": svc["name"],
+                    "serviceType": svc["type"], "description": svc["desc"],
+                    "url": url, "inLanguage": I.HTML_LANG[lang],
+                    "image": SITE + T["img"][0],
+                    "provider": {"@id": f"{SITE}/#business"},
+                    "areaServed": [{"@type": "Country", "name": "Nederland"},
+                                   {"@type": "Country", "name": "België"},
+                                   {"@type": "Country", "name": "Deutschland"}],
+                    **({"offers": svc["offers"]} if "offers" in svc else {})})
+    if T.get("faq"):
+        out.append({"@context": "https://schema.org", "@type": "FAQPage",
+                    "inLanguage": I.HTML_LANG[lang],
+                    "mainEntity": [{"@type": "Question", "name": q,
+                                    "acceptedAnswer": {"@type": "Answer", "text": a}}
+                                   for q, a in T["faq"]]})
+    return out
+
+def lang_contact_form(lang):
+    F = I.FORM[lang]
+    C = I.PAGES[lang]["contact-3"]["contact_labels"]
+    shows = "".join(f"<option>{o}</option>" for o in F["opts_show"])
+    ruimte = "".join(f"<option>{o}</option>" for o in F["opts_ruimte"])
+    return f'''
+<section class="wrap bay" aria-label="{C["wa"]} / {C["mail"]}">
+  <div class="book">
+    <div class="contact rise">
+      <div class="contact__line"><span class="eyebrow eyebrow--dim">{C["tel_head"]}</span>
+        <b><a href="tel:+31620020723">+31 6 200 207 23</a></b></div>
+      <div class="contact__line"><span class="eyebrow eyebrow--dim">{C["biz"]}</span>
+        <b><a href="tel:+31852033547">+31 85 203 35 47</a></b></div>
+      <div class="contact__line"><span class="eyebrow eyebrow--dim">{C["wa"]}</span>
+        <b><a href="https://wa.me/31620020723" rel="noopener">{C["wa_link"]}</a></b></div>
+      <div class="contact__line"><span class="eyebrow eyebrow--dim">{C["mail"]}</span>
+        <b><a href="mailto:nuno@vuurspuwer.com">nuno@vuurspuwer.com</a></b></div>
+      <div class="contact__line"><span class="eyebrow eyebrow--dim">{C["area"]}</span>
+        <b>{C["area_val"]}</b></div>
+      <p class="form__note">{C["note"]}</p>
+    </div>
+    <form class="form rise" data-delay="1" id="bookForm" novalidate
+          data-msg-busy="{esc(F["msg_busy"])}" data-msg-ok="{esc(F["msg_ok"])}"
+          data-msg-fail="{esc(F["msg_fail"])}" data-msg-invalid="{esc(F["msg_invalid"])}">
+      <input type="hidden" name="lang" value="{lang}">
+      <div class="form__row">
+        <label class="field"><span>{F["naam"]}</span><input type="text" name="naam" autocomplete="name" required></label>
+        <label class="field"><span>{F["email"]}</span><input type="email" name="email" autocomplete="email" required></label>
+      </div>
+      <div class="form__row">
+        <label class="field"><span>{F["tel"]}</span><input type="tel" name="telefoon" autocomplete="tel"></label>
+        <label class="field"><span>{F["datum"]}</span><input type="date" name="datum"></label>
+      </div>
+      <div class="form__row">
+        <label class="field"><span>{F["show"]}</span><select name="act">{shows}</select></label>
+        <label class="field"><span>{F["ruimte"]}</span><select name="ruimte">{ruimte}</select></label>
+      </div>
+      <label class="field"><span>{F["locatie"]}</span><input type="text" name="locatie" placeholder="{esc(F["locatie_ph"])}"></label>
+      <label class="field"><span>{F["bericht"]}</span><textarea name="bericht" rows="4" placeholder="{esc(F["bericht_ph"])}"></textarea></label>
+      <label class="hp" aria-hidden="true"><span>Website</span><input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+      <div class="status" id="formStatus" hidden role="status"></div>
+      <div><button class="btn" type="submit"><span class="btn__dot"></span>{F["submit"]}</button></div>
+      <p class="form__note">{F["note"]}</p>
+    </form>
+  </div>
+</section>
+'''
+
+def lang_reviews_body(lang):
+    T = I.PAGES[lang]["beoordelingen"]["texts"]
+    cards = "".join(
+        f'<article class="rcard" lang="nl"><p class="rcard__stars" aria-label="5/5">★★★★★</p>'
+        f'<blockquote><p>{t}</p></blockquote>'
+        f'<footer class="rcard__who">{n} <span>&middot; {c}</span></footer></article>'
+        for n, c, t in PC.REVIEWS)
+    return f'''
+<div class="rkop">
+  <span class="rkop__cijfer">4,9</span>
+  <div class="rkop__rechts">
+    <span class="rkop__sterren" aria-hidden="true">★★★★★</span>
+    <small>{T["based_on"]}</small>
+    <a href="{PC.GOOGLE_PROFILE}" rel="noopener">{T["google_link"]}</a>
+  </div>
+</div>
+<p>{T["intro"]}</p>
+<div class="rgrid">{cards}</div>
+<p>{T["outro_pre"]}<a href="{PC.GOOGLE_PROFILE}" rel="noopener">{T["outro_link"]}</a>{T["outro_post"]}<a href="{I.url_of(lang, "contact-3")}">{T["outro_cta"]}</a>.</p>
+'''
+
+def lang_fotos_body(lang):
+    T = I.PAGES[lang]["fotos"]
+    tiles = []
+    for name, thumb, full, w, h, _, _ in FOTOS:
+        cap, alt = T["captions"][name]
+        ss = srcset_of(f"/assets/media/{thumb}")
+        ss_attr = f' srcset="{ss}" sizes="(max-width:760px) 46vw, 31vw"' if ss else ""
+        tiles.append(f'<a href="/assets/media/{full}" data-lightbox data-cap="{esc(cap)}">'
+                     f'<img src="/assets/media/{thumb}"{ss_attr} width="{w}" height="{h}" '
+                     f'loading="lazy" decoding="async" alt="{esc(alt)}"></a>')
+    return T["intro_html"] + '<div class="fgrid">' + "".join(tiles) + "</div>"
+
+def lang_videos_body(lang):
+    T = I.PAGES[lang]["videos"]
+    tiles = []
+    for (src, poster, _, _, _), (cap, alt) in zip(PC.VIDEOS, T["vid_caps"]):
+        ratio = ' data-ratio="9/16"' if "portrait" in src else ""
+        tiles.append(f'''<figure class="reel rise"{ratio}>
+        <video muted loop playsinline preload="none" poster="/assets/media/{PC._poster(poster)}"
+               data-src="/assets/media/{src}" aria-label="{esc(alt)}"><track kind="captions" src="/assets/media/stil.vtt" srclang="nl" label="—"></video>
+        <button class="reel__play" type="button" aria-label="{esc(cap)}">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <figcaption class="reel__hud"><span>{esc(cap)}</span><span class="reel__time"></span></figcaption>
+      </figure>''')
+    return T["intro_html"] + '<div class="reels reels--page">' + "".join(tiles) + "</div>"
+
+def lang_home_body(lang):
+    T = I.PAGES[lang][""]; H = T["home"]
+    cards = []
+    for nl_slug, imgfile, name, desc, alt in H["cards"]:
+        ss = srcset_of(f"/assets/media/{imgfile}")
+        ss_attr = f' srcset="{ss}" sizes="(max-width:700px) 92vw, 340px"' if ss else ""
+        cards.append(
+            f'<article class="bcard"><a href="{I.url_of(lang, nl_slug)}">'
+            f'<img src="/assets/media/{imgfile}"{ss_attr} alt="{esc(alt)}" width="480" height="480" '
+            f'loading="lazy" decoding="async"><h2>{name}</h2></a><p>{desc}</p></article>')
+    why = "".join(f'<article class="rcard"><p class="rcard__stars" aria-hidden="true">\U0001F525</p>'
+                  f'<blockquote><p><strong>{t}</strong><br>{d}</p></blockquote></article>'
+                  for t, d in H["why"])
+    quotes = "".join(
+        f'<article class="rcard" lang="nl"><p class="rcard__stars" aria-label="5/5">★★★★★</p>'
+        f'<blockquote><p>&ldquo;{t}&rdquo;</p></blockquote>'
+        f'<footer class="rcard__who">{n} <span>&middot; {c}</span></footer></article>'
+        for n, c, t in PC.REVIEWS[:3])
+    return (H["intro"]
+            + f'<h2>{H["shows_head"]}</h2><div class="bloglist">{"".join(cards)}</div>'
+            + f'<h2>{H["why_head"]}</h2><div class="rgrid">{why}</div>'
+            + f'<h2>{H["reviews_head"]}</h2><div class="rgrid">{quotes}</div>'
+            + f'<p><a href="{I.url_of(lang, "beoordelingen")}">{H["reviews_link"]}</a></p>'
+            + f'<h2>{H["cta_head"]}</h2><p>{H["cta_text"]}</p>')
+
+LANG_ALTS = {}   # pad -> alternates, voor de sitemap
+for slug_nl in I.SLUGS:
+    alts = alternates_for(slug_nl)
+    for l, pth in alts.items():
+        LANG_ALTS[pth] = alts
+
+for lang in I.LANGS:
+    for nl_slug, T in sorted(I.PAGES[lang].items()):
+        path = I.url_of(lang, nl_slug)
+        alts = alternates_for(nl_slug)
+        out = path.strip("/")
+        p = {"slug": out, "title": T["title"], "seo_title": T["seo_title"],
+             "seo_desc": T["seo_desc"], "img": T["img"], "eyebrow": T["eyebrow"],
+             "date": TODAY, "body": T.get("body", "")}
+        extra_html, extra_ld = "", lang_schema(lang, path, T)
+        if nl_slug == "":
+            p["body"] = lang_home_body(lang)
+            extra_html = lang_faq_html(lang, T.get("faq")) + lang_contact_form(lang)
+        elif nl_slug == "fotos":
+            p["body"] = lang_fotos_body(lang)
+            p["intro"] = ""
+        elif nl_slug == "videos":
+            p["body"] = lang_videos_body(lang)
+            p["intro"] = ""
+        elif nl_slug == "contact-3":
+            p["intro"] = ""
+            extra_html = lang_contact_form(lang)
+        elif nl_slug == "beoordelingen":
+            p["body"] = lang_reviews_body(lang)
+            p["intro"] = ""
+            extra_ld = extra_ld + PC.reviews_schema()
+        else:
+            extra_html = lang_faq_html(lang, T.get("faq"))
+            if T.get("fotos"):
+                extra_html += ('<section class="wrap bay"><div class="prose--page" style="max-width:none">'
+                               + lang_fotorij(lang, T["fotos"]) + "</div></section>")
+        write(out, render(p, "page", extra_ld, extra_html,
+                          lang=lang, path=path, alternates=alts))
+        built.append(out)
+    # regiopagina's in de streektaal
+    for nl_city, R in I.REGIO_PAGES.get(lang, {}).items():
+        loc = I.REGIO_SLUGS[lang][nl_city]
+        path = f"/{lang}/{loc}/"
+        alts = {"nl": f"/{nl_city}/", lang: path}
+        LANG_ALTS[path] = alts
+        LANG_ALTS[f"/{nl_city}/"] = alts
+        iu, ia = I.REGIO_IMG[lang]
+        p = {"slug": f"{lang}/{loc}", "title": R["title"], "seo_title": R["seo_title"],
+             "seo_desc": R["seo_desc"], "img": (iu, ia),
+             "eyebrow": I.REGIO_EYEBROW[lang], "date": TODAY, "body": R["body"]}
+        svc = I.REGIO_SERVICE[lang](R["stad"])
+        ld = [{"@context": "https://schema.org", "@type": "Service",
+               "@id": SITE + path + "#service", "name": svc["name"],
+               "serviceType": svc["type"], "description": svc["desc"],
+               "url": SITE + path, "inLanguage": I.HTML_LANG[lang],
+               "provider": {"@id": f"{SITE}/#business"},
+               "areaServed": {"@type": "City", "name": R["stad"]}}]
+        write(f"{lang}/{loc}", render(p, "page", ld, "", lang=lang, path=path, alternates=alts))
+        built.append(f"{lang}/{loc}")
+print(f"  vertaalde pagina's: {sum(len(I.PAGES[l]) for l in I.LANGS)} + "
+      f"{sum(len(I.REGIO_PAGES[l]) for l in I.REGIO_PAGES)} regiopagina's (en/de/fr)")
 
 print(f"  {len(built)} pagina's gebouwd  ({len(CITIES)} steden, {len(posts)} blogposts)")
 if missing: print("  niet gevonden:", ", ".join(missing))
@@ -595,22 +968,40 @@ for slug in pages:
 open(os.path.join(OUT, "_redirects"), "w").write("\n".join(lines) + "\n")
 print(f"  _redirects: {len(lines)-2} regels ({dropped} stadspagina's naar de hub, {rest} overig)")
 
-# sitemap
-urls = [(SITE + "/", "1.0")] + [(f"{SITE}/{s}/", "0.8" if s in CITIES else "0.6") for s in sorted(kept)]
+# sitemap — met xhtml-alternates voor alle taalversies
+def _prio(s):
+    if s in CITIES: return "0.8"
+    if s.split("/")[0] in I.LANGS: return "0.7"
+    return "0.6"
+urls = [("/", "1.0")] + [(f"/{s}/", _prio(s)) for s in sorted(kept)]
 sm = ['<?xml version="1.0" encoding="UTF-8"?>',
-      '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
-for u, pr in urls:
-    sm.append(f"  <url><loc>{u}</loc><lastmod>{TODAY}</lastmod><priority>{pr}</priority></url>")
+      '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
+      'xmlns:xhtml="http://www.w3.org/1999/xhtml">']
+for pth, pr in urls:
+    entry = f"  <url><loc>{SITE}{pth}</loc><lastmod>{TODAY}</lastmod><priority>{pr}</priority>"
+    for l, alt in sorted((LANG_ALTS.get(pth) or {}).items()):
+        entry += f'<xhtml:link rel="alternate" hreflang="{l}" href="{SITE}{alt}"/>'
+    sm.append(entry + "</url>")
 sm.append("</urlset>")
 open(os.path.join(OUT, "sitemap.xml"), "w").write("\n".join(sm) + "\n")
 open(os.path.join(OUT, "robots.txt"), "w").write(
     f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
 print(f"  sitemap.xml: {len(urls)} adressen")
 
-# homepage en assets meenemen; ook daar de versie-stempel op css/js
+# homepage en assets meenemen; ook daar de versie-stempel op css/js,
+# de volledige hreflang-set en de taalkeuze in de footer
 hp_doc = open("index.html", encoding="utf-8").read()
 for a in ("assets/site.css", "assets/site.js", "assets/ga.js"):
     hp_doc = hp_doc.replace(f'"/{a}"', f'"/{a}?v={VER}"')
+home_alts = alternates_for("")
+hre = "".join(f'<link rel="alternate" hreflang="{l}" href="{SITE}{home_alts[l]}">\n'
+              for l in ("nl", "en", "de", "fr"))
+hp_doc = hp_doc.replace(
+    '<link rel="alternate" hreflang="nl" href="https://vuurspuwer.com/">\n'
+    '<link rel="alternate" hreflang="x-default" href="https://vuurspuwer.com/">',
+    hre + '<link rel="alternate" hreflang="x-default" href="https://vuurspuwer.com/">')
+hp_doc = hp_doc.replace('<div class="foot__bar">',
+                        lang_row("nl", home_alts) + '\n  <div class="foot__bar">')
 open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(hp_doc)
 shutil.copytree("assets", os.path.join(OUT, "assets"))
 

@@ -2119,3 +2119,18 @@ align-items:center;}
 .wa{
 animation:none;
 box-shadow:0 0 0 3px rgba(5,3,2,.9), 0 9px 32px rgba(0,0,0,.52), 0 0 34px rgba(255,135,28,.48);}
+.foot__langs{
+display:flex;
+flex-wrap:wrap;
+align-items:center;
+gap:.45rem;
+margin-top:clamp(1.2rem,3vw,2rem);
+padding-top:clamp(.9rem,2vw,1.3rem);
+border-top:1px solid var(--hairline);
+font-family:var(--f-mono);
+font-size:var(--t-xs);
+letter-spacing:.1em;
+color:var(--smoke);}
+.foot__langs a{ color:var(--ink-dim); text-decoration:underline; text-underline-offset:3px; }
+.foot__langs a:hover{ color:var(--flame); }
+.foot__langs b{ color:var(--flame); font-weight:600; }
