@@ -160,6 +160,15 @@ STAGE    = STAGE[:STAGE.index('<header class="nav"')]
 # op een onderliggende pagina wijzen de ankers terug naar de homepage
 HEADER   = HEADER.replace('href="#', 'href="/#')
 FOOTER   = chunk('<footer class="foot shell wrap">', '<script src="/assets/site.js"') 
+GTAG = """<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VBKVM99CPB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-VBKVM99CPB');
+</script>"""
 FONTS    = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">'
 
 def esc(t): return html.escape(t or "", quote=True)
@@ -230,6 +239,7 @@ def render(p, kind, extra_schema=None, extra_html=""):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0A0705">
+{GTAG}
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{url}">

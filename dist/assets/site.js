@@ -986,6 +986,30 @@
     const yr = $("#year");
     if (yr) yr.textContent = String(new Date().getFullYear());
 
+    /* WhatsApp-knop: online tijdens de echte openingstijden
+       (ma t/m za, 9:00-18:00, Nederlandse tijd), anders eerlijk
+       "reageert snel" met een gedoofde stip */
+    const wa = $(".wa");
+    if (wa) {
+      const setStatus = () => {
+        let open = false;
+        try {
+          const parts = new Intl.DateTimeFormat("nl-NL", {
+            timeZone: "Europe/Amsterdam", weekday: "short",
+            hour: "numeric", hour12: false
+          }).formatToParts(new Date());
+          const get = (t) => (parts.find((x) => x.type === t) || {}).value;
+          const day = get("weekday"), hour = parseInt(get("hour"), 10);
+          open = day !== "zo" && hour >= 9 && hour < 18;
+        } catch (e) { open = true; }
+        wa.classList.toggle("is-online", open);
+        const st = $("#waStatus");
+        if (st) st.textContent = open ? "Online" : "Reageert snel";
+      };
+      setStatus();
+      setInterval(setStatus, 60000);
+    }
+
     /* article images that have not moved over yet would show as broken
        icons; hide them until the uploads folder is in place */
     $$(".prose img, .lede-img img").forEach((img) => {
