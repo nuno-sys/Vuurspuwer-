@@ -1095,27 +1095,12 @@
     /* WhatsApp-knop: online tijdens de echte openingstijden
        (ma t/m za, 9:00-18:00, Nederlandse tijd), anders eerlijk
        "reageert snel" met een gedoofde stip */
+    /* WhatsApp is er altijd: groene stip aan, status op Online */
     const wa = $(".wa");
     if (wa) {
-      const setStatus = () => {
-        let open = false;
-        try {
-          const parts = new Intl.DateTimeFormat("nl-NL", {
-            timeZone: "Europe/Amsterdam", weekday: "short",
-            hour: "numeric", hour12: false
-          }).formatToParts(new Date());
-          const get = (t) => (parts.find((x) => x.type === t) || {}).value;
-          const day = get("weekday"), hour = parseInt(get("hour"), 10);
-          open = day !== "zo" && hour >= 9 && hour < 18;
-        } catch (e) { open = true; }
-        wa.classList.toggle("is-online", open);
-        const st = $("#waStatus");
-        if (st) st.textContent = open
-          ? (wa.dataset.online || "Online")
-          : (wa.dataset.offline || "Reageert snel");
-      };
-      setStatus();
-      setInterval(setStatus, 60000);
+      wa.classList.add("is-online");
+      const st = $("#waStatus");
+      if (st) st.textContent = wa.dataset.online || "Online";
     }
 
     /* photo grid: every picture opens full-size in a lightbox,
@@ -1197,4 +1182,130 @@
 
   /* safety net: if the loader never resolves, run anyway */
   setTimeout(start, 4200);
+})();
+
+/* ================================================================
+   Deelknop en mini-chat — los blok, draait na het hoofdscript.
+   Alles viertalig op basis van de paginataal, zonder extra verzoeken.
+   ================================================================ */
+(function () {
+  var $ = function (s, c) { return (c || document).querySelector(s); };
+  var lang = (document.documentElement.lang || "nl").slice(0, 2);
+
+  var T = {
+    nl: { share: "Deel deze pagina", native: "Delen…", mail: "E-mail", sms: "SMS",
+          groet: ["Goedenacht", "Goedemorgen", "Goedemiddag", "Goedenavond"],
+          msg: " 🔥 Brandende vraag? Stel hem hier gerust — ik reageer snel.",
+          cta: "Chat met Nuno", status: "Online",
+          prefill: "Hallo Nuno! Ik heb een vraag over " },
+    en: { share: "Share this page", native: "Share…", mail: "Email", sms: "SMS",
+          groet: ["Good night", "Good morning", "Good afternoon", "Good evening"],
+          msg: " 🔥 Burning question? Ask away — I reply quickly.",
+          cta: "Chat with Nuno", status: "Online",
+          prefill: "Hello Nuno! I have a question about " },
+    de: { share: "Diese Seite teilen", native: "Teilen…", mail: "E-Mail", sms: "SMS",
+          groet: ["Gute Nacht", "Guten Morgen", "Guten Tag", "Guten Abend"],
+          msg: " 🔥 Eine brennende Frage? Fragen Sie mich einfach — ich antworte schnell.",
+          cta: "Mit Nuno chatten", status: "Online",
+          prefill: "Hallo Nuno! Ich habe eine Frage zu " },
+    fr: { share: "Partager cette page", native: "Partager…", mail: "E-mail", sms: "SMS",
+          groet: ["Bonsoir", "Bonjour", "Bonjour", "Bonsoir"],
+          msg: " 🔥 Une question brûlante ? Posez-la ici — je réponds vite.",
+          cta: "Chatter avec Nuno", status: "En ligne",
+          prefill: "Bonjour Nuno ! J'ai une question concernant " },
+  };
+  var L = T[lang] || T.nl;
+
+  /* ------------------------------------------------ deelknop links */
+  var share = $("#share"), btn = $("#shareBtn"), panel = $("#sharePanel");
+  if (share && btn && panel) {
+    var url = location.href.split("#")[0];
+    var title = document.title;
+    var enc = encodeURIComponent;
+    btn.setAttribute("aria-label", L.share);
+    var items = panel.querySelectorAll(".share__item");
+    items.forEach(function (a) {
+      var k = a.dataset.share, span = a.querySelector("span");
+      if (k === "native") {
+        span.textContent = L.native;
+        if (navigator.share) {
+          a.hidden = false;
+          a.addEventListener("click", function (e) {
+            e.preventDefault();
+            navigator.share({ title: title, url: url }).catch(function () {});
+            close();
+          });
+        }
+      }
+      else if (k === "fb")   a.href = "https://www.facebook.com/sharer/sharer.php?u=" + enc(url);
+      else if (k === "msgr") a.href = "fb-messenger://share/?link=" + enc(url);
+      else if (k === "wa")   a.href = "https://wa.me/?text=" + enc(title + " " + url);
+      else if (k === "mail") { a.href = "mailto:?subject=" + enc(title) + "&body=" + enc(url); span.textContent = L.mail; }
+      else if (k === "sms")  { a.href = "sms:?&body=" + enc(title + " " + url); span.textContent = L.sms; }
+    });
+    var close = function () { panel.hidden = true; btn.setAttribute("aria-expanded", "false"); };
+    btn.addEventListener("click", function () {
+      var open = panel.hidden;
+      panel.hidden = !open;
+      btn.setAttribute("aria-expanded", String(open));
+    });
+    document.addEventListener("click", function (e) {
+      if (!share.contains(e.target)) close();
+    });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") close(); });
+  }
+
+  /* ------------------------------------------- mini-chat bij de wa */
+  var card = $("#chatCard"), face = $("#waFace"), msg = $("#chatMsg"),
+      cta = $("#chatCta"), ctaTxt = $("#chatCtaTxt"), status = $("#chatStatus");
+  if (!card || !msg) return;
+
+  if (ctaTxt) ctaTxt.textContent = L.cta;
+  if (status) status.textContent = L.status;
+  if (face) face.setAttribute("aria-label", L.cta);
+  if (cta) cta.href = "https://wa.me/31620020723?text=" +
+      encodeURIComponent(L.prefill + "…");
+
+  var shown = false;
+  function greeting() {
+    var h = new Date().getHours();
+    var deel = h < 6 ? 0 : h < 12 ? 1 : h < 18 ? 2 : 3;
+    return L.groet[deel] + "!" + L.msg;
+  }
+  function openChat(withTyping) {
+    if (shown) { card.hidden = false; requestAnimationFrame(function(){ card.classList.add("is-in"); }); return; }
+    shown = true;
+    card.hidden = false;
+    requestAnimationFrame(function () { card.classList.add("is-in"); });
+    var text = greeting();
+    if (!withTyping) { msg.textContent = text; return; }
+    /* even "typen", dan het bericht letter voor letter */
+    setTimeout(function () {
+      msg.textContent = "";
+      var i = 0;
+      (function tick() {
+        msg.textContent = text.slice(0, ++i);
+        if (i < text.length) setTimeout(tick, 18);
+      })();
+    }, 1300);
+  }
+  function closeChat() {
+    card.classList.remove("is-in");
+    setTimeout(function () { card.hidden = true; }, 450);
+    try { sessionStorage.setItem("chatweg", "1"); } catch (e) {}
+  }
+  var closeBtn = $("#chatClose");
+  if (closeBtn) closeBtn.addEventListener("click", closeChat);
+  if (face) face.addEventListener("click", function () {
+    if (card.hidden) openChat(true); else closeChat();
+  });
+
+  /* na 12 seconden vanzelf openen — één keer per sessie */
+  var auto = true;
+  try { auto = !sessionStorage.getItem("chatweg"); } catch (e) {}
+  if (auto) {
+    var arm = function () { setTimeout(function () { if (card.hidden) openChat(true); }, 12000); };
+    if (document.readyState === "complete") arm();
+    else addEventListener("load", arm, { once: true });
+  }
 })();
