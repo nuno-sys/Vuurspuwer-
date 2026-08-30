@@ -2,3 +2,4 @@
 node_modules/
 .wrangler/
 XML Sitemap*.xml
+__pycache__/
