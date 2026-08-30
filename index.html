@@ -214,31 +214,74 @@ button,input,select,textarea{ font:inherit; color:inherit; }
 }
 
 /* ============================================================
-   Ignition — page load sequence
+   Ignition — the logo burns in the middle, then flies to its
+   place in the header and cools down on the way. It leaves a
+   fire trail as it goes: the same trail the visitor is about
+   to draw with the poi.
    ============================================================ */
 #ignition{
   position:fixed;
   inset:0;
   z-index:200;
-  display:grid;
-  place-items:center;
   background:var(--soot-deep);
-  transition:opacity .7s var(--ease), visibility .7s;
+  transition:background-color .9s var(--ease), opacity .5s var(--ease), visibility .5s;
 }
+#ignition.is-open{ background-color:rgba(5,3,2,0); pointer-events:none; }
 #ignition.is-out{ opacity:0; visibility:hidden; }
 
-.ignition__mark{
-  width:clamp(64px,14vw,110px);
-  filter:drop-shadow(0 0 34px rgba(255,77,10,.65));
-  animation:flicker 1.6s ease-in-out infinite;
-}
-.ignition__bar{
+/* the flyer is positioned dead centre; JS animates it to the header */
+.ignition__flyer{
   position:absolute;
-  left:50%; bottom:14%;
+  top:50%; left:50%;
+  width:clamp(88px,19vw,168px);
+  aspect-ratio:1;
+  margin:0;
+  translate:-50% -50%;
+  will-change:transform,filter;
+  filter:drop-shadow(0 0 60px rgba(255,90,10,.75));
+}
+.ignition__mark{
+  width:100%;
+  height:100%;
+  animation:flicker 1.5s ease-in-out infinite;
+}
+
+.ignition__meter{
+  position:absolute;
+  left:50%;
+  top:calc(50% + clamp(76px,13vw,124px));
   translate:-50% 0;
-  width:min(240px,48vw);
+  width:min(280px,56vw);
+  display:grid;
+  gap:.7rem;
+  justify-items:center;
+  transition:opacity .5s var(--ease), transform .5s var(--ease);
+}
+.ignition__meter.is-done{ opacity:0; transform:translateY(10px); }
+
+.ignition__pct{
+  display:flex;
+  align-items:baseline;
+  gap:.15em;
+  font-family:var(--f-display);
+  font-variation-settings:"wdth" 116,"wght" 800;
+  font-size:clamp(1.9rem,5vw,2.8rem);
+  line-height:1;
+  letter-spacing:-.02em;
+  color:var(--core);
+  font-variant-numeric:tabular-nums;
+}
+.ignition__pct i{
+  font-style:normal;
+  font-size:.36em;
+  font-variation-settings:"wdth" 80,"wght" 600;
+  color:var(--ember);
+}
+
+.ignition__bar{
+  width:100%;
   height:2px;
-  background:rgba(255,243,214,.14);
+  background:rgba(255,243,214,.13);
   overflow:hidden;
 }
 .ignition__bar i{
@@ -246,16 +289,8 @@ button,input,select,textarea{ font:inherit; color:inherit; }
   height:100%;
   width:var(--p,0%);
   background:linear-gradient(90deg,var(--ember),var(--flame),var(--core));
-  transition:width .25s linear;
-}
-.ignition__pct{
-  position:absolute;
-  left:50%; bottom:calc(14% + 18px);
-  translate:-50% 0;
-  font-family:var(--f-mono);
-  font-size:var(--t-xs);
-  letter-spacing:.24em;
-  color:var(--smoke);
+  box-shadow:0 0 14px rgba(255,140,30,.9);
+  transition:width .07s linear;
 }
 
 @keyframes flicker{
@@ -264,6 +299,10 @@ button,input,select,textarea{ font:inherit; color:inherit; }
   50%    { opacity:1;   transform:scale(.985)   rotate(-.2deg); }
   75%    { opacity:.92; transform:scale(1.02)   rotate(.3deg); }
 }
+
+/* the header mark holds its breath until the flyer lands on it */
+.nav__brand .mark{ opacity:0; transition:opacity .45s var(--ease); }
+.nav__brand .mark.is-landed{ opacity:1; }
 
 /* ============================================================
    Logo mark
@@ -1250,22 +1289,45 @@ button,input,select,textarea{ font:inherit; color:inherit; }
 .rise[data-delay="4"]{ transition-delay:.36s; }
 .rise[data-delay="5"]{ transition-delay:.45s; }
 
-#spark{
+/* The poi canvas sits over everything but never intercepts a click.
+   It adds light rather than covering content, so a trail crossing a
+   headline brightens it instead of hiding it. */
+#poi{
   position:fixed;
-  top:0; left:0;
-  z-index:150;
-  width:26px; height:26px;
-  margin:-13px 0 0 -13px;
-  border-radius:50%;
+  inset:0;
+  z-index:120;
+  width:100%; height:100%;
   pointer-events:none;
   mix-blend-mode:screen;
-  background:radial-gradient(circle,rgba(255,176,32,.85) 0%,rgba(255,77,10,.35) 45%,transparent 70%);
-  opacity:0;
-  transition:opacity .3s ease, scale .3s var(--ease);
 }
-body.has-spark #spark{ opacity:1; }
-body.has-spark.spark-hot #spark{ scale:2.1; }
-@media (hover:none),(pointer:coarse){ #spark{ display:none; } }
+@media (prefers-reduced-motion:reduce){ #poi{ display:none; } }
+
+.poihint{
+  position:fixed;
+  left:50%; bottom:clamp(1rem,3vh,2rem);
+  translate:-50% 0;
+  z-index:121;
+  margin:0;
+  padding:.7em 1.2em;
+  border-radius:999px;
+  border:1px solid var(--hairline);
+  background:rgba(10,7,5,.72);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  font-family:var(--f-mono);
+  font-size:var(--t-xs);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--ink-dim);
+  white-space:nowrap;
+  pointer-events:none;
+  opacity:0;
+  transform:translateY(12px);
+  transition:opacity .6s var(--ease), transform .6s var(--ease);
+}
+.poihint.is-shown{ opacity:1; transform:none; }
+.poihint__k{ color:var(--flame); }
+@media (prefers-reduced-motion:reduce){ .poihint{ display:none; } }
 
 /* progress bar — how far the fire has travelled */
 #burn{
@@ -1309,19 +1371,24 @@ body.has-spark.spark-hot #spark{ scale:2.1; }
      Ignition
      ============================================================ -->
 <div id="ignition" role="status" aria-label="Site wordt geladen">
-  <svg class="ignition__mark" viewBox="0 0 64 64" aria-hidden="true">
-    <defs>
-      <linearGradient id="gFlame" x1="0" y1="1" x2="0" y2="0">
-        <stop offset="0%" stop-color="#FF4D0A"/>
-        <stop offset="60%" stop-color="#FFB020"/>
-        <stop offset="100%" stop-color="#FFF3D6"/>
-      </linearGradient>
-    </defs>
-    <path d="M32 3c6 12 18 17 18 31 0 11-8 19-18 19s-18-8-18-19c0-8 5-13 9-19 1 4 3 7 6 9 2-8 3-14 3-21z" fill="url(#gFlame)"/>
-    <path d="M32 30c3 5 8 8 8 14 0 5-4 9-8 9s-8-4-8-9c0-5 5-9 8-14z" fill="#FFF3D6" opacity=".9"/>
-  </svg>
-  <div class="ignition__pct" id="ignPct">00</div>
-  <div class="ignition__bar"><i id="ignBar"></i></div>
+  <div class="ignition__flyer" id="ignFlyer">
+    <svg class="ignition__mark" viewBox="0 0 64 64" aria-hidden="true">
+      <defs>
+        <linearGradient id="gFlame" x1="0" y1="1" x2="0" y2="0">
+          <stop offset="0%" stop-color="#FF4D0A"/>
+          <stop offset="60%" stop-color="#FFB020"/>
+          <stop offset="100%" stop-color="#FFF3D6"/>
+        </linearGradient>
+      </defs>
+      <path d="M32 3c6 12 18 17 18 31 0 11-8 19-18 19s-18-8-18-19c0-8 5-13 9-19 1 4 3 7 6 9 2-8 3-14 3-21z" fill="url(#gFlame)"/>
+      <path d="M32 30c3 5 8 8 8 14 0 5-4 9-8 9s-8-4-8-9c0-5 5-9 8-14z" fill="#FFF3D6" opacity=".9"/>
+    </svg>
+  </div>
+
+  <div class="ignition__meter" id="ignMeter">
+    <div class="ignition__pct"><span id="ignPct">0</span><i>%</i></div>
+    <div class="ignition__bar"><i id="ignBar"></i></div>
+  </div>
 </div>
 
 <!-- ============================================================
@@ -1335,7 +1402,12 @@ body.has-spark.spark-hot #spark{ scale:2.1; }
   <div class="stage__grain"></div>
 </div>
 
-<div id="spark" aria-hidden="true"></div>
+<!-- The poi: a burning head on a rope, swung by the pointer. The intro
+     flies the logo along this same trail so the mechanic explains itself. -->
+<canvas id="poi" aria-hidden="true"></canvas>
+<p class="poihint" id="poihint" aria-hidden="true">
+  <span class="poihint__k">Beweeg</span> je muis &mdash; het vuur slingert mee
+</p>
 <div id="burn" aria-hidden="true"></div>
 
 <!-- ============================================================
@@ -1921,6 +1993,7 @@ body.has-spark.spark-hot #spark{ scale:2.1; }
      ============================================================== */
   const drawFlame  = initFlame();
   const drawEmbers = initEmbers();
+  const poi        = initPoi();
 
   let last = S.y = window.scrollY || 0;
   let rawVel = 0, running = true, t0 = performance.now();
@@ -1949,6 +2022,7 @@ body.has-spark.spark-hot #spark{ scale:2.1; }
 
     if (drawFlame)  drawFlame(t);
     if (drawEmbers) drawEmbers(t);
+    poi.step();
 
     if (burn) {
       const doc = document.documentElement;
@@ -1973,36 +2047,108 @@ body.has-spark.spark-hot #spark{ scale:2.1; }
   }, { passive: true });
 
   /* ==============================================================
-     4. Ignition — hold the page until the fonts and shader are up
+     4. Ignition — the mark burns in the middle of a black screen while
+     the counter runs to 100. Then the site fades up behind it and the
+     mark flies to its place in the header, cooling on the way and
+     burning a trail as it goes. That trail is the poi: by the time it
+     lands, the visitor has already seen what their pointer will do.
      ============================================================== */
   (function ignition(){
-    const wrap = $("#ignition"), bar = $("#ignBar"), pct = $("#ignPct");
-    if (!wrap) return;
+    const wrap  = $("#ignition"), bar = $("#ignBar"), pct = $("#ignPct"),
+          meter = $("#ignMeter"), flyer = $("#ignFlyer"),
+          navMark = $(".nav__brand .mark");
 
-    let p = 0, done = false;
-    const ready = Promise.all([
+    if (!wrap || !flyer) { if (navMark) navMark.classList.add("is-landed"); start(); return; }
+
+    document.body.classList.add("is-locked");
+
+    let p = 0, ready = false, flown = false;
+
+    Promise.all([
       document.fonts ? document.fonts.ready : Promise.resolve(),
       new Promise((res) => {
         if (document.readyState === "complete") res();
         else addEventListener("load", res, { once: true });
       })
-    ]);
+    ]).then(() => setTimeout(() => { ready = true; }, 240));
 
     const tick = setInterval(() => {
-      p = Math.min(p + Math.random() * 9 + 3, done ? 100 : 92);
+      p = Math.min(p + Math.random() * 11 + 6, ready ? 100 : 94);
       if (bar) bar.style.setProperty("--p", p.toFixed(0) + "%");
-      if (pct) pct.textContent = String(Math.floor(p)).padStart(2, "0");
-      if (p >= 100) {
-        clearInterval(tick);
-        wrap.classList.add("is-out");
-        document.body.classList.remove("is-locked");
-        setTimeout(() => wrap.remove(), 800);
-        start();
-      }
-    }, 90);
+      if (pct) pct.textContent = String(Math.floor(p));
+      if (p >= 100) { clearInterval(tick); fly(); }
+    }, 70);
 
-    document.body.classList.add("is-locked");
-    ready.then(() => setTimeout(() => { done = true; }, 320));
+    function fly(){
+      if (flown) return;
+      flown = true;
+
+      document.body.classList.remove("is-locked");
+      start();                                   /* build the site behind it */
+      if (meter) meter.classList.add("is-done");
+
+      const from = flyer.getBoundingClientRect();
+      const to   = navMark && navMark.getBoundingClientRect();
+
+      if (REDUCED || !to || !to.width || !flyer.animate) { land(); return; }
+
+      const dx = (to.left + to.width  / 2) - (from.left + from.width  / 2);
+      const dy = (to.top  + to.height / 2) - (from.top  + from.height / 2);
+      const sc = to.width / from.width;
+
+      setTimeout(() => wrap.classList.add("is-open"), 260);
+
+      const anim = flyer.animate([
+        { transform: "translate(0,0) scale(1)",
+          filter: "drop-shadow(0 0 60px rgba(255,90,10,.75))" },
+        { transform: "translate(" + (dx * 0.4).toFixed(1) + "px," + (dy * 0.66).toFixed(1) + "px) scale(" + (sc + (1 - sc) * 0.42).toFixed(3) + ")",
+          filter: "drop-shadow(0 0 28px rgba(255,90,10,.45))", offset: 0.56 },
+        { transform: "translate(" + dx.toFixed(1) + "px," + dy.toFixed(1) + "px) scale(" + sc.toFixed(3) + ")",
+          filter: "drop-shadow(0 0 3px rgba(255,90,10,0))" }
+      ], { duration: 1400, easing: "cubic-bezier(.62,0,.14,1)", fill: "forwards" });
+
+      /* hand the flight path to the poi so the mark burns its way over */
+      (function wake(){
+        if (anim.playState !== "running") return;
+        const r = flyer.getBoundingClientRect();
+        poi.drive(r.left + r.width / 2, r.top + r.height / 2);
+        requestAnimationFrame(wake);
+      })();
+
+      anim.finished.then(land, land);
+    }
+
+    function land(){
+      if (navMark) navMark.classList.add("is-landed");
+      poi.release();
+      wrap.classList.add("is-out");
+      setTimeout(() => { wrap.remove(); hint(); }, 620);
+    }
+
+    /* One short nudge, then out of the way for good. */
+    function hint(){
+      const el = $("#poihint");
+      if (!el || REDUCED) return;
+      if (COARSE) el.innerHTML = '<span class="poihint__k">Sleep</span> over het scherm &mdash; het vuur volgt';
+
+      setTimeout(() => el.classList.add("is-shown"), 650);
+
+      let travelled = 0, lx = null, ly = null, gone = false;
+      const track = (e) => {
+        if (lx !== null) travelled += Math.hypot(e.clientX - lx, e.clientY - ly);
+        lx = e.clientX; ly = e.clientY;
+        if (travelled > 1200) done();
+      };
+      function done(){
+        if (gone) return;
+        gone = true;
+        removeEventListener("pointermove", track);
+        el.classList.remove("is-shown");
+        setTimeout(() => el.remove(), 700);
+      }
+      addEventListener("pointermove", track, { passive: true });
+      setTimeout(done, 11000);
+    }
   })();
 
   /* ==============================================================
@@ -2347,33 +2493,190 @@ body.has-spark.spark-hot #spark{ scale:2.1; }
   }
 
   /* ==============================================================
-     11. Cursor — an ember that follows the pointer
+     11. The poi — a burning head on a rope, swung by the pointer.
+     Verlet rope with gravity, so it lags, swings and settles the way
+     a real poi does. Move fast and it burns a trail; hold still and
+     it cools to an ember, so it never fights with reading.
      ============================================================== */
-  function initSpark(){
-    const el = $("#spark");
-    if (!el || COARSE || REDUCED) return;
+  function initPoi(){
+    const idle = { drive(){}, release(){}, step(){} };
+    const cv = $("#poi");
+    if (!cv || REDUCED) return idle;
+    const ctx = cv.getContext("2d");
+    if (!ctx) return idle;
 
-    let x = innerWidth / 2, y = innerHeight / 2, tx = x, ty = y;
-    document.body.classList.add("has-spark");
+    let dpr = 1, W = 0, H = 0;
+    function size(){
+      dpr = clamp(window.devicePixelRatio || 1, 1, 2);
+      W = innerWidth; H = innerHeight;
+      cv.width = Math.round(W * dpr);
+      cv.height = Math.round(H * dpr);
+    }
+    size();
+    addEventListener("resize", size, { passive: true });
 
-    addEventListener("pointermove", (e) => { tx = e.clientX; ty = e.clientY; }, { passive: true });
+    const N = 15, REST = 11;
+    let ax = W / 2, ay = H / 2, driven = true;
 
-    const hot = "a, button, input, select, textarea, .act, .frame";
-    addEventListener("pointerover", (e) => {
-      if (e.target instanceof Element) {
-        document.body.classList.toggle("spark-hot", !!e.target.closest(hot));
-      }
+    const rope = [];
+    for (let i = 0; i < N; i++) {
+      rope.push({ x: ax, y: ay + i * REST, px: ax, py: ay + i * REST });
+    }
+
+    const trail = [], sparks = [], MAX = 62;
+
+    addEventListener("pointermove", (e) => {
+      if (driven) return;
+      ax = e.clientX; ay = e.clientY;
     }, { passive: true });
 
-    (function trail(){
-      x = lerp(x, tx, 0.18);
-      y = lerp(y, ty, 0.18);
-      el.style.transform = "translate3d(" + x.toFixed(1) + "px," + y.toFixed(1) + "px,0)";
-      requestAnimationFrame(trail);
-    })();
+    function physics(){
+      for (let i = 1; i < N; i++) {
+        const p = rope[i];
+        const vx = (p.x - p.px) * 0.945, vy = (p.y - p.py) * 0.945;
+        p.px = p.x; p.py = p.y;
+        p.x += vx;
+        p.y += vy + 0.5;                       /* gravity */
+      }
+      rope[0].px = rope[0].x; rope[0].py = rope[0].y;
+      rope[0].x = ax; rope[0].y = ay;
+
+      for (let k = 0; k < 7; k++) {
+        for (let i = 0; i < N - 1; i++) {
+          const a = rope[i], b = rope[i + 1];
+          const dx = b.x - a.x, dy = b.y - a.y;
+          const d = Math.hypot(dx, dy) || 0.0001;
+          const f = ((d - REST) / d) * 0.5;
+          const ox = dx * f, oy = dy * f;
+          if (i > 0) { a.x += ox; a.y += oy; }
+          b.x -= ox; b.y -= oy;
+        }
+        rope[0].x = ax; rope[0].y = ay;
+      }
+    }
+
+    /* Trail segments are ordered oldest to newest, so their alpha runs
+       monotonically. Stroking them in a handful of bands instead of one
+       path per segment keeps this at ~30 strokes a frame. */
+    /* A phone gets a lighter version of the same trail: fewer glow passes
+       and fewer bands, which is invisible at that size and much cheaper. */
+    const SMALL  = innerWidth < 760;
+    const BANDS  = SMALL ? 5 : 7;
+    const PASSES = SMALL
+      ? [[18, 0.09, 52], [7, 0.26, 66], [2.2, 0.72, 88]]
+      : [[30, 0.055, 46], [15, 0.11, 56], [6, 0.28, 68], [2.2, 0.72, 88]];
+
+    function drawTrail(){
+      if (trail.length < 3) return;
+      const per = Math.ceil(trail.length / BANDS);
+      for (const [lw, alpha, light] of PASSES) {
+        ctx.lineWidth = lw;
+        for (let b = 0; b < BANDS; b++) {
+          const from = b * per, to = Math.min(trail.length, from + per + 1);
+          if (to - from < 2) continue;
+          let life = 0, heat = 0;
+          for (let i = from; i < to; i++) { life += trail[i].life; heat += trail[i].heat; }
+          life /= (to - from); heat /= (to - from);
+          const a = alpha * life * life * heat;
+          if (a < 0.004) continue;
+          /* the tail cools as it ages: hot yellow at the head, deep red behind */
+          const hue = 34 - (1 - life) * 24;
+          const lit = Math.max(34, light - (1 - life) * 22);
+          ctx.strokeStyle = "hsla(" + hue.toFixed(0) + ",100%," + lit.toFixed(0) + "%," + a.toFixed(3) + ")";
+          ctx.beginPath();
+          ctx.moveTo(trail[from].x, trail[from].y);
+          for (let i = from + 1; i < to; i++) ctx.lineTo(trail[i].x, trail[i].y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    let handed = false;
+
+    return {
+      drive(x, y){ if (handed) return; driven = true; ax = x; ay = y; },
+      release(){ driven = false; handed = true; },
+
+      step(){
+        physics();
+        const head = rope[N - 1];
+        const speed = Math.hypot(head.x - head.px, head.y - head.py);
+        const heat = clamp(speed / 15, 0, 1);
+
+        const last = trail[trail.length - 1];
+        if (!last || Math.hypot(head.x - last.x, head.y - last.y) > 0.7) {
+          trail.push({ x: head.x, y: head.y, life: 1, heat: 0.12 + heat * 0.88 });
+          if (trail.length > MAX) trail.shift();
+        }
+        for (const p of trail) p.life -= 0.024;
+        while (trail.length && trail[0].life <= 0) trail.shift();
+
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.clearRect(0, 0, W, H);
+        ctx.globalCompositeOperation = "lighter";
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+
+        drawTrail();
+
+        /* the chain, so it reads as something you are holding */
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = "rgba(255,214,160,.16)";
+        ctx.beginPath();
+        ctx.moveTo(rope[0].x, rope[0].y);
+        for (let i = 1; i < N; i++) ctx.lineTo(rope[i].x, rope[i].y);
+        ctx.stroke();
+
+        /* the handle in your hand */
+        ctx.strokeStyle = "rgba(255,200,140,.34)";
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.arc(rope[0].x, rope[0].y, 5.5, 0, Math.PI * 2);
+        ctx.stroke();
+
+        /* sparks thrown off the head while it burns hard */
+        if (heat > 0.32 && sparks.length < 90) {
+          for (let i = 0; i < 2; i++) {
+            sparks.push({
+              x: head.x, y: head.y,
+              vx: (head.x - head.px) * 0.22 + (Math.random() - 0.5) * 1.6,
+              vy: (head.y - head.py) * 0.22 + (Math.random() - 0.5) * 1.6,
+              life: 1
+            });
+          }
+        }
+        for (let i = sparks.length - 1; i >= 0; i--) {
+          const sp = sparks[i];
+          sp.x += sp.vx; sp.y += sp.vy;
+          sp.vx *= 0.94; sp.vy = sp.vy * 0.94 - 0.16;   /* they rise */
+          sp.life -= 0.026;
+          if (sp.life <= 0) { sparks.splice(i, 1); continue; }
+          ctx.fillStyle = "hsla(" + (30 + sp.life * 22).toFixed(0) + ",100%," + (60 + sp.life * 32).toFixed(0) + "%," + (sp.life * 0.85).toFixed(2) + ")";
+          ctx.beginPath();
+          ctx.arc(sp.x, sp.y, 0.6 + sp.life * 1.5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        /* the burning head */
+        const r = 20 + heat * 26;
+        const g = ctx.createRadialGradient(head.x, head.y, 0, head.x, head.y, r);
+        g.addColorStop(0,    "rgba(255,252,242," + (0.95).toFixed(2) + ")");
+        g.addColorStop(0.12, "rgba(255,226,150," + (0.8 + heat * 0.2).toFixed(2) + ")");
+        g.addColorStop(0.32, "rgba(255,150,30,"  + (0.5 + heat * 0.3).toFixed(2) + ")");
+        g.addColorStop(0.62, "rgba(255,70,8,"    + (0.2 + heat * 0.28).toFixed(2) + ")");
+        g.addColorStop(1,    "rgba(255,50,0,0)");
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(head.x, head.y, r, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.globalCompositeOperation = "source-over";
+      }
+    };
   }
 
   /* ==============================================================
+     12. Booking form  /* ==============================================================
      12. Booking form
      ============================================================== */
   function initForm(){
@@ -2449,7 +2752,6 @@ body.has-spark.spark-hot #spark{ scale:2.1; }
     fitHero();
     buildStrip();
     initVideo();
-    initSpark();
     initForm();
 
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitHero);

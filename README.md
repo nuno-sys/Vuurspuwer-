@@ -10,6 +10,15 @@ live-gerenderde vlam (WebGL) langs de onderrand van het scherm die feller wordt
 naarmate je scrolt — de content stijgt uit het vuur omhoog. Alle beeld op de pagina
 wordt gegenereerd in de browser: er zitten geen afbeeldingsbestanden in de repo.
 
+- **Intro**: het merk brandt midden op zwart terwijl de teller naar 100 loopt.
+  Daarna komt de site erachter omhoog en vliegt het merk naar zijn plek in de
+  header — het dooft onderweg en brandt een vuurspoor. Dat spoor is de poi, dus
+  de intro legt de interactie uit voordat de bezoeker iets aanraakt.
+- **De poi**: een brandende kop aan een touw, geslingerd met je muis of vinger.
+  Verlet-touw met zwaartekracht, dus hij loopt achter, zwiert door en komt tot
+  rust zoals een echte poi. Snel bewegen brandt een spoor, stilhouden koelt af
+  tot een sintel — zo vecht hij nooit met lezen. Het canvas vangt geen klikken,
+  dus scrollen en klikken blijven normaal werken.
 - WebGL fragment-shader voor de vlam (fbm-noise, domain warp), met een pointer-lean
 - Canvas-2D vonkenlaag over de hele viewport
 - Long-exposure lichtsporen als posterbeeld per act (cirkel, lemniscaat, spiraal, golf)
