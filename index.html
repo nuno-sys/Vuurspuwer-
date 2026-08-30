@@ -8,6 +8,80 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!--A:HEAD-->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://vuurspuwer.com/#nuno",
+      "name": "Nuno",
+      "jobTitle": "Vuurspuwer, fakir en mentalist",
+      "description": "Zeventien jaar vuurspuwer, fakir en mentalist. Vuurshows, fakirshows, reptielenshows, mentalisme en workshops vuurspuwen in Nederland, Belgi\u00eb en daarbuiten.",
+      "url": "https://vuurspuwer.com/",
+      "worksFor": { "@id": "https://vuurspuwer.com/#business" },
+      "knowsAbout": ["Vuurspuwen", "Vuurshow", "Fakirshow", "Glaslopen", "Spijkerbed", "Mentalisme", "Reptielenshow"]
+    },
+    {
+      "@type": ["LocalBusiness", "EntertainmentBusiness"],
+      "@id": "https://vuurspuwer.com/#business",
+      "name": "Vuurspuwer Nuno",
+      "url": "https://vuurspuwer.com/",
+      "telephone": "+31620020723",
+      "email": "contact@fakir-show.nl",
+      "priceRange": "$$",
+      "image": "https://vuurspuwer.com/assets/media/work-1.jpg",
+      "logo": "https://vuurspuwer.com/assets/brand/nuno.svg",
+      "areaServed": [
+        { "@type": "Country", "name": "Nederland" },
+        { "@type": "Country", "name": "Belgi\u00eb" }
+      ],
+      "openingHoursSpecification": [{
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+        "opens": "09:00", "closes": "18:00"
+      }],
+      "founder": { "@id": "https://vuurspuwer.com/#nuno" },
+      "makesOffer": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Power-Act", "description": "Korte vuurshow van 5 tot 10 minuten als opening of slotact." } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Complete Vuurshow", "description": "Vuurshow van 20 tot 30 minuten met vuurketting, jongleren, vuurwaaiers, vuur eten en body fire." } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Fakirshow", "description": "Fakirshow met glaslopen en spijkerbed, op korte afstand van het publiek." } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Reptielenshow", "description": "Educatieve show met exotische slangen en reptielen." } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mentalisme", "description": "Interactieve mentalismeshow, zonder vuur en binnen inzetbaar." } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Workshop vuurspuwen", "description": "Begeleide workshop vuurspuwen voor teambuilding, vrijgezellenfeesten en bedrijfsuitjes." } }
+      ]
+    },
+    {
+      "@type": "VideoObject",
+      "name": "Showreel Vuurspuwer Nuno",
+      "description": "Showreel van vuurspuwer en fakir Nuno.",
+      "thumbnailUrl": "https://vuurspuwer.com/assets/media/reel-poster.jpg",
+      "contentUrl": "https://vuurspuwer.com/assets/media/showreel.mp4",
+      "uploadDate": "2026-08-30"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is Nuno gecertificeerd als vuurspuwer?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Ja. Volledig gecertificeerd als vuurspuwer en fakir, met professioneel materiaal en veilige vloeistoffen." }
+        },
+        {
+          "@type": "Question",
+          "name": "Hoe zit het met vergunningen en veiligheidsafstanden?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Er wordt gewerkt binnen de vergunningseisen, met de voorgeschreven veiligheidsafstanden tot publiek en omgeving." }
+        },
+        {
+          "@type": "Question",
+          "name": "Kan een vuurshow ook binnen?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Buiten altijd, en binnen zodra de locatie het toelaat. Mag er geen vlam branden, dan draait de avond op mentalisme of de reptielenshow." }
+        }
+      ]
+    }
+  ]
+}
+</script>
 <title>Vuurspuwer</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
@@ -231,10 +305,35 @@ button,input,select,textarea{ font:inherit; color:inherit; }
 
 /* the flyer is positioned dead centre; JS animates it to the header */
 .ignition__flyer{
+  --reveal:0;
+  --edge:0;
   position:absolute;
   top:50%; left:50%;
   translate:-50% -50%;
   will-change:transform;
+}
+
+/* The wordmark catches from the left: the N first, then the U, on to the
+   flame on the O, with the fire front travelling along with it. */
+.logo--big{
+  clip-path:inset(0 calc((1 - var(--reveal, 1)) * 100%) 0 0);
+}
+.ignition__edge{
+  position:absolute;
+  top:-16%; bottom:-16%;
+  left:calc(var(--reveal, 0) * 100%);
+  width:26px;
+  margin-left:-13px;
+  pointer-events:none;
+  opacity:var(--edge, 0);
+  background:linear-gradient(90deg,
+    rgba(255,90,10,0) 0%,
+    rgba(255,150,30,.85) 38%,
+    rgba(255,247,225,1) 52%,
+    rgba(255,120,20,.6) 66%,
+    rgba(255,90,10,0) 100%);
+  filter:blur(5px);
+  transition:opacity .55s var(--ease);
 }
 
 .ignition__meter{
@@ -292,12 +391,8 @@ button,input,select,textarea{ font:inherit; color:inherit; }
 }
 
 /* the header lockup holds its breath until the flyer lands on it */
-.nav__brand .logo,
-.nav__brand .nav__rule,
-.nav__brand .nav__word{ opacity:0; transition:opacity .45s var(--ease); }
-.nav__brand.is-landed .logo,
-.nav__brand.is-landed .nav__rule,
-.nav__brand.is-landed .nav__word{ opacity:1; }
+.nav__brand .logo{ opacity:0; transition:opacity .45s var(--ease); }
+.nav__brand.is-landed .logo{ opacity:1; }
 
 /* ============================================================
    The wordmark — Nuno's own hand-painted letters, traced to
@@ -366,20 +461,37 @@ button,input,select,textarea{ font:inherit; color:inherit; }
   gap:.6rem;
   flex:0 0 auto;
 }
-.nav__brand .logo{ --logo-w:clamp(74px, 8vw, 104px); }
-.nav__rule{
-  width:1px;
-  height:1.15em;
-  background:var(--hairline);
+.nav__brand .logo{ --logo-w:clamp(78px, 8.5vw, 112px); }
+
+/* the standing invitation, top right, in the hottest colour on the page */
+.nav__act{
+  display:flex;
+  align-items:center;
+  gap:.55rem;
   flex:0 0 auto;
 }
-.nav__word{
-  font-family:var(--f-display);
-  font-variation-settings:"wdth" 108,"wght" 800;
-  font-size:var(--t-sm);
-  letter-spacing:.14em;
-  text-transform:uppercase;
-  white-space:nowrap;
+.btn--sm{
+  padding:.7em 1.15em;
+  font-size:.68rem;
+  letter-spacing:.16em;
+}
+.nav__call{
+  display:grid;
+  place-items:center;
+  width:40px; height:40px;
+  border-radius:50%;
+  border:1px solid var(--hairline);
+  color:var(--ink);
+  transition:background .35s var(--ease), color .35s var(--ease), border-color .35s var(--ease);
+}
+.nav__call svg{ width:17px; height:17px; fill:currentColor; }
+.nav__call:hover{ background:var(--flame); border-color:var(--flame); color:#170800; }
+@media (max-width:900px){
+  .nav__call{ width:38px; height:38px; }
+  .btn--sm{ display:none; }
+}
+@media (max-width:420px){
+  .nav__call{ display:none; }
 }
 
 .nav__links{
@@ -555,33 +667,69 @@ button,input,select,textarea{ font:inherit; color:inherit; }
   padding-bottom:max(clamp(7rem,19vh,11rem), env(safe-area-inset-bottom));
 }
 
-/* Video slot. Stays invisible until a file actually plays, so the
-   WebGL flame carries the hero on its own when no footage exists. */
-.hero__reel{
-  position:absolute;
-  inset:0;
-  z-index:-1;
+.hero__row{
+  display:grid;
+  gap:clamp(1.5rem,4vw,3rem);
+  align-items:end;
+}
+@media (min-width:980px){
+  .hero__row{ grid-template-columns:minmax(0,1fr) clamp(200px,21vw,286px); }
+}
+.hero__pitch{
+  display:flex;
+  flex-direction:column;
+  gap:clamp(1.25rem,3vw,2rem);
+  min-width:0;
+}
+
+/* The panel: the real footage at its own shape, never stretched. */
+.hero__panel{
+  position:relative;
+  margin:0;
   overflow:hidden;
+  border-radius:clamp(12px,1.6vw,18px);
+  border:1px solid var(--hairline);
+  /* a still behind the video, so the panel is never an empty black box —
+     on a slow connection, a blocked file or a browser that will not play it */
+  background:var(--soot-deep) url("assets/media/work-1.jpg") center 22% / cover no-repeat;
+  aspect-ratio:730 / 1022;
+  box-shadow:0 30px 90px -34px rgba(255,90,10,.55);
 }
-.hero__reel video{
-  position:absolute;
-  inset:0;
-  width:100%; height:100%;
-  object-fit:cover;
-  opacity:0;
-  transition:opacity 1.6s var(--ease);
-}
-.hero__reel video.is-live{ opacity:.55; }
-.hero__reel.has-video::after{ opacity:1; }
-.hero__reel::after{
+.hero__panel::before{
   content:"";
   position:absolute;
   inset:0;
+  background:linear-gradient(to top, rgba(10,7,5,.55) 0%, rgba(10,7,5,0) 45%);
+}
+.hero__panel video{
+  width:100%; height:100%;
+  object-fit:cover;
   opacity:0;
-  transition:opacity 1.4s var(--ease);
-  background:
-    linear-gradient(to bottom, rgba(10,7,5,.86) 0%, rgba(10,7,5,.35) 45%, rgba(10,7,5,.8) 100%),
-    radial-gradient(90% 60% at 50% 42%, transparent 0%, rgba(10,7,5,.65) 100%);
+  transition:opacity 1.2s var(--ease);
+}
+.hero__panel video.is-live{ opacity:1; }
+
+/* On a phone the same element becomes the backdrop behind the type. */
+@media (max-width:979px){
+  .hero__panel{
+    position:absolute;
+    inset:0;
+    z-index:-1;
+    aspect-ratio:auto;
+    border:0;
+    border-radius:0;
+    background:none;
+    box-shadow:none;
+  }
+  .hero__panel::before{ display:none; }
+  .hero__panel video.is-live{ opacity:.5; }
+  .hero__panel::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      linear-gradient(to bottom, rgba(10,7,5,.9) 0%, rgba(10,7,5,.45) 42%, rgba(10,7,5,.85) 100%);
+  }
 }
 
 .hero__body{
@@ -1081,6 +1229,51 @@ button,input,select,textarea{ font:inherit; color:inherit; }
 }
 
 /* ============================================================
+   Reviews
+   ============================================================ */
+.rating{
+  display:grid;
+  gap:clamp(1.5rem,4vw,3rem);
+  align-items:start;
+}
+@media (min-width:860px){ .rating{ grid-template-columns:auto minmax(0,1fr); } }
+
+.rating__score{
+  display:grid;
+  gap:.7rem;
+  justify-items:start;
+  padding:clamp(1.4rem,3vw,2rem);
+  border:1px solid var(--hairline);
+  border-radius:14px;
+  background:linear-gradient(180deg,rgba(23,16,8,.9),rgba(10,7,5,.94));
+}
+.rating__num{
+  font-family:var(--f-display);
+  font-variation-settings:"wdth" 120,"wght" 900;
+  font-size:clamp(3rem,7vw,4.6rem);
+  line-height:.86;
+  letter-spacing:-.03em;
+  color:var(--core);
+  font-variant-numeric:tabular-nums;
+}
+.stars{ display:flex; gap:.2rem; }
+.stars svg{ width:22px; height:22px; fill:var(--flame); }
+.rating__meta{
+  margin:0;
+  font-family:var(--f-mono);
+  font-size:var(--t-xs);
+  letter-spacing:.12em;
+  color:var(--smoke);
+}
+.rating__meta a{ color:var(--flame); text-decoration:underline; text-underline-offset:3px; }
+.rating__todo{
+  margin:0;
+  font-size:var(--t-sm);
+  color:var(--ink-dim);
+  max-width:52ch;
+}
+
+/* ============================================================
    Credentials + safety
    ============================================================ */
 .creds{
@@ -1276,6 +1469,39 @@ button,input,select,textarea{ font:inherit; color:inherit; }
   --burn-a:rgba(255,243,214,.26);
   --burn-b:rgba(255,77,10,.6);
 }
+.foot__grid{
+  display:grid;
+  gap:clamp(2rem,5vw,3.5rem);
+  margin-bottom:clamp(2.5rem,5vw,3.5rem);
+}
+@media (min-width:760px){
+  .foot__grid{ grid-template-columns:1.4fr repeat(3, minmax(0,1fr)); }
+}
+.foot__brand{ display:grid; gap:1rem; align-content:start; }
+.foot__brand .logo{ --logo-w:118px; }
+.foot__brand p{
+  margin:0;
+  font-size:var(--t-sm);
+  color:var(--ink-dim);
+  max-width:34ch;
+}
+.foot__nav h2{
+  margin:0 0 .9rem;
+  font-family:var(--f-mono);
+  font-size:var(--t-xs);
+  font-weight:400;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--flame);
+}
+.foot__nav ul{ list-style:none; margin:0; padding:0; display:grid; gap:.5rem; }
+.foot__nav a{
+  font-size:var(--t-sm);
+  color:var(--ink-dim);
+  transition:color .3s var(--ease);
+}
+.foot__nav a:hover{ color:var(--core); }
+
 .foot__bar{
   display:flex;
   flex-wrap:wrap;
@@ -1455,7 +1681,8 @@ button,input,select,textarea{ font:inherit; color:inherit; }
      ============================================================ -->
 <div id="ignition" role="status" aria-label="Site wordt geladen">
   <div class="ignition__flyer" id="ignFlyer">
-    <span class="logo logo--big" role="img" aria-label="Nuno"></span>
+    <span class="logo logo--big" id="ignLogo" role="img" aria-label="Nuno"></span>
+    <i class="ignition__edge" id="ignEdge" aria-hidden="true"></i>
   </div>
 
   <div class="ignition__meter" id="ignMeter">
@@ -1483,17 +1710,24 @@ button,input,select,textarea{ font:inherit; color:inherit; }
 <header class="nav" id="nav">
   <a class="nav__brand" href="#top" aria-label="Vuurspuwer Nuno, naar boven">
     <span class="logo" id="navLogo" role="img" aria-label="Nuno"></span>
-    <span class="nav__rule" aria-hidden="true"></span>
-    <span class="nav__word">Vuurspuwer</span>
   </a>
 
   <nav class="nav__links" aria-label="Hoofdmenu">
     <a class="nav__link" href="#shows">Shows</a>
     <a class="nav__link" href="#reel">Showreel</a>
     <a class="nav__link" href="#werk">Werk</a>
+    <a class="nav__link" href="#reviews">Reviews</a>
     <a class="nav__link" href="#over">Zekerheid</a>
-    <a class="nav__link" href="#boeken">Boeken</a>
   </nav>
+
+  <div class="nav__act">
+    <a class="nav__call" href="tel:+31620020723" aria-label="Bel Nuno op +31 6 200 207 23">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1.1l-2.3 2.1z"/>
+      </svg>
+    </a>
+    <a class="btn btn--sm" href="#boeken"><span class="btn__dot"></span>Boek je datum</a>
+  </div>
 
   <button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Menu openen"><i></i></button>
 </header>
@@ -1502,6 +1736,7 @@ button,input,select,textarea{ font:inherit; color:inherit; }
   <a href="#shows">Shows</a>
   <a href="#reel">Showreel</a>
   <a href="#werk">Werk</a>
+  <a href="#reviews">Reviews</a>
   <a href="#over">Zekerheid</a>
   <a href="#boeken">Boeken</a>
   <p class="menu__meta">Nederland, België &amp; internationaal &middot; +31 6 200 207 23</p>
@@ -1515,14 +1750,7 @@ button,input,select,textarea{ font:inherit; color:inherit; }
   <section class="hero wrap">
     <!-- Drop hero footage in assets/media/. The video only becomes visible
          once it genuinely plays; otherwise the live flame carries the hero. -->
-    <div class="hero__reel" aria-hidden="true">
-      <!-- No src here on purpose: the script picks a file that suits the
-           screen shape, so a phone never downloads a landscape master and a
-           desktop never stretches a portrait clip. -->
-      <video id="heroVideo" muted loop playsinline preload="none"></video>
-    </div>
-
-    <div class="hero__body">
+      <div class="hero__body">
       <p class="eyebrow rise">Vuurshow &middot; Fakir &middot; Mentalisme</p>
 
       <h1 class="hero__title rise" data-delay="1">
@@ -1530,13 +1758,22 @@ button,input,select,textarea{ font:inherit; color:inherit; }
         <span>Nuno</span>
       </h1>
 
-      <div class="hero__meta rise" data-delay="2">
-        <p class="lede">Zeventien jaar vuur, glas en spijkers &mdash; en een publiek dat vergeet te ademen.</p>
-      </div>
+      <div class="hero__row">
+        <div class="hero__pitch">
+          <p class="lede">Zeventien jaar vuur, glas en spijkers &mdash; en een publiek dat vergeet te ademen.</p>
+          <div class="hero__actions">
+            <a class="btn" href="#boeken"><span class="btn__dot"></span>Check je datum</a>
+            <a class="btn btn--ghost" href="https://wa.me/31620020723">WhatsApp direct</a>
+          </div>
+        </div>
 
-      <div class="hero__actions rise" data-delay="3">
-        <a class="btn" href="#boeken"><span class="btn__dot"></span>Check je datum</a>
-        <a class="btn btn--ghost" href="https://wa.me/31620020723">WhatsApp direct</a>
+        <!-- One video, two roles: a portrait panel beside the type on a wide
+             screen, the full-bleed backdrop on a phone. The script only gives
+             it a source that suits the screen, so nothing is stretched. -->
+        <figure class="hero__panel" id="heroPanel">
+          <video id="heroVideo" muted loop playsinline preload="none"
+                 poster="assets/media/reel-poster.jpg"></video>
+        </figure>
       </div>
     </div>
 
@@ -1678,9 +1915,41 @@ button,input,select,textarea{ font:inherit; color:inherit; }
        ========================================================== -->
   <section class="specs" aria-label="In cijfers">
     <div class="spec rise"><div class="spec__val" data-count="17">0<i>jaar</i></div><div class="spec__key">Op het podium</div></div>
-    <div class="spec rise" data-delay="1"><div class="spec__val" data-count="4.9" data-dec="1">0<i>/5</i></div><div class="spec__key">Gemiddelde beoordeling</div></div>
-    <div class="spec rise" data-delay="2"><div class="spec__val" data-count="134">0</div><div class="spec__key">Beoordelingen via ShowBird</div></div>
+    <div class="spec rise" data-delay="1"><div class="spec__val" data-count="5" data-dec="1">0<i>/5</i></div><div class="spec__key">Gemiddelde beoordeling</div></div>
+    <div class="spec rise" data-delay="2"><div class="spec__val" data-count="9">0</div><div class="spec__key">Google-reviews</div></div>
     <div class="spec rise" data-delay="3"><div class="spec__val" data-count="30">0<i>min</i></div><div class="spec__key">Langste vuurshow</div></div>
+  </section>
+
+  <!-- ==========================================================
+       Reviews
+       ========================================================== -->
+  <section class="bay wrap" id="reviews">
+    <div class="bay__head">
+      <p class="eyebrow eyebrow--dim rise">Beoordelingen</p>
+      <h2 class="bay__title rise" data-delay="1">Negen keer <em>vijf sterren</em></h2>
+    </div>
+
+    <div class="rating">
+      <div class="rating__score">
+        <span class="rating__num">5,0</span>
+        <span class="stars" role="img" aria-label="5 van de 5 sterren">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9z"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9z"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9z"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9z"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9z"/></svg>
+        </span>
+        <p class="rating__meta">9 beoordelingen op Google &middot; <a href="[Google-bedrijfsprofiel-URL]" rel="noopener">bekijk ze op Google</a></p>
+      </div>
+
+      <div class="rating__quotes" id="reviewList">
+        <!-- Review-teksten komen hier. Ze staan niet in de WordPress-export:
+             de oude pagina haalde ze live op via de shortcode [dhg_reviews].
+             Nuno levert naam, datum en tekst aan; pas dan gaan ze hier in
+             en pas dan mogen ze in de markup. -->
+        <p class="rating__todo">De negen reviewteksten staan nog niet in de export &mdash; die haalde de oude pagina live op bij Google. Zodra ze er zijn komen ze hier te staan.</p>
+      </div>
+    </div>
   </section>
 
   <!-- ==========================================================
@@ -1798,11 +2067,50 @@ button,input,select,textarea{ font:inherit; color:inherit; }
 
 <footer class="foot shell wrap">
   <p class="foot__word">Vuurspuwer</p>
+
+  <div class="foot__grid">
+    <div class="foot__brand">
+      <span class="logo" role="img" aria-label="Nuno"></span>
+      <p>Vuurspuwer, fakir en mentalist. Boekbaar in Nederland, Belgi&euml; en daarbuiten.</p>
+    </div>
+
+    <nav class="foot__nav" aria-label="Shows">
+      <h2>Shows</h2>
+      <ul>
+        <li><a href="#shows">Power-Act</a></li>
+        <li><a href="#shows">Complete Vuurshow</a></li>
+        <li><a href="#shows">Fakirshow</a></li>
+        <li><a href="#shows">Reptielenshow</a></li>
+        <li><a href="#shows">Mentalisme</a></li>
+        <li><a href="#shows">Workshop vuurspuwen</a></li>
+      </ul>
+    </nav>
+
+    <nav class="foot__nav" aria-label="Contact">
+      <h2>Contact</h2>
+      <ul>
+        <li><a href="tel:+31620020723">+31 6 200 207 23</a></li>
+        <li><a href="https://wa.me/31620020723">WhatsApp</a></li>
+        <li><a href="mailto:contact@fakir-show.nl">contact@fakir-show.nl</a></li>
+        <li><a href="#boeken">Boek je datum</a></li>
+      </ul>
+    </nav>
+
+    <nav class="foot__nav" aria-label="Voorwaarden">
+      <h2>Voorwaarden</h2>
+      <ul>
+        <li><a href="/algemene-voorwaarden/">Algemene voorwaarden</a></li>
+        <li><a href="/privacybeleid/">Privacybeleid</a></li>
+        <li><a href="/cookiebeleid/">Cookiebeleid</a></li>
+        <li><a href="/toegankelijkheidsverklaring/">Toegankelijkheid</a></li>
+      </ul>
+    </nav>
+  </div>
+
   <div class="foot__bar">
     <span>&copy; <span id="year">2026</span> Vuurspuwer Nuno</span>
-    <span><a href="tel:+31620020723">+31 6 200 207 23</a></span>
-    <span><a href="mailto:contact@fakir-show.nl">contact@fakir-show.nl</a></span>
-    <span>Nederland, België &amp; internationaal</span>
+    <span>KvK [nummer] &middot; btw [nummer]</span>
+    <span>Nederland, Belgi&euml; &amp; internationaal</span>
   </div>
 </footer>
 
@@ -2135,33 +2443,60 @@ button,input,select,textarea{ font:inherit; color:inherit; }
       if (p >= 100) { clearInterval(tick); fly(); }
     }, 70);
 
+    /* Two movements, deliberately separate. First the wordmark catches
+       from the left, letter by letter, with the fire front travelling
+       across it. Only once it is fully alight does it set off. */
     function fly(){
       if (flown) return;
       flown = true;
 
       document.body.classList.remove("is-locked");
-      start();                                   /* build the site behind it */
+      start();
       if (meter) meter.classList.add("is-done");
 
+      if (REDUCED) {
+        flyer.style.setProperty("--reveal", "1");
+        land();
+        return;
+      }
+
+      const REVEAL = 1700;
+      const t0 = performance.now();
+      flyer.style.setProperty("--edge", "1");
+
+      (function catchFire(now){
+        const k = clamp((now - t0) / REVEAL, 0, 1);
+        const e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+        flyer.style.setProperty("--reveal", e.toFixed(4));
+        if (k < 1) requestAnimationFrame(catchFire);
+        else {
+          flyer.style.setProperty("--reveal", "1");
+          flyer.style.setProperty("--edge", "0");
+          setTimeout(depart, 420);
+        }
+      })(t0);
+    }
+
+    function depart(){
       const from = flyer.getBoundingClientRect();
       const to   = navMark && navMark.getBoundingClientRect();
 
-      if (REDUCED || !to || !to.width || !flyer.animate) { land(); return; }
+      if (!to || !to.width || !flyer.animate) { land(); return; }
 
       const dx = (to.left + to.width  / 2) - (from.left + from.width  / 2);
       const dy = (to.top  + to.height / 2) - (from.top  + from.height / 2);
       const sc = to.width / from.width;
 
-      setTimeout(() => wrap.classList.add("is-open"), 260);
+      setTimeout(() => wrap.classList.add("is-open"), 300);
 
       const anim = flyer.animate([
         { transform: "translate(0,0) scale(1)",
-          filter: "drop-shadow(0 0 60px rgba(255,90,10,.75))" },
-        { transform: "translate(" + (dx * 0.4).toFixed(1) + "px," + (dy * 0.66).toFixed(1) + "px) scale(" + (sc + (1 - sc) * 0.42).toFixed(3) + ")",
-          filter: "drop-shadow(0 0 28px rgba(255,90,10,.45))", offset: 0.56 },
+          filter: "drop-shadow(0 0 46px rgba(255,90,10,.6))" },
+        { transform: "translate(" + (dx * 0.38).toFixed(1) + "px," + (dy * 0.64).toFixed(1) + "px) scale(" + (sc + (1 - sc) * 0.44).toFixed(3) + ")",
+          filter: "drop-shadow(0 0 24px rgba(255,90,10,.4))", offset: 0.56 },
         { transform: "translate(" + dx.toFixed(1) + "px," + dy.toFixed(1) + "px) scale(" + sc.toFixed(3) + ")",
-          filter: "drop-shadow(0 0 3px rgba(255,90,10,0))" }
-      ], { duration: 1150, easing: "cubic-bezier(.62,0,.14,1)", fill: "forwards" });
+          filter: "drop-shadow(0 0 2px rgba(255,90,10,0))" }
+      ], { duration: 1600, easing: "cubic-bezier(.58,0,.16,1)", fill: "forwards" });
 
       anim.finished.then(land, land);
     }
@@ -2215,6 +2550,7 @@ button,input,select,textarea{ font:inherit; color:inherit; }
     ".act__name", ".act__desc",
     ".spec__val", ".spec__key",
     ".tvlist li", ".safety dt", ".safety dd",
+    ".rating__num", ".rating__meta", ".rating__todo",
     ".contact__line span", ".contact__line b", ".form__note", ".field > span",
     ".frame__cap span", ".frame__cap b",
     ".reel__hud span", ".reel__holder p",
@@ -2224,7 +2560,7 @@ button,input,select,textarea{ font:inherit; color:inherit; }
   ].join(",");
 
   const BLOCK_SEL = ".frame, .reel";
-  const FADE_SEL  = ".btn, .chip, .act, .spec, .safety > div, .book, .field input, .field select, .field textarea, .scrollcue i, .status";
+  const FADE_SEL  = ".btn, .chip, .stars, .rating__score, .act, .spec, .safety > div, .book, .field input, .field select, .field textarea, .scrollcue i, .status";
 
   const burners = [];
 
@@ -2565,23 +2901,23 @@ button,input,select,textarea{ font:inherit; color:inherit; }
      other one is never downloaded. Missing file, no harm: the flame
      carries the hero on its own. */
   const HERO_VIDEO = {
-    portrait:  "assets/media/hero-portrait.mp4",
-    /* No wide master yet. Set this the moment one lands in assets/media,
-       otherwise every desktop visit fetches a 404 for nothing. */
-    landscape: null
+    /* The portrait clip is shown at its own shape in the hero panel on wide
+       screens and as the backdrop on phones, so it is never stretched.
+       Point `panel` at a wide master if one is ever shot for it. */
+    portrait: "assets/media/hero-portrait.mp4",
+    panel:    null
   };
 
   function initVideo(){
     const hero = $("#heroVideo");
     if (hero) {
-      const live = () => {
-        hero.classList.add("is-live");
-        if (hero.parentElement) hero.parentElement.classList.add("has-video");
-      };
+      const live = () => hero.classList.add("is-live");
       hero.addEventListener("playing", live);
       hero.addEventListener("loadeddata", () => { if (hero.readyState >= 2) live(); });
 
-      const src = innerWidth / innerHeight < 1 ? HERO_VIDEO.portrait : HERO_VIDEO.landscape;
+      const src = innerWidth >= 980
+        ? (HERO_VIDEO.panel || HERO_VIDEO.portrait)
+        : HERO_VIDEO.portrait;
       if (src) {
         hero.src = src;
         hero.preload = "auto";
