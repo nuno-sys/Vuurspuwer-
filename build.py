@@ -168,18 +168,36 @@ STAGE    = STAGE[:STAGE.index('<header class="nav"')]
 # op een onderliggende pagina wijzen de ankers terug naar de homepage
 HEADER   = HEADER.replace('href="#', 'href="/#')
 FOOTER   = chunk('<footer class="foot shell wrap">', '<script src="/assets/site.js"') 
-GTAG = """<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-VBKVM99CPB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+# versie-stempel voor css/js: /assets/* staat een jaar immutable in de
+# cache, dus elke wijziging krijgt een nieuw adres via ?v=…
+import hashlib
+VER = hashlib.md5(b"".join(open(f"assets/{f}", "rb").read()
+                           for f in ("site.css", "site.js", "ga.js"))).hexdigest()[:10]
 
-  gtag('config', 'G-VBKVM99CPB');
-</script>"""
-FONTS    = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">'
+GTAG = f'<script src="/assets/ga.js?v={VER}" defer></script>'
+# zelf gehoste fonts: alleen de twee gezichten die boven de vouw staan
+# vooraf laden; de @font-face-regels zitten in site.css zelf.
+FONTS    = ('<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-latin.woff2" crossorigin>'
+            '<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/instrument-latin.woff2" crossorigin>')
 
 def esc(t): return html.escape(t or "", quote=True)
+
+def srcset_of(iu):
+    """Zoekt de -480/-640/-900/…-broertjes van een media-bestand op schijf
+    en bouwt daar een srcset van, zodat telefoons de kleine variant laden."""
+    m = re.match(r"/assets/media/([a-z0-9-]+?)-(\d+)\.webp$", iu or "")
+    if iu == "/assets/media/post-cover.webp":
+        return ("/assets/media/post-cover-480.webp 480w, "
+                "/assets/media/post-cover-900.webp 900w, "
+                "/assets/media/post-cover.webp 1200w")
+    if not m: return ""
+    base = m.group(1)
+    cands = sorted(
+        (int(mm.group(1)), f"/assets/media/{f}")
+        for f in os.listdir("assets/media")
+        if (mm := re.match(rf"{re.escape(base)}-(\d+)\.webp$", f)))
+    if len(cands) < 2: return ""
+    return ", ".join(f"{u} {w}w" for w, u in cands)
 
 def crumbs(items):
     li = "".join(
@@ -232,10 +250,13 @@ def render(p, kind, extra_schema=None, extra_html=""):
     preload = ""
     if p.get("img"):
         iu, ia = p["img"]
-        preload = f'<link rel="preload" as="image" href="{esc(iu)}" fetchpriority="high">'
+        ss = srcset_of(iu)
+        ss_attr = f' srcset="{ss}" sizes="100vw"' if ss else ""
+        pre_ss = f' imagesrcset="{ss}" imagesizes="100vw"' if ss else ""
+        preload = f'<link rel="preload" as="image" href="{esc(iu)}"{pre_ss} fetchpriority="high">'
         hero = f'''<header class="phero">
     <div class="phero__bg" style="background-image:url('{esc(iu)}')" aria-hidden="true"></div>
-    <img class="phero__img" src="{esc(iu)}" alt="{esc(ia)}" fetchpriority="high" decoding="async">
+    <img class="phero__img" src="{esc(iu)}"{ss_attr} alt="{esc(ia)}" fetchpriority="high" decoding="async">
     <div class="phero__veil" aria-hidden="true"></div>
     <div class="phero__body wrap">
       {crumb_html}
@@ -281,8 +302,11 @@ def render(p, kind, extra_schema=None, extra_html=""):
 <meta property="og:url" content="{url}">
 <meta property="og:image" content="{(SITE + p["img"][0] if p["img"][0].startswith("/") else p["img"][0]) if p.get("img") else SITE + "/assets/media/festival-1600.webp"}">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 {FONTS}
-<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/site.css?v={VER}">
 {preload}
 {ld}
 </head>
@@ -309,7 +333,7 @@ def render(p, kind, extra_schema=None, extra_html=""):
   </section>
 </main>
 {FOOTER}
-<script src="/assets/site.js" defer></script>
+<script src="/assets/site.js?v={VER}" defer></script>
 </body>
 </html>
 '''
@@ -368,9 +392,11 @@ FOTOS = [
 def fotos_body():
     tiles = []
     for _, thumb, full, w, h, cap, alt in FOTOS:
+        ss = srcset_of(f"/assets/media/{thumb}")
+        ss_attr = f' srcset="{ss}" sizes="(max-width:760px) 46vw, 31vw"' if ss else ""
         tiles.append(
             f'<a href="/assets/media/{full}" data-lightbox data-cap="{esc(cap)}">'
-            f'<img src="/assets/media/{thumb}" width="{w}" height="{h}" '
+            f'<img src="/assets/media/{thumb}"{ss_attr} width="{w}" height="{h}" '
             f'loading="lazy" decoding="async" alt="{esc(alt)}"></a>')
     return ('<p>Een greep uit de shows van de afgelopen jaren: vuurshows op festivals '
             'en bedrijfsfeesten, fakirshows in het theater, de reptielenshow en optredens '
@@ -480,7 +506,9 @@ for slug in KEEP_PAGES:
             excerpt = text_of(bp["body"], 150)
             cards.append(
                 f'<article class="bcard"><a href="/{bp["slug"]}/">'
-                f'<img src="/assets/media/post-cover.webp" alt="" width="900" height="600" loading="lazy" decoding="async">'
+                f'<img src="/assets/media/post-cover-480.webp" '
+                f'srcset="/assets/media/post-cover-480.webp 480w, /assets/media/post-cover-900.webp 900w" '
+                f'sizes="(max-width:700px) 92vw, 340px" alt="" width="480" height="720" loading="lazy" decoding="async">'
                 f'<h2>{esc(bp["title"])}</h2></a>'
                 f'<p>{esc(excerpt)}</p>'
                 f'<p class="bcard__meta"><time datetime="{TODAY}">Bijgewerkt op {TODAY_NL}</time></p>'
@@ -573,9 +601,36 @@ open(os.path.join(OUT, "robots.txt"), "w").write(
     f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
 print(f"  sitemap.xml: {len(urls)} adressen")
 
-# homepage en assets meenemen
-shutil.copy("index.html", os.path.join(OUT, "index.html"))
+# homepage en assets meenemen; ook daar de versie-stempel op css/js
+hp_doc = open("index.html", encoding="utf-8").read()
+for a in ("assets/site.css", "assets/site.js", "assets/ga.js"):
+    hp_doc = hp_doc.replace(f'"/{a}"', f'"/{a}?v={VER}"')
+open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(hp_doc)
 shutil.copytree("assets", os.path.join(OUT, "assets"))
+
+# css en js geminificeerd in dist; de bronbestanden blijven leesbaar
+def _minify_css(t):
+    # voorzichtig: alleen commentaar en overbodige witruimte, niets in strings
+    t = re.sub(r"/\*.*?\*/", "", t, flags=re.S)
+    t = "\n".join(l.strip() for l in t.splitlines() if l.strip())
+    t = re.sub(r"\n(?=[{}])", "", t)
+    return t
+
+p = os.path.join(OUT, "assets", "site.css")
+_src = open(p).read()
+open(p, "w").write(_minify_css(_src))
+print(f"  site.css geminificeerd: {len(_src)//1024} -> {os.path.getsize(p)//1024} KiB")
+
+try:
+    import rjsmin
+    for js in ("site.js", "ga.js"):
+        p = os.path.join(OUT, "assets", js)
+        _src = open(p).read()
+        open(p, "w").write(rjsmin.jsmin(_src))
+        print(f"  {js} geminificeerd: {len(_src)//1024} -> {os.path.getsize(p)//1024} KiB")
+except ImportError:
+    print("  rjsmin niet beschikbaar: js ongewijzigd gekopieerd")
 shutil.copy("_headers", os.path.join(OUT, "_headers"))
+shutil.copy("favicon.ico", os.path.join(OUT, "favicon.ico"))
 shutil.copy("404.html", os.path.join(OUT, "404.html")) if os.path.exists("404.html") else None
 print("  homepage en assets gekopieerd")

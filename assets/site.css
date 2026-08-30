@@ -1,4 +1,126 @@
 /* ============================================================
+   Lettertypen — zelf gehost (geen render-blokkerende Google
+   Fonts-keten meer): Archivo, Instrument Sans en JetBrains Mono
+   als woff2 vanaf ons eigen domein, met font-display:swap.
+   ============================================================ */
+/* latin-ext */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 400 900;
+  font-stretch: 62% 125%;
+  font-display: swap;
+  src: url(/assets/fonts/archivo-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 400 900;
+  font-stretch: 62% 125%;
+  font-display: swap;
+  src: url(/assets/fonts/archivo-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(/assets/fonts/instrument-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(/assets/fonts/instrument-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(/assets/fonts/instrument-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(/assets/fonts/instrument-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(/assets/fonts/instrument-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(/assets/fonts/instrument-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/assets/fonts/jetbrains-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/assets/fonts/jetbrains-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(/assets/fonts/jetbrains-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(/assets/fonts/jetbrains-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ============================================================
    VUURSPUWER — single dark stage.
    The page has one persistent light source: a live WebGL flame
    burning along the bottom edge of the viewport. Everything
@@ -322,22 +444,30 @@ button,input,select,textarea{ font:inherit; color:inherit; }
      survives contexts that block external images */
   -webkit-mask:var(--logo-src) no-repeat center / contain;
   mask:var(--logo-src) no-repeat center / contain;
-  background-image:linear-gradient(96deg,
+  position:relative;
+}
+/* de hittegolf loopt via transform op een breed pseudo-element, zodat de
+   animatie op de gpu draait (composited) in plaats van te hertekenen */
+.logo::before{
+  content:"";
+  position:absolute;
+  top:0; bottom:0; left:0;
+  width:250%;
+  background:linear-gradient(96deg,
     var(--ember) 0%,
     var(--flame) 24%,
     var(--core)  44%,
     var(--flame) 64%,
     var(--ember) 100%);
-  background-size:250% 100%;
-  background-position:0% 50%;
-  animation:heat 9s ease-in-out infinite;
+  animation:heatX 9s ease-in-out infinite;
+  will-change:transform;
 }
-@keyframes heat{
-  0%,100%{ background-position:0% 50%; }
-  50%    { background-position:100% 50%; }
+@keyframes heatX{
+  0%,100%{ transform:translateX(0); }
+  50%    { transform:translateX(-60%); }
 }
 @media (prefers-reduced-motion:reduce){
-  .logo{ animation:none; background-position:44% 50%; }
+  .logo::before{ animation:none; transform:translateX(-26%); }
 }
 
 .logo--big{
@@ -1933,11 +2063,21 @@ body.is-locked .nav__call{ opacity:0; pointer-events:none; transition:opacity .3
   border-radius:999px;
   text-decoration:none;
   color:#170800;
-  background-image:linear-gradient(96deg,var(--ember),var(--flame) 30%,var(--core) 52%,var(--flame) 74%,var(--ember));
-  background-size:250% 100%;
-  animation:heat 9s ease-in-out infinite;
+  background:var(--ember);
+  overflow:hidden;
+  isolation:isolate;
   box-shadow:0 0 0 3px rgba(5,3,2,.9), 0 8px 30px rgba(0,0,0,.55), 0 0 26px rgba(255,120,20,.35);
   transition:transform .4s var(--ease), box-shadow .4s var(--ease);
+}
+.wa::after{
+  content:"";
+  position:absolute;
+  top:0; bottom:0; left:0;
+  width:250%;
+  z-index:-1;
+  background:linear-gradient(96deg,var(--ember),var(--flame) 30%,var(--core) 52%,var(--flame) 74%,var(--ember));
+  animation:heatX 9s ease-in-out infinite;
+  will-change:transform;
 }
 .wa:hover{
   transform:translateY(-3px) scale(1.03);
@@ -2400,24 +2540,31 @@ body.is-locked .wa{ opacity:0; pointer-events:none; transition:opacity .3s var(-
    trage golf — de hele site ademt hetzelfde vuur.
    ============================================================ */
 .btn:not(.btn--ghost){
-  background-image:linear-gradient(96deg,
+  overflow:hidden;
+  isolation:isolate;
+}
+.btn:not(.btn--ghost)::after{
+  content:"";
+  position:absolute;
+  top:0; bottom:0; left:0;
+  width:250%;
+  z-index:-2;
+  background:linear-gradient(96deg,
     var(--ember) 0%,
     var(--flame) 24%,
     var(--core)  44%,
     var(--flame) 64%,
     var(--ember) 100%);
-  background-size:250% 100%;
-  background-position:0% 50%;
-  animation:heat 9s ease-in-out infinite;
+  animation:heatX 9s ease-in-out infinite;
 }
 @media (prefers-reduced-motion:reduce){
-  .btn:not(.btn--ghost), .wa{ animation:none; background-position:44% 50%; }
+  .btn:not(.btn--ghost)::after, .wa::after{ animation:none; transform:translateX(-26%); }
 }
 
 /* de WhatsApp-knop: lichter en met dezelfde gloed als het logo */
 .wa{
   filter:brightness(1.07) saturate(1.1);
-  animation:heat 9s ease-in-out infinite, waGlow 3.4s ease-in-out infinite;
+  animation:waGlow 3.4s ease-in-out infinite;
 }
 @keyframes waGlow{
   0%,100%{ box-shadow:0 0 0 3px rgba(5,3,2,.9), 0 8px 30px rgba(0,0,0,.55), 0 0 22px rgba(255,120,20,.32); }

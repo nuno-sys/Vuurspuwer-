@@ -451,7 +451,9 @@
   /* plates in the gallery burn on their own clock (the sideways
      scroll), so they are not registered here */
   const BLOCK_SEL = ".reel, .show__shot";
-  const FADE_SEL  = ".btn, .chip, .stars, .rating__score, .spec, .safety > div, .book, .field input, .field select, .field textarea, .scrollcue i, .status, .foot__social a";
+  /* de sociale links in de voet doen niet mee met het inbrand-effect:
+     hun rustkleur moet altijd volledig contrast houden (toegankelijkheid) */
+  const FADE_SEL  = ".btn, .chip, .stars, .rating__score, .spec, .safety > div, .book, .field input, .field select, .field textarea, .scrollcue i, .status";
 
   const burners = [];
 

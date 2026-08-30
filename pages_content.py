@@ -1,8 +1,21 @@
 """Eigen inhoud voor de video's-pagina, de drie showpagina's en de
 Halloween-pagina. De teksten komen van de live site en zijn opgeschoond
 en licht aangescherpt; de webadressen blijven exact gelijk."""
+import os, re
 
 SITE = "https://vuurspuwer.com"
+
+def _srcset(thumb):
+    """srcset uit de kleinere broertjes (-480 enz.) van een media-bestand."""
+    m = re.match(r"([a-z0-9-]+?)-(\d+)\.webp$", thumb)
+    if not m: return ""
+    base = m.group(1)
+    cands = sorted(
+        (int(mm.group(1)), f)
+        for f in os.listdir("assets/media")
+        if (mm := re.match(rf"{re.escape(base)}-(\d+)\.webp$", f)))
+    if len(cands) < 2: return ""
+    return ", ".join(f"/assets/media/{f} {w}w" for w, f in cands)
 
 # ------------------------------------------------------------------ video's
 VIDEOS = [
@@ -20,13 +33,18 @@ VIDEOS = [
      "Meters hoge vuurbal van vuurspuwer Nuno, gefilmd van dichtbij."),
 ]
 
+def _poster(poster):
+    """De lichtere 640-variant van een poster, als die bestaat."""
+    small = re.sub(r"\.(webp|jpg)$", r"-640.webp", poster)
+    return small if os.path.exists(f"assets/media/{small}") else poster
+
 def videos_body():
     tiles = []
     for i, (src, poster, _, cap, alt) in enumerate(VIDEOS):
         ratio = ' data-ratio="9/16"' if "portrait" in src else ""
         tiles.append(f'''<figure class="reel rise"{ratio}>
-        <video muted loop playsinline preload="none" poster="/assets/media/{poster}"
-               data-src="/assets/media/{src}" aria-label="{alt}"></video>
+        <video muted loop playsinline preload="none" poster="/assets/media/{_poster(poster)}"
+               data-src="/assets/media/{src}" aria-label="{alt}"><track kind="captions" src="/assets/media/stil.vtt" srclang="nl" label="Geen gesproken tekst"></video>
         <button class="reel__play" type="button" aria-label="Video afspelen: {cap}">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
         </button>
@@ -55,12 +73,15 @@ def videos_schema():
 # -------------------------------------------------------------- showpagina's
 # hulpstukje: een rij fotos onder het artikel
 def _fotorij(items):
-    tiles = "".join(
-        f'<a href="/assets/media/{full}" data-lightbox data-cap="{cap}">'
-        f'<img src="/assets/media/{thumb}" width="{w}" height="{h}" loading="lazy" '
-        f'decoding="async" alt="{alt}"></a>'
-        for thumb, full, w, h, cap, alt in items)
-    return f'<h2>Foto’s uit de show</h2><div class="fgrid">{tiles}</div>'
+    tiles = []
+    for thumb, full, w, h, cap, alt in items:
+        ss = _srcset(thumb)
+        ss_attr = f' srcset="{ss}" sizes="(max-width:760px) 46vw, 31vw"' if ss else ""
+        tiles.append(
+            f'<a href="/assets/media/{full}" data-lightbox data-cap="{cap}">'
+            f'<img src="/assets/media/{thumb}"{ss_attr} width="{w}" height="{h}" loading="lazy" '
+            f'decoding="async" alt="{alt}"></a>')
+    return f'<h2>Foto’s uit de show</h2><div class="fgrid">{"".join(tiles)}</div>'
 
 SHOW_PAGES = {
  "workshop-vuurspuwen": {
