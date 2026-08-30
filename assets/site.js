@@ -313,14 +313,11 @@
 
     if (!wrap || !flyer) { if (brand) brand.classList.add("is-landed"); start(); return; }
 
-    /* De volledige vuurshow-intro alleen op de homepage en alleen de
-       eerste keer deze sessie. Onderliggende pagina's en herhaalbezoek
-       openen direct — dat scheelt seconden op de gemeten laadtijd. */
-    let full = false;
-    try {
-      full = location.pathname === "/" && !sessionStorage.getItem("ignited");
-      sessionStorage.setItem("ignited", "1");
-    } catch (e) { full = location.pathname === "/"; }
+    /* De volledige vuurshow-intro (logo, teller, vlucht naar het menu)
+       hoort bij de homepage en speelt daar bij elk bezoek. Onderliggende
+       pagina's openen direct met alleen de korte vuurveeg — dat houdt de
+       gemeten laadtijd daar razendsnel. */
+    const full = location.pathname === "/";
 
     if (!full) {
       /* een tik wachten zodat het hele script eerst geladen is;
