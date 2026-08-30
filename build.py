@@ -222,6 +222,27 @@ def crumbs(items):
                                 for k, (n, u) in enumerate(items)]}
     return f'<nav class="crumbs" aria-label="Kruimelpad"><ol>{li}</ol></nav>', data
 
+# Elke Service in de structured data krijgt de echte beoordeling en de
+# vanafprijs mee, zodat Google sterren en "vanaf € 350" kan tonen.
+_RATING_LD = {"@type": "AggregateRating", "ratingValue": "4.9",
+              "reviewCount": "134", "bestRating": "5", "worstRating": "1"}
+_OFFER_TXT = {
+    "nl": "Vanaf-prijs, exclusief reiskosten. Vrijblijvende offerte op maat.",
+    "en": "Starting price, excluding travel costs. Free tailored quote.",
+    "de": "Ab-Preis, zzgl. Anfahrt. Kostenloses Angebot nach Maß.",
+    "fr": "Prix à partir de, hors frais de déplacement. Devis gratuit sur mesure.",
+}
+def _enrich_services(g, lang):
+    if isinstance(g, dict):
+        t = g.get("@type")
+        if "Service" in (t if isinstance(t, list) else [t]):
+            g.setdefault("aggregateRating", _RATING_LD)
+            g.setdefault("offers", {"@type": "AggregateOffer", "priceCurrency": "EUR",
+                                    "lowPrice": "350", "description": _OFFER_TXT[lang]})
+        for v in g.values(): _enrich_services(v, lang)
+    elif isinstance(g, list):
+        for v in g: _enrich_services(v, lang)
+
 # --------------------------------------------- meertalige chrome en helpers
 # vertaalde kop- en voetstukken: de NL-blokken uit index.html met de
 # menulinks, labels en teksten omgezet per taal. Alles wat geen eigen
@@ -234,6 +255,11 @@ _FOOTER_LABELS = {
         ">Privacybeleid<": ">Privacy policy<", "<h2>Shows</h2>": "<h2>Shows</h2>",
         "<h2>Site</h2>": "<h2>Site</h2>", "<h2>Contact</h2>": "<h2>Contact</h2>",
         ">Foto&rsquo;s<": ">Photos<", ">Video&rsquo;s<": ">Videos<",
+        "Gecertificeerd vuurspuwer &amp; fakir": "Certified fire breather &amp; fakir",
+        "17 jaar podiumervaring": "17 years of stage experience",
+        "Vergunningseisen &amp; veiligheidsafstanden geregeld": "Permits &amp; safety distances arranged",
+        "4.9/5 uit 134 reviews": "4.9/5 from 134 reviews",
+        'aria-label="Zekerheden"': 'aria-label="Guarantees"',
         "Nederland, Belgi&euml; &amp; internationaal": "Netherlands, Belgium &amp; international"},
  "de": {">Reptielenshow<": ">Reptilienshow<", ">Workshop vuurspuwen<": ">Feuerspucker-Workshop<",
         ">Mentalisme<": ">Mentalismus<", ">Themafeesten<": ">Mottopartys<",
@@ -242,6 +268,11 @@ _FOOTER_LABELS = {
         ">Privacybeleid<": ">Datenschutz<", "<h2>Shows</h2>": "<h2>Shows</h2>",
         "<h2>Site</h2>": "<h2>Website</h2>", "<h2>Contact</h2>": "<h2>Kontakt</h2>",
         ">Foto&rsquo;s<": ">Fotos<", ">Video&rsquo;s<": ">Videos<",
+        "Gecertificeerd vuurspuwer &amp; fakir": "Zertifizierter Feuerspucker &amp; Fakir",
+        "17 jaar podiumervaring": "17 Jahre B&uuml;hnenerfahrung",
+        "Vergunningseisen &amp; veiligheidsafstanden geregeld": "Genehmigungen &amp; Sicherheitsabst&auml;nde geregelt",
+        "4.9/5 uit 134 reviews": "4,9/5 aus 134 Bewertungen",
+        'aria-label="Zekerheden"': 'aria-label="Garantien"',
         "Nederland, Belgi&euml; &amp; internationaal": "Niederlande, Belgien &amp; international"},
  "fr": {">Reptielenshow<": ">Spectacle de reptiles<", ">Workshop vuurspuwen<": ">Atelier cracheur de feu<",
         ">Mentalisme<": ">Mentalisme<", ">Themafeesten<": ">Fêtes à thème<",
@@ -250,6 +281,11 @@ _FOOTER_LABELS = {
         ">Privacybeleid<": ">Confidentialité<", "<h2>Shows</h2>": "<h2>Spectacles</h2>",
         "<h2>Site</h2>": "<h2>Site</h2>", "<h2>Contact</h2>": "<h2>Contact</h2>",
         ">Foto&rsquo;s<": ">Photos<", ">Video&rsquo;s<": ">Vidéos<",
+        "Gecertificeerd vuurspuwer &amp; fakir": "Cracheur de feu &amp; fakir certifié",
+        "17 jaar podiumervaring": "17 ans d'expérience scénique",
+        "Vergunningseisen &amp; veiligheidsafstanden geregeld": "Autorisations &amp; distances de sécurité gérées",
+        "4.9/5 uit 134 reviews": "4,9/5 sur 134 avis",
+        'aria-label="Zekerheden"': 'aria-label="Garanties"',
         "Nederland, Belgi&euml; &amp; internationaal": "Pays-Bas, Belgique &amp; international"},
 }
 _WA_TEXT = {
@@ -263,6 +299,7 @@ _BRAND_ARIA = {"en": "Fire breather Nuno, to the homepage", "de": "Feuerspucker 
                "fr": "Cracheur de feu Nuno, vers l'accueil"}
 _CALL_ARIA = {"en": "Call Nuno on +31 6 200 207 23", "de": "Nuno anrufen unter +31 6 200 207 23",
               "fr": "Appeler Nuno au +31 6 200 207 23"}
+_CALL_NOW = {"en": ">Call now<", "de": ">Jetzt anrufen<", "fr": ">Appeler<"}
 
 _CHROME_CACHE = {}
 def chrome(lang):
@@ -286,6 +323,7 @@ def chrome(lang):
            ">Fakirshow<": f'>{M["fakirshow"]}<', ">Contact<": f'>{M["contact"]}<',
            ">Reviews<": f'>{M["reviews"]}<',
            ">Offerte aanvragen<": f'>{L["offerte"]}<',
+           ">Bel direct<": _CALL_NOW[lang],
            '<span class="burger__txt">Menu</span>': f'<span class="burger__txt">{L["menu_btn"]}</span>',
            'aria-label="Vuurspuwer Nuno, naar de homepagina"': f'aria-label="{_BRAND_ARIA[lang]}"',
            'aria-label="4,9 van de 5 sterren uit 134 reviews — lees de beoordelingen"': f'aria-label="{L["stars_label"]}"',
@@ -427,6 +465,7 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
                       "publisher": {"@id": f"{SITE}/#business"}})
     if extra_schema:
         graph.extend(extra_schema) if isinstance(extra_schema, list) else graph.append(extra_schema)
+    for g in graph: _enrich_services(g, lang)
     ld = "\n".join(f'<script type="application/ld+json">{json.dumps(g, ensure_ascii=False)}</script>' for g in graph)
 
     return f'''<!doctype html>

@@ -310,8 +310,8 @@ SHOW_PAGES = {
 
  "halloween": {
   "title": "Halloween vuurshow & horror-fakir boeken",
-  "seo_title": "\U0001F383 Halloween Vuurshow & Horror-Fakir Boeken | NL & BE – vanaf €395",
-  "seo_desc": "Halloween-act boeken? Duivelse vuurshows, horror-fakirshow en scare-acts — bekend van Walibi Fright Nights. Heel NL & BE, vanaf €395. Oktober loopt vol: boek nu!",
+  "seo_title": "\U0001F383 Halloween Vuurshow & Horror-Fakir Boeken | NL & BE – vanaf €350",
+  "seo_desc": "Halloween-act boeken? Duivelse vuurshows, horror-fakirshow en scare-acts — bekend van Walibi Fright Nights. Heel NL & BE, vanaf €350. Oktober loopt vol: boek nu!",
   "eyebrow": "\U0001F383 Oktober · beperkt beschikbaar",
   "img": ("/assets/media/vuurbal-1333.webp", "Meters hoge vuurbal tegen een zwarte nachtlucht boven de vuurspuwer"),
   "body": """
@@ -323,7 +323,7 @@ SHOW_PAGES = {
 
 <h2>Halloween-acts op een rij</h2>
 <ul>
-<li>\U0001F608 <strong>Duivelse vuurshow</strong> &mdash; vlammen, vonken en vuurzuilen in horror-styling (vanaf &euro;395)</li>
+<li>\U0001F608 <strong>Duivelse vuurshow</strong> &mdash; vlammen, vonken en vuurzuilen in horror-styling (vanaf &euro;350)</li>
 <li>\U0001F5E1️ <strong>Horror-fakirshow</strong> &mdash; spijkerbed, glas en zwaarden in griezelgrime (vanaf &euro;450)</li>
 <li>\U0001F441️ <strong>Duister mentalisme</strong> &mdash; gedachten lezen met een onheilspellend randje</li>
 <li>\U0001F525 <strong>Complete Halloween-productie</strong> &mdash; meerdere acts verspreid over de avond (vanaf &euro;750)</li>
@@ -334,7 +334,7 @@ SHOW_PAGES = {
 """,
   "faq": [
    ("Wat kost een Halloween vuurshow of horror-act?",
-    "Halloween-acts boekt u vanaf €395 (vuurshow) of €450 (horror-fakirshow). Een complete Halloween-avondproductie met meerdere acts is mogelijk vanaf €750. Oktober-data zijn beperkt — vroeg boeken loont."),
+    "Halloween-acts boekt u vanaf €350 (vuurshow) of €450 (horror-fakirshow). Een complete Halloween-avondproductie met meerdere acts is mogelijk vanaf €750. Oktober-data zijn beperkt — vroeg boeken loont."),
    ("Welke Halloween-acts zijn er mogelijk?",
     "Duivelse vuurshows, een horror-fakir op spijkerbed en glas, scare-acts tussen het publiek, griezelig mentalisme en combinaties daarvan. Kostuum en grime worden volledig op uw thema afgestemd — van klassieke horror tot demonisch."),
    ("Heeft Nuno ervaring met grote Halloween-events?",
@@ -345,7 +345,7 @@ SHOW_PAGES = {
   "service": {"name": "Halloween entertainment", "type": "Halloween entertainment",
               "desc": "Halloween vuurshows, horror-fakiracts en scare-entertainment voor Fright Nights, spooktochten en themafeesten in Nederland en België.",
               "offers": {"@type": "AggregateOffer", "priceCurrency": "EUR",
-                         "lowPrice": "395", "highPrice": "1800",
+                         "lowPrice": "350", "highPrice": "1800",
                          "description": "Vanaf-prijs, exclusief reiskosten. Vrijblijvende offerte op maat."}},
   "fotos": [("vuurbal-900.webp", "vuurbal-1333.webp", 900, 1350, "Vuurbal tijdens een nachtshow", "Meters hoge vuurbal tegen een zwarte nachtlucht boven de vuurspuwer"),
             ("spijkerbed-900.webp", "spijkerbed-1242.webp", 900, 873, "Horror-fakir: het spijkerbord", "Close-up van de fakiract: Nuno balanceert het spijkerbord met kettingen op zijn gezicht"),

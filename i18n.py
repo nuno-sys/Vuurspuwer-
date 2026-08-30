@@ -306,8 +306,8 @@ PAGES["en"]["workshop-vuurspuwen"] = {
 
 PAGES["en"]["halloween"] = {
  "title": "Book a Halloween fire show & horror fakir",
- "seo_title": "\U0001F383 Halloween Fire Show & Horror Fakir | NL & BE – from €395",
- "seo_desc": "Booking a Halloween act? Devilish fire shows, a horror fakir show and scare acts — known from Walibi Fright Nights. All of NL & BE, from €395. October fills up fast!",
+ "seo_title": "\U0001F383 Halloween Fire Show & Horror Fakir | NL & BE – from €350",
+ "seo_desc": "Booking a Halloween act? Devilish fire shows, a horror fakir show and scare acts — known from Walibi Fright Nights. All of NL & BE, from €350. October fills up fast!",
  "eyebrow": "\U0001F383 October · limited availability",
  "img": ("/assets/media/vuurbal-1333.webp", "Towering fireball against a black night sky above the fire breather"),
  "body": """
@@ -317,7 +317,7 @@ PAGES["en"]["halloween"] = {
 <p>With performances at Walibi Holland's Halloween Fright Nights on his CV, Nuno knows exactly how to make a big crowd scream and applaud. He makes the difference just as much at a scout's haunted trail, a horror night at the pub or a company Halloween party.</p>
 <h2>Halloween acts at a glance</h2>
 <ul>
-<li>\U0001F608 <strong>Devilish fire show</strong> — flames, sparks and pillars of fire in horror styling (from €395)</li>
+<li>\U0001F608 <strong>Devilish fire show</strong> — flames, sparks and pillars of fire in horror styling (from €350)</li>
 <li>\U0001F5E1️ <strong>Horror fakir show</strong> — bed of nails, glass and swords in creepy make-up (from €450)</li>
 <li>\U0001F441️ <strong>Dark mentalism</strong> — mind reading with a sinister edge</li>
 <li>\U0001F525 <strong>Complete Halloween production</strong> — several acts spread across the evening (from €750)</li>
@@ -327,7 +327,7 @@ PAGES["en"]["halloween"] = {
 """,
  "faq": [
   ("What does a Halloween fire show or horror act cost?",
-   "Halloween acts start from €395 (fire show) or €450 (horror fakir show). A complete Halloween evening production with several acts is possible from €750. October dates are limited — booking early pays off."),
+   "Halloween acts start from €350 (fire show) or €450 (horror fakir show). A complete Halloween evening production with several acts is possible from €750. October dates are limited — booking early pays off."),
   ("Which Halloween acts are possible?",
    "Devilish fire shows, a horror fakir on the bed of nails and glass, scare acts among the crowd, creepy mentalism and combinations of these. Costume and make-up are fully matched to your theme."),
   ("Does Nuno have experience with large Halloween events?",
@@ -338,7 +338,7 @@ PAGES["en"]["halloween"] = {
  "service": {"name": "Halloween entertainment", "type": "Halloween entertainment",
              "desc": "Halloween fire shows, horror fakir acts and scare entertainment for fright nights, haunted trails and theme parties in the Netherlands and Belgium.",
              "offers": {"@type": "AggregateOffer", "priceCurrency": "EUR",
-                        "lowPrice": "395", "highPrice": "1800",
+                        "lowPrice": "350", "highPrice": "1800",
                         "description": "Starting price, excluding travel costs. Free tailored quote."}},
  "fotos": [("vuurbal-900.webp", "vuurbal-1333.webp", 900, 1350, "Fireball during a night show", "Towering fireball against a black night sky above the fire breather"),
            ("spijkerbed-900.webp", "spijkerbed-1242.webp", 900, 873, "Horror fakir: the nail board", "Close-up of the fakir act: Nuno balancing the nail board with chains on his face"),
@@ -476,7 +476,7 @@ or outdoors, throughout the Netherlands, Belgium and beyond.</p>
      ("vuurspuwer-inhuren", "vuurshow-850.webp", "Fire show", "Towering flames, fire juggling and choreography set to music — the showpiece for any event.", "Daytime fire show at a festival, audience watching from a few metres away"),
      ("fakir-show-inhuren", "fakirshow-640.webp", "Fakir show", "Bed of nails, glass walking and sword acts: tension and wonder from start to finish.", "Fakir show in the theatre: Nuno on the bed of nails bearing the weight of a spectator"),
      ("workshop-vuurspuwen", "workshop-900.webp", "Fire-breathing workshop", "Learn to breathe fire yourself, safely — the ultimate team building or party activity.", "Fire breather blowing a large fireball against the evening sky"),
-     ("halloween", "vuurbal-900.webp", "\U0001F383 Halloween acts", "Devilish fire shows and a horror fakir, known from Walibi's Fright Nights. From €395.", "Towering fireball against a black night sky"),
+     ("halloween", "vuurbal-900.webp", "\U0001F383 Halloween acts", "Devilish fire shows and a horror fakir, known from Walibi's Fright Nights. From €350.", "Towering fireball against a black night sky"),
      ("fotos", "festival-900.webp", "Photos", "See the shows in pictures: festivals, weddings, corporate events and theatre.", "Fire breather Nuno blowing a fireball on a festival square"),
      ("videos", "themafeest-900.webp", "Videos", "Showreels and clips of the fire and fakir acts in action.", "Fire breather next to a vintage bus during an evening theme party"),
    ],
@@ -636,8 +636,8 @@ PAGES["de"]["workshop-vuurspuwen"] = {
 
 PAGES["de"]["halloween"] = {
  "title": "Halloween-Feuershow & Horror-Fakir buchen",
- "seo_title": "\U0001F383 Halloween-Feuershow & Horror-Fakir | NL, BE & Grenzregion – ab 395 €",
- "seo_desc": "Halloween-Act buchen? Teuflische Feuershows, Horror-Fakirshow und Scare-Acts — bekannt von den Walibi Fright Nights. Ab 395 €. Der Oktober füllt sich schnell!",
+ "seo_title": "\U0001F383 Halloween-Feuershow & Horror-Fakir | NL, BE & Grenzregion – ab 350 €",
+ "seo_desc": "Halloween-Act buchen? Teuflische Feuershows, Horror-Fakirshow und Scare-Acts — bekannt von den Walibi Fright Nights. Ab 350 €. Der Oktober füllt sich schnell!",
  "eyebrow": "\U0001F383 Oktober · begrenzt verfügbar",
  "img": ("/assets/media/vuurbal-1333.webp", "Meterhoher Feuerball vor schwarzem Nachthimmel über dem Feuerspucker"),
  "body": """
@@ -646,7 +646,7 @@ PAGES["de"]["halloween"] = {
 <p>Kein Fest passt so gut zu Feuer und Dunkelheit wie Halloween. Für diesen Anlass verwandelt sich Nuno in einen Dämon, Teufel oder Horror-Fakir: Flammen, die aus dem Dunkel auftauchen, ein Nagelbrett-Act im Fackelschein, Scare-Momente mitten im Publikum und Mentalismus, der Gedanken ein wenig zu gut liest. Jedes Element wird auf Ihr Thema und Ihre Zielgruppe abgestimmt — von familienfreundlichem Gruseln bis zu Horror für Erwachsene.</p>
 <h2>Die Halloween-Acts im Überblick</h2>
 <ul>
-<li>\U0001F608 <strong>Teuflische Feuershow</strong> — Flammen, Funken und Feuersäulen im Horror-Styling (ab 395 €)</li>
+<li>\U0001F608 <strong>Teuflische Feuershow</strong> — Flammen, Funken und Feuersäulen im Horror-Styling (ab 350 €)</li>
 <li>\U0001F5E1️ <strong>Horror-Fakirshow</strong> — Nagelbrett, Glas und Schwerter in Gruselmaske (ab 450 €)</li>
 <li>\U0001F441️ <strong>Düsterer Mentalismus</strong> — Gedankenlesen mit unheimlichem Unterton</li>
 <li>\U0001F525 <strong>Komplette Halloween-Produktion</strong> — mehrere Acts über den Abend verteilt (ab 750 €)</li>
@@ -656,7 +656,7 @@ PAGES["de"]["halloween"] = {
 """,
  "faq": [
   ("Was kostet eine Halloween-Feuershow oder ein Horror-Act?",
-   "Halloween-Acts buchen Sie ab 395 € (Feuershow) bzw. 450 € (Horror-Fakirshow). Eine komplette Halloween-Abendproduktion mit mehreren Acts ist ab 750 € möglich. Oktober-Termine sind begrenzt."),
+   "Halloween-Acts buchen Sie ab 350 € (Feuershow) bzw. 450 € (Horror-Fakirshow). Eine komplette Halloween-Abendproduktion mit mehreren Acts ist ab 750 € möglich. Oktober-Termine sind begrenzt."),
   ("Welche Halloween-Acts sind möglich?",
    "Teuflische Feuershows, ein Horror-Fakir auf Nagelbrett und Glas, Scare-Acts im Publikum, unheimlicher Mentalismus und Kombinationen daraus. Kostüm und Maske werden komplett auf Ihr Thema abgestimmt."),
   ("Hat Nuno Erfahrung mit großen Halloween-Events?",
@@ -667,7 +667,7 @@ PAGES["de"]["halloween"] = {
  "service": {"name": "Halloween-Entertainment", "type": "Halloween-Entertainment",
              "desc": "Halloween-Feuershows, Horror-Fakir-Acts und Scare-Entertainment für Fright Nights, Gruseltouren und Mottopartys in den Niederlanden, Belgien und der Grenzregion.",
              "offers": {"@type": "AggregateOffer", "priceCurrency": "EUR",
-                        "lowPrice": "395", "highPrice": "1800",
+                        "lowPrice": "350", "highPrice": "1800",
                         "description": "Ab-Preis, zzgl. Anfahrt. Kostenloses Angebot nach Maß."}},
  "fotos": [("vuurbal-900.webp", "vuurbal-1333.webp", 900, 1350, "Feuerball bei einer Nachtshow", "Meterhoher Feuerball vor schwarzem Nachthimmel über dem Feuerspucker"),
            ("spijkerbed-900.webp", "spijkerbed-1242.webp", 900, 873, "Horror-Fakir: das Nagelbrett", "Nahaufnahme des Fakir-Acts: Nuno balanciert das Nagelbrett mit Ketten auf seinem Gesicht"),
@@ -805,7 +805,7 @@ drinnen wie draußen, von Amsterdam bis Aachen.</p>
      ("vuurspuwer-inhuren", "vuurshow-850.webp", "Feuershow", "Meterhohe Flammen, Feuerjonglage und Choreografien zur Musik — das Herzstück jedes Events.", "Feuershow am Tag auf einem Festival"),
      ("fakir-show-inhuren", "fakirshow-640.webp", "Fakirshow", "Nagelbrett, Glaslaufen und Schwert-Acts: Spannung und Staunen von Anfang bis Ende.", "Fakirshow im Theater: Nuno auf dem Nagelbrett"),
      ("workshop-vuurspuwen", "workshop-900.webp", "Feuerspucker-Workshop", "Selbst sicher Feuerspucken lernen — das ultimative Teambuilding.", "Feuerspucker bläst einen großen Feuerball gegen den Abendhimmel"),
-     ("halloween", "vuurbal-900.webp", "\U0001F383 Halloween-Acts", "Teuflische Feuershows und ein Horror-Fakir, bekannt von den Walibi Fright Nights. Ab 395 €.", "Meterhoher Feuerball vor schwarzem Nachthimmel"),
+     ("halloween", "vuurbal-900.webp", "\U0001F383 Halloween-Acts", "Teuflische Feuershows und ein Horror-Fakir, bekannt von den Walibi Fright Nights. Ab 350 €.", "Meterhoher Feuerball vor schwarzem Nachthimmel"),
      ("fotos", "festival-900.webp", "Fotos", "Die Shows in Bildern: Festivals, Hochzeiten, Firmenfeiern und Theater.", "Feuerspucker Nuno auf einem Festivalplatz"),
      ("videos", "themafeest-900.webp", "Videos", "Showreels und Clips der Feuer- und Fakir-Acts in Aktion.", "Feuerspucker neben einem Oldtimer-Bus"),
    ],
@@ -965,8 +965,8 @@ PAGES["fr"]["workshop-vuurspuwen"] = {
 
 PAGES["fr"]["halloween"] = {
  "title": "Réserver un spectacle de feu Halloween & fakir d'horreur",
- "seo_title": "\U0001F383 Spectacle de Feu Halloween & Fakir d'Horreur | BE & NL – dès 395 €",
- "seo_desc": "Réserver une animation Halloween ? Spectacles de feu diaboliques, fakir d'horreur et scare acts — connu des Walibi Fright Nights. Dès 395 €. Octobre se remplit vite !",
+ "seo_title": "\U0001F383 Spectacle de Feu Halloween & Fakir d'Horreur | BE & NL – dès 350 €",
+ "seo_desc": "Réserver une animation Halloween ? Spectacles de feu diaboliques, fakir d'horreur et scare acts — connu des Walibi Fright Nights. Dès 350 €. Octobre se remplit vite !",
  "eyebrow": "\U0001F383 Octobre · disponibilité limitée",
  "img": ("/assets/media/vuurbal-1333.webp", "Immense boule de feu contre un ciel nocturne noir au-dessus du cracheur de feu"),
  "body": """
@@ -975,7 +975,7 @@ PAGES["fr"]["halloween"] = {
 <p>Aucune fête ne s'accorde mieux au feu et à l'obscurité qu'Halloween. Pour l'occasion, Nuno se transforme en démon, diable ou fakir d'horreur : des flammes qui surgissent du noir, un numéro de lit de clous à la lueur des torches, des moments de frayeur au milieu du public et du mentalisme qui lit les pensées un peu trop bien. Chaque élément est adapté à votre thème et à votre public — du frisson familial à l'horreur pour adultes.</p>
 <h2>Les animations Halloween en un coup d'œil</h2>
 <ul>
-<li>\U0001F608 <strong>Spectacle de feu diabolique</strong> — flammes, étincelles et colonnes de feu en style horreur (dès 395 €)</li>
+<li>\U0001F608 <strong>Spectacle de feu diabolique</strong> — flammes, étincelles et colonnes de feu en style horreur (dès 350 €)</li>
 <li>\U0001F5E1️ <strong>Fakir d'horreur</strong> — lit de clous, verre et épées en maquillage effrayant (dès 450 €)</li>
 <li>\U0001F441️ <strong>Mentalisme sombre</strong> — lecture de pensées avec une touche sinistre</li>
 <li>\U0001F525 <strong>Production Halloween complète</strong> — plusieurs numéros répartis sur la soirée (dès 750 €)</li>
@@ -985,7 +985,7 @@ PAGES["fr"]["halloween"] = {
 """,
  "faq": [
   ("Combien coûte un spectacle de feu ou une animation d'horreur pour Halloween ?",
-   "Les animations Halloween démarrent à 395 € (spectacle de feu) ou 450 € (fakir d'horreur). Une production complète de soirée avec plusieurs numéros est possible dès 750 €. Les dates d'octobre sont limitées."),
+   "Les animations Halloween démarrent à 350 € (spectacle de feu) ou 450 € (fakir d'horreur). Une production complète de soirée avec plusieurs numéros est possible dès 750 €. Les dates d'octobre sont limitées."),
   ("Quelles animations Halloween sont possibles ?",
    "Spectacles de feu diaboliques, un fakir d'horreur sur lit de clous et verre, des scare acts dans le public, du mentalisme inquiétant et leurs combinaisons. Costume et maquillage sont entièrement adaptés à votre thème."),
   ("Nuno a-t-il l'expérience des grands événements Halloween ?",
@@ -996,7 +996,7 @@ PAGES["fr"]["halloween"] = {
  "service": {"name": "Animations Halloween", "type": "Divertissement Halloween",
              "desc": "Spectacles de feu Halloween, numéros de fakir d'horreur et scare entertainment pour fright nights, parcours hantés et fêtes à thème en Belgique et aux Pays-Bas.",
              "offers": {"@type": "AggregateOffer", "priceCurrency": "EUR",
-                        "lowPrice": "395", "highPrice": "1800",
+                        "lowPrice": "350", "highPrice": "1800",
                         "description": "Prix de départ, hors frais de déplacement. Devis gratuit sur mesure."}},
  "fotos": [("vuurbal-900.webp", "vuurbal-1333.webp", 900, 1350, "Boule de feu lors d'un spectacle nocturne", "Immense boule de feu contre un ciel nocturne noir au-dessus du cracheur de feu"),
            ("spijkerbed-900.webp", "spijkerbed-1242.webp", 900, 873, "Fakir d'horreur : la planche à clous", "Gros plan du numéro de fakir : Nuno en équilibre avec la planche à clous"),
@@ -1136,7 +1136,7 @@ festivals et fêtes privées, en intérieur comme en extérieur.</p>
      ("vuurspuwer-inhuren", "vuurshow-850.webp", "Spectacle de feu", "Des flammes de plusieurs mètres, du jonglage enflammé et des chorégraphies en musique — la pièce maîtresse de tout événement.", "Spectacle de feu en plein jour lors d'un festival"),
      ("fakir-show-inhuren", "fakirshow-640.webp", "Spectacle de fakir", "Lit de clous, marche sur verre et numéros à l'épée : tension et émerveillement du début à la fin.", "Spectacle de fakir au théâtre : Nuno sur le lit de clous"),
      ("workshop-vuurspuwen", "workshop-900.webp", "Atelier cracheur de feu", "Apprenez vous-même à cracher le feu, en toute sécurité — le team building ultime.", "Cracheur de feu soufflant une grande boule de feu dans le ciel du soir"),
-     ("halloween", "vuurbal-900.webp", "\U0001F383 Animations Halloween", "Spectacles de feu diaboliques et fakir d'horreur, connus des Fright Nights de Walibi. Dès 395 €.", "Immense boule de feu contre un ciel nocturne noir"),
+     ("halloween", "vuurbal-900.webp", "\U0001F383 Animations Halloween", "Spectacles de feu diaboliques et fakir d'horreur, connus des Fright Nights de Walibi. Dès 350 €.", "Immense boule de feu contre un ciel nocturne noir"),
      ("fotos", "festival-900.webp", "Photos", "Les spectacles en images : festivals, mariages, événements d'entreprise et théâtre.", "Le cracheur de feu Nuno sur une place de festival"),
      ("videos", "themafeest-900.webp", "Vidéos", "Showreels et extraits des numéros de feu et de fakir en action.", "Cracheur de feu à côté d'un bus vintage"),
    ],
@@ -1179,7 +1179,7 @@ def _de_stad(stad, extra, kenmerk):
 <ul>
 <li><a href="/de/fakirshow/">Fakirshow</a> — Nagelbrett, Glaslaufen und Schwert-Acts</li>
 <li><a href="/de/feuerspucker-workshop/">Feuerspucker-Workshop</a> — selbst sicher Feuerspucken lernen</li>
-<li><a href="/de/halloween/">Halloween-Acts</a> — teuflische Feuershows und ein Horror-Fakir (ab 395 €)</li>
+<li><a href="/de/halloween/">Halloween-Acts</a> — teuflische Feuershows und ein Horror-Fakir (ab 350 €)</li>
 </ul>
 <h2>Jetzt Termin für {stad} sichern</h2>
 <p>Fragen Sie unverbindlich an: Sie erhalten <strong>binnen 24 Stunden</strong> Antwort mit einem kostenlosen Angebot nach Maß. <a href="/de/kontakt/">Zum Anfrageformular</a>, telefonisch unter <a href="tel:+31620020723">+31&nbsp;6&nbsp;200&nbsp;207&nbsp;23</a> oder per <a href="https://wa.me/31620020723" rel="noopener">WhatsApp</a>.</p>
@@ -1242,7 +1242,7 @@ def _fr_stad(stad, extra, kenmerk):
 <ul>
 <li><a href="/fr/spectacle-de-fakir/">Spectacle de fakir</a> — lit de clous, marche sur verre et numéros à l'épée</li>
 <li><a href="/fr/atelier-cracheur-de-feu/">Atelier cracheur de feu</a> — apprenez vous-même à cracher le feu en toute sécurité</li>
-<li><a href="/fr/halloween/">Animations Halloween</a> — spectacles de feu diaboliques et fakir d'horreur (dès 395 €)</li>
+<li><a href="/fr/halloween/">Animations Halloween</a> — spectacles de feu diaboliques et fakir d'horreur (dès 350 €)</li>
 </ul>
 <h2>Réservez votre date à {stad}</h2>
 <p>Demandez sans engagement : vous recevez une réponse <strong>sous 24 heures</strong> avec un devis gratuit sur mesure. <a href="/fr/contact/">Vers le formulaire</a>, par téléphone au <a href="tel:+31620020723">+31&nbsp;6&nbsp;200&nbsp;207&nbsp;23</a> ou via <a href="https://wa.me/31620020723" rel="noopener">WhatsApp</a>.</p>

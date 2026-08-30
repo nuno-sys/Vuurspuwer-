@@ -2958,3 +2958,85 @@ body.is-locked .wa{ opacity:0; pointer-events:none; transition:opacity .3s var(-
   .chat{ transition:none; }
   .chat__typing i, .waface i, .chat__status i{ animation:none; }
 }
+
+/* ============================================================
+   Driekoloms header: bel-cta links, logo gecentreerd (en net
+   onder de headerlijn uitstekend), menu rechts
+   ============================================================ */
+.nav{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:clamp(.6rem,1.6vw,1.1rem);
+}
+.nav__cta{
+  display:flex;
+  align-items:center;
+  gap:.55rem;
+  justify-self:start;
+}
+.nav__belbtn{ white-space:nowrap; }
+.nav__home{
+  justify-self:center;
+  align-items:center;
+  text-align:center;
+  transform:translateY(clamp(4px,.9vw,12px));
+}
+/* bij scrollen wordt de balk compact en hangt het logo er net onderuit */
+.nav.is-stuck{
+  padding-top:max(.45rem, env(safe-area-inset-top));
+  padding-bottom:.45rem;
+}
+.nav{ transition:background .45s var(--ease), backdrop-filter .45s var(--ease),
+       border-color .45s var(--ease), padding .45s var(--ease); }
+.nav.is-stuck .nav__home{
+  transform:translateY(clamp(9px,1.2vw,17px));
+  filter:drop-shadow(0 12px 26px rgba(0,0,0,.55));
+}
+.nav__act{
+  justify-self:end;
+  gap:clamp(.55rem,1.3vw,1.1rem);
+}
+.burger{ display:flex; flex:0 0 auto; }
+.nav__links{ display:none; }
+@media (min-width:1080px){ .nav__links{ display:flex; } }
+@media (max-width:900px){ .nav__belbtn{ display:none; } }
+@media (max-width:420px){ .nav__call{ display:grid; } }
+body.is-locked .nav__cta{
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .3s var(--ease);
+}
+
+/* ============================================================
+   Voettekst: zekerheden-badges
+   ============================================================ */
+.foot__badges{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.55rem clamp(.6rem,1.6vw,1rem);
+  list-style:none;
+  margin:clamp(1.4rem,3vw,2.2rem) 0 0;
+  padding:0;
+}
+.foot__badges li{
+  display:inline-flex;
+  align-items:center;
+  gap:.5rem;
+  padding:.5rem .85rem;
+  border:1px solid var(--hairline);
+  border-radius:999px;
+  font-family:var(--f-mono);
+  font-size:.62rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--ink-dim);
+}
+.foot__badges svg{
+  width:14px; height:14px;
+  flex:0 0 auto;
+  fill:var(--flame);
+}
+
+/* het hidden-attribuut wint altijd van display-regels op klassen */
+[hidden]{ display:none !important; }

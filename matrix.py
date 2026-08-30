@@ -100,8 +100,8 @@ SHOWS = {
   "img": ("/assets/media/vuurbal-1333.webp", "Meters hoge vuurbal tegen een zwarte nachtlucht boven de vuurspuwer"),
   "eyebrow": "\U0001F383 Halloween in {stad}",
   "title": "Halloween vuurshow & horror-acts in {stad}",
-  "seo_title": "\U0001F383 Halloween Vuurshow {stad} | Horror-Fakir & Scare-Acts — vanaf €395",
-  "seo_desc": "Halloween-act boeken in {stad}? Duivelse vuurshows, horror-fakir en scare-acts van Nuno — bekend van Walibi's Fright Nights. Vanaf €395. Oktober loopt vol!",
+  "seo_title": "\U0001F383 Halloween Vuurshow {stad} | Horror-Fakir & Scare-Acts — vanaf €350",
+  "seo_desc": "Halloween-act boeken in {stad}? Duivelse vuurshows, horror-fakir en scare-acts van Nuno — bekend van Walibi's Fright Nights. Vanaf €350. Oktober loopt vol!",
   "intros": [
    "<p>Halloween in {stad} mag dit jaar wel wat heter. Nuno — bekend van de <strong>Halloween Fright Nights van Walibi Holland</strong> — komt met duivelse <a href=\"{main}\">vuurshows, een horror-fakir en scare-acts</a> die uw gasten laten gillen én applaudisseren.</p>",
    "<p>Een spooktocht, horrornacht of Halloween-bedrijfsfeest in {stad}? Met vlammen uit het donker, een spijkerbed bij fakkellicht en scare-momenten tussen het publiek maakt Nuno er een avond van die niemand vergeet — <a href=\"{main}\">bekijk alle Halloween-acts</a>.</p>",
@@ -110,7 +110,7 @@ SHOWS = {
   "kern": """
 <h2>Halloween-acts voor {stad}</h2>
 <ul>
-<li>\U0001F608 <strong>Duivelse vuurshow</strong> — vlammen, vonken en vuurzuilen in horror-styling (vanaf &euro;395)</li>
+<li>\U0001F608 <strong>Duivelse vuurshow</strong> — vlammen, vonken en vuurzuilen in horror-styling (vanaf &euro;350)</li>
 <li>\U0001F5E1️ <strong>Horror-fakirshow</strong> — spijkerbed, glas en zwaarden in griezelgrime (vanaf &euro;450)</li>
 <li>\U0001F441️ <strong>Duister mentalisme</strong> — gedachten lezen met een onheilspellend randje</li>
 <li>\U0001F525 <strong>Complete Halloween-productie</strong> — meerdere acts verspreid over de avond (vanaf &euro;750)</li>
@@ -120,7 +120,7 @@ SHOWS = {
 """,
   "faq": [
    ("Wat kost een Halloween-act in {stad}?",
-    "Vanaf €395 voor de duivelse vuurshow, vanaf €450 voor de horror-fakirshow en vanaf €750 voor een complete avondproductie met meerdere acts — plus reiskosten naar {stad}, netjes in de offerte."),
+    "Vanaf €350 voor de duivelse vuurshow, vanaf €450 voor de horror-fakirshow en vanaf €750 voor een complete avondproductie met meerdere acts — plus reiskosten naar {stad}, netjes in de offerte."),
    ("Is de show geschikt voor ons publiek?",
     "Ja — de intensiteit wordt afgestemd: van gezinsvriendelijk griezelen bij een buurtfeest tot stevige horror voor een volwassen publiek. Kostuum, grime en interactie gaan mee in uw thema."),
    ("Hoe vroeg moeten we boeken voor Halloween in {stad}?",
