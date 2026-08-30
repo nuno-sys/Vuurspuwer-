@@ -14,11 +14,12 @@ wordt gegenereerd in de browser: er zitten geen afbeeldingsbestanden in de repo.
   Daarna komt de site erachter omhoog en vliegt het merk naar zijn plek in de
   header — het dooft onderweg en brandt een vuurspoor. Dat spoor is de poi, dus
   de intro legt de interactie uit voordat de bezoeker iets aanraakt.
-- **De poi**: een brandende kop aan een touw, geslingerd met je muis of vinger.
-  Verlet-touw met zwaartekracht, dus hij loopt achter, zwiert door en komt tot
-  rust zoals een echte poi. Snel bewegen brandt een spoor, stilhouden koelt af
-  tot een sintel — zo vecht hij nooit met lezen. Het canvas vangt geen klikken,
-  dus scrollen en klikken blijven normaal werken.
+- **De brand**: niets op deze pagina verschijnt, alles vat vlam. Elk stuk tekst,
+  elke kaart en elke foto staat eerst zwart op zwart. Een vuurlijn laag in beeld
+  steekt aan wat er langs stijgt: de letters branden van onder naar boven door
+  zichzelf heen en laten hun eigen kleur achter. Bij het laden klimt die lijn
+  eenmalig door de hero omhoog; daarna staat hij stil en beweegt de pagina.
+  Wat eenmaal gebrand is blijft leesbaar — er dooft nooit iets terug.
 - WebGL fragment-shader voor de vlam (fbm-noise, domain warp), met een pointer-lean
 - Canvas-2D vonkenlaag over de hele viewport
 - Long-exposure lichtsporen als posterbeeld per act (cirkel, lemniscaat, spiraal, golf)

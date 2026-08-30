@@ -576,21 +576,15 @@ button,input,select,textarea{ font:inherit; color:inherit; }
 .hero__title span{
   display:block;
   white-space:nowrap;
-  background:linear-gradient(178deg,var(--core) 8%,var(--flame) 52%,var(--ember) 96%);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-  filter:drop-shadow(0 6px 40px rgba(255,77,10,.35));
 }
+.hero__title span:first-child{ --burn-a:var(--core); --burn-b:var(--ember); }
 /* second line pulls back in width — the wordmark breathes */
 .hero__title span:nth-child(2){
+  --burn-a:var(--ink-dim);
+  --burn-b:var(--ink-dim);
   font-variation-settings:"wdth" 84,"wght" 600;
   font-size:.36em;
   letter-spacing:.30em;
-  color:var(--ink-dim);
-  background:none;
-  -webkit-text-fill-color:currentColor;
-  filter:none;
   margin-top:.55em;
 }
 
@@ -744,13 +738,8 @@ button,input,select,textarea{ font:inherit; color:inherit; }
   max-width:19ch;
   text-wrap:balance;
 }
-.manifesto .w{
-  display:inline-block;
-  opacity:.12;
-  transition:opacity .5s var(--ease), color .5s var(--ease);
-}
-.manifesto .w.lit{ opacity:1; }
-.manifesto .w.hot{ color:var(--flame); }
+.manifesto .w{ display:inline-block; }
+.manifesto .w.hot{ --burn-a:var(--flame); --burn-b:var(--flame); }
 
 .manifesto__grid{
   display:grid;
@@ -1254,10 +1243,8 @@ button,input,select,textarea{ font:inherit; color:inherit; }
   letter-spacing:-.045em;
   text-transform:uppercase;
   margin:0 0 clamp(2rem,5vw,3.5rem);
-  background:linear-gradient(180deg,rgba(255,243,214,.22) 0%,rgba(255,77,10,.55) 100%);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
+  --burn-a:rgba(255,243,214,.26);
+  --burn-b:rgba(255,77,10,.6);
 }
 .foot__bar{
   display:flex;
@@ -1275,61 +1262,127 @@ button,input,select,textarea{ font:inherit; color:inherit; }
 .foot__bar a:hover{ color:var(--flame); }
 
 /* ============================================================
-   Scroll reveal + cursor
+   The burn — nothing on this page arrives; it catches fire.
+
+   Text is painted with a tall gradient clipped to the glyphs: a strip
+   of settled colour on top, then a white-hot line, then char, then
+   black. Sliding that gradient down as --burn rises sends the fire up
+   through the letters and leaves the finished colour behind it.
+
+   Blocks wipe upward behind a soft mask with a glowing edge, and
+   anything that carries its own background just comes up out of the
+   dark. All three read as one thing: lit from below.
    ============================================================ */
-.rise{
-  opacity:0;
-  transform:translateY(38px);
-  transition:opacity .9s var(--ease), transform 1.1s var(--ease);
+:root{
+  --burn-a:var(--ink);
+  --burn-b:var(--ink);
+  --char:#060302;
 }
-.rise.seen{ opacity:1; transform:none; }
-.rise[data-delay="1"]{ transition-delay:.09s; }
-.rise[data-delay="2"]{ transition-delay:.18s; }
-.rise[data-delay="3"]{ transition-delay:.27s; }
-.rise[data-delay="4"]{ transition-delay:.36s; }
-.rise[data-delay="5"]{ transition-delay:.45s; }
 
-/* The poi canvas sits over everything but never intercepts a click.
-   It adds light rather than covering content, so a trail crossing a
-   headline brightens it instead of hiding it. */
-#poi{
-  position:fixed;
-  inset:0;
-  z-index:120;
-  width:100%; height:100%;
+.b-t{
+  color:transparent;
+  background-image:linear-gradient(to bottom,
+    var(--burn-a)  0%,
+    var(--burn-b) 28%,
+    #FFF8E8       31%,
+    #FFC64F       35%,
+    #FF6A12       40%,
+    #8E2404       45%,
+    #200A03       50%,
+    var(--char)   58%,
+    var(--char)  100%);
+  background-size:100% 340%;
+  background-repeat:no-repeat;
+  background-position-y:calc(100% - var(--burn, 0) * 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+}
+.b-t.burning{
+  filter:drop-shadow(0 0 calc(var(--glow, 0) * 26px) rgba(255,116,22,calc(var(--glow, 0) * .8)));
+}
+
+.b-b{
+  -webkit-mask-image:linear-gradient(to top,
+    #000 0%,
+    #000 calc(var(--burn, 0) * 106%),
+    rgba(0,0,0,0) calc(var(--burn, 0) * 106% + 13%));
+  mask-image:linear-gradient(to top,
+    #000 0%,
+    #000 calc(var(--burn, 0) * 106%),
+    rgba(0,0,0,0) calc(var(--burn, 0) * 106% + 13%));
+}
+.b-b.burning::after{
+  content:"";
+  position:absolute;
+  left:-3%; right:-3%;
+  height:13%;
+  bottom:calc(var(--burn, 0) * 106% - 9%);
+  z-index:6;
   pointer-events:none;
-  mix-blend-mode:screen;
+  opacity:var(--glow, 0);
+  filter:blur(7px);
+  background:linear-gradient(to top,
+    rgba(255,80,8,0) 0%,
+    rgba(255,150,36,.7) 42%,
+    rgba(255,244,214,.92) 62%,
+    rgba(255,110,20,0) 100%);
 }
-@media (prefers-reduced-motion:reduce){ #poi{ display:none; } }
 
-.poihint{
-  position:fixed;
-  left:50%; bottom:clamp(1rem,3vh,2rem);
-  translate:-50% 0;
-  z-index:121;
-  margin:0;
-  padding:.7em 1.2em;
-  border-radius:999px;
-  border:1px solid var(--hairline);
-  background:rgba(10,7,5,.72);
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
-  font-family:var(--f-mono);
-  font-size:var(--t-xs);
-  letter-spacing:.14em;
-  text-transform:uppercase;
-  color:var(--ink-dim);
-  white-space:nowrap;
-  pointer-events:none;
-  opacity:0;
-  transform:translateY(12px);
-  transition:opacity .6s var(--ease), transform .6s var(--ease);
+.b-f{
+  opacity:calc(.03 + var(--burn, 0) * .97);
+  filter:brightness(calc(.12 + var(--burn, 0) * .88));
 }
-.poihint.is-shown{ opacity:1; transform:none; }
-.poihint__k{ color:var(--flame); }
-@media (prefers-reduced-motion:reduce){ .poihint{ display:none; } }
+.b-f.burning{
+  filter:brightness(calc(.12 + var(--burn, 0) * .88))
+         drop-shadow(0 0 calc(var(--glow, 0) * 20px) rgba(255,104,16,calc(var(--glow, 0) * .55)));
+}
 
-/* progress bar — how far the fire has travelled */
+/* settled colours, per role */
+.eyebrow{ --burn-a:var(--flame); --burn-b:var(--flame); }
+.eyebrow--dim,
+.spec__key,
+.form__note,
+.field > span,
+.scrollcue span,
+.readout div,
+.foot__bar span,
+.reel__hud span{ --burn-a:var(--smoke); --burn-b:var(--smoke); }
+.lede,
+.prose p,
+.act__desc,
+.safety dd,
+.ticker__group span{ --burn-a:var(--ink-dim); --burn-b:var(--ink-dim); }
+.spec__val,
+.frame__cap b,
+.reel__holder p,
+.contact__line b{ --burn-a:var(--core); --burn-b:var(--core); }
+.safety dt,
+.frame__cap span{ --burn-a:var(--flame); --burn-b:var(--flame); }
+.ticker__group span:nth-child(even){ --burn-a:var(--ember); --burn-b:var(--ember); }
+
+/* accents that sit inside a burning parent ride its --burn */
+.bay__title em,
+.spec__val i,
+.readout b,
+.form__note a,
+.reel__holder p span,
+.poihint__k{
+  -webkit-text-fill-color:color-mix(in srgb, var(--accent-on, var(--ember)) calc(var(--burn, 1) * 100%), #050302);
+}
+.spec__val i,
+.readout b{ --accent-on:var(--flame); }
+.form__note a{ --accent-on:var(--flame); }
+.reel__holder p span{ --accent-on:var(--smoke); }
+
+@media (prefers-reduced-motion:reduce){
+  .b-t{ background-image:none; color:var(--burn-a); }
+  .b-b{ -webkit-mask-image:none; mask-image:none; }
+  .b-f{ opacity:1; filter:none; }
+}
+
+/* ============================================================
+   Progress
+   ============================================================ */
 #burn{
   position:fixed;
   top:0; left:0;
@@ -1402,12 +1455,6 @@ button,input,select,textarea{ font:inherit; color:inherit; }
   <div class="stage__grain"></div>
 </div>
 
-<!-- The poi: a burning head on a rope, swung by the pointer. The intro
-     flies the logo along this same trail so the mechanic explains itself. -->
-<canvas id="poi" aria-hidden="true"></canvas>
-<p class="poihint" id="poihint" aria-hidden="true">
-  <span class="poihint__k">Beweeg</span> je muis &mdash; het vuur slingert mee
-</p>
 <div id="burn" aria-hidden="true"></div>
 
 <!-- ============================================================
@@ -1993,7 +2040,6 @@ button,input,select,textarea{ font:inherit; color:inherit; }
      ============================================================== */
   const drawFlame  = initFlame();
   const drawEmbers = initEmbers();
-  const poi        = initPoi();
 
   let last = S.y = window.scrollY || 0;
   let rawVel = 0, running = true, t0 = performance.now();
@@ -2022,7 +2068,7 @@ button,input,select,textarea{ font:inherit; color:inherit; }
 
     if (drawFlame)  drawFlame(t);
     if (drawEmbers) drawEmbers(t);
-    poi.step();
+    burnFrame();
 
     if (burn) {
       const doc = document.documentElement;
@@ -2050,8 +2096,8 @@ button,input,select,textarea{ font:inherit; color:inherit; }
      4. Ignition — the mark burns in the middle of a black screen while
      the counter runs to 100. Then the site fades up behind it and the
      mark flies to its place in the header, cooling on the way and
-     burning a trail as it goes. That trail is the poi: by the time it
-     lands, the visitor has already seen what their pointer will do.
+     burning a trail as it goes. When it lands, the fire front sweeps up
+     the hero and the page starts lighting itself.
      ============================================================== */
   (function ignition(){
     const wrap  = $("#ignition"), bar = $("#ignBar"), pct = $("#ignPct"),
@@ -2105,50 +2151,18 @@ button,input,select,textarea{ font:inherit; color:inherit; }
           filter: "drop-shadow(0 0 28px rgba(255,90,10,.45))", offset: 0.56 },
         { transform: "translate(" + dx.toFixed(1) + "px," + dy.toFixed(1) + "px) scale(" + sc.toFixed(3) + ")",
           filter: "drop-shadow(0 0 3px rgba(255,90,10,0))" }
-      ], { duration: 1400, easing: "cubic-bezier(.62,0,.14,1)", fill: "forwards" });
-
-      /* hand the flight path to the poi so the mark burns its way over */
-      (function wake(){
-        if (anim.playState !== "running") return;
-        const r = flyer.getBoundingClientRect();
-        poi.drive(r.left + r.width / 2, r.top + r.height / 2);
-        requestAnimationFrame(wake);
-      })();
+      ], { duration: 1150, easing: "cubic-bezier(.62,0,.14,1)", fill: "forwards" });
 
       anim.finished.then(land, land);
     }
 
     function land(){
       if (navMark) navMark.classList.add("is-landed");
-      poi.release();
       wrap.classList.add("is-out");
-      setTimeout(() => { wrap.remove(); hint(); }, 620);
+      sweep();
+      setTimeout(() => wrap.remove(), 620);
     }
 
-    /* One short nudge, then out of the way for good. */
-    function hint(){
-      const el = $("#poihint");
-      if (!el || REDUCED) return;
-      if (COARSE) el.innerHTML = '<span class="poihint__k">Sleep</span> over het scherm &mdash; het vuur volgt';
-
-      setTimeout(() => el.classList.add("is-shown"), 650);
-
-      let travelled = 0, lx = null, ly = null, gone = false;
-      const track = (e) => {
-        if (lx !== null) travelled += Math.hypot(e.clientX - lx, e.clientY - ly);
-        lx = e.clientX; ly = e.clientY;
-        if (travelled > 1200) done();
-      };
-      function done(){
-        if (gone) return;
-        gone = true;
-        removeEventListener("pointermove", track);
-        el.classList.remove("is-shown");
-        setTimeout(() => el.remove(), 700);
-      }
-      addEventListener("pointermove", track, { passive: true });
-      setTimeout(done, 11000);
-    }
   })();
 
   /* ==============================================================
@@ -2179,58 +2193,144 @@ button,input,select,textarea{ font:inherit; color:inherit; }
   })();
 
   /* ==============================================================
-     6. Reveal on scroll
+     6. The burn — every piece of this page starts black and is set
+     alight from below. A fire front sits low in the viewport; anything
+     that rises past it catches, burns up through itself and settles
+     into its own colour. Nothing ever un-burns, so what you have read
+     stays readable.
      ============================================================== */
-  const seen = new IntersectionObserver((entries) => {
-    for (const en of entries) {
-      if (!en.isIntersecting) continue;
-      en.target.classList.add("seen");
-      seen.unobserve(en.target);
-      if (en.target.matches(".spec")) countUp(en.target);
-    }
-  }, { rootMargin: "0px 0px -12% 0px", threshold: 0.12 });
+  const TEXT_SEL = [
+    ".hero__title span", ".lede", ".eyebrow", ".bay__title",
+    ".manifesto [data-split] .w", ".prose p",
+    ".act__name", ".act__desc",
+    ".spec__val", ".spec__key",
+    ".tvlist li", ".safety dt", ".safety dd",
+    ".contact__line span", ".contact__line b", ".form__note", ".field > span",
+    ".frame__cap span", ".frame__cap b",
+    ".reel__hud span", ".reel__holder p",
+    ".scrollcue span", ".readout div",
+    ".ticker__group span",
+    ".foot__word", ".foot__bar span"
+  ].join(",");
 
-  $$(".rise").forEach((el) => seen.observe(el));
+  const BLOCK_SEL = ".frame, .reel";
+  const FADE_SEL  = ".btn, .chip, .act, .spec, .safety > div, .book, .field input, .field select, .field textarea, .scrollcue i, .status";
+
+  const burners = [];
+
+  function register(){
+    if (REDUCED) return;
+    burners.length = 0;
+    const add = (sel, cls) => {
+      $$(sel).forEach((el) => {
+        el.classList.add(cls);
+        burners.push({ el, burn: 0, abs: 0, spec: el.matches(".spec") });
+      });
+    };
+    add(TEXT_SEL,  "b-t");
+    add(BLOCK_SEL, "b-b");
+    add(FADE_SEL,  "b-f");
+    measure();
+  }
+
+  /* Positions are measured once and read from memory after that, so the
+     frame loop never touches layout. */
+  function measure(){
+    const sy = window.scrollY || 0;
+    for (const it of burners) it.abs = it.el.getBoundingClientRect().top + sy;
+  }
+
+  /* Two ways the fire arrives, and they are not the same motion.
+
+     On load it climbs: a line rises from the bottom of the screen to
+     above the top, and each thing catches as the line reaches it, so
+     the hero lights from the ground up.
+
+     After that the line is parked low in the viewport and the page
+     moves instead: anything scrolling up through it catches on the way.
+     Either way the light comes from below. */
+  const REST = 0.86, BAND = 0.24;
+  let sweepFrom = 0, endAt = 0, phase = "hold";
+
+  function sweep(){
+    sweepFrom = performance.now();
+    phase = "sweep";
+  }
+
+  function burnFrame(){
+    if (phase === "hold" || !burners.length) return;
+
+    const vh = innerHeight, sy = window.scrollY || 0, band = vh * BAND;
+    const climbing = phase === "sweep";
+
+    let line = 0;
+    if (climbing) {
+      const k = clamp((performance.now() - sweepFrom) / 1500, 0, 1);
+      const eased = k * k * (3 - 2 * k);          /* even, readable climb */
+      line = vh * (1.06 - eased * 1.5);
+      if (k >= 1) phase = "scroll";
+    }
+    /* At the very bottom nothing can rise any further, so whatever is
+       still under the line would sit there for ever. Raise the line
+       instead of snapping it, so the footer burns in like the rest. */
+    const atEnd = (sy + vh) >= (document.documentElement.scrollHeight - 4);
+    if (atEnd) { if (!endAt) endAt = performance.now(); } else { endAt = 0; }
+    const lift = endAt ? clamp((performance.now() - endAt) / 700, 0, 1) * vh * 0.42 : 0;
+    const trigger = vh * REST + lift;
+
+    for (let i = 0; i < burners.length; i++) {
+      const it = burners[i];
+      if (it.burn >= 1) continue;
+
+      const top = it.abs - sy;
+      /* while the line is still climbing, everything under the fold
+         waits its turn */
+      if (climbing && top > vh) continue;
+
+      const t = climbing
+        ? clamp((top - line) / band, 0, 1)
+        : clamp((trigger - top) / band, 0, 1);
+      if (t <= it.burn + 0.002) continue;
+
+      it.burn = t;
+      it.el.style.setProperty("--burn", t.toFixed(3));
+      it.el.style.setProperty("--glow", Math.sin(Math.PI * t).toFixed(3));
+
+      if (t >= 1) {
+        it.el.classList.remove("burning");
+        it.el.classList.add("burnt");
+      } else if (!it.el.classList.contains("burning")) {
+        it.el.classList.add("burning");
+      }
+      if (it.spec && t > 0.45) countUp(it.el);
+    }
+  }
+
+  let remeasure;
+  addEventListener("resize", () => {
+    clearTimeout(remeasure);
+    remeasure = setTimeout(measure, 180);
+  }, { passive: true });
 
   /* ==============================================================
-     7. Manifesto — words catch light as they pass the middle
+     7. Manifesto — split into words so the fire climbs it line by line
      ============================================================== */
-  (function manifesto(){
+  function splitManifesto(){
     const el = $("[data-split]");
-    if (!el) return;
+    if (!el || el.dataset.done) return;
+    el.dataset.done = "1";
 
     const words = el.textContent.trim().split(/\s+/);
     el.textContent = "";
     words.forEach((w, i) => {
-      const s = document.createElement("span");
-      s.className = "w";
-      s.textContent = w;
-      if (/vuur|hitte|ademen/i.test(w)) s.dataset.hot = "1";
-      el.appendChild(s);
+      const sp = document.createElement("span");
+      sp.className = "w";
+      sp.textContent = w;
+      if (/vuur|hitte|ademen|carri/i.test(w)) sp.classList.add("hot");
+      el.appendChild(sp);
       if (i < words.length - 1) el.appendChild(document.createTextNode(" "));
     });
-
-    const spans = $$(".w", el);
-    let ticking = false;
-
-    function light(){
-      ticking = false;
-      const r = el.getBoundingClientRect();
-      const span = r.height + innerHeight * 0.55;
-      const progress = clamp((innerHeight * 0.82 - r.top) / span, 0, 1);
-      const upto = Math.round(progress * spans.length * 1.25);
-      spans.forEach((s, i) => {
-        const on = i < upto;
-        s.classList.toggle("lit", on);
-        s.classList.toggle("hot", on && s.dataset.hot === "1");
-      });
-    }
-    addEventListener("scroll", () => {
-      if (!ticking) { ticking = true; requestAnimationFrame(light); }
-    }, { passive: true });
-    addEventListener("resize", light, { passive: true });
-    light();
-  })();
+  }
 
   /* ==============================================================
      8. Spec counters
@@ -2493,189 +2593,6 @@ button,input,select,textarea{ font:inherit; color:inherit; }
   }
 
   /* ==============================================================
-     11. The poi — a burning head on a rope, swung by the pointer.
-     Verlet rope with gravity, so it lags, swings and settles the way
-     a real poi does. Move fast and it burns a trail; hold still and
-     it cools to an ember, so it never fights with reading.
-     ============================================================== */
-  function initPoi(){
-    const idle = { drive(){}, release(){}, step(){} };
-    const cv = $("#poi");
-    if (!cv || REDUCED) return idle;
-    const ctx = cv.getContext("2d");
-    if (!ctx) return idle;
-
-    let dpr = 1, W = 0, H = 0;
-    function size(){
-      dpr = clamp(window.devicePixelRatio || 1, 1, 2);
-      W = innerWidth; H = innerHeight;
-      cv.width = Math.round(W * dpr);
-      cv.height = Math.round(H * dpr);
-    }
-    size();
-    addEventListener("resize", size, { passive: true });
-
-    const N = 15, REST = 11;
-    let ax = W / 2, ay = H / 2, driven = true;
-
-    const rope = [];
-    for (let i = 0; i < N; i++) {
-      rope.push({ x: ax, y: ay + i * REST, px: ax, py: ay + i * REST });
-    }
-
-    const trail = [], sparks = [], MAX = 62;
-
-    addEventListener("pointermove", (e) => {
-      if (driven) return;
-      ax = e.clientX; ay = e.clientY;
-    }, { passive: true });
-
-    function physics(){
-      for (let i = 1; i < N; i++) {
-        const p = rope[i];
-        const vx = (p.x - p.px) * 0.945, vy = (p.y - p.py) * 0.945;
-        p.px = p.x; p.py = p.y;
-        p.x += vx;
-        p.y += vy + 0.5;                       /* gravity */
-      }
-      rope[0].px = rope[0].x; rope[0].py = rope[0].y;
-      rope[0].x = ax; rope[0].y = ay;
-
-      for (let k = 0; k < 7; k++) {
-        for (let i = 0; i < N - 1; i++) {
-          const a = rope[i], b = rope[i + 1];
-          const dx = b.x - a.x, dy = b.y - a.y;
-          const d = Math.hypot(dx, dy) || 0.0001;
-          const f = ((d - REST) / d) * 0.5;
-          const ox = dx * f, oy = dy * f;
-          if (i > 0) { a.x += ox; a.y += oy; }
-          b.x -= ox; b.y -= oy;
-        }
-        rope[0].x = ax; rope[0].y = ay;
-      }
-    }
-
-    /* Trail segments are ordered oldest to newest, so their alpha runs
-       monotonically. Stroking them in a handful of bands instead of one
-       path per segment keeps this at ~30 strokes a frame. */
-    /* A phone gets a lighter version of the same trail: fewer glow passes
-       and fewer bands, which is invisible at that size and much cheaper. */
-    const SMALL  = innerWidth < 760;
-    const BANDS  = SMALL ? 5 : 7;
-    const PASSES = SMALL
-      ? [[18, 0.09, 52], [7, 0.26, 66], [2.2, 0.72, 88]]
-      : [[30, 0.055, 46], [15, 0.11, 56], [6, 0.28, 68], [2.2, 0.72, 88]];
-
-    function drawTrail(){
-      if (trail.length < 3) return;
-      const per = Math.ceil(trail.length / BANDS);
-      for (const [lw, alpha, light] of PASSES) {
-        ctx.lineWidth = lw;
-        for (let b = 0; b < BANDS; b++) {
-          const from = b * per, to = Math.min(trail.length, from + per + 1);
-          if (to - from < 2) continue;
-          let life = 0, heat = 0;
-          for (let i = from; i < to; i++) { life += trail[i].life; heat += trail[i].heat; }
-          life /= (to - from); heat /= (to - from);
-          const a = alpha * life * life * heat;
-          if (a < 0.004) continue;
-          /* the tail cools as it ages: hot yellow at the head, deep red behind */
-          const hue = 34 - (1 - life) * 24;
-          const lit = Math.max(34, light - (1 - life) * 22);
-          ctx.strokeStyle = "hsla(" + hue.toFixed(0) + ",100%," + lit.toFixed(0) + "%," + a.toFixed(3) + ")";
-          ctx.beginPath();
-          ctx.moveTo(trail[from].x, trail[from].y);
-          for (let i = from + 1; i < to; i++) ctx.lineTo(trail[i].x, trail[i].y);
-          ctx.stroke();
-        }
-      }
-    }
-
-    let handed = false;
-
-    return {
-      drive(x, y){ if (handed) return; driven = true; ax = x; ay = y; },
-      release(){ driven = false; handed = true; },
-
-      step(){
-        physics();
-        const head = rope[N - 1];
-        const speed = Math.hypot(head.x - head.px, head.y - head.py);
-        const heat = clamp(speed / 15, 0, 1);
-
-        const last = trail[trail.length - 1];
-        if (!last || Math.hypot(head.x - last.x, head.y - last.y) > 0.7) {
-          trail.push({ x: head.x, y: head.y, life: 1, heat: 0.12 + heat * 0.88 });
-          if (trail.length > MAX) trail.shift();
-        }
-        for (const p of trail) p.life -= 0.024;
-        while (trail.length && trail[0].life <= 0) trail.shift();
-
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        ctx.clearRect(0, 0, W, H);
-        ctx.globalCompositeOperation = "lighter";
-        ctx.lineCap = "round";
-        ctx.lineJoin = "round";
-
-        drawTrail();
-
-        /* the chain, so it reads as something you are holding */
-        ctx.lineWidth = 1;
-        ctx.strokeStyle = "rgba(255,214,160,.16)";
-        ctx.beginPath();
-        ctx.moveTo(rope[0].x, rope[0].y);
-        for (let i = 1; i < N; i++) ctx.lineTo(rope[i].x, rope[i].y);
-        ctx.stroke();
-
-        /* the handle in your hand */
-        ctx.strokeStyle = "rgba(255,200,140,.34)";
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.arc(rope[0].x, rope[0].y, 5.5, 0, Math.PI * 2);
-        ctx.stroke();
-
-        /* sparks thrown off the head while it burns hard */
-        if (heat > 0.32 && sparks.length < 90) {
-          for (let i = 0; i < 2; i++) {
-            sparks.push({
-              x: head.x, y: head.y,
-              vx: (head.x - head.px) * 0.22 + (Math.random() - 0.5) * 1.6,
-              vy: (head.y - head.py) * 0.22 + (Math.random() - 0.5) * 1.6,
-              life: 1
-            });
-          }
-        }
-        for (let i = sparks.length - 1; i >= 0; i--) {
-          const sp = sparks[i];
-          sp.x += sp.vx; sp.y += sp.vy;
-          sp.vx *= 0.94; sp.vy = sp.vy * 0.94 - 0.16;   /* they rise */
-          sp.life -= 0.026;
-          if (sp.life <= 0) { sparks.splice(i, 1); continue; }
-          ctx.fillStyle = "hsla(" + (30 + sp.life * 22).toFixed(0) + ",100%," + (60 + sp.life * 32).toFixed(0) + "%," + (sp.life * 0.85).toFixed(2) + ")";
-          ctx.beginPath();
-          ctx.arc(sp.x, sp.y, 0.6 + sp.life * 1.5, 0, Math.PI * 2);
-          ctx.fill();
-        }
-
-        /* the burning head */
-        const r = 20 + heat * 26;
-        const g = ctx.createRadialGradient(head.x, head.y, 0, head.x, head.y, r);
-        g.addColorStop(0,    "rgba(255,252,242," + (0.95).toFixed(2) + ")");
-        g.addColorStop(0.12, "rgba(255,226,150," + (0.8 + heat * 0.2).toFixed(2) + ")");
-        g.addColorStop(0.32, "rgba(255,150,30,"  + (0.5 + heat * 0.3).toFixed(2) + ")");
-        g.addColorStop(0.62, "rgba(255,70,8,"    + (0.2 + heat * 0.28).toFixed(2) + ")");
-        g.addColorStop(1,    "rgba(255,50,0,0)");
-        ctx.fillStyle = g;
-        ctx.beginPath();
-        ctx.arc(head.x, head.y, r, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.globalCompositeOperation = "source-over";
-      }
-    };
-  }
-
-  /* ==============================================================
      12. Booking form  /* ==============================================================
      12. Booking form
      ============================================================== */
@@ -2749,12 +2666,16 @@ button,input,select,textarea{ font:inherit; color:inherit; }
   function start(){
     if (start.done) return;
     start.done = true;
+    splitManifesto();
     fitHero();
     buildStrip();
     initVideo();
     initForm();
 
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitHero);
+    register();
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => { fitHero(); measure(); });
+    }
 
     const yr = $("#year");
     if (yr) yr.textContent = String(new Date().getFullYear());
@@ -2764,6 +2685,7 @@ button,input,select,textarea{ font:inherit; color:inherit; }
     addEventListener("resize", () => {
       clearTimeout(rt);
       fitHero();
+      measure();
       rt = setTimeout(() => {
         $$(".frame canvas").forEach((cv, i) => { if (WORK[i]) plate(cv, WORK[i]); });
         const rp = $("#reelPlate");
