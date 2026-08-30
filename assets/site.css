@@ -666,10 +666,16 @@ body.is-locked .nav__call{ opacity:0; pointer-events:none; transition:opacity .3
 }
 .hero__film video{
   width:100%; height:100%;
-  object-fit:cover;
-  object-position:center 30%;
+  /* de hele clip in beeld — Nuno's gezicht hoort erbij */
+  object-fit:contain;
+  object-position:center;
   opacity:0;
   transition:opacity 1.4s var(--ease);
+}
+@media (max-width:700px){
+  /* op een telefoon vult de staande clip het scherm zonder het hoofd
+     te verliezen */
+  .hero__film video{ object-fit:cover; object-position:center 12%; }
 }
 .hero__film video.is-live{ opacity:.82; }
 /* just enough shade for the wordmark to sit on, the rest stays bright */
@@ -682,11 +688,20 @@ body.is-locked .nav__call{ opacity:0; pointer-events:none; transition:opacity .3
 }
 .hero--film .hero__body{
   justify-content:flex-end;
+  align-items:center;
+  text-align:center;
   height:100%;
-  gap:clamp(1.5rem,3.5vw,2.25rem);
+  gap:clamp(1.1rem,2.5vw,1.6rem);
 }
+/* klein en gecentreerd, zodat de video de ster blijft */
+.hero--film .hero__title{
+  font-size:clamp(1.9rem,4.6vw,3.2rem);
+}
+.hero--film .hero__title span{ white-space:normal; }
+.hero--film .hero__actions{ justify-content:center; }
 .hero__sub{
   display:block;
+  text-align:center;
   --burn-a:var(--flame);
   --burn-b:var(--flame);
   font-family:var(--f-mono);
