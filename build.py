@@ -178,7 +178,8 @@ GTAG = f'<script src="/assets/ga.js?v={VER}" defer></script>'
 # zelf gehoste fonts: alleen de twee gezichten die boven de vouw staan
 # vooraf laden; de @font-face-regels zitten in site.css zelf.
 FONTS    = ('<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-latin.woff2" crossorigin>'
-            '<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/instrument-latin.woff2" crossorigin>')
+            '<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/instrument-latin.woff2" crossorigin>'
+            '<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/jetbrains-latin.woff2" crossorigin>')
 
 def esc(t): return html.escape(t or "", quote=True)
 
@@ -259,7 +260,7 @@ def render(p, kind, extra_schema=None, extra_html=""):
         pre_ss = f' imagesrcset="{ss}" imagesizes="100vw"' if ss else ""
         preload = f'<link rel="preload" as="image" href="{esc(iu)}"{pre_ss} fetchpriority="high">'
         hero = f'''<header class="phero">
-    <div class="phero__bg" style="background-image:url('{esc(iu)}')" aria-hidden="true"></div>
+    <img class="phero__bg" src="{esc(iu)}"{ss_attr} alt="" aria-hidden="true" fetchpriority="high" decoding="async">
     <img class="phero__img" src="{esc(iu)}"{ss_attr} alt="{esc(ia)}" fetchpriority="high" decoding="async">
     <div class="phero__veil" aria-hidden="true"></div>
     <div class="phero__body wrap">

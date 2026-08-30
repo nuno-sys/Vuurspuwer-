@@ -2455,13 +2455,17 @@ body.is-locked .wa{ opacity:0; pointer-events:none; transition:opacity .3s var(-
   overflow:clip;
 }
 .phero__bg{
+  /* dezelfde foto als de kop, maar dan als echte <img> met srcset:
+     één (kleine) download voor beide lagen, en de browser kan hem
+     als LCP-bron vroeg en met voorrang ophalen */
   position:absolute;
-  inset:-48px;
-  background-repeat:no-repeat;
-  background-size:cover;
-  background-position:center;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
   filter:blur(38px) brightness(.38) saturate(1.18);
-  transform:scale(1.08);
+  transform:scale(1.14);
 }
 .phero__img{
   position:absolute;

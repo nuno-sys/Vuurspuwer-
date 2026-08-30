@@ -5,7 +5,7 @@
   Strict-Transport-Security: max-age=31536000; includeSubDomains
   X-Frame-Options: SAMEORIGIN
   Cross-Origin-Opener-Policy: same-origin
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://*.googletagmanager.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.googletagmanager.com https://*.google-analytics.com https://*.google.com https://*.google.fi https://*.google.nl https://*.g.doubleclick.net; font-src 'self'; media-src 'self'; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.google.com https://*.google.fi https://*.google.nl https://*.g.doubleclick.net https://static.cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://*.googletagmanager.com https://static.cloudflareinsights.com 'sha256-/oKhosUymzZz2MhC4YW2wZLADN1rSO7+ZUsswZuPWxI=' 'sha256-DPiv8zIgOPFxUPiG63HUb0k4bdhJ6MxdPAtprTO02k8='; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.googletagmanager.com https://*.google-analytics.com https://*.google.com https://*.google.fi https://*.google.nl https://*.g.doubleclick.net; font-src 'self'; media-src 'self'; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.google.com https://*.google.fi https://*.google.nl https://*.g.doubleclick.net https://static.cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests
 
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
