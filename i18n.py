@@ -1283,3 +1283,56 @@ UI["nl"]["skip"] = "Naar de inhoud"
 UI["en"]["skip"] = "Skip to content"
 UI["de"]["skip"] = "Zum Inhalt"
 UI["fr"]["skip"] = "Aller au contenu"
+
+# ------------------------- extra regiopagina's zonder NL-tegenhanger
+STANDALONE_REGIO = {
+ "de": {
+  "feuerspucker-duesseldorf": {
+   "stad": "Düsseldorf",
+   "title": "Feuerspucker in Düsseldorf buchen: Feuershow an Rhein und Kö",
+   "seo_title": "\U0001F525 Feuerspucker Düsseldorf | Feuershow buchen — Angebot binnen 24 h",
+   "seo_desc": "Feuerspucker in Düsseldorf buchen? Nuno bringt seine spektakuläre Feuershow an den Rhein — Firmenfeiern, Hochzeiten und Events. Kostenloses Angebot binnen 24 h!",
+   "body": _de_stad("Düsseldorf",
+      "Vom Rheinufer über die Altstadt bis zur Firmenfeier im Medienhafen: Düsseldorf liebt große Auftritte — und eine Feuershow ist der größte.",
+      "Auch bei anspruchsvollen Locations am Rhein bleibt alles kontrolliert."),
+  },
+  "feuerspucker-duisburg": {
+   "stad": "Duisburg",
+   "title": "Feuerspucker in Duisburg buchen: Feuer im Ruhrgebiet",
+   "seo_title": "\U0001F525 Feuerspucker Duisburg | Feuershow buchen — Angebot binnen 24 h",
+   "seo_desc": "Feuerspucker in Duisburg buchen? Nuno bringt Feuershows in den Landschaftspark und das ganze westliche Ruhrgebiet. Kostenloses Angebot binnen 24 Stunden!",
+   "body": _de_stad("Duisburg",
+      "Der Landschaftspark Duisburg-Nord und Industriekulisse überhaupt sind wie gemacht für Feuer — kaum eine Region passt besser zu dieser Show.",
+      "Industriegelände, Halle oder Vereinsheim: Die Show wird an den Ort angepasst."),
+  },
+ },
+ "fr": {
+  "cracheur-de-feu-namur": {
+   "stad": "Namur",
+   "title": "Engager un cracheur de feu à Namur : le feu au cœur de la Wallonie",
+   "seo_title": "\U0001F525 Cracheur de Feu Namur | Spectacle de Feu en Wallonie — devis sous 24 h",
+   "seo_desc": "Engager un cracheur de feu à Namur ? Nuno apporte son spectacle de feu au cœur de la Wallonie — fêtes d'entreprise, mariages et festivals. Devis gratuit sous 24 h !",
+   "body": _fr_stad("Namur",
+      "De la Citadelle aux bords de Meuse et de Sambre : la capitale wallonne offre des décors magnifiques pour un spectacle de feu.",
+      "Capitale de la Wallonie ou village des environs : la show s'adapte au lieu."),
+  },
+  "cracheur-de-feu-charleroi": {
+   "stad": "Charleroi",
+   "title": "Engager un cracheur de feu à Charleroi : des flammes au Pays Noir",
+   "seo_title": "\U0001F525 Cracheur de Feu Charleroi | Spectacle de Feu — devis sous 24 h",
+   "seo_desc": "Engager un cracheur de feu à Charleroi ? Nuno enflamme le Pays Noir — fêtes d'entreprise, festivals et événements privés. Devis gratuit sous 24 heures !",
+   "body": _fr_stad("Charleroi",
+      "Du centre-ville aux friches industrielles réinventées : le décor du Pays Noir donne au feu une intensité unique.",
+      "Sites industriels, salles ou plein air : tout est possible."),
+  },
+  "cracheur-de-feu-mons": {
+   "stad": "Mons",
+   "title": "Engager un cracheur de feu à Mons : le feu sur la Grand-Place",
+   "seo_title": "\U0001F525 Cracheur de Feu Mons | Spectacle de Feu — devis sous 24 h",
+   "seo_desc": "Engager un cracheur de feu à Mons ? Nuno se produit dans tout le Hainaut — fêtes d'entreprise, mariages, festivals et fêtes de ville. Devis gratuit sous 24 h !",
+   "body": _fr_stad("Mons",
+      "De la Grand-Place au beffroi : la cité du Doudou sait faire la fête, et un spectacle de feu s'y sent chez lui.",
+      "Du Doudou aux fêtes privées : l'intensité s'adapte au public."),
+  },
+ },
+}

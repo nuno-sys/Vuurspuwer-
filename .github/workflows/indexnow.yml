@@ -1,0 +1,36 @@
+# Meldt elke wijziging op main direct bij IndexNow (Bing, DuckDuckGo,
+# Yandex, Seznam...), zodat nieuwe en gewijzigde pagina's binnen minuten
+# in plaats van weken geïndexeerd worden.
+name: IndexNow ping
+on:
+  push:
+    branches: [main]
+permissions: {}
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Submit sitemap URLs to IndexNow
+        run: |
+          sleep 90   # de Cloudflare Pages-deploy even laten landen
+          python3 - <<'PY'
+          import json, re, urllib.request
+          key = open("indexnow-key.txt").read().strip()
+          sm = open("dist/sitemap.xml").read()
+          urls = re.findall(r"<loc>(.*?)</loc>", sm)
+          payload = json.dumps({
+              "host": "vuurspuwer.com",
+              "key": key,
+              "keyLocation": f"https://vuurspuwer.com/{key}.txt",
+              "urlList": urls[:10000],
+          }).encode()
+          req = urllib.request.Request(
+              "https://api.indexnow.org/indexnow", data=payload,
+              headers={"Content-Type": "application/json; charset=utf-8"})
+          try:
+              with urllib.request.urlopen(req, timeout=30) as r:
+                  print("IndexNow:", r.status, len(urls), "URLs aangemeld")
+          except Exception as e:
+              print("IndexNow melding mislukt (niet blokkerend):", e)
+          PY

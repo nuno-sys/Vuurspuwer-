@@ -12,6 +12,7 @@ from html.parser import HTMLParser
 
 import pages_content as PC
 import i18n as I
+import matrix as MX
 
 TODAY = date.today().isoformat()
 MONTHS_NL = ["", "januari", "februari", "maart", "april", "mei", "juni", "juli",
@@ -183,6 +184,16 @@ FONTS    = ('<link rel="preload" as="font" type="font/woff2" href="/assets/fonts
             '<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/jetbrains-latin.woff2" crossorigin>')
 
 def esc(t): return html.escape(t or "", quote=True)
+
+OG_LOCALE = {"nl": "nl_NL", "en": "en_GB", "de": "de_DE", "fr": "fr_BE"}
+
+def og_image_for(iu):
+    """De gebrandede 1200x630-deelafbeelding die bij een kopfoto hoort."""
+    m = re.match(r"/assets/media/([a-z0-9-]+?)(?:-\d+)?\.(?:webp|jpg)$", iu or "")
+    base = m.group(1) if m else ""
+    if base and os.path.exists(f"assets/media/og-{base}.jpg"):
+        return f"/assets/media/og-{base}.jpg"
+    return "/assets/media/og-festival.jpg"
 
 def srcset_of(iu):
     """Zoekt de -480/-640/-900/…-broertjes van een media-bestand op schijf
@@ -430,14 +441,20 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
 <link rel="canonical" href="{url}">
 {hreflang}
 <meta property="og:type" content="{'article' if kind == 'post' else 'website'}">
+<meta property="og:site_name" content="Vuurspuwer Nuno">
+<meta property="og:locale" content="{OG_LOCALE[lang]}">
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(desc)}">
 <meta property="og:url" content="{url}">
-<meta property="og:image" content="{(SITE + p["img"][0] if p["img"][0].startswith("/") else p["img"][0]) if p.get("img") else SITE + "/assets/media/festival-1600.webp"}">
+<meta property="og:image" content="{SITE + og_image_for(p["img"][0] if p.get("img") else "")}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{esc(p["img"][1] if p.get("img") else "Vuurspuwer Nuno")}">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
 {FONTS}
 <link rel="stylesheet" href="/assets/site.css?v={VER}">
 {preload}
@@ -560,7 +577,8 @@ for slug in CITIES:
     if not p: missing.append(slug); continue
     city = CITY_LABEL[slug]
     others = [(CITY_LABEL[s], s) for s in CITIES if s != slug][:8]
-    near = ('<section class="wrap bay"><h2 class="bay__title">Ook in de <em>buurt</em></h2>'
+    near = (MX.stad_dwarslinks(slug)
+            + '<section class="wrap bay"><h2 class="bay__title">Ook in de <em>buurt</em></h2>'
             '<ul class="citylist">' +
             "".join(f'<li><a href="/{s}/">Vuurspuwer in {n}</a></li>' for n, s in others) +
             "</ul></section>")
@@ -686,6 +704,14 @@ extra += ('<section class="wrap bay"><div class="prose--page" style="max-width:n
 write("halloween", render(p, "page", PC.show_schema("halloween", hp), extra,
                           alternates=alternates_for("halloween")))
 built.append("halloween")
+
+# ------------------------------------- de stad x show-matrix (Nederlands)
+for show_key in MX.SHOWS:
+    for city_key in MX.CITIES:
+        p, extra_html, schema = MX.build_page(show_key, city_key)
+        write(p["slug"], render(p, "city", schema, extra_html))
+        built.append(p["slug"])
+print(f"  matrix: {len(MX.SHOWS) * len(MX.CITIES)} stad x show-pagina's")
 
 # ------------------------------------------------- vertaalde pagina's
 # Engels, Duits en Frans: alles wat in het menu staat, plus de Duitse
@@ -925,6 +951,22 @@ for lang in I.LANGS:
                "areaServed": {"@type": "City", "name": R["stad"]}}]
         write(f"{lang}/{loc}", render(p, "page", ld, "", lang=lang, path=path, alternates=alts))
         built.append(f"{lang}/{loc}")
+    # steden zonder NL-tegenhanger (Düsseldorf, Duisburg, Namur, Charleroi, Mons)
+    for loc, R in I.STANDALONE_REGIO.get(lang, {}).items():
+        path = f"/{lang}/{loc}/"
+        iu, ia = I.REGIO_IMG[lang]
+        p = {"slug": f"{lang}/{loc}", "title": R["title"], "seo_title": R["seo_title"],
+             "seo_desc": R["seo_desc"], "img": (iu, ia),
+             "eyebrow": I.REGIO_EYEBROW[lang], "date": TODAY, "body": R["body"]}
+        svc = I.REGIO_SERVICE[lang](R["stad"])
+        ld = [{"@context": "https://schema.org", "@type": "Service",
+               "@id": SITE + path + "#service", "name": svc["name"],
+               "serviceType": svc["type"], "description": svc["desc"],
+               "url": SITE + path, "inLanguage": I.HTML_LANG[lang],
+               "provider": {"@id": f"{SITE}/#business"},
+               "areaServed": {"@type": "City", "name": R["stad"]}}]
+        write(f"{lang}/{loc}", render(p, "page", ld, "", lang=lang, path=path))
+        built.append(f"{lang}/{loc}")
 print(f"  vertaalde pagina's: {sum(len(I.PAGES[l]) for l in I.LANGS)} + "
       f"{sum(len(I.REGIO_PAGES[l]) for l in I.REGIO_PAGES)} regiopagina's (en/de/fr)")
 
@@ -988,6 +1030,46 @@ open(os.path.join(OUT, "robots.txt"), "w").write(
     f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
 print(f"  sitemap.xml: {len(urls)} adressen")
 
+# IndexNow: het sleutelbestand moet op de site zelf staan
+_inkey = open("indexnow-key.txt").read().strip()
+open(os.path.join(OUT, f"{_inkey}.txt"), "w").write(_inkey)
+
+# llms.txt: een compact, feitelijk overzicht voor AI-assistenten
+open(os.path.join(OUT, "llms.txt"), "w", encoding="utf-8").write(f"""# Vuurspuwer Nuno — vuurspuwer.com
+
+> Professionele vuurspuwer, fakir, mentalist en reptielenshow-artiest met
+> 17 jaar ervaring. Optredens in heel Nederland en België (en de Duitse
+> grensregio), vanuit Zeist (NL). Beoordeeld met 4,9/5 uit 134
+> Google-reviews. Bekend van SBS6, RTL, VTM en de Halloween Fright
+> Nights van Walibi Holland. Gecertificeerd en verzekerd.
+
+## Diensten
+- Vuurshow (5–30 min, ook duo met danseres): {SITE}/vuurspuwer-inhuren/
+- Fakirshow (spijkerbed, glaslopen, zwaarden): {SITE}/fakir-show-inhuren/
+- Workshop vuurspuwen (teambuilding, vrijgezellenfeest): {SITE}/workshop-vuurspuwen/
+- Halloween-acts (vanaf €395; horror-fakir vanaf €450; productie vanaf €750): {SITE}/halloween/
+- Reptielenshow: {SITE}/reptielenhow/
+- Mentalisme: {SITE}/entertainer-huren/
+
+## Contact & boeken
+- Aanvraagformulier (antwoord binnen 24 uur): {SITE}/contact-3/
+- Telefoon: +31 6 200 207 23 (ma–za 9:00–18:00) · zakelijk +31 85 203 35 47
+- E-mail: nuno@vuurspuwer.com · WhatsApp: https://wa.me/31620020723
+- KvK 98164325 · Werkgebied: Nederland, België, Duitse grensregio, internationaal op aanvraag
+
+## Talen
+De site bestaat in vier talen: Nederlands ({SITE}/), English ({SITE}/en/),
+Deutsch ({SITE}/de/), Français ({SITE}/fr/).
+
+## Belangrijkste pagina's
+- Beoordelingen (4,9/5, 134 reviews): {SITE}/beoordelingen/
+- Foto's: {SITE}/fotos/ · Video's: {SITE}/videos/
+- Over Nuno: {SITE}/over-nuno/
+- Alle locaties: {SITE}/locaties-vuurshows-nederland-belgie/
+- Sitemap: {SITE}/sitemap.xml
+""")
+print("  llms.txt en IndexNow-sleutel geschreven")
+
 # homepage en assets meenemen; ook daar de versie-stempel op css/js,
 # de volledige hreflang-set en de taalkeuze in de footer
 hp_doc = open("index.html", encoding="utf-8").read()
@@ -1029,5 +1111,6 @@ except ImportError:
     print("  rjsmin niet beschikbaar: js ongewijzigd gekopieerd")
 shutil.copy("_headers", os.path.join(OUT, "_headers"))
 shutil.copy("favicon.ico", os.path.join(OUT, "favicon.ico"))
+shutil.copy("site.webmanifest", os.path.join(OUT, "site.webmanifest"))
 shutil.copy("404.html", os.path.join(OUT, "404.html")) if os.path.exists("404.html") else None
 print("  homepage en assets gekopieerd")
