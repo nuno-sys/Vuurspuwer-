@@ -647,6 +647,60 @@ body.is-locked .nav__call{ opacity:0; pointer-events:none; transition:opacity .3
   }
 }
 
+
+/* ============================================================
+   Film-hero — the clip carries the whole opening, barely dimmed;
+   only the wordmark and two buttons sit on top of it
+   ============================================================ */
+.hero--film{
+  grid-template-rows:1fr;
+  padding-block:clamp(5.5rem,13vh,8rem) clamp(4rem,10vh,6rem);
+}
+.hero__film{
+  position:absolute;
+  inset:0;
+  margin:0;
+  z-index:-1;
+  overflow:hidden;
+  background:var(--soot) url("/assets/media/vuurbal-900.webp") center 30% / cover no-repeat;
+}
+.hero__film video{
+  width:100%; height:100%;
+  object-fit:cover;
+  object-position:center 30%;
+  opacity:0;
+  transition:opacity 1.4s var(--ease);
+}
+.hero__film video.is-live{ opacity:.82; }
+/* just enough shade for the wordmark to sit on, the rest stays bright */
+.hero__film::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(to bottom, rgba(10,7,5,.62) 0%, rgba(10,7,5,.12) 38%, rgba(10,7,5,0) 55%, rgba(10,7,5,.5) 100%);
+}
+.hero--film .hero__body{
+  justify-content:flex-end;
+  height:100%;
+  gap:clamp(1.5rem,3.5vw,2.25rem);
+}
+.hero__sub{
+  display:block;
+  --burn-a:var(--flame);
+  --burn-b:var(--flame);
+  font-family:var(--f-mono);
+  font-variation-settings:normal;
+  font-weight:500;
+  font-size:clamp(.72rem,1.4vw,.95rem);
+  letter-spacing:.34em;
+  text-transform:uppercase;
+  margin-top:1.1em;
+}
+@media (prefers-reduced-motion: reduce){
+  .hero__film video{ display:none; }
+}
+
 .hero__body{
   display:flex;
   flex-direction:column;
@@ -2135,3 +2189,94 @@ body.is-locked .wa{ opacity:0; pointer-events:none; transition:opacity .3s var(-
   font-size:clamp(2rem, 1rem + 3.4vw, 3.6rem);
   max-width:24ch;
 }
+
+/* ============================================================
+   Fotopagina — grid dat opent in een lightbox
+   ============================================================ */
+.fgrid{
+  columns:2;
+  column-gap:clamp(.75rem,1.6vw,1.25rem);
+}
+@media (min-width:760px){ .fgrid{ columns:3; } }
+.fgrid a{
+  display:block;
+  position:relative;
+  margin-bottom:clamp(.75rem,1.6vw,1.25rem);
+  border-radius:12px;
+  overflow:hidden;
+  border:1px solid var(--hairline);
+  break-inside:avoid;
+  isolation:isolate;
+}
+.fgrid img{
+  display:block;
+  width:100%;
+  height:auto;
+  transition:transform .7s var(--ease);
+}
+.fgrid a:hover img{ transform:scale(1.04); }
+.fgrid a::after{
+  content:attr(data-cap);
+  position:absolute;
+  left:0; right:0; bottom:0;
+  padding:.9rem 1rem .8rem;
+  font-family:var(--f-mono);
+  font-size:.66rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--core);
+  background:linear-gradient(to top, rgba(5,3,2,.85), transparent);
+  opacity:0;
+  transition:opacity .4s var(--ease);
+}
+.fgrid a:hover::after,
+.fgrid a:focus-visible::after{ opacity:1; }
+.fgrid a:focus-visible{ outline:2px solid var(--flame); outline-offset:3px; }
+
+.lightbox{
+  position:fixed;
+  inset:0;
+  z-index:200;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:1rem;
+  padding:clamp(1rem,4vw,3rem);
+  background:rgba(5,3,2,.94);
+}
+.lightbox.is-open{ display:flex; }
+.lightbox img{
+  max-width:100%;
+  max-height:82vh;
+  border-radius:10px;
+  box-shadow:0 30px 90px rgba(0,0,0,.7);
+}
+.lightbox figcaption{
+  font-family:var(--f-mono);
+  font-size:var(--t-xs);
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--ink-dim);
+  text-align:center;
+}
+.lightbox button{
+  position:absolute;
+  width:46px; height:46px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  border:1px solid var(--hairline);
+  background:rgba(23,16,8,.85);
+  color:var(--core);
+  font-size:1.1rem;
+  cursor:pointer;
+  transition:background .3s var(--ease);
+}
+.lightbox button:hover{ background:var(--ember); color:#170800; }
+.lightbox__close{ top:clamp(.8rem,3vw,1.6rem); right:clamp(.8rem,3vw,1.6rem); }
+.lightbox__prev{ left:clamp(.4rem,2vw,1.2rem); top:50%; transform:translateY(-50%); }
+.lightbox__next{ right:clamp(.4rem,2vw,1.2rem); top:50%; transform:translateY(-50%); }
+
+/* de galerij mag de volle breedte in, ook al staat hij in een tekstpagina */
+.prose--page:has(.fgrid){ max-width:none; }

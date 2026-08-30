@@ -25,6 +25,18 @@ PLAN = {
         ("mentalist", "Nuno op het podium van een lege theaterzaal"),
     "Vuurspuwen+-+vuurspuwer+huren-640w.webp":
         ("schemering", "Vuurspuwen in de schemering, vlam breed uitwaaierend"),
+    "Vuurshow-boeken-nuno.webp":
+        ("workshop", "Vuurspuwer blaast een grote vuurbal tegen de avondlucht vanaf een balustrade"),
+    "reptielenshow boeken.webp":
+        ("reptiel", "Nuno met een boa constrictor om zijn arm tijdens de reptielenshow"),
+    "fakirshow-huren.jpg":
+        ("fakirshow", "Fakirshow in het theater: Nuno op het spijkerbed onder het gewicht van een toeschouwer"),
+    "spijkerbed-fakirshow-nuno.webp":
+        ("spijkerbed", "Close-up van de fakiract: Nuno balanceert het spijkerbord met kettingen op zijn gezicht"),
+    "Vuurspuwer-huren-Nuno.webp":
+        ("avondvuur", "Vuurspuwer Nuno spuwt een enorme vuurbal in de avondschemering"),
+    "Kan-Ik-Vuurspuwer-Nuno-Boeken-Voor-Mijn-Bruiloft-Het-Complete-Antwoord-door-Vuurspuwer-Nuno-119283961_791034501663066_5861792144018564535_n.jpg.webp":
+        ("bruiloft", "Duo-act op een bruiloft: vuurspuwer Nuno met danseres met rode vleugels"),
 }
 # stond er al: de fakiract
 KEEP = {"work-2.webp": ("fakir", "Fakiract: Nuno onder het gewicht van een staande toeschouwer")}

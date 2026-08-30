@@ -1010,6 +1010,62 @@
       setInterval(setStatus, 60000);
     }
 
+    /* photo grid: every picture opens full-size in a lightbox,
+       with arrows and the keyboard doing what you expect */
+    const shots = $$("[data-lightbox]");
+    if (shots.length) {
+      const box = document.createElement("div");
+      box.className = "lightbox";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-modal", "true");
+      box.setAttribute("aria-label", "Fotoweergave");
+      box.innerHTML =
+        '<button class="lightbox__close" aria-label="Sluiten">&#10005;</button>' +
+        '<button class="lightbox__prev" aria-label="Vorige foto">&#8592;</button>' +
+        '<img alt="">' +
+        '<figcaption></figcaption>' +
+        '<button class="lightbox__next" aria-label="Volgende foto">&#8594;</button>';
+      document.body.appendChild(box);
+      const big = $("img", box), cap = $("figcaption", box);
+      let cur = 0, opener = null;
+
+      const show = (i) => {
+        cur = (i + shots.length) % shots.length;
+        const a = shots[cur];
+        big.src = a.getAttribute("href");
+        big.alt = $("img", a) ? $("img", a).alt : "";
+        cap.textContent = a.dataset.cap || "";
+      };
+      const open = (i, src) => {
+        opener = src || null;
+        show(i);
+        box.classList.add("is-open");
+        document.body.classList.add("is-locked");
+        $(".lightbox__close", box).focus();
+      };
+      const close = () => {
+        box.classList.remove("is-open");
+        document.body.classList.remove("is-locked");
+        big.src = "";
+        if (opener) opener.focus();
+      };
+
+      shots.forEach((a, i) => a.addEventListener("click", (e) => {
+        e.preventDefault();
+        open(i, a);
+      }));
+      $(".lightbox__close", box).addEventListener("click", close);
+      $(".lightbox__prev", box).addEventListener("click", () => show(cur - 1));
+      $(".lightbox__next", box).addEventListener("click", () => show(cur + 1));
+      box.addEventListener("click", (e) => { if (e.target === box) close(); });
+      addEventListener("keydown", (e) => {
+        if (!box.classList.contains("is-open")) return;
+        if (e.key === "Escape") close();
+        if (e.key === "ArrowLeft") show(cur - 1);
+        if (e.key === "ArrowRight") show(cur + 1);
+      });
+    }
+
     /* article images that have not moved over yet would show as broken
        icons; hide them until the uploads folder is in place */
     $$(".prose img, .lede-img img").forEach((img) => {

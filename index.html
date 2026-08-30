@@ -93,8 +93,6 @@
    "logo": "https://vuurspuwer.com/assets/brand/nuno.svg",
    "address": {
     "@type": "PostalAddress",
-    "streetAddress": "Laan van Cattenbroeck 16-A",
-    "postalCode": "3703 BM",
     "addressLocality": "Zeist",
     "addressRegion": "Utrecht",
     "addressCountry": "NL"
@@ -510,40 +508,23 @@
   <!-- ==========================================================
        Hero
        ========================================================== -->
-  <section class="hero wrap">
-      <div class="hero__body">
-      <p class="eyebrow rise">Vuurshow &middot; Fakirshow &middot; Mentalisme</p>
+  <section class="hero hero--film wrap">
+    <!-- The clip is the hero: full-bleed behind everything, barely dimmed. -->
+    <figure class="hero__film" aria-hidden="true">
+      <video id="heroVideo" muted loop playsinline preload="none"
+             poster="/assets/media/vuurbal-900.webp"></video>
+    </figure>
 
+    <div class="hero__body">
       <h1 class="hero__title rise" data-delay="1">
         <span>Vuurspuwer</span>
         <span>Nuno</span>
+        <small class="hero__sub b-t">Meester van vuur &amp; magie</small>
       </h1>
 
-      <div class="hero__row">
-        <div class="hero__pitch">
-          <p class="lede">Meester van vuur &amp; magie. Zeventien jaar oerkracht, glas en spijkers &mdash; en een publiek dat vergeet te ademen.</p>
-          <div class="hero__actions">
-            <a class="btn" href="#boeken"><span class="btn__dot"></span>Offerte aanvragen</a>
-            <a class="btn btn--ghost" href="#shows">Bekijk de shows</a>
-          </div>
-          <p class="hero__trust"><span class="stars stars--sm" role="img" aria-label="5 van de 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9z"/></svg></span> Negen keer vijf sterren op Google &middot; gecertificeerd &middot; NL, BE &amp; internationaal</p>
-        </div>
-
-        <!-- One video, two roles: a portrait panel beside the type on a wide
-             screen, the full-bleed backdrop on a phone. The script only gives
-             it a source that suits the screen, so nothing is stretched. -->
-        <figure class="hero__panel" id="heroPanel">
-          <video id="heroVideo" muted loop playsinline preload="none"
-                 poster="/assets/media/vuurbal-900.webp"></video>
-        </figure>
-      </div>
-    </div>
-
-    <div class="hero__foot">
-      <div class="scrollcue rise" data-delay="4"><i></i><span>Scroll &mdash; en het vuur volgt</span></div>
-      <div class="readout rise" data-delay="4">
-        <div>Vlamhoogte <b id="roHeight">0.0</b> m</div>
-        <div>Hitte <b id="roHeat">0</b> %</div>
+      <div class="hero__actions rise" data-delay="2">
+        <a class="btn" href="#boeken"><span class="btn__dot"></span>Offerte aanvragen</a>
+        <a class="btn btn--ghost" href="#shows">Bekijk de shows</a>
       </div>
     </div>
   </section>
@@ -623,8 +604,8 @@
 
       <article class="show rise" data-delay="1">
         <figure class="show__shot">
-          <img src="/assets/media/fakir-1080.webp" width="1080" height="1349" loading="lazy" decoding="async"
-               alt="Fakirshow: Nuno draagt het gewicht van een toeschouwer tijdens een fakiract">
+          <img src="/assets/media/fakirshow-640.webp" width="640" height="1351" loading="lazy" decoding="async"
+               alt="Fakirshow in het theater: Nuno op het spijkerbed onder het gewicht van een toeschouwer">
         </figure>
         <div class="show__body">
           <div class="chips"><span class="chip" data-heat="hybrid">Glas &amp; spijkers</span><span class="chip">Binnen &amp; buiten</span><span class="chip">Op maat</span></div>
@@ -635,9 +616,9 @@
       </article>
 
       <article class="show rise" data-delay="2">
-        <figure class="show__shot show__shot--todo">
-          <!-- TODO: echte foto van de reptielenshow ontbreekt nog -->
-          <canvas data-plate="reptiel" aria-hidden="true"></canvas>
+        <figure class="show__shot">
+          <img src="/assets/media/reptiel-900.webp" width="900" height="838" loading="lazy" decoding="async"
+               alt="Nuno met een boa constrictor om zijn arm tijdens de reptielenshow">
         </figure>
         <div class="show__body">
           <div class="chips"><span class="chip" data-heat="cold">Geen vuur</span><span class="chip">Binnen</span><span class="chip">Educatief</span></div>
@@ -648,9 +629,9 @@
       </article>
 
       <article class="show rise" data-delay="3">
-        <figure class="show__shot show__shot--todo">
-          <!-- TODO: echte foto van de workshop vuurspuwen ontbreekt nog -->
-          <canvas data-plate="workshop" aria-hidden="true"></canvas>
+        <figure class="show__shot">
+          <img src="/assets/media/workshop-900.webp" width="900" height="1130" loading="lazy" decoding="async"
+               alt="Vuurspuwer blaast een grote vuurbal tegen de avondlucht tijdens de workshop vuurspuwen">
         </figure>
         <div class="show__body">
           <div class="chips"><span class="chip" data-heat="fire">Echt vuur</span><span class="chip">Buiten</span><span class="chip">Groepen</span></div>
@@ -772,6 +753,26 @@
             <img src="/assets/media/schemering-640.webp" width="640" height="423" loading="lazy" decoding="async"
                  alt="Vuurspuwen in de schemering, de vlam waaiert breed uit tegen een blauwe lucht">
             <figcaption class="plate__cap"><span>Schemering</span><b>Vuurspuwen buiten</b></figcaption>
+          </figure>
+          <figure class="plate">
+            <img src="/assets/media/avondvuur-900.webp" width="900" height="893" loading="lazy" decoding="async"
+                 alt="Vuurspuwer Nuno spuwt een enorme vuurbal in de avondschemering">
+            <figcaption class="plate__cap"><span>Avondshow</span><b>Vuurbal in de schemer</b></figcaption>
+          </figure>
+          <figure class="plate">
+            <img src="/assets/media/spijkerbed-900.webp" width="900" height="873" loading="lazy" decoding="async"
+                 alt="Close-up van de fakiract: Nuno balanceert het spijkerbord met kettingen op zijn gezicht">
+            <figcaption class="plate__cap"><span>Fakirshow</span><b>Spijkerbord</b></figcaption>
+          </figure>
+          <figure class="plate">
+            <img src="/assets/media/bruiloft-900.webp" width="900" height="1014" loading="lazy" decoding="async"
+                 alt="Duo-act op een bruiloft: vuurspuwer Nuno met danseres met rode vleugels">
+            <figcaption class="plate__cap"><span>Bruiloft</span><b>Duo-act met danseres</b></figcaption>
+          </figure>
+          <figure class="plate">
+            <img src="/assets/media/reptiel-900.webp" width="900" height="838" loading="lazy" decoding="async"
+                 alt="Nuno met een boa constrictor om zijn arm tijdens de reptielenshow">
+            <figcaption class="plate__cap"><span>Reptielenshow</span><b>Boa constrictor</b></figcaption>
           </figure>
         </div>
 
@@ -1115,7 +1116,7 @@
   <div class="foot__bar">
     <span>&copy; <span id="year">2026</span> Vuurspuwer Nuno &middot; Nuno Art</span>
     <span>KvK 98164325 &middot; btw NL002416954B13</span>
-    <span>Laan van Cattenbroeck 16-A, 3703 BM Zeist</span>
+    <span>Nederland, Belgi&euml; &amp; internationaal</span>
   </div>
 </footer>
 

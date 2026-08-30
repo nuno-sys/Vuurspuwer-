@@ -292,6 +292,78 @@ def write(slug, doc):
     os.makedirs(d, exist_ok=True)
     open(os.path.join(d, "index.html"), "w", encoding="utf-8").write(doc)
 
+
+# ------------------------------------------------- de fotopagina
+# Eigen galerij in plaats van de oude WordPress-inhoud: alle foto's,
+# klik opent de lightbox, en elke foto staat als ImageObject in de markup.
+FOTOS = [
+    ("festival",   "festival-900.webp",   "festival-1600.webp",  900, 902,
+     "Complete vuurshow op een festivalplein",
+     "Vuurspuwer Nuno spuwt een vuurbal op een festivalplein voor een groot publiek"),
+    ("vuurbal",    "vuurbal-900.webp",    "vuurbal-1333.webp",   900, 1350,
+     "Vuurbal tijdens een nachtshow",
+     "Meters hoge vuurbal tegen een zwarte nachtlucht boven de vuurspuwer"),
+    ("avondvuur",  "avondvuur-900.webp",  "avondvuur-1080.webp", 900, 893,
+     "Vuurbal in de avondschemering",
+     "Vuurspuwer Nuno spuwt een enorme vuurbal in de avondschemering"),
+    ("vuurshow",   "vuurshow-850.webp",   "vuurshow-850.webp",   850, 1024,
+     "Vuurshow bij daglicht op een zomerfestival",
+     "Vuurshow overdag op een festival, publiek kijkt vanaf enkele meters toe"),
+    ("workshop",   "workshop-900.webp",   "workshop-1125.webp",  900, 1130,
+     "Vuurspuwen tegen de avondlucht",
+     "Vuurspuwer blaast een grote vuurbal tegen de avondlucht vanaf een balustrade"),
+    ("schemering", "schemering-640.webp", "schemering-640.webp", 640, 423,
+     "Vuurspuwen in de schemering",
+     "Vuurspuwen in de schemering, de vlam waaiert breed uit tegen een blauwe lucht"),
+    ("themafeest", "themafeest-900.webp", "themafeest-1080.webp", 900, 1125,
+     "Themafeest met vuur bij de vintage bus",
+     "Vuurspuwer bij een vintage bus tijdens een themafeest in de avond"),
+    ("bruiloft",   "bruiloft-900.webp",   "bruiloft-1080.webp",  900, 1014,
+     "Duo-act met danseres op een bruiloft",
+     "Duo-act op een bruiloft: vuurspuwer Nuno met danseres met rode vleugels"),
+    ("fakirshow",  "fakirshow-640.webp",  "fakirshow-640.webp",  640, 1351,
+     "Fakirshow in het theater",
+     "Fakirshow in het theater: Nuno op het spijkerbed onder het gewicht van een toeschouwer"),
+    ("fakir",      "fakir-900.webp",      "fakir-1080.webp",     900, 1124,
+     "Fakiract met glas en gewicht",
+     "Fakiract: Nuno draagt het gewicht van een staande toeschouwer"),
+    ("spijkerbed", "spijkerbed-900.webp", "spijkerbed-1242.webp", 900, 873,
+     "Het spijkerbord van dichtbij",
+     "Close-up van de fakiract: Nuno balanceert het spijkerbord met kettingen op zijn gezicht"),
+    ("reptiel",    "reptiel-900.webp",    "reptiel-960.webp",    900, 838,
+     "Reptielenshow met boa constrictor",
+     "Nuno met een boa constrictor om zijn arm tijdens de reptielenshow"),
+    ("mentalist",  "mentalist-900.webp",  "mentalist-1371.webp", 900, 900,
+     "Mentalist Nuno in het theater",
+     "Nuno op het podium van een lege theaterzaal voor een mentalismeshow"),
+]
+
+def fotos_body():
+    tiles = []
+    for _, thumb, full, w, h, cap, alt in FOTOS:
+        tiles.append(
+            f'<a href="/assets/media/{full}" data-lightbox data-cap="{esc(cap)}">'
+            f'<img src="/assets/media/{thumb}" width="{w}" height="{h}" '
+            f'loading="lazy" decoding="async" alt="{esc(alt)}"></a>')
+    return ('<p>Een greep uit de shows van de afgelopen jaren: vuurshows op festivals '
+            'en bedrijfsfeesten, fakirshows in het theater, de reptielenshow en optredens '
+            'op bruiloften en themafeesten. Klik op een foto om hem groot te bekijken &mdash; '
+            'of <a href="/#boeken">vraag direct een offerte aan</a>.</p>'
+            '<div class="fgrid">' + "".join(tiles) + "</div>")
+
+def fotos_schema():
+    return {"@context": "https://schema.org", "@type": "ImageGallery",
+            "name": "Foto's van Vuurspuwer Nuno",
+            "url": f"{SITE}/fotos/",
+            "about": {"@id": f"{SITE}/#business"},
+            "image": [{"@type": "ImageObject",
+                       "contentUrl": f"{SITE}/assets/media/{full}",
+                       "thumbnail": f"{SITE}/assets/media/{thumb}",
+                       "name": cap, "description": alt,
+                       "creditText": "Vuurspuwer Nuno",
+                       "copyrightNotice": "\u00a9 Vuurspuwer Nuno"}
+                      for _, thumb, full, _, _, cap, alt in FOTOS]}
+
 # ------------------------------------------------------------------ bouwen
 if os.path.isdir(OUT): shutil.rmtree(OUT)
 os.makedirs(OUT, exist_ok=True)
@@ -320,6 +392,17 @@ for p in posts:
 for slug in KEEP_PAGES:
     p = pages.get(slug)
     if not p: missing.append(slug); continue
+    if slug == "fotos":
+        p = {**p, "title": "Foto's van de shows",
+             "seo_title": "Foto's | Vuurshow, fakirshow & reptielenshow | Vuurspuwer Nuno",
+             "seo_desc": "Bekijk foto's van de vuurshows, fakirshows, reptielenshow en workshops van Vuurspuwer Nuno op festivals, bedrijfsfeesten en bruiloften in Nederland en België.",
+             "body": fotos_body(),
+             "img": ("/assets/media/festival-1600.webp",
+                     "Vuurspuwer Nuno spuwt een vuurbal op een festivalplein")}
+        doc = render(p, "page", fotos_schema())
+        # geen losse kopfoto boven een pagina die zelf één grote galerij is
+        doc = re.sub(r'<figure class="lede-img wrap">.*?</figure>', "", doc, flags=re.S)
+        write(slug, doc); built.append(slug); continue
     write(slug, render(p, "page")); built.append(slug)
 
 print(f"  {len(built)} pagina's gebouwd  ({len(CITIES)} steden, {len(posts)} blogposts)")
