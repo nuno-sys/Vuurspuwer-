@@ -35,8 +35,27 @@ wordt gegenereerd in de browser: er zitten geen afbeeldingsbestanden in de repo.
     assets/media/work-1.jpg          vuurspuwen op een festivalplein
     assets/media/work-2.webp         fakirshow, spijkerbed
     assets/media/work-3.webp         vuurspuwen tegen zwarte achtergrond
+    assets/brand/nuno.svg            het woordmerk, uit de PNG getraceerd
+    assets/brand/nuno-logo-origineel.png   het aangeleverde origineel
     assets/brand/                    logo's van SBS6, RTL 4, VTM, Walibi,
                                      IKEA, Emporium en Julianatoren
+
+## Het woordmerk
+
+Het aangeleverde logo is een PNG van 292x80 in twee kleuren. Te klein om groot
+in beeld te brengen, dus is de vorm getraceerd naar vector: de pixelrand is
+gevolgd, vereenvoudigd en weer glad gemaakt, waarbij de drips onder de N en de
+vlam aan de O bewaard zijn gebleven.
+
+Die vector zit als data-URI in de CSS (`--logo-src` op `.logo`), niet als los
+bestand. Dat scheelt een verzoek en werkt ook waar externe afbeeldingen
+geblokkeerd zijn. `assets/brand/nuno.svg` blijft staan als bron, bijvoorbeeld
+om er een favicon van te maken.
+
+Het gebruikt geen eigen kleur meer: het masker wordt gevuld met het
+vuurverloop van de site, met een langzame gloed die er in negen seconden
+doorheen trekt. Het originele goud staat in
+`assets/brand/nuno-logo-origineel.png` als je terug wilt.
 
 Nog aan te leveren:
 
@@ -45,8 +64,6 @@ Nog aan te leveren:
   worden wazig als je ze over 1440 px uitrekt. Zolang dit bestand ontbreekt
   staat `HERO_VIDEO.landscape` in `index.html` op `null` en draagt de vlam de
   hero; zet die regel op het pad zodra het bestand er is.
-- **Het logo.** De vlam in de header is nog een tijdelijke SVG. In je
-  WordPress-export staat `nuno-high-resolution-logo-transparent_432206e57.png`.
 - Meer foto's voor de filmstrip: kaders 4 tot en met 6 tonen nu nog een
   getekend lichtspoor.
 
