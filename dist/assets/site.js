@@ -269,6 +269,7 @@
     if (drawFlame)  drawFlame(t);
     if (drawEmbers) drawEmbers(t);
     burnFrame();
+    galleryFrame();
 
     if (burn) {
       const doc = document.documentElement;
@@ -431,20 +432,26 @@
     ".hero__title span", ".lede", ".eyebrow", ".bay__title",
     ".manifesto [data-split] .w", ".prose p",
     ".act__name", ".act__desc",
+    ".show__name", ".show__desc", ".show__cta",
+    ".case h2", ".case .prose p",
+    ".geo__col h3", ".geo__more",
+    ".faq__item summary", ".faq__item p",
+    ".gal__head .eyebrow", ".gal__hint", ".hero__trust", ".reel__note",
     ".spec__val", ".spec__key",
     ".tvlist li", ".safety dt", ".safety dd",
     ".rating__num", ".rating__meta", ".rating__todo",
     ".page__title", ".crumbs li", ".prose--page > *", ".citylist a",
     ".contact__line span", ".contact__line b", ".form__note", ".field > span",
-    ".frame__cap span", ".frame__cap b",
-    ".reel__hud span", ".reel__holder p",
+    ".reel__hud span",
     ".scrollcue span", ".readout div",
     ".ticker__group span",
     ".foot__word", ".foot__bar span"
   ].join(",");
 
-  const BLOCK_SEL = ".frame, .reel";
-  const FADE_SEL  = ".btn, .chip, .stars, .rating__score, .act, .spec, .safety > div, .book, .field input, .field select, .field textarea, .scrollcue i, .status";
+  /* plates in the gallery burn on their own clock (the sideways
+     scroll), so they are not registered here */
+  const BLOCK_SEL = ".reel, .show__shot";
+  const FADE_SEL  = ".btn, .chip, .stars, .rating__score, .spec, .safety > div, .book, .field input, .field select, .field textarea, .scrollcue i, .status, .foot__social a";
 
   const burners = [];
 
@@ -588,20 +595,21 @@
   /* ==============================================================
      9. Gallery — procedural fire plates, with slots for real photos
      ============================================================== */
-  const WORK = [
-    { title: "Festival", meta: "Complete Vuurshow", hue: 16, seed: 3, kind: "circle",
-      photo: "/assets/media/work-1.jpg",
-      alt: "Vuurspuwer Nuno spuwt een metershoge vlam op een festivalplein" },
-    { title: "Fakirshow", meta: "Glas en spijkers", hue: 352, seed: 11, kind: "eight",
-      photo: "/assets/media/work-2.webp",
-      alt: "Nuno met het spijkerbed tijdens een fakirshow" },
-    { title: "Vuurspuwen", meta: "Power-Act", hue: 30, seed: 27, kind: "spiral",
-      photo: "/assets/media/work-3.webp",
-      alt: "Nuno spuwt een vlam recht omhoog tegen een zwarte achtergrond" },
-    { title: "Productlancering", meta: "Mentalisme",          hue: 202, seed: 41, kind: "circle" },
-    { title: "Opening",          meta: "Workshop vuurspuwen", hue: 8,   seed: 58, kind: "wave"   },
-    { title: "Themafeest",       meta: "Reptielenshow",       hue: 352, seed: 73, kind: "eight"  }
-  ];
+  /* The two show cards without a real photograph yet get a drawn
+     long-exposure plate, so the grid still reads as finished. The
+     moment Nuno supplies the photos, the canvases go and <img>s
+     take their place in index.html. */
+  const SHOW_PLATES = {
+    reptiel:  { hue: 130, seed: 21, kind: "wave"   },
+    workshop: { hue: 22,  seed: 47, kind: "circle" }
+  };
+
+  function drawShowPlates(){
+    $$("[data-plate]").forEach((cv) => {
+      const cfg = SHOW_PLATES[cv.dataset.plate];
+      if (cfg) plate(cv, cfg);
+    });
+  }
 
   /* A fire act photographed at night is a light trail: poi draw circles
      and figure-eights, a staff draws a spiral, a breath draws a burst.
@@ -733,53 +741,82 @@
     }
   }
 
-  function buildStrip(){
-    const strip = $("#strip");
-    if (!strip) return;
+  /* ==============================================================
+     9b. Gallery — vertical scroll drives the strip sideways
 
-    WORK.forEach((cfg, i) => {
-      const fig = document.createElement("figure");
-      fig.className = "frame";
-      fig.innerHTML =
-        '<canvas></canvas>' +
-        (cfg.photo
-          ? '<img loading="lazy" decoding="async" src="' + cfg.photo + '" alt="' + (cfg.alt || "") + '">'
-          : '') +
-        '<figcaption class="frame__cap"><span>' + cfg.meta + '</span><b>' + cfg.title + '</b></figcaption>';
-      strip.appendChild(fig);
+     The rail around the sticky viewport gets extra height equal to
+     the hidden width of the track. Scrolling through that height
+     translates the track to the left, so the photos ride past —
+     revealing left to right — and each burns in from below as it
+     enters. When the last one has passed the rail ends and the
+     page continues downward on its own.
+     ============================================================== */
+  const gal = { rail: null, track: null, bar: null, max: 0, plates: [] };
 
-      const cv = $("canvas", fig);
-      requestAnimationFrame(() => plate(cv, cfg));
+  function sizeGallery(){
+    if (!gal.rail) return;
+    const vw = gal.rail.clientWidth;
+    gal.max = Math.max(0, gal.track.scrollWidth - vw);
+    /* one viewport to stand in, plus the sideways distance */
+    gal.rail.style.height = (innerHeight + gal.max) + "px";
+  }
 
-      /* a real photograph, where there is one, wins over the drawn plate */
-      const img = $("img", fig);
-      if (img) {
-        img.addEventListener("load", () => img.classList.add("is-live"));
-        img.addEventListener("error", () => img.remove());
-      }
-    });
+  function galleryFrame(){
+    if (!gal.rail || !gal.max) return;
+    const top = gal.rail.getBoundingClientRect().top;
+    const p = clamp(-top / gal.max, 0, 1);
+    const x = p * gal.max;
+    gal.track.style.transform = "translateX(" + (-x) + "px)";
+    if (gal.bar) gal.bar.style.width = (p * 100).toFixed(2) + "%";
 
-    /* drag to scroll */
-    let down = false, sx = 0, sl = 0;
-    strip.addEventListener("pointerdown", (e) => {
-      down = true; sx = e.clientX; sl = strip.scrollLeft;
-      strip.classList.add("is-dragging");
-      strip.setPointerCapture(e.pointerId);
-    });
-    strip.addEventListener("pointermove", (e) => {
-      if (!down) return;
-      strip.scrollLeft = sl - (e.clientX - sx);
-    });
-    const up = () => { down = false; strip.classList.remove("is-dragging"); };
-    strip.addEventListener("pointerup", up);
-    strip.addEventListener("pointercancel", up);
+    /* each plate catches fire as it comes in from the right */
+    const vw = gal.rail.clientWidth;
+    for (const it of gal.plates) {
+      if (it.burn >= 1) continue;
+      const left = it.left - x;
+      const t = clamp((vw * 0.92 - left) / (it.w * 0.7), 0, 1);
+      if (t <= it.burn + 0.002) continue;
+      it.burn = t;
+      it.el.style.setProperty("--burn", t.toFixed(3));
+      it.el.style.setProperty("--glow", Math.sin(Math.PI * t).toFixed(3));
+      if (t >= 1) it.el.classList.remove("burning");
+      else if (!it.el.classList.contains("burning")) it.el.classList.add("burning");
+    }
+  }
+
+  function initGallery(){
+    const sec = $("#werk");
+    if (!sec) return;
+
+    if (REDUCED) {
+      /* no choreography: a plain strip you swipe yourself */
+      sec.classList.add("gal--flat");
+      return;
+    }
+
+    gal.rail  = $("#galRail");
+    gal.track = $("#galTrack");
+    gal.bar   = $("#galBar");
+    if (!gal.rail || !gal.track) return;
+
+    sizeGallery();
+    gal.plates = $$(".plate", gal.track).map((el) => ({
+      el, burn: 0, left: el.offsetLeft, w: el.offsetWidth || 1
+    }));
+  }
+
+  function resizeGallery(){
+    if (!gal.rail) return;
+    sizeGallery();
+    for (const it of gal.plates) {
+      it.left = it.el.offsetLeft;
+      it.w = it.el.offsetWidth || 1;
+    }
   }
 
   /* ==============================================================
      10. Video slots — reveal only when footage genuinely plays
      ============================================================== */
-  const REEL_PLATE = { hue: 26, seed: 91, kind: "eight" };
-
   /* Footage that suits the screen. A portrait clip blown up across a
      desktop hero looks soft, so each shape gets its own file and the
      other one is never downloaded. Missing file, no harm: the flame
@@ -811,51 +848,53 @@
       }
     }
 
-    const reel = $("#reelVideo"), holder = $("#reelHolder"),
-          play = $("#reelPlay"), time = $("#reelTime");
-    if (!reel || !play) return;
+    /* The two supplied showreel clips. Each starts on its own play
+       button, loads its file only then (or when it scrolls into view),
+       and pauses itself the moment it leaves the screen. One at a
+       time: starting one silences the other. */
+    const reels = $$(".reel");
+    const players = [];
 
-    const rp = $("#reelPlate");
-    if (rp) requestAnimationFrame(() => plate(rp, REEL_PLATE));
+    reels.forEach((fig) => {
+      const vid = $("video", fig), btn = $(".reel__play", fig),
+            time = $(".reel__time", fig);
+      if (!vid || !btn) return;
+      players.push(vid);
 
-    let has = false;
-    reel.addEventListener("loadedmetadata", () => {
-      /* let the frame take the shape of the footage, whatever gets
-         dropped in — square social crop or a 16:9 master */
-      if (reel.videoWidth && reel.videoHeight) {
-        const r = reel.videoWidth / reel.videoHeight;
-        reel.parentElement.style.aspectRatio = clamp(r, 0.72, 1.9).toFixed(4);
-      }
+      const arm = () => {
+        if (vid.src) return;
+        vid.src = vid.dataset.src || "";
+        vid.preload = "auto";
+        vid.load();
+      };
+
+      btn.addEventListener("click", () => {
+        arm();
+        if (vid.paused) {
+          for (const other of players) if (other !== vid) other.pause();
+          vid.play().catch(() => {});
+        } else {
+          vid.pause();
+        }
+      });
+
+      vid.addEventListener("play",  () => fig.classList.add("is-playing"));
+      vid.addEventListener("pause", () => fig.classList.remove("is-playing"));
+
+      vid.addEventListener("timeupdate", () => {
+        if (!time || !isFinite(vid.duration)) return;
+        const sec = Math.floor(vid.currentTime);
+        time.textContent = String(Math.floor(sec / 60)).padStart(2, "0") + ":" +
+                           String(sec % 60).padStart(2, "0");
+      });
+
+      new IntersectionObserver((es) => {
+        for (const e of es) {
+          if (e.isIntersecting) { arm(); vid.play().catch(() => {}); }
+          else vid.pause();
+        }
+      }, { threshold: 0.4 }).observe(fig);
     });
-    reel.addEventListener("loadeddata", () => {
-      has = true;
-      reel.classList.add("is-live");
-      if (holder) holder.style.display = "none";
-    });
-
-    play.addEventListener("click", () => {
-      if (!has) {
-        const note = $("p", holder);
-        if (note) note.innerHTML = "Nog geen video<br><span>zet showreel.mp4 in /assets/media</span>";
-        return;
-      }
-      if (reel.paused) reel.play(); else reel.pause();
-    });
-
-    reel.addEventListener("timeupdate", () => {
-      if (!time || !isFinite(reel.duration)) return;
-      const s = Math.floor(reel.currentTime);
-      time.textContent = String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0");
-    });
-
-    /* only run the reel while it is actually on screen */
-    new IntersectionObserver((es) => {
-      for (const e of es) {
-        if (!has) continue;
-        if (e.isIntersecting) reel.play().catch(() => {});
-        else reel.pause();
-      }
-    }, { threshold: 0.35 }).observe(reel);
   }
 
   /* ==============================================================
@@ -893,10 +932,10 @@
       ].join("\n");
 
       status.innerHTML =
-        "Nog niet gekoppeld &mdash; deze aanvraag wordt nog nergens naartoe verstuurd. " +
-        '<a href="mailto:contact@fakir-show.nl?subject=' +
+        "Je aanvraag staat klaar &mdash; " +
+        '<a href="mailto:nuno@vuurspuwer.com?subject=' +
         encodeURIComponent("Aanvraag " + naam) + "&body=" + encodeURIComponent(body) +
-        '">Open dezelfde aanvraag in je mailprogramma</a>.';
+        '">verstuur hem via je eigen mailprogramma</a>.';
     });
   }
 
@@ -934,7 +973,8 @@
     start.done = true;
     splitManifesto();
     fitHero();
-    buildStrip();
+    drawShowPlates();
+    initGallery();
     initVideo();
     initForm();
 
@@ -946,17 +986,24 @@
     const yr = $("#year");
     if (yr) yr.textContent = String(new Date().getFullYear());
 
+    /* article images that have not moved over yet would show as broken
+       icons; hide them until the uploads folder is in place */
+    $$(".prose img, .lede-img img").forEach((img) => {
+      img.addEventListener("error", () => {
+        const fig = img.closest("figure");
+        (fig || img).remove();
+        measure();
+      });
+    });
+
     /* redraw the generated plates when the layout changes shape */
     let rt;
     addEventListener("resize", () => {
       clearTimeout(rt);
       fitHero();
       measure();
-      rt = setTimeout(() => {
-        $$(".frame canvas").forEach((cv, i) => { if (WORK[i]) plate(cv, WORK[i]); });
-        const rp = $("#reelPlate");
-        if (rp && rp.isConnected) plate(rp, REEL_PLATE);
-      }, 220);
+      resizeGallery();
+      rt = setTimeout(drawShowPlates, 220);
     }, { passive: true });
   }
 

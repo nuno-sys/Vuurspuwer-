@@ -49,7 +49,8 @@ CITY_LABEL = {
 KEEP_PAGES = ["over-nuno", "contact-3", "beoordelingen", "disclaimer-voorwaarden",
               "privacybeleid", "fotos", "videos", "blog",
               "locaties-vuurshows-nederland-belgie", "entertainer-huren",
-              "vuurspuwer-inhuren", "fakir-show-inhuren"]
+              "vuurspuwer-inhuren", "fakir-show-inhuren", "reptielenhow",
+              "entertainer-huren-voor-bedrijfsfeest"]
 
 # ---------------------------------------------------------------- opschonen
 ALLOWED = {"p","h2","h3","h4","ul","ol","li","strong","em","b","i","a","br",
@@ -87,6 +88,9 @@ class Clean(HTMLParser):
 def clean_html(raw):
     raw = re.sub(r"<!--.*?-->", "", raw, flags=re.S)          # Gutenberg-commentaar
     raw = re.sub(r"\[/?[a-z0-9_\-]+[^\]]*\]", "", raw, re.I)  # shortcodes
+    # uploads verhuizen mee: zelfde pad, straks op Cloudflare zelf.
+    # Tot de uploads-map er is verbergt site.js afbeeldingen die nog 404'en.
+    raw = re.sub(r"https?://(?:www\.)?vuurspuwer\.com/wp-content/", "/wp-content/", raw)
     c = Clean(); c.feed(raw)
     out = c.result()
     out = re.sub(r"<p>\s*</p>", "", out)
@@ -153,6 +157,8 @@ IGNITION = chunk('<div id="ignition"', '<!-- ===================================
 STAGE    = chunk('<div class="stage" aria-hidden="true">', '<main class="shell"')
 HEADER   = STAGE[STAGE.index('<header class="nav"'):]
 STAGE    = STAGE[:STAGE.index('<header class="nav"')]
+# op een onderliggende pagina wijzen de ankers terug naar de homepage
+HEADER   = HEADER.replace('href="#', 'href="/#')
 FOOTER   = chunk('<footer class="foot shell wrap">', '<script src="/assets/site.js"') 
 FONTS    = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">'
 
@@ -184,6 +190,23 @@ def render(p, kind, extra_schema=None, extra_html=""):
     if intro and intro.lower().startswith(p["title"][:24].lower()):
         intro = ""
 
+    if p.get("img"):
+        iu, ia = p["img"]
+        iu = re.sub(r"https?://(?:www\.)?vuurspuwer\.com/wp-content/", "/wp-content/", iu)
+        if iu.startswith("/wp-content/") and not os.path.exists(iu.lstrip("/")):
+            fallbacks = ["/assets/media/festival-1600.webp",
+                         "/assets/media/vuurbal-1333.webp",
+                         "/assets/media/vuurshow-850.webp",
+                         "/assets/media/themafeest-1080.webp"]
+            iu = fallbacks[sum(map(ord, p["slug"])) % len(fallbacks)]
+            ia = ia or "Vuurspuwer Nuno tijdens een vuurshow"
+        p = {**p, "img": (iu, ia)}
+
+    # elk blogbericht draagt dezelfde omslag: donker, alleen Nuno en de vlam
+    if kind == "post":
+        p = {**p, "img": ("/assets/media/post-cover.webp",
+                          "Vuurspuwer Nuno met een metershoge vuurbal tegen een zwarte nachtlucht")}
+
     figure = ""
     if p.get("img"):
         iu, ia = p["img"]
@@ -195,7 +218,7 @@ def render(p, kind, extra_schema=None, extra_html=""):
         graph.append({"@context": "https://schema.org", "@type": "BlogPosting",
                       "headline": p["title"], "datePublished": p["date"],
                       "description": desc, "mainEntityOfPage": url,
-                      **({"image": p["img"][0]} if p.get("img") else {}),
+                      **({"image": (SITE + p["img"][0] if p["img"][0].startswith("/") else p["img"][0])} if p.get("img") else {}),
                       "author": {"@type": "Person", "name": "Nuno", "@id": f"{SITE}/#nuno"},
                       "publisher": {"@id": f"{SITE}/#business"}})
     if extra_schema: graph.append(extra_schema)
@@ -214,13 +237,14 @@ def render(p, kind, extra_schema=None, extra_html=""):
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(desc)}">
 <meta property="og:url" content="{url}">
-<meta property="og:image" content="{p["img"][0] if p.get("img") else SITE + "/assets/media/work-1.jpg"}">
+<meta property="og:image" content="{(SITE + p["img"][0] if p["img"][0].startswith("/") else p["img"][0]) if p.get("img") else SITE + "/assets/media/festival-1600.webp"}">
 <meta name="twitter:card" content="summary_large_image">
 {FONTS}
 <link rel="stylesheet" href="/assets/site.css">
 {ld}
 </head>
 <body>
+<a class="skip" href="#top">Naar de inhoud</a>
 {IGNITION}{STAGE}{HEADER}
 <main class="shell" id="top">
   <article class="page wrap">
