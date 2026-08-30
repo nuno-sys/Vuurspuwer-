@@ -1256,13 +1256,12 @@
   }
 
   /* ------------------------------------------- mini-chat bij de wa */
-  var card = $("#chatCard"), face = $("#waFace"), msg = $("#chatMsg"),
+  var card = $("#chatCard"), msg = $("#chatMsg"),
       cta = $("#chatCta"), ctaTxt = $("#chatCtaTxt"), status = $("#chatStatus");
   if (!card || !msg) return;
 
   if (ctaTxt) ctaTxt.textContent = L.cta;
   if (status) status.textContent = L.status;
-  if (face) face.setAttribute("aria-label", L.cta);
   if (cta) cta.href = "https://wa.me/31620020723?text=" +
       encodeURIComponent(L.prefill + "…");
 
@@ -1296,9 +1295,6 @@
   }
   var closeBtn = $("#chatClose");
   if (closeBtn) closeBtn.addEventListener("click", closeChat);
-  if (face) face.addEventListener("click", function () {
-    if (card.hidden) openChat(true); else closeChat();
-  });
 
   /* na 12 seconden vanzelf openen — één keer per sessie */
   var auto = true;

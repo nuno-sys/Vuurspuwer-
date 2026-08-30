@@ -2536,7 +2536,6 @@ body.is-locked .wa{ opacity:0; pointer-events:none; transition:opacity .3s var(-
 .nav__links{ gap:clamp(.55rem,1.4vw,1.5rem); }
 .nav__link{ letter-spacing:.13em; }
 .nav__link--hot{ color:var(--flame); }
-@media (max-width:1280px){ .nav__link--home{ display:none; } }
 @media (max-width:1120px){ .nav__act .btn--sm{ display:none; } }
 
 /* ============================================================
@@ -2860,34 +2859,6 @@ body.is-locked .wa{ opacity:0; pointer-events:none; transition:opacity .3s var(-
 /* ============================================================
    Profielfoto + mini-chatkaart bij de WhatsApp-knop
    ============================================================ */
-.waface{
-  position:fixed;
-  right:clamp(.9rem,2.5vw,1.6rem);
-  bottom:calc(clamp(.9rem,2.5vw,1.6rem) + 52px);
-  z-index:91;
-  width:48px; height:48px;
-  padding:0; border:none; background:none; cursor:pointer;
-  border-radius:50%;
-  transition:transform .35s var(--ease);
-}
-.waface:hover{ transform:translateY(-2px) scale(1.05); }
-.waface img{
-  width:100%; height:100%;
-  border-radius:50%;
-  object-fit:cover;
-  border:2px solid var(--flame);
-  box-shadow:0 0 0 3px rgba(5,3,2,.85), 0 6px 20px rgba(0,0,0,.55);
-  display:block;
-}
-.waface i{
-  position:absolute;
-  right:1px; bottom:1px;
-  width:11px; height:11px;
-  border-radius:50%;
-  background:#1FA855;
-  border:2px solid #0A0705;
-  animation:waPulse 2.2s ease-out infinite;
-}
 .chat{
   position:fixed;
   right:clamp(.9rem,2.5vw,1.6rem);
@@ -2956,57 +2927,42 @@ body.is-locked .wa{ opacity:0; pointer-events:none; transition:opacity .3s var(-
 @media (prefers-reduced-motion:reduce){
   .share__btn::after{ animation:none; transform:translateX(-26%); }
   .chat{ transition:none; }
-  .chat__typing i, .waface i, .chat__status i{ animation:none; }
+  .chat__typing i, .chat__status i{ animation:none; }
 }
 
 /* ============================================================
-   Driekoloms header: bel-cta links, logo gecentreerd (en net
-   onder de headerlijn uitstekend), menu rechts
+   Mobiele header: bel-knop links, logo gecentreerd (en bij
+   scrollen net onder de compacte balk uitstekend), menu rechts.
+   Desktop behoudt de oorspronkelijke indeling.
    ============================================================ */
-.nav{
-  display:grid;
-  grid-template-columns:1fr auto 1fr;
-  align-items:center;
-  gap:clamp(.6rem,1.6vw,1.1rem);
-}
-.nav__cta{
-  display:flex;
-  align-items:center;
-  gap:.55rem;
-  justify-self:start;
-}
-.nav__belbtn{ white-space:nowrap; }
-.nav__home{
-  justify-self:center;
-  align-items:center;
-  text-align:center;
-  transform:translateY(clamp(4px,.9vw,12px));
-}
-/* bij scrollen wordt de balk compact en hangt het logo er net onderuit */
-.nav.is-stuck{
-  padding-top:max(.45rem, env(safe-area-inset-top));
-  padding-bottom:.45rem;
+@media (max-width:900px){
+  .nav{
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+    align-items:center;
+    gap:.6rem;
+  }
+  .nav__act{ grid-column:1; grid-row:1; justify-self:start; }
+  .nav__home{
+    grid-column:2; grid-row:1;
+    justify-self:center;
+    align-items:center;
+    text-align:center;
+    transform:translateY(clamp(4px,1.2vw,10px));
+  }
+  .burger{ grid-column:3; grid-row:1; justify-self:end; }
+  .nav__call{ display:grid; }
+  .nav.is-stuck{
+    padding-top:max(.45rem, env(safe-area-inset-top));
+    padding-bottom:.45rem;
+  }
+  .nav.is-stuck .nav__home{
+    transform:translateY(11px);
+    filter:drop-shadow(0 10px 22px rgba(0,0,0,.55));
+  }
 }
 .nav{ transition:background .45s var(--ease), backdrop-filter .45s var(--ease),
        border-color .45s var(--ease), padding .45s var(--ease); }
-.nav.is-stuck .nav__home{
-  transform:translateY(clamp(9px,1.2vw,17px));
-  filter:drop-shadow(0 12px 26px rgba(0,0,0,.55));
-}
-.nav__act{
-  justify-self:end;
-  gap:clamp(.55rem,1.3vw,1.1rem);
-}
-.burger{ display:flex; flex:0 0 auto; }
-.nav__links{ display:none; }
-@media (min-width:1080px){ .nav__links{ display:flex; } }
-@media (max-width:900px){ .nav__belbtn{ display:none; } }
-@media (max-width:420px){ .nav__call{ display:grid; } }
-body.is-locked .nav__cta{
-  opacity:0;
-  pointer-events:none;
-  transition:opacity .3s var(--ease);
-}
 
 /* ============================================================
    Voettekst: zekerheden-badges
@@ -3040,3 +2996,29 @@ body.is-locked .nav__cta{
 
 /* het hidden-attribuut wint altijd van display-regels op klassen */
 [hidden]{ display:none !important; }
+
+/* ============================================================
+   Profielfoto van Nuno ín de WhatsApp-knop
+   ============================================================ */
+.wa__ava{
+  position:relative;
+  width:38px; height:38px;
+  flex:0 0 auto;
+}
+.wa__ava img{
+  width:100%; height:100%;
+  border-radius:50%;
+  object-fit:cover;
+  display:block;
+  border:2px solid rgba(5,3,2,.9);
+}
+.wa .wa__badge{
+  position:absolute;
+  right:-3px; bottom:-3px;
+  width:17px; height:17px;
+  padding:3px;
+  border-radius:50%;
+  background:#1FA855;
+  fill:#fff;
+  box-shadow:0 0 0 2px rgba(5,3,2,.9);
+}
