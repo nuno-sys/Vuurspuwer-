@@ -9,6 +9,8 @@ import html, json, os, re, shutil, sys
 import xml.etree.ElementTree as ET
 from html.parser import HTMLParser
 
+import pages_content as PC
+
 XML  = "nunovuurspuwer-vuurshowsampfakirshowenworkshops.WordPress.2026-08-30.xml"
 OUT  = "dist"
 SITE = "https://vuurspuwer.com"
@@ -230,7 +232,8 @@ def render(p, kind, extra_schema=None, extra_html=""):
                       **({"image": (SITE + p["img"][0] if p["img"][0].startswith("/") else p["img"][0])} if p.get("img") else {}),
                       "author": {"@type": "Person", "name": "Nuno", "@id": f"{SITE}/#nuno"},
                       "publisher": {"@id": f"{SITE}/#business"}})
-    if extra_schema: graph.append(extra_schema)
+    if extra_schema:
+        graph.extend(extra_schema) if isinstance(extra_schema, list) else graph.append(extra_schema)
     ld = "\n".join(f'<script type="application/ld+json">{json.dumps(g, ensure_ascii=False)}</script>' for g in graph)
 
     return f'''<!doctype html>
@@ -392,6 +395,26 @@ for p in posts:
 for slug in KEEP_PAGES:
     p = pages.get(slug)
     if not p: missing.append(slug); continue
+    if slug == "videos":
+        p = {**p, "title": "Video's van de shows",
+             "seo_title": "Video's | Vuurshow & fakirshow in actie | Vuurspuwer Nuno",
+             "seo_desc": "Bekijk video's van de vuurshows, fakiracts en optredens van Vuurspuwer Nuno. Showreels van festivals, bedrijfsfeesten en evenementen in Nederland en België.",
+             "body": PC.videos_body(),
+             "img": ("/assets/media/reel-1-poster.webp",
+                     "Vuurspuwer Nuno tijdens een vuurshow op locatie")}
+        doc = render(p, "page", PC.videos_schema())
+        doc = re.sub(r'<figure class="lede-img wrap">.*?</figure>', "", doc, flags=re.S)
+        write(slug, doc); built.append(slug); continue
+    if slug in PC.SHOW_PAGES:
+        sp = PC.SHOW_PAGES[slug]
+        p = {**p, "title": sp["title"], "seo_title": sp["seo_title"],
+             "seo_desc": sp["seo_desc"], "body": sp["body"], "img": sp["img"]}
+        extra = PC.show_faq_html(sp)
+        if sp["fotos"]:
+            extra += ('<section class="wrap bay"><div class="prose--page" style="max-width:none">'
+                      + PC._fotorij(sp["fotos"]) + "</div></section>")
+        write(slug, render(p, "page", PC.show_schema(slug, sp), extra))
+        built.append(slug); continue
     if slug == "fotos":
         p = {**p, "title": "Foto's van de shows",
              "seo_title": "Foto's | Vuurshow, fakirshow & reptielenshow | Vuurspuwer Nuno",
@@ -404,6 +427,16 @@ for slug in KEEP_PAGES:
         doc = re.sub(r'<figure class="lede-img wrap">.*?</figure>', "", doc, flags=re.S)
         write(slug, doc); built.append(slug); continue
     write(slug, render(p, "page")); built.append(slug)
+
+hp = PC.SHOW_PAGES["halloween"]
+p = {"slug": "halloween", "kind": "page", "title": hp["title"],
+     "date": "2026-08-30", "body": hp["body"],
+     "seo_title": hp["seo_title"], "seo_desc": hp["seo_desc"], "img": hp["img"]}
+extra = PC.show_faq_html(hp)
+extra += ('<section class="wrap bay"><div class="prose--page" style="max-width:none">'
+          + PC._fotorij(hp["fotos"]) + "</div></section>")
+write("halloween", render(p, "page", PC.show_schema("halloween", hp), extra))
+built.append("halloween")
 
 print(f"  {len(built)} pagina's gebouwd  ({len(CITIES)} steden, {len(posts)} blogposts)")
 if missing: print("  niet gevonden:", ", ".join(missing))

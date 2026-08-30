@@ -2280,3 +2280,9 @@ body.is-locked .wa{ opacity:0; pointer-events:none; transition:opacity .3s var(-
 
 /* de galerij mag de volle breedte in, ook al staat hij in een tekstpagina */
 .prose--page:has(.fgrid){ max-width:none; }
+
+/* video's-pagina: dezelfde reels, maar dan als volwaardig rooster */
+.reels--page{ margin-top:.5rem; }
+@media (min-width:900px){ .reels--page{ grid-template-columns:repeat(2,1fr); } }
+.reel[data-ratio="9/16"]{ aspect-ratio:9/16; max-height:72vh; }
+.prose--page .reels + *{ margin-top:2rem; }

@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0A0705">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VBKVM99CPB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-VBKVM99CPB');
+</script>
+<title>🎃 Halloween Vuurshow &amp; Horror-Fakir Boeken | NL &amp; BE – vanaf €395</title>
+<meta name="description" content="Halloween-act boeken? Duivelse vuurshows, horror-fakirshow en scare-acts — bekend van Walibi Fright Nights. Heel NL &amp; BE, vanaf €395. Oktober loopt vol: boek nu!">
+<link rel="canonical" href="https://vuurspuwer.com/halloween/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="🎃 Halloween Vuurshow &amp; Horror-Fakir Boeken | NL &amp; BE – vanaf €395">
+<meta property="og:description" content="Halloween-act boeken? Duivelse vuurshows, horror-fakirshow en scare-acts — bekend van Walibi Fright Nights. Heel NL &amp; BE, vanaf €395. Oktober loopt vol: boek nu!">
+<meta property="og:url" content="https://vuurspuwer.com/halloween/">
+<meta property="og:image" content="https://vuurspuwer.com/assets/media/vuurbal-1333.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://vuurspuwer.com/"}, {"@type": "ListItem", "position": 2, "name": "Halloween vuurshow & horror-fakir boeken"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "@id": "https://vuurspuwer.com/halloween/#service", "name": "Halloween entertainment", "serviceType": "Halloween entertainment", "description": "Halloween vuurshows, horror-fakiracts en scare-entertainment voor Fright Nights, spooktochten en themafeesten in Nederland en België.", "url": "https://vuurspuwer.com/halloween/", "image": "https://vuurspuwer.com/assets/media/vuurbal-1333.webp", "provider": {"@id": "https://vuurspuwer.com/#business"}, "areaServed": [{"@type": "Country", "name": "Nederland"}, {"@type": "Country", "name": "België"}], "offers": {"@type": "AggregateOffer", "priceCurrency": "EUR", "lowPrice": "395", "highPrice": "1800", "description": "Vanaf-prijs, exclusief reiskosten. Vrijblijvende offerte op maat."}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Wat kost een Halloween vuurshow of horror-act?", "acceptedAnswer": {"@type": "Answer", "text": "Halloween-acts boekt u vanaf €395 (vuurshow) of €450 (horror-fakirshow). Een complete Halloween-avondproductie met meerdere acts is mogelijk vanaf €750. Oktober-data zijn beperkt — vroeg boeken loont."}}, {"@type": "Question", "name": "Welke Halloween-acts zijn er mogelijk?", "acceptedAnswer": {"@type": "Answer", "text": "Duivelse vuurshows, een horror-fakir op spijkerbed en glas, scare-acts tussen het publiek, griezelig mentalisme en combinaties daarvan. Kostuum en grime worden volledig op uw thema afgestemd — van klassieke horror tot demonisch."}}, {"@type": "Question", "name": "Heeft Nuno ervaring met grote Halloween-events?", "acceptedAnswer": {"@type": "Answer", "text": "Ja. Nuno stond onder meer op de Halloween Fright Nights van Walibi Holland, één van de grootste Halloween-events van de Benelux, naast talloze spooktochten, horrornachten en themafeesten."}}, {"@type": "Question", "name": "Hoe vroeg moet ik boeken voor Halloween?", "acceptedAnswer": {"@type": "Answer", "text": "De weekenden rond 31 oktober zijn elk jaar als eerste vol. Boek bij voorkeur vóór september om zeker te zijn van uw datum; last-minute kan soms, maar de keuze is dan beperkt."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#top">Naar de inhoud</a>
+<div id="ignition" role="status" aria-label="Site wordt geladen">
+  <div class="ignition__flyer" id="ignFlyer">
+    <span class="logo logo--big" id="ignLogo" role="img" aria-label="Nuno"></span>
+    <i class="ignition__edge" id="ignEdge" aria-hidden="true"></i>
+  </div>
+
+  <div class="ignition__meter" id="ignMeter">
+    <div class="ignition__pct"><span id="ignPct">0</span><i>%</i></div>
+    <div class="ignition__bar"><i id="ignBar"></i></div>
+  </div>
+</div>
+
+<div class="stage" aria-hidden="true">
+  <div class="stage__night"></div>
+  <canvas id="flame"></canvas>
+  <div class="stage__scrim"></div>
+  <canvas id="embers"></canvas>
+  <div class="stage__grain"></div>
+</div>
+
+<div id="burn" aria-hidden="true"></div>
+
+<!-- ============================================================
+     Chrome
+     ============================================================ -->
+<header class="nav" id="nav">
+  <a class="nav__brand" href="/#top" aria-label="Vuurspuwer Nuno, naar boven">
+    <span class="logo" id="navLogo" role="img" aria-label="Nuno"></span>
+  </a>
+
+  <nav class="nav__links" aria-label="Hoofdmenu">
+    <a class="nav__link" href="/#shows">Shows</a>
+    <a class="nav__link" href="/#reel">Showreel</a>
+    <a class="nav__link" href="/#werk">Galerij</a>
+    <a class="nav__link" href="/#reviews">Reviews</a>
+    <a class="nav__link" href="/#locaties">Locaties</a>
+  </nav>
+
+  <div class="nav__act">
+    <a class="nav__call" href="tel:+31620020723" aria-label="Bel Nuno op +31 6 200 207 23">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1.1l-2.3 2.1z"/>
+      </svg>
+    </a>
+    <a class="btn btn--sm" href="/#boeken"><span class="btn__dot"></span>Offerte aanvragen</a>
+  </div>
+
+  <button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Menu openen"><i></i></button>
+</header>
+
+<nav class="menu" id="menu" aria-label="Mobiel menu">
+  <a href="/#shows" style="--i:0">Shows</a>
+  <a href="/#reel" style="--i:1">Showreel</a>
+  <a href="/#werk" style="--i:2">Galerij</a>
+  <a href="/#reviews" style="--i:3">Reviews</a>
+  <a href="/#locaties" style="--i:4">Locaties</a>
+  <a href="/#boeken" style="--i:5">Offerte</a>
+  <div class="menu__foot">
+    <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
+    <p class="menu__meta">Nederland, Belgi&euml; &amp; internationaal</p>
+  </div>
+</nav>
+
+
+<main class="shell" id="top">
+  <article class="page wrap">
+    <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li><span aria-current="page">Halloween vuurshow &amp; horror-fakir boeken</span></li></ol></nav>
+    <p class="eyebrow">Vuurspuwer Nuno</p>
+    <h1 class="page__title">Halloween vuurshow &amp; horror-fakir boeken</h1>
+    <p class="lede">Bekend van de Halloween Fright Nights van Walibi Holland . Duivelse vuurshows, scare-acts en een horror-fakir die uw gasten laat huiveren — in heel Nederland en België.</p>
+  </article>
+
+  <figure class="lede-img wrap"><img src="/assets/media/vuurbal-1333.webp" alt="Meters hoge vuurbal tegen een zwarte nachtlucht boven de vuurspuwer" loading="lazy" decoding="async"></figure>
+  <div class="wrap bay">
+    <div class="prose prose--page">
+
+<p>Bekend van de <strong>Halloween Fright Nights van Walibi Holland</strong>. Duivelse vuurshows, scare-acts en een horror-fakir die uw gasten laat huiveren &mdash; in heel Nederland en Belgi&euml;.</p>
+
+<h2>Halloween is het seizoen van vuur</h2>
+<p>Geen feest past zo perfect bij vuur en duisternis als Halloween. Nuno transformeert voor de gelegenheid tot demon, duivel of horror-fakir: vlammen die uit het donker opdoemen, een spijkerbed-act bij fakkellicht, scare-momenten tussen het publiek en mentalisme dat net iets t&eacute; goed gedachten leest. Elk element wordt afgestemd op uw thema en doelgroep &mdash; van gezinsvriendelijk griezelen tot volwassen horror.</p>
+<p>Met optredens op de Halloween Fright Nights van Walibi Holland op zijn cv weet Nuno precies hoe je een grote menigte laat gillen &eacute;n applaudisseren. Maar ook op een spooktocht van de scouting, een horrornacht in de kroeg of een Halloween-bedrijfsfeest maakt hij het verschil.</p>
+
+<h2>Halloween-acts op een rij</h2>
+<ul>
+<li>😈 <strong>Duivelse vuurshow</strong> &mdash; vlammen, vonken en vuurzuilen in horror-styling (vanaf &euro;395)</li>
+<li>🗡️ <strong>Horror-fakirshow</strong> &mdash; spijkerbed, glas en zwaarden in griezelgrime (vanaf &euro;450)</li>
+<li>👁️ <strong>Duister mentalisme</strong> &mdash; gedachten lezen met een onheilspellend randje</li>
+<li>🔥 <strong>Complete Halloween-productie</strong> &mdash; meerdere acts verspreid over de avond (vanaf &euro;750)</li>
+</ul>
+
+<h2>Vroeg boeken loont</h2>
+<p>De weekenden rond 31 oktober zijn elk jaar als eerste vol. Boek bij voorkeur v&oacute;&oacute;r september om zeker te zijn van uw datum; last-minute kan soms, maar de keuze is dan beperkt. <a href="/#boeken">Check direct de beschikbaarheid</a> of app via <a href="https://wa.me/31620020723?text=Hallo%20Nuno%2C%20is%20mijn%20Halloween-datum%20nog%20vrij%3F" rel="noopener">WhatsApp</a>.</p>
+
+    </div>
+  </div>
+<section class="wrap bay" aria-label="Veelgestelde vragen"><div class="bay__head"><p class="eyebrow eyebrow--dim rise">Veelgestelde vragen</p><h2 class="bay__title rise" data-delay="1">Eerst even <em>zeker weten</em></h2></div><div class="faq"><details class="faq__item"><summary>Wat kost een Halloween vuurshow of horror-act?</summary><p>Halloween-acts boekt u vanaf €395 (vuurshow) of €450 (horror-fakirshow). Een complete Halloween-avondproductie met meerdere acts is mogelijk vanaf €750. Oktober-data zijn beperkt — vroeg boeken loont.</p></details><details class="faq__item"><summary>Welke Halloween-acts zijn er mogelijk?</summary><p>Duivelse vuurshows, een horror-fakir op spijkerbed en glas, scare-acts tussen het publiek, griezelig mentalisme en combinaties daarvan. Kostuum en grime worden volledig op uw thema afgestemd — van klassieke horror tot demonisch.</p></details><details class="faq__item"><summary>Heeft Nuno ervaring met grote Halloween-events?</summary><p>Ja. Nuno stond onder meer op de Halloween Fright Nights van Walibi Holland, één van de grootste Halloween-events van de Benelux, naast talloze spooktochten, horrornachten en themafeesten.</p></details><details class="faq__item"><summary>Hoe vroeg moet ik boeken voor Halloween?</summary><p>De weekenden rond 31 oktober zijn elk jaar als eerste vol. Boek bij voorkeur vóór september om zeker te zijn van uw datum; last-minute kan soms, maar de keuze is dan beperkt.</p></details></div></section><section class="wrap bay"><div class="prose--page" style="max-width:none"><h2>Foto’s uit de show</h2><div class="fgrid"><a href="/assets/media/vuurbal-1333.webp" data-lightbox data-cap="Vuurbal tijdens een nachtshow"><img src="/assets/media/vuurbal-900.webp" width="900" height="1350" loading="lazy" decoding="async" alt="Meters hoge vuurbal tegen een zwarte nachtlucht boven de vuurspuwer"></a><a href="/assets/media/spijkerbed-1242.webp" data-lightbox data-cap="Horror-fakir: het spijkerbord"><img src="/assets/media/spijkerbed-900.webp" width="900" height="873" loading="lazy" decoding="async" alt="Close-up van de fakiract: Nuno balanceert het spijkerbord met kettingen op zijn gezicht"></a><a href="/assets/media/themafeest-1080.webp" data-lightbox data-cap="Vuur bij het themafeest"><img src="/assets/media/themafeest-900.webp" width="900" height="1125" loading="lazy" decoding="async" alt="Vuurspuwer bij een vintage bus tijdens een themafeest in de avond"></a></div></div></section>
+  <section class="wrap bay cta">
+    <h2 class="bay__title">Check je <em>datum</em></h2>
+    <p class="lede">Bel of app even, dan weet je binnen een minuut of het kan.</p>
+    <div class="hero__actions">
+      <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
+      <a class="btn btn--ghost" href="https://wa.me/31620020723">WhatsApp direct</a>
+      <a class="btn btn--ghost" href="/#boeken">Stuur een aanvraag</a>
+    </div>
+  </section>
+</main>
+<footer class="foot shell wrap">
+  <p class="foot__word">Vuurspuwer</p>
+
+  <div class="foot__grid">
+    <div class="foot__brand">
+      <span class="logo" role="img" aria-label="Nuno"></span>
+      <p>Vuurspuwer, fakir en mentalist. Boekbaar in Nederland, Belgi&euml; en daarbuiten.</p>
+      <p class="foot__social">
+        <a href="https://www.facebook.com/show.nuno" rel="noopener" aria-label="Facebook">Facebook</a>
+        <a href="https://www.instagram.com/officialnuno" rel="noopener" aria-label="Instagram">Instagram</a>
+        <a href="https://x.com/mentalist_nuno" rel="noopener" aria-label="X">X</a>
+      </p>
+    </div>
+
+    <nav class="foot__nav" aria-label="Shows">
+      <h2>Shows</h2>
+      <ul>
+        <li><a href="/vuurspuwer-inhuren/">Vuurshow</a></li>
+        <li><a href="/fakir-show-inhuren/">Fakirshow</a></li>
+        <li><a href="/reptielenhow/">Reptielenshow</a></li>
+        <li><a href="/workshop-vuurspuwen/">Workshop vuurspuwen</a></li>
+        <li><a href="/entertainer-huren/">Mentalisme</a></li>
+        <li><a href="/entertainer-huren-voor-bedrijfsfeest/">Themafeesten</a></li>
+        <li><a href="/halloween/">🎃 Halloween</a></li>
+      </ul>
+    </nav>
+
+    <nav class="foot__nav" aria-label="Site">
+      <h2>Site</h2>
+      <ul>
+        <li><a href="/over-nuno/">Over Nuno</a></li>
+        <li><a href="/fotos/">Foto&rsquo;s</a></li>
+        <li><a href="/videos/">Video&rsquo;s</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/beoordelingen/">Beoordelingen</a></li>
+        <li><a href="/locaties-vuurshows-nederland-belgie/">Locaties</a></li>
+      </ul>
+    </nav>
+
+    <nav class="foot__nav" aria-label="Contact en voorwaarden">
+      <h2>Contact</h2>
+      <ul>
+        <li><a href="tel:+31620020723">+31 6 200 207 23</a></li>
+        <li><a href="https://wa.me/31620020723" rel="noopener">WhatsApp</a></li>
+        <li><a href="mailto:nuno@vuurspuwer.com">nuno@vuurspuwer.com</a></li>
+        <li><a href="/disclaimer-voorwaarden/">Algemene voorwaarden</a></li>
+        <li><a href="/privacybeleid/">Privacybeleid</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="foot__bar">
+    <span>&copy; <span id="year">2026</span> Vuurspuwer Nuno &middot; Nuno Art</span>
+    <span>KvK 98164325 &middot; btw NL002416954B13</span>
+    <span>Nederland, Belgi&euml; &amp; internationaal</span>
+  </div>
+</footer>
+
+<a class="wa" href="https://wa.me/31620020723?text=Hallo%20Nuno%2C%20ik%20heb%20een%20vraag%20over%20een%20boeking"
+   rel="noopener" aria-label="Chat met Nuno op WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path d="M12 2a9.94 9.94 0 0 0-8.51 15.1L2 22l5.03-1.44A9.94 9.94 0 1 0 12 2zm0 1.8a8.14 8.14 0 1 1-4.11 15.17l-.3-.17-2.98.85.87-2.9-.19-.31A8.14 8.14 0 0 1 12 3.8zm-3.14 4.1c-.18 0-.47.07-.72.34-.25.27-.95.93-.95 2.27 0 1.34.97 2.63 1.11 2.81.13.18 1.87 2.99 4.63 4.07 2.29.9 2.76.72 3.26.68.5-.05 1.6-.66 1.83-1.29.23-.63.23-1.17.16-1.29-.07-.11-.25-.18-.52-.31-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.13-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.72-1.34-1.6-1.5-1.87-.16-.27-.02-.42.12-.55.12-.12.27-.32.4-.47.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.47-.07-.14-.6-1.46-.83-2-.21-.52-.44-.5-.61-.51z"/>
+  </svg>
+  <span class="wa__tag"><i class="wa__dot" id="waDot"></i><b id="waStatus">Online</b></span>
+</a>
+
+
+<script src="/assets/site.js" defer></script>
+</body>
+</html>
