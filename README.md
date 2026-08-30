@@ -27,25 +27,28 @@ wordt gegenereerd in de browser: er zitten geen afbeeldingsbestanden in de repo.
 - Scroll-gedreven manifesto, tellers, sleepbare filmstrip, fullscreen mobiel menu
 - Volledige `prefers-reduced-motion`-route: de vlam wordt dan een statisch verloop
 
-## Je eigen media erin zetten
+## Media die er nu in zit
 
-Alles hieronder is optioneel. Wat ontbreekt, wordt netjes vervangen door de
-gegenereerde variant — de pagina is nooit stuk zonder.
+    assets/media/hero-portrait.mp4   730x1022, 5 s, stil — hero op telefoons
+    assets/media/showreel.mp4        540x540, 13 s, met geluid — showreel
+    assets/media/reel-poster.jpg     poster voor de showreel
+    assets/media/work-1.jpg          vuurspuwen op een festivalplein
+    assets/media/work-2.webp         fakirshow, spijkerbed
+    assets/media/work-3.webp         vuurspuwen tegen zwarte achtergrond
+    assets/brand/                    logo's van SBS6, RTL 4, VTM, Walibi,
+                                     IKEA, Emporium en Julianatoren
 
-| Bestand | Waar |
-|---|---|
-| `assets/media/hero.mp4` + `.webm` | Fullscreen autoplay-video achter de hero |
-| `assets/media/hero-poster.jpg` | Poster voor die video |
-| `assets/media/showreel.mp4` + `.webm` | Showreel-blok |
-| `assets/media/reel-poster.jpg` | Poster voor de showreel |
-| `assets/media/work-1.jpg` … `work-6.jpg` | Foto's in de filmstrip |
+Nog aan te leveren:
 
-De hero-video verschijnt pas zodra hij daadwerkelijk speelt; tot die tijd draagt de
-vlam de hero. Een `work-*.jpg` die niet bestaat wordt stilletjes verwijderd en het
-gegenereerde lichtspoor blijft staan.
-
-Je logo: vervang de twee `<path>`-vormen in de `.mark`-SVG in de header (en dezelfde
-in `#ignition`). Het woordmerk is gezette tekst, geen afbeelding.
+- **`assets/media/hero-landscape.mp4`** — een breed origineel voor de hero op
+  desktop. De twee bestaande video's zijn social-crops (staand en vierkant) en
+  worden wazig als je ze over 1440 px uitrekt. Zolang dit bestand ontbreekt
+  staat `HERO_VIDEO.landscape` in `index.html` op `null` en draagt de vlam de
+  hero; zet die regel op het pad zodra het bestand er is.
+- **Het logo.** De vlam in de header is nog een tijdelijke SVG. In je
+  WordPress-export staat `nuno-high-resolution-logo-transparent_432206e57.png`.
+- Meer foto's voor de filmstrip: kaders 4 tot en met 6 tonen nu nog een
+  getekend lichtspoor.
 
 ## Waar de inhoud vandaan komt
 

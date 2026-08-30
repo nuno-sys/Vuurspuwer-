@@ -2357,9 +2357,15 @@ button,input,select,textarea{ font:inherit; color:inherit; }
      9. Gallery — procedural fire plates, with slots for real photos
      ============================================================== */
   const WORK = [
-    { title: "Festival",         meta: "Complete Vuurshow",   hue: 16,  seed: 3,  kind: "circle" },
-    { title: "Bruiloft",         meta: "Power-Act",           hue: 30,  seed: 11, kind: "eight"  },
-    { title: "Bedrijfsfeest",    meta: "Fakirshow",           hue: 46,  seed: 27, kind: "spiral" },
+    { title: "Festival", meta: "Complete Vuurshow", hue: 16, seed: 3, kind: "circle",
+      photo: "assets/media/work-1.jpg",
+      alt: "Vuurspuwer Nuno spuwt een metershoge vlam op een festivalplein" },
+    { title: "Fakirshow", meta: "Glas en spijkers", hue: 352, seed: 11, kind: "eight",
+      photo: "assets/media/work-2.webp",
+      alt: "Nuno met het spijkerbed tijdens een fakirshow" },
+    { title: "Vuurspuwen", meta: "Power-Act", hue: 30, seed: 27, kind: "spiral",
+      photo: "assets/media/work-3.webp",
+      alt: "Nuno spuwt een vlam recht omhoog tegen een zwarte achtergrond" },
     { title: "Productlancering", meta: "Mentalisme",          hue: 202, seed: 41, kind: "circle" },
     { title: "Opening",          meta: "Workshop vuurspuwen", hue: 8,   seed: 58, kind: "wave"   },
     { title: "Themafeest",       meta: "Reptielenshow",       hue: 352, seed: 73, kind: "eight"  }
@@ -2504,17 +2510,21 @@ button,input,select,textarea{ font:inherit; color:inherit; }
       fig.className = "frame";
       fig.innerHTML =
         '<canvas></canvas>' +
-        '<img alt="" loading="lazy" src="assets/media/work-' + (i + 1) + '.jpg">' +
+        (cfg.photo
+          ? '<img loading="lazy" decoding="async" src="' + cfg.photo + '" alt="' + (cfg.alt || "") + '">'
+          : '') +
         '<figcaption class="frame__cap"><span>' + cfg.meta + '</span><b>' + cfg.title + '</b></figcaption>';
       strip.appendChild(fig);
 
       const cv = $("canvas", fig);
       requestAnimationFrame(() => plate(cv, cfg));
 
-      /* a real photograph, if one has been dropped in, wins */
+      /* a real photograph, where there is one, wins over the drawn plate */
       const img = $("img", fig);
-      img.addEventListener("load", () => img.classList.add("is-live"));
-      img.addEventListener("error", () => img.remove());
+      if (img) {
+        img.addEventListener("load", () => img.classList.add("is-live"));
+        img.addEventListener("error", () => img.remove());
+      }
     });
 
     /* drag to scroll */
@@ -2544,7 +2554,9 @@ button,input,select,textarea{ font:inherit; color:inherit; }
      carries the hero on its own. */
   const HERO_VIDEO = {
     portrait:  "assets/media/hero-portrait.mp4",
-    landscape: "assets/media/hero-landscape.mp4"
+    /* No wide master yet. Set this the moment one lands in assets/media,
+       otherwise every desktop visit fetches a 404 for nothing. */
+    landscape: null
   };
 
   function initVideo(){
@@ -2557,11 +2569,14 @@ button,input,select,textarea{ font:inherit; color:inherit; }
       hero.addEventListener("playing", live);
       hero.addEventListener("loadeddata", () => { if (hero.readyState >= 2) live(); });
 
-      hero.src = innerWidth / innerHeight < 1 ? HERO_VIDEO.portrait : HERO_VIDEO.landscape;
-      hero.preload = "auto";
-      hero.load();
-      const p = hero.play();
-      if (p && p.catch) p.catch(() => {});
+      const src = innerWidth / innerHeight < 1 ? HERO_VIDEO.portrait : HERO_VIDEO.landscape;
+      if (src) {
+        hero.src = src;
+        hero.preload = "auto";
+        hero.load();
+        const p = hero.play();
+        if (p && p.catch) p.catch(() => {});
+      }
     }
 
     const reel = $("#reelVideo"), holder = $("#reelHolder"),
