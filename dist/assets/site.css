@@ -2301,3 +2301,220 @@ body.is-locked .wa{ opacity:0; pointer-events:none; transition:opacity .3s var(-
 @media (min-width:900px){ .reels--page{ grid-template-columns:repeat(2,1fr); } }
 .reel[data-ratio="9/16"]{ aspect-ratio:9/16; max-height:72vh; }
 .prose--page .reels + *{ margin-top:2rem; }
+
+/* ============================================================
+   Page hero — de uitgelichte foto beeldvullend tot achter het
+   menu; de foto zelf altijd volledig in beeld (nooit bijgesneden),
+   met dezelfde foto wazig uitvergroot als decor eromheen.
+   ============================================================ */
+.phero{
+  position:relative;
+  min-height:100svh;
+  display:grid;
+  align-content:end;
+  overflow:clip;
+}
+.phero__bg{
+  position:absolute;
+  inset:-48px;
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-position:center;
+  filter:blur(38px) brightness(.38) saturate(1.18);
+  transform:scale(1.08);
+}
+.phero__img{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center 40%;
+  padding-bottom:16svh;
+  filter:drop-shadow(0 18px 60px rgba(0,0,0,.6));
+}
+.phero__veil{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  background:
+    linear-gradient(180deg, rgba(10,7,5,.5), rgba(10,7,5,0) 24%),
+    linear-gradient(0deg, var(--soot) 2%, rgba(10,7,5,.72) 16%, rgba(10,7,5,0) 46%);
+}
+.phero__body{
+  position:relative;
+  z-index:3;
+  display:grid;
+  gap:clamp(.7rem,1.6vw,1.1rem);
+  padding-bottom:clamp(2rem,6vh,4rem);
+}
+.phero .page__title{ text-shadow:0 4px 44px rgba(10,7,5,.95); max-width:24ch; }
+.phero .lede{ max-width:58ch; }
+@media (max-width:700px){
+  .phero{ min-height:92svh; }
+  .phero__img{ padding-bottom:22svh; object-position:center 34%; }
+}
+
+/* ============================================================
+   Sterren onder het logo — zoals op de originele site
+   ============================================================ */
+.nav__home{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:.18rem;
+  min-width:0;
+}
+.nav__stars{
+  font-family:var(--f-mono);
+  font-size:.6rem;
+  letter-spacing:.06em;
+  color:var(--smoke);
+  white-space:nowrap;
+  display:inline-flex;
+  align-items:center;
+  gap:.35rem;
+  opacity:0;
+  transition:opacity .45s var(--ease), color .3s var(--ease);
+}
+.nav__stars i{
+  font-style:normal;
+  color:var(--flame);
+  letter-spacing:.14em;
+  font-size:.62rem;
+}
+.nav__brand.is-landed + .nav__stars{ opacity:1; }
+.nav__stars:hover{ color:var(--ink-dim); }
+@media (max-width:420px){ .nav__stars{ font-size:.54rem; } }
+
+/* het menu telt nu acht paginalinks: iets compacter zetten */
+.nav__links{ gap:clamp(.55rem,1.4vw,1.5rem); }
+.nav__link{ letter-spacing:.13em; }
+.nav__link--hot{ color:var(--flame); }
+@media (max-width:1280px){ .nav__link--home{ display:none; } }
+@media (max-width:1120px){ .nav__act .btn--sm{ display:none; } }
+
+/* ============================================================
+   Knoppen in de kleur van het logo: zelfde hittegradient, zelfde
+   trage golf — de hele site ademt hetzelfde vuur.
+   ============================================================ */
+.btn:not(.btn--ghost){
+  background-image:linear-gradient(96deg,
+    var(--ember) 0%,
+    var(--flame) 24%,
+    var(--core)  44%,
+    var(--flame) 64%,
+    var(--ember) 100%);
+  background-size:250% 100%;
+  background-position:0% 50%;
+  animation:heat 9s ease-in-out infinite;
+}
+@media (prefers-reduced-motion:reduce){
+  .btn:not(.btn--ghost), .wa{ animation:none; background-position:44% 50%; }
+}
+
+/* de WhatsApp-knop: lichter en met dezelfde gloed als het logo */
+.wa{
+  filter:brightness(1.07) saturate(1.1);
+  animation:heat 9s ease-in-out infinite, waGlow 3.4s ease-in-out infinite;
+}
+@keyframes waGlow{
+  0%,100%{ box-shadow:0 0 0 3px rgba(5,3,2,.9), 0 8px 30px rgba(0,0,0,.55), 0 0 22px rgba(255,120,20,.32); }
+  50%    { box-shadow:0 0 0 3px rgba(5,3,2,.9), 0 10px 34px rgba(0,0,0,.5), 0 0 44px rgba(255,150,40,.6); }
+}
+
+/* ============================================================
+   Beoordelingen-pagina
+   ============================================================ */
+.prose--page:has(.rgrid), .prose--page:has(.bloglist){ max-width:none; }
+.prose--page:has(.rgrid) > p, .prose--page:has(.bloglist) > p{ max-width:66ch; }
+.rkop{
+  display:flex;
+  align-items:center;
+  gap:clamp(1rem,2.5vw,1.8rem);
+  margin-bottom:clamp(1rem,2.5vw,1.6rem);
+}
+.rkop__cijfer{
+  font-family:var(--f-display);
+  font-variation-settings:"wdth" 120,"wght" 900;
+  font-size:clamp(3.4rem,8vw,5.6rem);
+  line-height:.86;
+  letter-spacing:-.03em;
+  color:var(--core);
+  font-variant-numeric:tabular-nums;
+}
+.rkop__rechts{ display:grid; gap:.3rem; justify-items:start; }
+.rkop__sterren{ color:var(--flame); letter-spacing:.25em; font-size:1.15rem; line-height:1; }
+.rkop__rechts small{
+  font-family:var(--f-mono);
+  font-size:var(--t-xs);
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--smoke);
+}
+.rkop__rechts a{ color:var(--flame); text-decoration:underline; text-underline-offset:3px; }
+.rgrid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:clamp(.8rem,1.6vw,1.2rem);
+  margin-block:clamp(1.4rem,3vw,2.2rem);
+}
+.rcard{
+  display:grid;
+  gap:.6rem;
+  align-content:start;
+  padding:1.15rem 1.25rem 1.05rem;
+  border:1px solid var(--hairline);
+  border-radius:14px;
+  background:linear-gradient(180deg,rgba(23,16,8,.9),rgba(10,7,5,.94));
+}
+.rcard__stars{ margin:0; color:var(--flame); letter-spacing:.24em; font-size:.85rem; line-height:1; }
+.rcard blockquote{ margin:0; border:0; padding:0; background:none; border-radius:0; }
+.rcard blockquote p{ margin:0; font-size:var(--t-sm); line-height:1.55; color:var(--ink-dim); }
+.rcard__who{
+  font-family:var(--f-mono);
+  font-size:var(--t-xs);
+  letter-spacing:.1em;
+  color:var(--ink);
+}
+.rcard__who span{ color:var(--smoke); }
+
+/* ============================================================
+   Blog-overzicht
+   ============================================================ */
+.bloglist{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(290px,1fr));
+  gap:clamp(1rem,2vw,1.4rem);
+  margin-top:clamp(1.4rem,3vw,2.2rem);
+}
+.bcard{
+  display:grid;
+  align-content:start;
+  border:1px solid var(--hairline);
+  border-radius:14px;
+  overflow:hidden;
+  background:linear-gradient(180deg,rgba(23,16,8,.9),rgba(10,7,5,.94));
+  transition:transform .35s var(--ease), border-color .35s var(--ease);
+}
+.bcard:hover{ transform:translateY(-4px); border-color:rgba(255,176,32,.4); }
+.bcard > a{ display:block; color:inherit; }
+.bcard img{ width:100%; height:168px; object-fit:cover; display:block; }
+.bcard h2{
+  font-family:var(--f-display);
+  font-variation-settings:"wdth" 108,"wght" 800;
+  font-size:var(--t-md);
+  line-height:1.2;
+  margin:0;
+  padding:1rem 1.15rem .1rem;
+}
+.bcard > a:hover h2{ color:var(--flame); }
+.bcard > p{ margin:.55rem 0 0; padding:0 1.15rem; font-size:var(--t-sm); color:var(--ink-dim); }
+.bcard__meta{
+  font-family:var(--f-mono);
+  font-size:var(--t-xs);
+  letter-spacing:.1em;
+  color:var(--smoke);
+  padding-bottom:1.05rem !important;
+}

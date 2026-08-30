@@ -24,8 +24,9 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
+<link rel="preload" as="image" href="/assets/media/post-cover.webp" fetchpriority="high">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://vuurspuwer.com/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://vuurspuwer.com/blog/"}, {"@type": "ListItem", "position": 3, "name": "Fakir Show Nuno Boeken: Spectaculaire Acts voor al uw Evenementen"}]}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Fakir Show Nuno Boeken: Spectaculaire Acts voor al uw Evenementen", "datePublished": "2023-12-08", "description": "Fakirshow boeken voor uw evenement? Nuno verrast met zwaarden, spijkerbed & vuur. Professioneel, indrukwekkend. Vraag vrijblijvend een offerte aan! 📞", "mainEntityOfPage": "https://vuurspuwer.com/fakir-show-nuno-boeken-spectaculiare-acts-voor-al-uw-events/", "image": "https://vuurspuwer.com/assets/media/post-cover.webp", "author": {"@type": "Person", "name": "Nuno", "@id": "https://vuurspuwer.com/#nuno"}, "publisher": {"@id": "https://vuurspuwer.com/#business"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Fakir Show Nuno Boeken: Spectaculaire Acts voor al uw Evenementen", "datePublished": "2023-12-08", "dateModified": "2026-08-30", "description": "Fakirshow boeken voor uw evenement? Nuno verrast met zwaarden, spijkerbed & vuur. Professioneel, indrukwekkend. Vraag vrijblijvend een offerte aan! 📞", "mainEntityOfPage": "https://vuurspuwer.com/fakir-show-nuno-boeken-spectaculiare-acts-voor-al-uw-events/", "image": "https://vuurspuwer.com/assets/media/post-cover.webp", "author": {"@type": "Person", "name": "Nuno", "@id": "https://vuurspuwer.com/#nuno"}, "publisher": {"@id": "https://vuurspuwer.com/#business"}}</script>
 </head>
 <body>
 <a class="skip" href="#top">Naar de inhoud</a>
@@ -55,16 +56,22 @@
      Chrome
      ============================================================ -->
 <header class="nav" id="nav">
-  <a class="nav__brand" href="/#top" aria-label="Vuurspuwer Nuno, naar boven">
-    <span class="logo" id="navLogo" role="img" aria-label="Nuno"></span>
-  </a>
+  <div class="nav__home">
+    <a class="nav__brand" href="/" aria-label="Vuurspuwer Nuno, naar de homepagina">
+      <span class="logo" id="navLogo" role="img" aria-label="Nuno"></span>
+    </a>
+    <a class="nav__stars" href="/beoordelingen/" aria-label="4,9 van de 5 sterren uit 134 reviews — lees de beoordelingen"><i aria-hidden="true">&starf;&starf;&starf;&starf;&starf;</i>4.9 &middot; 134 reviews</a>
+  </div>
 
   <nav class="nav__links" aria-label="Hoofdmenu">
-    <a class="nav__link" href="/#shows">Shows</a>
-    <a class="nav__link" href="/#reel">Showreel</a>
-    <a class="nav__link" href="/#werk">Galerij</a>
-    <a class="nav__link" href="/#reviews">Reviews</a>
-    <a class="nav__link" href="/#locaties">Locaties</a>
+    <a class="nav__link nav__link--home" href="/">Home</a>
+    <a class="nav__link" href="/fotos/">Foto's</a>
+    <a class="nav__link" href="/videos/">Video's</a>
+    <a class="nav__link" href="/vuurspuwer-inhuren/">Vuurshow</a>
+    <a class="nav__link" href="/workshop-vuurspuwen/">Workshop</a>
+    <a class="nav__link nav__link--hot" href="/halloween/">&#127875; Halloween</a>
+    <a class="nav__link" href="/fakir-show-inhuren/">Fakirshow</a>
+    <a class="nav__link" href="/contact-3/">Contact</a>
   </nav>
 
   <div class="nav__act">
@@ -73,19 +80,22 @@
         <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1.1l-2.3 2.1z"/>
       </svg>
     </a>
-    <a class="btn btn--sm" href="/#boeken"><span class="btn__dot"></span>Offerte aanvragen</a>
+    <a class="btn btn--sm" href="/contact-3/"><span class="btn__dot"></span>Offerte aanvragen</a>
   </div>
 
   <button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Menu openen"><i></i></button>
 </header>
 
 <nav class="menu" id="menu" aria-label="Mobiel menu">
-  <a href="/#shows" style="--i:0">Shows</a>
-  <a href="/#reel" style="--i:1">Showreel</a>
-  <a href="/#werk" style="--i:2">Galerij</a>
-  <a href="/#reviews" style="--i:3">Reviews</a>
-  <a href="/#locaties" style="--i:4">Locaties</a>
-  <a href="/#boeken" style="--i:5">Offerte</a>
+  <a href="/" style="--i:0">Home</a>
+  <a href="/fotos/" style="--i:1">Foto's</a>
+  <a href="/videos/" style="--i:2">Video's</a>
+  <a href="/vuurspuwer-inhuren/" style="--i:3">Vuurshow</a>
+  <a href="/workshop-vuurspuwen/" style="--i:4">Workshop</a>
+  <a href="/halloween/" style="--i:5">&#127875; Halloween</a>
+  <a href="/fakir-show-inhuren/" style="--i:6">Fakirshow</a>
+  <a href="/beoordelingen/" style="--i:7">Reviews</a>
+  <a href="/contact-3/" style="--i:8">Contact</a>
   <div class="menu__foot">
     <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
     <p class="menu__meta">Nederland, Belgi&euml; &amp; internationaal</p>
@@ -94,14 +104,18 @@
 
 
 <main class="shell" id="top">
-  <article class="page wrap">
-    <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li><a href="/blog/">Blog</a></li><li><span aria-current="page">Fakir Show Nuno Boeken: Spectaculaire Acts voor al uw Evenementen</span></li></ol></nav>
-    <p class="eyebrow">Blog</p>
-    <h1 class="page__title">Fakir Show Nuno Boeken: Spectaculaire Acts voor al uw Evenementen</h1>
-    <p class="lede">Bent u op zoek naar een unieke en adembenemende act voor uw evenement? Overweeg dan het boeken van een fakir show . Deze traditionele vorm van entertainment, afkomstig uit India, staat…</p>
-  </article>
+  <header class="phero">
+    <div class="phero__bg" style="background-image:url('/assets/media/post-cover.webp')" aria-hidden="true"></div>
+    <img class="phero__img" src="/assets/media/post-cover.webp" alt="Vuurspuwer Nuno met een metershoge vuurbal tegen een zwarte nachtlucht" fetchpriority="high" decoding="async">
+    <div class="phero__veil" aria-hidden="true"></div>
+    <div class="phero__body wrap">
+      <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li><a href="/blog/">Blog</a></li><li><span aria-current="page">Fakir Show Nuno Boeken: Spectaculaire Acts voor al uw Evenementen</span></li></ol></nav>
+      <p class="eyebrow">Blog</p>
+      <h1 class="page__title">Fakir Show Nuno Boeken: Spectaculaire Acts voor al uw Evenementen</h1>
+      <p class="lede">Bent u op zoek naar een unieke en adembenemende act voor uw evenement? Overweeg dan het boeken van een fakir show . Deze traditionele vorm van entertainment, afkomstig uit India, staat…</p>
+    </div>
+  </header>
 
-  <figure class="lede-img wrap"><img src="/assets/media/post-cover.webp" alt="Vuurspuwer Nuno met een metershoge vuurbal tegen een zwarte nachtlucht" loading="lazy" decoding="async"></figure>
   <div class="wrap bay">
     <div class="prose prose--page">
 <h2>Fakir Show Nuno Boeken: Spectaculaire Acts voor Uw Evenement</h2><p>Bent u op zoek naar een unieke en adembenemende act voor uw evenement? Overweeg dan het boeken van een <a href="https://nl.wikipedia.org/wiki/Fakir">fakir show</a>. Deze traditionele vorm van entertainment, afkomstig uit India, staat bekend om zijn spectaculaire stunts en trucs, zoals lopen op zwaarden, gebroken glas, vuurspuwen en het liggen op een spijkerbed. Nuno, van Vuurspuwer.com, is een ervaren fakir en vuurartiest die uw evenement onvergetelijk maakt.</p><h2>Waarom een Fakir Show van Nuno Boeken?</h2><p>Nuno is een professionele entertainer, gespecialiseerd in fakir shows, vuurshows, mentalisme en reptielenshows. Hij biedt een passende act voor elke gelegenheid, waarbij zowel kinderen als volwassenen worden vermaakt. Een fakir show van Nuno is een echte publiekstrekker en garandeert een onvergetelijke ervaring. <a href="https://vuurspuwer.com/over-nuno/">ervaren fakir en vuurartiest</a></p><h3>De Acts en Voorstellingen van Nuno</h3><p>Nuno's fakir show omvat adembenemende stunts en trucs, waaronder:</p><ul> <li>Lopen op zwaarden</li> <li>Lopen op gebroken glas</li> <li>Vuurspuwen</li> <li>Liggen op een spijkerbed</li></ul><p>Daarnaast kan Nuno ook andere acts verzorgen, zoals spectaculaire <a href="https://vuurspuwer.com/">vuurshows</a>, mentalisme en reptielenshows. Bent u benieuwd naar de mogelijkheden? Neem dan <a href="https://vuurspuwer.com/contact/">contact</a> op!</p><h2>Fakir Show Nuno: Voor Alle Soorten Evenementen</h2><p>Nuno is beschikbaar voor uiteenlopende evenementen, waaronder:</p><ul> <li>Festivals</li> <li>Bruiloften</li> <li>Bedrijfsfeesten</li> <li>Themafeesten</li> <li>En meer!</li></ul><p>Zijn acts zijn geschikt voor zowel binnen- als buitenevenementen en publiek van alle leeftijden. Of u nu een unieke toevoeging zoekt voor uw festivalprogramma of een opwindende vuurshow voor uw huwelijksfeest, Nuno heeft de ervaring en expertise om uw evenement onvergetelijk te maken. <a href="https://vuurspuwer.com/locaties-vuurshows-nederland-belgie/">binnen- als buitenevenementen</a></p><h2>Internationale Optredens</h2><p>Nuno treedt niet alleen op in Nederland en België, maar is ook beschikbaar voor internationale optredens. Hij heeft reeds opgetreden in landen als Portugal en Duitsland en heeft een internationale reputatie opgebouwd als een indrukwekkende en opwindende vuurartiest. <a href="https://vuurspuwer.com/een-spectaculair-event-bij-technopolis-mechelen-entertainment-dat-vonken-geeft/">internationale optredens</a></p><h2>Organisatie van Evenementen met een Fakir Show</h2><p>Bij het organiseren van een evenement met een fakir show is het belangrijk om rekening te houden met de volgende aspecten:</p><h3>Event Planning en Uitvoering</h3><p>Een goede voorbereiding is essentieel. Denk aan de locatie, de timing en de benodigde vergunningen.  Een gedetailleerd evenementenplan is cruciaal voor een succesvolle uitvoering.</p><h3>Interactie met Publiek</h3><p>Een fakir show is interactief. Zorg voor voldoende interactie tussen de artiest en het publiek om de betrokkenheid te vergroten.</p><h3>Veiligheid en Risicobeheer</h3><p>Veiligheid staat voorop, zeker bij acts met vuur en andere gevaarlijke elementen. Zorg voor de juiste veiligheidsmaatregelen en dat de artiest voldoende ervaring heeft.</p><h2>Veelgestelde vragen</h2><h3>Wat voor soort acts kan ik verwachten bij een optreden ?</h3><p>Nuno biedt een breed scala aan spectaculaire acts zoals lopen op zwaarden, gebroken glas, hete kolen en zelfs magische trucjes. Nuno is professioneel getraind en heeft jarenlange ervaring in het uitvoeren van deze acts. Het is een unieke en spannende show die uw publiek zeker zal vermaken.</p><h3>Hoe lang duurt typisch een Fakir Show?</h3><p>De duur van een Fakir Show hangt af van uw wensen en de grootte van uw evenement. Meestal duurt een optreden tussen de 15 en 45 minuten. Nuno kan u helpen bij het kiezen van de juiste lengte voor uw evenement.</p><h3>Is de Show Nuno geschikt voor alle leeftijden?</h3><p>Ja, de Fakir Show Nuno is geschikt voor alle leeftijden. De artiesten zorgen ervoor dat de show geschikt is voor het publiek en passen de acts aan op de leeftijd van het publiek. Ze zorgen er ook voor dat de veiligheid van het publiek en de artiesten te allen tijde gewaarborgd is.</p><h3>Welke voorzieningen moeten aanwezig zijn op de locatie voor een optreden van Fakir Show Nuno?</h3><p>Nuno heeft weinig voorzieningen nodig op de locatie. Ze hebben alleen een podium nodig waarop ze kunnen optreden en voldoende ruimte om de acts uit te voeren.</p><h3>Hoe kan ik een boeking plaatsen voor Fakir Show Nuno voor mijn evenement? Wat zijn de kosten verbonden aan een optreden van Fakir Show Nuno?</h3><p>De kosten voor een optreden van Nuno hangen af van verschillende factoren, zoals de duur van het optreden, de grootte van uw evenement en uw specifieke wensen. Het is het beste om contact met ons op te nemen om een offerte op maat te krijgen voor uw evenement.</p>
@@ -114,7 +128,7 @@
     <div class="hero__actions">
       <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
       <a class="btn btn--ghost" href="https://wa.me/31620020723">WhatsApp direct</a>
-      <a class="btn btn--ghost" href="/#boeken">Stuur een aanvraag</a>
+      <a class="btn btn--ghost" href="/contact-3/">Stuur een aanvraag</a>
     </div>
   </section>
 </main>
@@ -163,6 +177,7 @@
         <li><a href="tel:+31620020723">+31 6 200 207 23</a></li>
         <li><a href="https://wa.me/31620020723" rel="noopener">WhatsApp</a></li>
         <li><a href="mailto:nuno@vuurspuwer.com">nuno@vuurspuwer.com</a></li>
+        <li><a href="/contact-3/">Aanvraagformulier</a></li>
         <li><a href="/disclaimer-voorwaarden/">Algemene voorwaarden</a></li>
         <li><a href="/privacybeleid/">Privacybeleid</a></li>
       </ul>

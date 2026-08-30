@@ -24,8 +24,9 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
+<link rel="preload" as="image" href="/assets/media/post-cover.webp" fetchpriority="high">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://vuurspuwer.com/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://vuurspuwer.com/blog/"}, {"@type": "ListItem", "position": 3, "name": "Vuurspuwer Boeken voor 'sportevenement'"}]}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Vuurspuwer Boeken voor 'sportevenement'", "datePublished": "2025-09-23", "description": "Vuurshow op uw sportevenement? Boek vuurspuwer Nuno voor een spectaculaire performance in Nederland & België. Vraag nu een offerte aan!", "mainEntityOfPage": "https://vuurspuwer.com/vuurspuwer-boeken-voor-sportevenement/", "image": "https://vuurspuwer.com/assets/media/post-cover.webp", "author": {"@type": "Person", "name": "Nuno", "@id": "https://vuurspuwer.com/#nuno"}, "publisher": {"@id": "https://vuurspuwer.com/#business"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Vuurspuwer Boeken voor 'sportevenement'", "datePublished": "2025-09-23", "dateModified": "2026-08-30", "description": "Vuurshow op uw sportevenement? Boek vuurspuwer Nuno voor een spectaculaire performance in Nederland & België. Vraag nu een offerte aan!", "mainEntityOfPage": "https://vuurspuwer.com/vuurspuwer-boeken-voor-sportevenement/", "image": "https://vuurspuwer.com/assets/media/post-cover.webp", "author": {"@type": "Person", "name": "Nuno", "@id": "https://vuurspuwer.com/#nuno"}, "publisher": {"@id": "https://vuurspuwer.com/#business"}}</script>
 </head>
 <body>
 <a class="skip" href="#top">Naar de inhoud</a>
@@ -55,16 +56,22 @@
      Chrome
      ============================================================ -->
 <header class="nav" id="nav">
-  <a class="nav__brand" href="/#top" aria-label="Vuurspuwer Nuno, naar boven">
-    <span class="logo" id="navLogo" role="img" aria-label="Nuno"></span>
-  </a>
+  <div class="nav__home">
+    <a class="nav__brand" href="/" aria-label="Vuurspuwer Nuno, naar de homepagina">
+      <span class="logo" id="navLogo" role="img" aria-label="Nuno"></span>
+    </a>
+    <a class="nav__stars" href="/beoordelingen/" aria-label="4,9 van de 5 sterren uit 134 reviews — lees de beoordelingen"><i aria-hidden="true">&starf;&starf;&starf;&starf;&starf;</i>4.9 &middot; 134 reviews</a>
+  </div>
 
   <nav class="nav__links" aria-label="Hoofdmenu">
-    <a class="nav__link" href="/#shows">Shows</a>
-    <a class="nav__link" href="/#reel">Showreel</a>
-    <a class="nav__link" href="/#werk">Galerij</a>
-    <a class="nav__link" href="/#reviews">Reviews</a>
-    <a class="nav__link" href="/#locaties">Locaties</a>
+    <a class="nav__link nav__link--home" href="/">Home</a>
+    <a class="nav__link" href="/fotos/">Foto's</a>
+    <a class="nav__link" href="/videos/">Video's</a>
+    <a class="nav__link" href="/vuurspuwer-inhuren/">Vuurshow</a>
+    <a class="nav__link" href="/workshop-vuurspuwen/">Workshop</a>
+    <a class="nav__link nav__link--hot" href="/halloween/">&#127875; Halloween</a>
+    <a class="nav__link" href="/fakir-show-inhuren/">Fakirshow</a>
+    <a class="nav__link" href="/contact-3/">Contact</a>
   </nav>
 
   <div class="nav__act">
@@ -73,19 +80,22 @@
         <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1.1l-2.3 2.1z"/>
       </svg>
     </a>
-    <a class="btn btn--sm" href="/#boeken"><span class="btn__dot"></span>Offerte aanvragen</a>
+    <a class="btn btn--sm" href="/contact-3/"><span class="btn__dot"></span>Offerte aanvragen</a>
   </div>
 
   <button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Menu openen"><i></i></button>
 </header>
 
 <nav class="menu" id="menu" aria-label="Mobiel menu">
-  <a href="/#shows" style="--i:0">Shows</a>
-  <a href="/#reel" style="--i:1">Showreel</a>
-  <a href="/#werk" style="--i:2">Galerij</a>
-  <a href="/#reviews" style="--i:3">Reviews</a>
-  <a href="/#locaties" style="--i:4">Locaties</a>
-  <a href="/#boeken" style="--i:5">Offerte</a>
+  <a href="/" style="--i:0">Home</a>
+  <a href="/fotos/" style="--i:1">Foto's</a>
+  <a href="/videos/" style="--i:2">Video's</a>
+  <a href="/vuurspuwer-inhuren/" style="--i:3">Vuurshow</a>
+  <a href="/workshop-vuurspuwen/" style="--i:4">Workshop</a>
+  <a href="/halloween/" style="--i:5">&#127875; Halloween</a>
+  <a href="/fakir-show-inhuren/" style="--i:6">Fakirshow</a>
+  <a href="/beoordelingen/" style="--i:7">Reviews</a>
+  <a href="/contact-3/" style="--i:8">Contact</a>
   <div class="menu__foot">
     <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
     <p class="menu__meta">Nederland, Belgi&euml; &amp; internationaal</p>
@@ -94,14 +104,18 @@
 
 
 <main class="shell" id="top">
-  <article class="page wrap">
-    <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li><a href="/blog/">Blog</a></li><li><span aria-current="page">Vuurspuwer Boeken voor &#x27;sportevenement&#x27;</span></li></ol></nav>
-    <p class="eyebrow">Blog</p>
-    <h1 class="page__title">Vuurspuwer Boeken voor &#x27;sportevenement&#x27;</h1>
-    <p class="lede">Wilt u uw sportevenement naar een hoger niveau tillen en een onvergetelijke ervaring creëren voor uw publiek? Overweeg dan een spectaculaire vuurshow van een professionele vuurspuwer…</p>
-  </article>
+  <header class="phero">
+    <div class="phero__bg" style="background-image:url('/assets/media/post-cover.webp')" aria-hidden="true"></div>
+    <img class="phero__img" src="/assets/media/post-cover.webp" alt="Vuurspuwer Nuno met een metershoge vuurbal tegen een zwarte nachtlucht" fetchpriority="high" decoding="async">
+    <div class="phero__veil" aria-hidden="true"></div>
+    <div class="phero__body wrap">
+      <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li><a href="/blog/">Blog</a></li><li><span aria-current="page">Vuurspuwer Boeken voor &#x27;sportevenement&#x27;</span></li></ol></nav>
+      <p class="eyebrow">Blog</p>
+      <h1 class="page__title">Vuurspuwer Boeken voor &#x27;sportevenement&#x27;</h1>
+      <p class="lede">Wilt u uw sportevenement naar een hoger niveau tillen en een onvergetelijke ervaring creëren voor uw publiek? Overweeg dan een spectaculaire vuurshow van een professionele vuurspuwer…</p>
+    </div>
+  </header>
 
-  <figure class="lede-img wrap"><img src="/assets/media/post-cover.webp" alt="Vuurspuwer Nuno met een metershoge vuurbal tegen een zwarte nachtlucht" loading="lazy" decoding="async"></figure>
   <div class="wrap bay">
     <div class="prose prose--page">
 <h2>Vuurspuwer Boeken voor uw Sportevenement: Een Onvergetelijke Belevenis</h2><p>Wilt u uw sportevenement naar een hoger niveau tillen en een onvergetelijke ervaring creëren voor uw publiek? Overweeg dan een spectaculaire vuurshow van een professionele <b>vuurspuwer sportevenement</b>. Een adembenemende performance met vuur, licht en spectaculaire effecten transformeert uw evenement in een onvergetelijke belevenis.</p><h2>Waarom kiezen voor Vuurspuwer Nuno?</h2><p>Nuno is een ervaren en professionele vuurspuwer met meer dan 10 jaar ervaring in het verzorgen van vuur- en fakirshows op diverse evenementen, waaronder grote sportevenementen. Zijn expertise ligt in het creëren van veilige en adembenemende shows die perfect aansluiten bij de sfeer en het thema van uw evenement. Nuno staat bekend om zijn perfecte beheersing van de techniek, zijn creatieve choreografieën en zijn uitstekende interactie met het publiek. Met een lange staat van dienst en talloze tevreden klanten, bent u verzekerd van een professionele en onvergetelijke show. <a href="https://vuurspuwer.com/locaties-vuurshows-nederland-belgie/">vuurshow locaties in Nederland en België</a> <a href="https://vuurspuwer.com/over-nuno/">meer dan 10 jaar ervaring als professionele vuurartiest</a></p><p>Nuno's shows zijn volledig aanpasbaar aan uw wensen en de specifieke context van uw sportevenement. Of het nu gaat om een korte, indrukwekkende show tijdens de rust of een uitgebreide performance na afloop van de wedstrijd, Nuno kan een voorstelling op maat creëren die perfect aansluit bij uw behoeften en budget. Neem <a href="https://vuurspuwer.com/contact/">contact</a> op om de mogelijkheden te bespreken!</p><h2>De Perfecte Toevoeging voor Elk Sportevenement</h2><p>Een vuurshow van Nuno voegt een unieke dimensie toe aan uw sportevenement. Het biedt een spectaculaire visuele ervaring die het publiek zal boeien en enthousiast maken. De energie en spanning van de show zullen de sfeer oppeppen en zorgen voor een onvergetelijke herinnering aan uw evenement. Of het nu een <a href="https://nl.wikipedia.org/wiki/Sportevenement">voetbalwedstrijd</a>, een atletiekmeeting of een andere sportcompetitie betreft, een vuurspuwer kan de beleving voor zowel deelnemers als toeschouwers aanzienlijk verhogen. Het creëert een buzz en zorgt voor veel sociale media aandacht, waardoor de naamsbekendheid van uw evenement toeneemt.</p><h3>Voordelen van een vuurshow op uw sportevenement:</h3><ul> <li>Verhoogde publieksbetrokkenheid</li> <li>Onvergetelijke visuele ervaring</li> <li>Positieve impact op de sfeer</li> <li>Verhoogde naamsbekendheid</li></ul><h2>Hoe Kunt U Boeken?</h2><p>Boek nu uw spectaculaire vuurshow bij Nuno en maak uw sportevenement onvergetelijk! Neem contact met ons op via  of  om uw wensen te bespreken en een offerte op maat te ontvangen. Bekijk ook eens onze pagina over <a href="https://vuurspuwer.com/vuurspuwer-moerbeke-inhuren-breng-vurige-magie-naar-het-waasland/">Vuurspuwer Moerbeke</a> voor inspiratie.</p><p>Neem direct <a href="https://vuurspuwer.com/">contact</a> op voor een offerte!</p><h2>FAQ's</h2><h3>Wat zijn de kosten van een vuurshow voor een sportevenement?</h3><p>De kosten van een vuurshow zijn afhankelijk van verschillende factoren, zoals de duur van de show, de complexiteit van de choreografie en de locatie. Neem contact met ons op voor een gedetailleerde offerte op maat, afgestemd op uw specifieke wensen.</p><h3>Is een vuurshow veilig op locatie?</h3><p>De veiligheid van onze shows staat bij ons voorop. Nuno beschikt over alle benodigde vergunningen en verzekeringen. Hij werkt met professionele apparatuur en neemt alle nodige veiligheidsmaatregelen om ervoor te zorgen dat de show veilig en zonder incidenten verloopt. Voor elke locatie wordt een gedetailleerde risicoanalyse uitgevoerd en wordt er een veiligheidsadvies opgesteld. <a href="https://vuurspuwer.com/disclaimer-voorwaarden/">bekijk onze voorwaarden en veiligheidsprotocollen</a></p>
@@ -114,7 +128,7 @@
     <div class="hero__actions">
       <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
       <a class="btn btn--ghost" href="https://wa.me/31620020723">WhatsApp direct</a>
-      <a class="btn btn--ghost" href="/#boeken">Stuur een aanvraag</a>
+      <a class="btn btn--ghost" href="/contact-3/">Stuur een aanvraag</a>
     </div>
   </section>
 </main>
@@ -163,6 +177,7 @@
         <li><a href="tel:+31620020723">+31 6 200 207 23</a></li>
         <li><a href="https://wa.me/31620020723" rel="noopener">WhatsApp</a></li>
         <li><a href="mailto:nuno@vuurspuwer.com">nuno@vuurspuwer.com</a></li>
+        <li><a href="/contact-3/">Aanvraagformulier</a></li>
         <li><a href="/disclaimer-voorwaarden/">Algemene voorwaarden</a></li>
         <li><a href="/privacybeleid/">Privacybeleid</a></li>
       </ul>

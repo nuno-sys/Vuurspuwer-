@@ -24,8 +24,9 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
+<link rel="preload" as="image" href="/assets/media/post-cover.webp" fetchpriority="high">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://vuurspuwer.com/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://vuurspuwer.com/blog/"}, {"@type": "ListItem", "position": 3, "name": "Tips voor een knallend oud en nieuw feest"}]}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Tips voor een knallend oud en nieuw feest", "datePublished": "2023-12-08", "description": "Oud en nieuw feest tips voor de perfecte jaarwisseling. Ontdek hoe u thema, activiteiten en entertainment slim combineert. Vraag nu een offerte aan!", "mainEntityOfPage": "https://vuurspuwer.com/tips-voor-een-knallend-oud-en-nieuw-feest-2/", "image": "https://vuurspuwer.com/assets/media/post-cover.webp", "author": {"@type": "Person", "name": "Nuno", "@id": "https://vuurspuwer.com/#nuno"}, "publisher": {"@id": "https://vuurspuwer.com/#business"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Tips voor een knallend oud en nieuw feest", "datePublished": "2023-12-08", "dateModified": "2026-08-30", "description": "Oud en nieuw feest tips voor de perfecte jaarwisseling. Ontdek hoe u thema, activiteiten en entertainment slim combineert. Vraag nu een offerte aan!", "mainEntityOfPage": "https://vuurspuwer.com/tips-voor-een-knallend-oud-en-nieuw-feest-2/", "image": "https://vuurspuwer.com/assets/media/post-cover.webp", "author": {"@type": "Person", "name": "Nuno", "@id": "https://vuurspuwer.com/#nuno"}, "publisher": {"@id": "https://vuurspuwer.com/#business"}}</script>
 </head>
 <body>
 <a class="skip" href="#top">Naar de inhoud</a>
@@ -55,16 +56,22 @@
      Chrome
      ============================================================ -->
 <header class="nav" id="nav">
-  <a class="nav__brand" href="/#top" aria-label="Vuurspuwer Nuno, naar boven">
-    <span class="logo" id="navLogo" role="img" aria-label="Nuno"></span>
-  </a>
+  <div class="nav__home">
+    <a class="nav__brand" href="/" aria-label="Vuurspuwer Nuno, naar de homepagina">
+      <span class="logo" id="navLogo" role="img" aria-label="Nuno"></span>
+    </a>
+    <a class="nav__stars" href="/beoordelingen/" aria-label="4,9 van de 5 sterren uit 134 reviews — lees de beoordelingen"><i aria-hidden="true">&starf;&starf;&starf;&starf;&starf;</i>4.9 &middot; 134 reviews</a>
+  </div>
 
   <nav class="nav__links" aria-label="Hoofdmenu">
-    <a class="nav__link" href="/#shows">Shows</a>
-    <a class="nav__link" href="/#reel">Showreel</a>
-    <a class="nav__link" href="/#werk">Galerij</a>
-    <a class="nav__link" href="/#reviews">Reviews</a>
-    <a class="nav__link" href="/#locaties">Locaties</a>
+    <a class="nav__link nav__link--home" href="/">Home</a>
+    <a class="nav__link" href="/fotos/">Foto's</a>
+    <a class="nav__link" href="/videos/">Video's</a>
+    <a class="nav__link" href="/vuurspuwer-inhuren/">Vuurshow</a>
+    <a class="nav__link" href="/workshop-vuurspuwen/">Workshop</a>
+    <a class="nav__link nav__link--hot" href="/halloween/">&#127875; Halloween</a>
+    <a class="nav__link" href="/fakir-show-inhuren/">Fakirshow</a>
+    <a class="nav__link" href="/contact-3/">Contact</a>
   </nav>
 
   <div class="nav__act">
@@ -73,19 +80,22 @@
         <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1.1l-2.3 2.1z"/>
       </svg>
     </a>
-    <a class="btn btn--sm" href="/#boeken"><span class="btn__dot"></span>Offerte aanvragen</a>
+    <a class="btn btn--sm" href="/contact-3/"><span class="btn__dot"></span>Offerte aanvragen</a>
   </div>
 
   <button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Menu openen"><i></i></button>
 </header>
 
 <nav class="menu" id="menu" aria-label="Mobiel menu">
-  <a href="/#shows" style="--i:0">Shows</a>
-  <a href="/#reel" style="--i:1">Showreel</a>
-  <a href="/#werk" style="--i:2">Galerij</a>
-  <a href="/#reviews" style="--i:3">Reviews</a>
-  <a href="/#locaties" style="--i:4">Locaties</a>
-  <a href="/#boeken" style="--i:5">Offerte</a>
+  <a href="/" style="--i:0">Home</a>
+  <a href="/fotos/" style="--i:1">Foto's</a>
+  <a href="/videos/" style="--i:2">Video's</a>
+  <a href="/vuurspuwer-inhuren/" style="--i:3">Vuurshow</a>
+  <a href="/workshop-vuurspuwen/" style="--i:4">Workshop</a>
+  <a href="/halloween/" style="--i:5">&#127875; Halloween</a>
+  <a href="/fakir-show-inhuren/" style="--i:6">Fakirshow</a>
+  <a href="/beoordelingen/" style="--i:7">Reviews</a>
+  <a href="/contact-3/" style="--i:8">Contact</a>
   <div class="menu__foot">
     <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
     <p class="menu__meta">Nederland, Belgi&euml; &amp; internationaal</p>
@@ -94,14 +104,18 @@
 
 
 <main class="shell" id="top">
-  <article class="page wrap">
-    <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li><a href="/blog/">Blog</a></li><li><span aria-current="page">Tips voor een knallend oud en nieuw feest</span></li></ol></nav>
-    <p class="eyebrow">Blog</p>
-    <h1 class="page__title">Tips voor een knallend oud en nieuw feest</h1>
-    <p class="lede">Het organiseren van een oud en nieuw feest is dé manier om het nieuwe jaar feestelijk in te luiden met vrienden en familie. Of je nu groots uitpakt of een intiem samenzijn prefereert, met…</p>
-  </article>
+  <header class="phero">
+    <div class="phero__bg" style="background-image:url('/assets/media/post-cover.webp')" aria-hidden="true"></div>
+    <img class="phero__img" src="/assets/media/post-cover.webp" alt="Vuurspuwer Nuno met een metershoge vuurbal tegen een zwarte nachtlucht" fetchpriority="high" decoding="async">
+    <div class="phero__veil" aria-hidden="true"></div>
+    <div class="phero__body wrap">
+      <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li><a href="/blog/">Blog</a></li><li><span aria-current="page">Tips voor een knallend oud en nieuw feest</span></li></ol></nav>
+      <p class="eyebrow">Blog</p>
+      <h1 class="page__title">Tips voor een knallend oud en nieuw feest</h1>
+      <p class="lede">Het organiseren van een oud en nieuw feest is dé manier om het nieuwe jaar feestelijk in te luiden met vrienden en familie. Of je nu groots uitpakt of een intiem samenzijn prefereert, met…</p>
+    </div>
+  </header>
 
-  <figure class="lede-img wrap"><img src="/assets/media/post-cover.webp" alt="Vuurspuwer Nuno met een metershoge vuurbal tegen een zwarte nachtlucht" loading="lazy" decoding="async"></figure>
   <div class="wrap bay">
     <div class="prose prose--page">
 <h2>Tips voor een Knallend Oud en Nieuw Feest</h2><p>Het organiseren van een <b>oud en nieuw feest</b> is dé manier om het nieuwe jaar feestelijk in te luiden met vrienden en familie. Of je nu groots uitpakt of een intiem samenzijn prefereert, met de juiste voorbereiding wordt het gegarandeerd een onvergetelijke ervaring. Hieronder vind je essentiële tips voor een geslaagde jaarwisseling.</p><h3>1. Kies een Thema voor je Oud en Nieuw Feest</h3><p>Geef je feest een unieke twist door een thema te kiezen. Denk aan een chique black-tie gala, een nostalgisch jaren '80 feest, of een sprankelend glitter &amp; glamour thema. Een <b>themafeest</b> zorgt voor extra sfeer en enthousiasme. Informeer je gasten tijdig, zodat ze zich goed kunnen voorbereiden. <a href="https://vuurspuwer.com/locaties-vuurshows-nederland-belgie/">vuurshow locaties in Nederland en België</a> <a href="https://vuurspuwer.com/over-nuno/">professionele vuurspuwer Nuno</a> <a href="https://vuurspuwer.com/een-spectaculair-event-bij-technopolis-mechelen-entertainment-dat-vonken-geeft/">spectaculaire vuurshow op jouw evenement</a></p><h3>2. Organiseer Leuke Activiteiten</h3><p>Een geslaagd <b>oud en nieuw feest</b> is meer dan alleen eten en drinken. Zorg voor entertainment! Denk aan spelletjes, karaoke, een fotobooth, of een dansvloer. Met leuke activiteiten houd je de sfeer erin en zorg je ervoor dat je gasten zich geen moment vervelen.</p><h3>3. Checklist met Benodigdheden</h3><p>Maak een gedetailleerde checklist voordat je begint. Denk aan voldoende zitplaatsen, tafels, servies, glazen, bestek, decoraties, eten en drinken. Vergeet ook praktische zaken zoals parkeergelegenheid en eventuele vergunningen voor <b>vuurwerk</b>.</p><h3>4. Sfeervolle Oud &amp; Nieuw Decoraties</h3><p>Versier je feestlocatie met typische oud en nieuw decoraties. Slingers, ballonnen, confetti, en feestelijke tafeldecoraties mogen niet ontbreken. De juiste aankleding creëert direct de perfecte sfeer om het nieuwe jaar in te luiden. Overweeg ook een vuurkorf, maar wees voorzichtig en houd rekening met de veiligheid. Meer over veiligheid vind je op <a href="https://nl.wikipedia.org/wiki/Vuurwerk_(vermaak)">Wikipedia</a>.</p><h3>5. Goede Muziek Tijdens de Jaarwisseling</h3><p>Muziek is essentieel voor de sfeer. Stel een playlist samen met feestelijke nummers die passen bij de smaak van je gasten en de sfeer van de avond. Overweeg een DJ in te huren voor een gegarandeerd volle dansvloer. Zorg voor een knallende soundtrack tijdens het aftellen naar middernacht.</p><h3>6. Vuurwerk: Knal het Nieuwe Jaar In!</h3><p><b>Vuurwerk</b> mag eigenlijk niet ontbreken tijdens een <b>oud en nieuw feest</b>. Steek vuurwerk op een veilige manier af om het nieuwe jaar te verwelkomen. Informeer jezelf over de lokale regels en richtlijnen en neem de nodige veiligheidsmaatregelen. Overweeg om een professionele vuurspuwer in te huren voor een spectaculaire show, kijk eens bij <a href="https://vuurspuwer.com/vuurspuwer-westerveld-inhuren-spectaculaire-vuurshow-in-drenthe/">Vuurspuwer Westerveld Inhuren? | Spectaculaire Vuurshow in Drenthe</a> voor de mogelijkheden. </p><h3>7. Champagne!</h3><p>Proosten op het nieuwe jaar is een must! Zorg voor voldoende champagne of andere feestelijke drankjes om middernacht te toosten. Bied ook alcoholvrije alternatieven aan.</p><h3>8. Oliebollen en Snacks</h3><p>Geen oud en nieuw zonder oliebollen! Haal op tijd oliebollen en andere lekkernijen in huis. Houd rekening met eventuele dieetwensen van je gasten en zorg voor alternatieven. </p><p>Met deze tips ben je goed op weg naar een fantastisch <b>oud en nieuw feest</b>! Vergeet niet om op tijd te beginnen met de voorbereidingen, zodat je zelf ook optimaal kunt genieten van de avond. En als je echt iets speciaals wilt, overweeg dan een spectaculaire vuurshow! Neem <a href="https://vuurspuwer.com/contact/">contact</a> op voor de mogelijkheden.</p>
@@ -114,7 +128,7 @@
     <div class="hero__actions">
       <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
       <a class="btn btn--ghost" href="https://wa.me/31620020723">WhatsApp direct</a>
-      <a class="btn btn--ghost" href="/#boeken">Stuur een aanvraag</a>
+      <a class="btn btn--ghost" href="/contact-3/">Stuur een aanvraag</a>
     </div>
   </section>
 </main>
@@ -163,6 +177,7 @@
         <li><a href="tel:+31620020723">+31 6 200 207 23</a></li>
         <li><a href="https://wa.me/31620020723" rel="noopener">WhatsApp</a></li>
         <li><a href="mailto:nuno@vuurspuwer.com">nuno@vuurspuwer.com</a></li>
+        <li><a href="/contact-3/">Aanvraagformulier</a></li>
         <li><a href="/disclaimer-voorwaarden/">Algemene voorwaarden</a></li>
         <li><a href="/privacybeleid/">Privacybeleid</a></li>
       </ul>

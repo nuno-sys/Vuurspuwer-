@@ -24,8 +24,9 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
+<link rel="preload" as="image" href="/assets/media/post-cover.webp" fetchpriority="high">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://vuurspuwer.com/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://vuurspuwer.com/blog/"}, {"@type": "ListItem", "position": 3, "name": "Vuurspuwer Boeken voor een oud en nieuw feest: De Ultieme Spectaculaire Ervaring"}]}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Vuurspuwer Boeken voor een oud en nieuw feest: De Ultieme Spectaculaire Ervaring", "datePublished": "2025-10-12", "description": "Vuurshow oud en nieuw boeken? Vuurspuwer Nuno verzorgt een spectaculair vlammend spektakel op uw oudejaarsnacht. Vraag direct een offerte aan!", "mainEntityOfPage": "https://vuurspuwer.com/vuurspuwer-boeken-voor-een-oud-en-nieuw-feest-de-ultieme-spectaculaire-ervaring/", "image": "https://vuurspuwer.com/assets/media/post-cover.webp", "author": {"@type": "Person", "name": "Nuno", "@id": "https://vuurspuwer.com/#nuno"}, "publisher": {"@id": "https://vuurspuwer.com/#business"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Vuurspuwer Boeken voor een oud en nieuw feest: De Ultieme Spectaculaire Ervaring", "datePublished": "2025-10-12", "dateModified": "2026-08-30", "description": "Vuurshow oud en nieuw boeken? Vuurspuwer Nuno verzorgt een spectaculair vlammend spektakel op uw oudejaarsnacht. Vraag direct een offerte aan!", "mainEntityOfPage": "https://vuurspuwer.com/vuurspuwer-boeken-voor-een-oud-en-nieuw-feest-de-ultieme-spectaculaire-ervaring/", "image": "https://vuurspuwer.com/assets/media/post-cover.webp", "author": {"@type": "Person", "name": "Nuno", "@id": "https://vuurspuwer.com/#nuno"}, "publisher": {"@id": "https://vuurspuwer.com/#business"}}</script>
 </head>
 <body>
 <a class="skip" href="#top">Naar de inhoud</a>
@@ -55,16 +56,22 @@
      Chrome
      ============================================================ -->
 <header class="nav" id="nav">
-  <a class="nav__brand" href="/#top" aria-label="Vuurspuwer Nuno, naar boven">
-    <span class="logo" id="navLogo" role="img" aria-label="Nuno"></span>
-  </a>
+  <div class="nav__home">
+    <a class="nav__brand" href="/" aria-label="Vuurspuwer Nuno, naar de homepagina">
+      <span class="logo" id="navLogo" role="img" aria-label="Nuno"></span>
+    </a>
+    <a class="nav__stars" href="/beoordelingen/" aria-label="4,9 van de 5 sterren uit 134 reviews — lees de beoordelingen"><i aria-hidden="true">&starf;&starf;&starf;&starf;&starf;</i>4.9 &middot; 134 reviews</a>
+  </div>
 
   <nav class="nav__links" aria-label="Hoofdmenu">
-    <a class="nav__link" href="/#shows">Shows</a>
-    <a class="nav__link" href="/#reel">Showreel</a>
-    <a class="nav__link" href="/#werk">Galerij</a>
-    <a class="nav__link" href="/#reviews">Reviews</a>
-    <a class="nav__link" href="/#locaties">Locaties</a>
+    <a class="nav__link nav__link--home" href="/">Home</a>
+    <a class="nav__link" href="/fotos/">Foto's</a>
+    <a class="nav__link" href="/videos/">Video's</a>
+    <a class="nav__link" href="/vuurspuwer-inhuren/">Vuurshow</a>
+    <a class="nav__link" href="/workshop-vuurspuwen/">Workshop</a>
+    <a class="nav__link nav__link--hot" href="/halloween/">&#127875; Halloween</a>
+    <a class="nav__link" href="/fakir-show-inhuren/">Fakirshow</a>
+    <a class="nav__link" href="/contact-3/">Contact</a>
   </nav>
 
   <div class="nav__act">
@@ -73,19 +80,22 @@
         <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1.1l-2.3 2.1z"/>
       </svg>
     </a>
-    <a class="btn btn--sm" href="/#boeken"><span class="btn__dot"></span>Offerte aanvragen</a>
+    <a class="btn btn--sm" href="/contact-3/"><span class="btn__dot"></span>Offerte aanvragen</a>
   </div>
 
   <button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Menu openen"><i></i></button>
 </header>
 
 <nav class="menu" id="menu" aria-label="Mobiel menu">
-  <a href="/#shows" style="--i:0">Shows</a>
-  <a href="/#reel" style="--i:1">Showreel</a>
-  <a href="/#werk" style="--i:2">Galerij</a>
-  <a href="/#reviews" style="--i:3">Reviews</a>
-  <a href="/#locaties" style="--i:4">Locaties</a>
-  <a href="/#boeken" style="--i:5">Offerte</a>
+  <a href="/" style="--i:0">Home</a>
+  <a href="/fotos/" style="--i:1">Foto's</a>
+  <a href="/videos/" style="--i:2">Video's</a>
+  <a href="/vuurspuwer-inhuren/" style="--i:3">Vuurshow</a>
+  <a href="/workshop-vuurspuwen/" style="--i:4">Workshop</a>
+  <a href="/halloween/" style="--i:5">&#127875; Halloween</a>
+  <a href="/fakir-show-inhuren/" style="--i:6">Fakirshow</a>
+  <a href="/beoordelingen/" style="--i:7">Reviews</a>
+  <a href="/contact-3/" style="--i:8">Contact</a>
   <div class="menu__foot">
     <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
     <p class="menu__meta">Nederland, Belgi&euml; &amp; internationaal</p>
@@ -94,14 +104,18 @@
 
 
 <main class="shell" id="top">
-  <article class="page wrap">
-    <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li><a href="/blog/">Blog</a></li><li><span aria-current="page">Vuurspuwer Boeken voor een oud en nieuw feest: De Ultieme Spectaculaire Ervaring</span></li></ol></nav>
-    <p class="eyebrow">Blog</p>
-    <h1 class="page__title">Vuurspuwer Boeken voor een oud en nieuw feest: De Ultieme Spectaculaire Ervaring</h1>
-    <p class="lede">Terwijl de klok middernacht nadert en de wereld zich voorbereidt op een nieuw begin, wilt u uw oud en nieuw feest onvergetelijk maken. Vergeet de standaard champagne en het vuurwerk dat na…</p>
-  </article>
+  <header class="phero">
+    <div class="phero__bg" style="background-image:url('/assets/media/post-cover.webp')" aria-hidden="true"></div>
+    <img class="phero__img" src="/assets/media/post-cover.webp" alt="Vuurspuwer Nuno met een metershoge vuurbal tegen een zwarte nachtlucht" fetchpriority="high" decoding="async">
+    <div class="phero__veil" aria-hidden="true"></div>
+    <div class="phero__body wrap">
+      <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li><a href="/blog/">Blog</a></li><li><span aria-current="page">Vuurspuwer Boeken voor een oud en nieuw feest: De Ultieme Spectaculaire Ervaring</span></li></ol></nav>
+      <p class="eyebrow">Blog</p>
+      <h1 class="page__title">Vuurspuwer Boeken voor een oud en nieuw feest: De Ultieme Spectaculaire Ervaring</h1>
+      <p class="lede">Terwijl de klok middernacht nadert en de wereld zich voorbereidt op een nieuw begin, wilt u uw oud en nieuw feest onvergetelijk maken. Vergeet de standaard champagne en het vuurwerk dat na…</p>
+    </div>
+  </header>
 
-  <figure class="lede-img wrap"><img src="/assets/media/post-cover.webp" alt="Vuurspuwer Nuno met een metershoge vuurbal tegen een zwarte nachtlucht" loading="lazy" decoding="async"></figure>
   <div class="wrap bay">
     <div class="prose prose--page">
 <h2>Vuurspuwer Boeken voor een Onvergetelijk Oud en Nieuw</h2><p>Terwijl de klok middernacht nadert en de wereld zich voorbereidt op een nieuw begin, wilt u uw oud en nieuw feest onvergetelijk maken. Vergeet de standaard champagne en het vuurwerk dat na een paar minuten voorbij is. Wat als u uw gasten zou kunnen trakteren op een betoverende, adembenemende ervaring die de koude winternacht transformeert in een vlammend spektakel? Een <a href="https://vuurspuwer.com/">vuurspuwer boeken</a> voor oud en nieuw is precies de vonk die uw feest nodig heeft.</p><p>Stel u voor: de warmte van de vlammen, de hypnotiserende bewegingen, de pure adrenaline van een live vuurshow die de overgang naar het nieuwe jaar markeert. Dit is meer dan entertainment; dit is een statement, een herinnering die nog lang na de laatste vonk blijft nazinderen. Vuurspuwer Nuno biedt een unieke en spectaculaire toevoeging aan uw oud en nieuw viering, die gegarandeerd indruk maakt en de feestvreugde naar een ongekend niveau tilt. Laat uw gasten het nieuwe jaar inluiden met een show vol passie, mysterie en pure verwondering. <a href="https://vuurspuwer.com/over-nuno/">meer dan tien jaar ervaring in vuurshows en fakirshows</a> <a href="https://vuurspuwer.com/locaties-vuurshows-nederland-belgie/">vuurshow locaties in Nederland en België</a></p><h2>Waarom Vuurspuwer Nuno de Perfecte Match is voor Uw Oud en Nieuw Feest</h2><p>Oud en nieuw is een tijd van reflectie, maar vooral van vooruitkijken en vieren. De energie van vuur symboliseert vernieuwing, passie en de kracht om het oude achter ons te laten en het nieuwe te omarmen. Vuurspuwer Nuno, met zijn ongeëvenaarde beheersing van de elementen, brengt deze symboliek op een spectaculaire wijze tot leven. Zijn act is geen simpele show; het is een zorgvuldig gechoreografeerde dans van licht en schaduw, van hitte en verwondering, perfect getimed voor het hoogtepunt van uw feest.</p><p>De vonken die de donkere nacht in schieten, de vlammen die dansen op de maat van de muziek, creëren een magische ambiance die de harten van uw gasten sneller doet kloppen. Nuno's optreden is een visueel meesterwerk dat naadloos aansluit bij de feestelijke en hoopvolle sfeer van oud en nieuw. Het is de perfecte manier om een jaar met een knal af te sluiten en het nieuwe jaar met vlammende energie te verwelkomen. De intense hitte en de betoverende schoonheid van het vuur zullen een diepe indruk achterlaten en zorgen voor talloze gesprekken en bewonderende blikken. Een <a href="https://vuurspuwer.com/contact/">vuurspuwer boeken</a> voor oud en nieuw betekent kiezen voor een ongeëvenaarde ervaring die de traditionele feestelementen moeiteloos overstijgt.</p><h2>Ervaring die Telt: 10+ Jaar Vuur- en Fakirshows</h2><p>Wanneer u kiest voor een vuurspuwer boeken voor uw oud en nieuw feest, kiest u voor professionaliteit en gemoedsrust. Nuno heeft in de loop der jaren talloze evenementen verrijkt, van intieme bijeenkomsten tot grote festivals en bedrijfsfeesten. Met meer dan tien jaar ervaring in vuurshows, <a href="https://nl.wikipedia.org/wiki/Fakir">fakirshows</a> en spectaculaire optredens, garandeert hij een show van de hoogste kwaliteit en een vlekkeloze uitvoering. Deze jarenlange expertise heeft Nuno niet alleen tot een meester in zijn vak gemaakt, maar ook tot een expert in het creëren van de juiste sfeer en het inspelen op de wensen van zijn publiek.</p><p>Zijn expertise gaat verder dan alleen het artistieke aspect; veiligheid staat altijd voorop. Elk optreden wordt zorgvuldig gepland en uitgevoerd met de strengste veiligheidsmaatregelen. U kunt erop vertrouwen dat de show niet alleen spectaculair, maar ook volledig veilig zal zijn voor al uw gasten en de omgeving. De combinatie van jarenlange ervaring, artistieke flair en een onberispelijke veiligheidsreputatie maakt Nuno de ideale keuze om uw oud en nieuw viering naar een hoger niveau te tillen. Of het nu gaat om een bruiloft, een groot festival of uw eigen oud en nieuw feest, de expertise en professionaliteit zijn universeel en staan garant voor een onvergetelijke belevenis. <a href="https://vuurspuwer.com/disclaimer-voorwaarden/">veiligheidsmaatregelen en voorwaarden</a></p><h2>Eenvoudig Boeken: Zo Regelt U Uw Vuurshow</h2><p>Een vuurspuwer boeken voor uw oud en nieuw feest hoeft geen ingewikkeld proces te zijn. Wij hebben het boekingsproces zo eenvoudig en transparant mogelijk gemaakt, zodat u zich kunt concentreren op de verdere voorbereidingen van uw feest. Volg deze simpele stappen om uw spectaculaire vuurshow te regelen:</p><h3>Stap 1: Neem contact op en bespreek uw wensen.</h3><p>Vertel ons over uw oud en nieuw feest: de datum, de locatie, het verwachte aantal gasten en eventuele specifieke ideeën die u heeft. Hoe meer details u deelt, hoe beter wij de show kunnen afstemmen op uw verwachtingen. We denken graag met u mee om de perfecte vuuract te creëren die naadloos aansluit bij de sfeer van uw evenement.</p><h3>Stap 2: Ontvang een offerte op maat.</h3><p>Op basis van uw informatie stellen wij snel een vrijblijvende offerte op maat voor u samen. Deze offerte is transparant en gedetailleerd, zodat u precies weet waar u aan toe bent. We streven ernaar om u binnen 24 uur een passend voorstel te doen.</p><h3>Stap 3: Bevestiging en voorbereiding.</h3><p>Zodra u akkoord gaat met de offerte, regelen wij de rest. We bespreken de laatste details, zoals de exacte tijden en de logistiek ter plaatse. U kunt erop vertrouwen dat alles tot in de puntjes wordt voorbereid, zodat u op de avond zelf zorgeloos kunt genieten van een adembenemende en veilige vuurshow.</p><p>Neem vandaag nog contact op via +31 6 20020 [XXX-nummer verwijderd voor privacy redenen]</p>
@@ -114,7 +128,7 @@
     <div class="hero__actions">
       <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
       <a class="btn btn--ghost" href="https://wa.me/31620020723">WhatsApp direct</a>
-      <a class="btn btn--ghost" href="/#boeken">Stuur een aanvraag</a>
+      <a class="btn btn--ghost" href="/contact-3/">Stuur een aanvraag</a>
     </div>
   </section>
 </main>
@@ -163,6 +177,7 @@
         <li><a href="tel:+31620020723">+31 6 200 207 23</a></li>
         <li><a href="https://wa.me/31620020723" rel="noopener">WhatsApp</a></li>
         <li><a href="mailto:nuno@vuurspuwer.com">nuno@vuurspuwer.com</a></li>
+        <li><a href="/contact-3/">Aanvraagformulier</a></li>
         <li><a href="/disclaimer-voorwaarden/">Algemene voorwaarden</a></li>
         <li><a href="/privacybeleid/">Privacybeleid</a></li>
       </ul>

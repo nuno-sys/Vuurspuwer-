@@ -24,8 +24,9 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
+<link rel="preload" as="image" href="/assets/media/post-cover.webp" fetchpriority="high">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://vuurspuwer.com/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://vuurspuwer.com/blog/"}, {"@type": "ListItem", "position": 3, "name": "ideeën kinderfeestje"}]}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "ideeën kinderfeestje", "datePublished": "2023-12-08", "description": "Ideeën voor een onvergetelijk kinderfeestje? Ontdek thema's, activiteiten én professioneel entertainment. Vraag vrijblijvend aan! 📞", "mainEntityOfPage": "https://vuurspuwer.com/ideeen-en-tips-voor-het-leukste-kinderfeestje-2/", "image": "https://vuurspuwer.com/assets/media/post-cover.webp", "author": {"@type": "Person", "name": "Nuno", "@id": "https://vuurspuwer.com/#nuno"}, "publisher": {"@id": "https://vuurspuwer.com/#business"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "ideeën kinderfeestje", "datePublished": "2023-12-08", "dateModified": "2026-08-30", "description": "Ideeën voor een onvergetelijk kinderfeestje? Ontdek thema's, activiteiten én professioneel entertainment. Vraag vrijblijvend aan! 📞", "mainEntityOfPage": "https://vuurspuwer.com/ideeen-en-tips-voor-het-leukste-kinderfeestje-2/", "image": "https://vuurspuwer.com/assets/media/post-cover.webp", "author": {"@type": "Person", "name": "Nuno", "@id": "https://vuurspuwer.com/#nuno"}, "publisher": {"@id": "https://vuurspuwer.com/#business"}}</script>
 </head>
 <body>
 <a class="skip" href="#top">Naar de inhoud</a>
@@ -55,16 +56,22 @@
      Chrome
      ============================================================ -->
 <header class="nav" id="nav">
-  <a class="nav__brand" href="/#top" aria-label="Vuurspuwer Nuno, naar boven">
-    <span class="logo" id="navLogo" role="img" aria-label="Nuno"></span>
-  </a>
+  <div class="nav__home">
+    <a class="nav__brand" href="/" aria-label="Vuurspuwer Nuno, naar de homepagina">
+      <span class="logo" id="navLogo" role="img" aria-label="Nuno"></span>
+    </a>
+    <a class="nav__stars" href="/beoordelingen/" aria-label="4,9 van de 5 sterren uit 134 reviews — lees de beoordelingen"><i aria-hidden="true">&starf;&starf;&starf;&starf;&starf;</i>4.9 &middot; 134 reviews</a>
+  </div>
 
   <nav class="nav__links" aria-label="Hoofdmenu">
-    <a class="nav__link" href="/#shows">Shows</a>
-    <a class="nav__link" href="/#reel">Showreel</a>
-    <a class="nav__link" href="/#werk">Galerij</a>
-    <a class="nav__link" href="/#reviews">Reviews</a>
-    <a class="nav__link" href="/#locaties">Locaties</a>
+    <a class="nav__link nav__link--home" href="/">Home</a>
+    <a class="nav__link" href="/fotos/">Foto's</a>
+    <a class="nav__link" href="/videos/">Video's</a>
+    <a class="nav__link" href="/vuurspuwer-inhuren/">Vuurshow</a>
+    <a class="nav__link" href="/workshop-vuurspuwen/">Workshop</a>
+    <a class="nav__link nav__link--hot" href="/halloween/">&#127875; Halloween</a>
+    <a class="nav__link" href="/fakir-show-inhuren/">Fakirshow</a>
+    <a class="nav__link" href="/contact-3/">Contact</a>
   </nav>
 
   <div class="nav__act">
@@ -73,19 +80,22 @@
         <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1.1l-2.3 2.1z"/>
       </svg>
     </a>
-    <a class="btn btn--sm" href="/#boeken"><span class="btn__dot"></span>Offerte aanvragen</a>
+    <a class="btn btn--sm" href="/contact-3/"><span class="btn__dot"></span>Offerte aanvragen</a>
   </div>
 
   <button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Menu openen"><i></i></button>
 </header>
 
 <nav class="menu" id="menu" aria-label="Mobiel menu">
-  <a href="/#shows" style="--i:0">Shows</a>
-  <a href="/#reel" style="--i:1">Showreel</a>
-  <a href="/#werk" style="--i:2">Galerij</a>
-  <a href="/#reviews" style="--i:3">Reviews</a>
-  <a href="/#locaties" style="--i:4">Locaties</a>
-  <a href="/#boeken" style="--i:5">Offerte</a>
+  <a href="/" style="--i:0">Home</a>
+  <a href="/fotos/" style="--i:1">Foto's</a>
+  <a href="/videos/" style="--i:2">Video's</a>
+  <a href="/vuurspuwer-inhuren/" style="--i:3">Vuurshow</a>
+  <a href="/workshop-vuurspuwen/" style="--i:4">Workshop</a>
+  <a href="/halloween/" style="--i:5">&#127875; Halloween</a>
+  <a href="/fakir-show-inhuren/" style="--i:6">Fakirshow</a>
+  <a href="/beoordelingen/" style="--i:7">Reviews</a>
+  <a href="/contact-3/" style="--i:8">Contact</a>
   <div class="menu__foot">
     <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
     <p class="menu__meta">Nederland, Belgi&euml; &amp; internationaal</p>
@@ -94,14 +104,18 @@
 
 
 <main class="shell" id="top">
-  <article class="page wrap">
-    <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li><a href="/blog/">Blog</a></li><li><span aria-current="page">ideeën kinderfeestje</span></li></ol></nav>
-    <p class="eyebrow">Blog</p>
-    <h1 class="page__title">ideeën kinderfeestje</h1>
-    <p class="lede">Een kinderfeestje organiseren is een leuke, maar soms ook stressvolle taak. Met de juiste voorbereiding en creatieve ideeën, maak je er een onvergetelijke dag van! Begin op tijd met de…</p>
-  </article>
+  <header class="phero">
+    <div class="phero__bg" style="background-image:url('/assets/media/post-cover.webp')" aria-hidden="true"></div>
+    <img class="phero__img" src="/assets/media/post-cover.webp" alt="Vuurspuwer Nuno met een metershoge vuurbal tegen een zwarte nachtlucht" fetchpriority="high" decoding="async">
+    <div class="phero__veil" aria-hidden="true"></div>
+    <div class="phero__body wrap">
+      <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li><a href="/blog/">Blog</a></li><li><span aria-current="page">ideeën kinderfeestje</span></li></ol></nav>
+      <p class="eyebrow">Blog</p>
+      <h1 class="page__title">ideeën kinderfeestje</h1>
+      <p class="lede">Een kinderfeestje organiseren is een leuke, maar soms ook stressvolle taak. Met de juiste voorbereiding en creatieve ideeën, maak je er een onvergetelijke dag van! Begin op tijd met de…</p>
+    </div>
+  </header>
 
-  <figure class="lede-img wrap"><img src="/assets/media/post-cover.webp" alt="Vuurspuwer Nuno met een metershoge vuurbal tegen een zwarte nachtlucht" loading="lazy" decoding="async"></figure>
   <div class="wrap bay">
     <div class="prose prose--page">
 <h2>Ideeën voor een Onvergetelijk Kinderfeestje</h2><p>Een kinderfeestje organiseren is een leuke, maar soms ook stressvolle taak. Met de juiste voorbereiding en creatieve ideeën, maak je er een onvergetelijke dag van! Begin op tijd met de planning en betrek je kind bij de voorbereidingen. Zo zorg je ervoor dat het feestje perfect aansluit bij zijn of haar wensen.</p><h3>Checklist voor de Voorbereiding</h3><p>Een goede voorbereiding is het halve werk. Maak een checklist van alle benodigdheden en taken. Denk aan: <a href="https://vuurspuwer.com/over-nuno/">een professionele vuurspuwer</a> <a href="https://vuurspuwer.com/locaties-vuurshows-nederland-belgie/">een professional voor entertainment</a> <a href="https://vuurspuwer.com/een-onvergetelijk-event-bij-martins-patershof-mechelen-be-entertainment-op-hoog-niveau/">onvergetelijk entertainment op locatie</a></p><ul> <li>Locatie reserveren (thuis, speeltuin, indoor speelparadijs)</li> <li>Thema kiezen</li> <li>Uitnodigingen maken en versturen</li> <li>Activiteiten en spelletjes bedenken</li> <li>Versieringen kopen</li> <li>Catering regelen</li> <li>Goodiebags samenstellen</li></ul><p>Door op tijd te beginnen, voorkom je stress en kun je alles rustig regelen.</p><h2>Kies een Leuk Thema voor het Kinderfeestje</h2><p>Een thema maakt een kinderfeestje extra speciaal. Kies een thema dat past bij de leeftijd en interesses van de kinderen. Populaire thema's zijn bijvoorbeeld:</p><ul> <li>Piratenfeestje</li> <li>Prinsessenfeestje</li> <li>Superheldenfeestje</li> <li>Junglefeestje</li> <li>Disco feestje</li></ul><p>Zorg voor passende decoraties, kostuums en spelletjes die aansluiten bij het gekozen thema. Wil je iets bijzonders? Overweeg dan een <a href="https://vuurspuwer.com/">vuurspuwer</a> voor een onvergetelijke show!</p><h3>Uitnodigingen Maken en Versturen</h3><p>De uitnodiging is het visitekaartje van het feestje. Maak een leuke uitnodiging die past bij het thema. Vermeld de volgende informatie:</p><ul> <li>Datum en tijd</li> <li>Locatie</li> <li>Thema (indien van toepassing)</li> <li>Wat de kinderen mee moeten nemen</li> <li>RSVP (Répondez s'il vous plaît)</li></ul><p>Verstuur de uitnodigingen ruim van tevoren, zodat de ouders voldoende tijd hebben om te reageren.</p><h2>Leuke Activiteiten voor Binnen en Buiten</h2><p>Zorg voor voldoende activiteiten tijdens het kinderfeestje, zowel voor binnen als buiten. Pas de activiteiten aan aan de leeftijd van de kinderen en het gekozen thema.</p><h3>Binnen Activiteiten</h3><ul> <li>Knutselen</li> <li>Spelletjes (stoelendans, memory, bingo)</li> <li>Film kijken</li> <li>Verhaal vertellen</li></ul><h3>Buiten Activiteiten</h3><ul> <li>Speurtocht</li> <li>Zaklopen</li> <li>Sjoelen</li> <li>Waterspelletjes (bij warm weer)</li></ul><p>Vergeet niet om voor voldoende begeleiding te zorgen, zodat de kinderen veilig kunnen spelen. Overweeg ook eens <a href="https://vuurspuwer.com/contact/">contact</a> op te nemen met een professional voor entertainment!</p><h2>Eten en Drinken: Smullen Maar!</h2><p>Een kinderfeestje is niet compleet zonder lekker eten en drinken. Zorg voor een gevarieerd aanbod aan hapjes en drankjes. Denk aan:</p><ul> <li>Cupcakes</li> <li>Fruitspiesjes</li> <li>Popcorn</li> <li>Pannenkoeken</li> <li>Frisdrank, water en sapjes</li></ul><p>Houd rekening met eventuele allergieën of dieetwensen van de kinderen. Vraag ouders vooraf naar eventuele bijzonderheden.</p><p>Met deze tips wordt het organiseren van een kinderfeestje een stuk eenvoudiger en leuker. Geniet van de voorbereidingen en het feest zelf! Meer informatie over kinderfeestjes is te vinden op <a href="https://nl.wikipedia.org/wiki/Kinderfeestje">Wikipedia</a>.</p>
@@ -114,7 +128,7 @@
     <div class="hero__actions">
       <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
       <a class="btn btn--ghost" href="https://wa.me/31620020723">WhatsApp direct</a>
-      <a class="btn btn--ghost" href="/#boeken">Stuur een aanvraag</a>
+      <a class="btn btn--ghost" href="/contact-3/">Stuur een aanvraag</a>
     </div>
   </section>
 </main>
@@ -163,6 +177,7 @@
         <li><a href="tel:+31620020723">+31 6 200 207 23</a></li>
         <li><a href="https://wa.me/31620020723" rel="noopener">WhatsApp</a></li>
         <li><a href="mailto:nuno@vuurspuwer.com">nuno@vuurspuwer.com</a></li>
+        <li><a href="/contact-3/">Aanvraagformulier</a></li>
         <li><a href="/disclaimer-voorwaarden/">Algemene voorwaarden</a></li>
         <li><a href="/privacybeleid/">Privacybeleid</a></li>
       </ul>

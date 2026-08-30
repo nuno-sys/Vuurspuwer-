@@ -24,8 +24,9 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
+<link rel="preload" as="image" href="/assets/media/post-cover.webp" fetchpriority="high">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://vuurspuwer.com/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://vuurspuwer.com/blog/"}, {"@type": "ListItem", "position": 3, "name": "Vuurspuwer Boeken voor een Halloween party: De Ultieme Spectaculaire Ervaring"}]}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Vuurspuwer Boeken voor een Halloween party: De Ultieme Spectaculaire Ervaring", "datePublished": "2025-10-12", "description": "Halloween show boeken? Vuurspuwer Nuno bezorgt uw gasten een onvergetelijke schrik met vuur en fakir. Vraag nu uw datum aan! 🔥", "mainEntityOfPage": "https://vuurspuwer.com/vuurspuwer-boeken-voor-een-halloween-party-de-ultieme-spectaculaire-ervaring/", "image": "https://vuurspuwer.com/assets/media/post-cover.webp", "author": {"@type": "Person", "name": "Nuno", "@id": "https://vuurspuwer.com/#nuno"}, "publisher": {"@id": "https://vuurspuwer.com/#business"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Vuurspuwer Boeken voor een Halloween party: De Ultieme Spectaculaire Ervaring", "datePublished": "2025-10-12", "dateModified": "2026-08-30", "description": "Halloween show boeken? Vuurspuwer Nuno bezorgt uw gasten een onvergetelijke schrik met vuur en fakir. Vraag nu uw datum aan! 🔥", "mainEntityOfPage": "https://vuurspuwer.com/vuurspuwer-boeken-voor-een-halloween-party-de-ultieme-spectaculaire-ervaring/", "image": "https://vuurspuwer.com/assets/media/post-cover.webp", "author": {"@type": "Person", "name": "Nuno", "@id": "https://vuurspuwer.com/#nuno"}, "publisher": {"@id": "https://vuurspuwer.com/#business"}}</script>
 </head>
 <body>
 <a class="skip" href="#top">Naar de inhoud</a>
@@ -55,16 +56,22 @@
      Chrome
      ============================================================ -->
 <header class="nav" id="nav">
-  <a class="nav__brand" href="/#top" aria-label="Vuurspuwer Nuno, naar boven">
-    <span class="logo" id="navLogo" role="img" aria-label="Nuno"></span>
-  </a>
+  <div class="nav__home">
+    <a class="nav__brand" href="/" aria-label="Vuurspuwer Nuno, naar de homepagina">
+      <span class="logo" id="navLogo" role="img" aria-label="Nuno"></span>
+    </a>
+    <a class="nav__stars" href="/beoordelingen/" aria-label="4,9 van de 5 sterren uit 134 reviews — lees de beoordelingen"><i aria-hidden="true">&starf;&starf;&starf;&starf;&starf;</i>4.9 &middot; 134 reviews</a>
+  </div>
 
   <nav class="nav__links" aria-label="Hoofdmenu">
-    <a class="nav__link" href="/#shows">Shows</a>
-    <a class="nav__link" href="/#reel">Showreel</a>
-    <a class="nav__link" href="/#werk">Galerij</a>
-    <a class="nav__link" href="/#reviews">Reviews</a>
-    <a class="nav__link" href="/#locaties">Locaties</a>
+    <a class="nav__link nav__link--home" href="/">Home</a>
+    <a class="nav__link" href="/fotos/">Foto's</a>
+    <a class="nav__link" href="/videos/">Video's</a>
+    <a class="nav__link" href="/vuurspuwer-inhuren/">Vuurshow</a>
+    <a class="nav__link" href="/workshop-vuurspuwen/">Workshop</a>
+    <a class="nav__link nav__link--hot" href="/halloween/">&#127875; Halloween</a>
+    <a class="nav__link" href="/fakir-show-inhuren/">Fakirshow</a>
+    <a class="nav__link" href="/contact-3/">Contact</a>
   </nav>
 
   <div class="nav__act">
@@ -73,19 +80,22 @@
         <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1.1l-2.3 2.1z"/>
       </svg>
     </a>
-    <a class="btn btn--sm" href="/#boeken"><span class="btn__dot"></span>Offerte aanvragen</a>
+    <a class="btn btn--sm" href="/contact-3/"><span class="btn__dot"></span>Offerte aanvragen</a>
   </div>
 
   <button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Menu openen"><i></i></button>
 </header>
 
 <nav class="menu" id="menu" aria-label="Mobiel menu">
-  <a href="/#shows" style="--i:0">Shows</a>
-  <a href="/#reel" style="--i:1">Showreel</a>
-  <a href="/#werk" style="--i:2">Galerij</a>
-  <a href="/#reviews" style="--i:3">Reviews</a>
-  <a href="/#locaties" style="--i:4">Locaties</a>
-  <a href="/#boeken" style="--i:5">Offerte</a>
+  <a href="/" style="--i:0">Home</a>
+  <a href="/fotos/" style="--i:1">Foto's</a>
+  <a href="/videos/" style="--i:2">Video's</a>
+  <a href="/vuurspuwer-inhuren/" style="--i:3">Vuurshow</a>
+  <a href="/workshop-vuurspuwen/" style="--i:4">Workshop</a>
+  <a href="/halloween/" style="--i:5">&#127875; Halloween</a>
+  <a href="/fakir-show-inhuren/" style="--i:6">Fakirshow</a>
+  <a href="/beoordelingen/" style="--i:7">Reviews</a>
+  <a href="/contact-3/" style="--i:8">Contact</a>
   <div class="menu__foot">
     <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
     <p class="menu__meta">Nederland, Belgi&euml; &amp; internationaal</p>
@@ -94,14 +104,18 @@
 
 
 <main class="shell" id="top">
-  <article class="page wrap">
-    <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li><a href="/blog/">Blog</a></li><li><span aria-current="page">Vuurspuwer Boeken voor een Halloween party: De Ultieme Spectaculaire Ervaring</span></li></ol></nav>
-    <p class="eyebrow">Blog</p>
-    <h1 class="page__title">Vuurspuwer Boeken voor een Halloween party: De Ultieme Spectaculaire Ervaring</h1>
-    <p class="lede">Halloween is dé tijd van het jaar voor mysterie, spanning en onvergetelijke ervaringen. Wilt u dit jaar echt indruk maken op uw gasten? Overweeg dan een vuurspuwer boeken Halloween . De…</p>
-  </article>
+  <header class="phero">
+    <div class="phero__bg" style="background-image:url('/assets/media/post-cover.webp')" aria-hidden="true"></div>
+    <img class="phero__img" src="/assets/media/post-cover.webp" alt="Vuurspuwer Nuno met een metershoge vuurbal tegen een zwarte nachtlucht" fetchpriority="high" decoding="async">
+    <div class="phero__veil" aria-hidden="true"></div>
+    <div class="phero__body wrap">
+      <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li><a href="/blog/">Blog</a></li><li><span aria-current="page">Vuurspuwer Boeken voor een Halloween party: De Ultieme Spectaculaire Ervaring</span></li></ol></nav>
+      <p class="eyebrow">Blog</p>
+      <h1 class="page__title">Vuurspuwer Boeken voor een Halloween party: De Ultieme Spectaculaire Ervaring</h1>
+      <p class="lede">Halloween is dé tijd van het jaar voor mysterie, spanning en onvergetelijke ervaringen. Wilt u dit jaar echt indruk maken op uw gasten? Overweeg dan een vuurspuwer boeken Halloween . De…</p>
+    </div>
+  </header>
 
-  <figure class="lede-img wrap"><img src="/assets/media/post-cover.webp" alt="Vuurspuwer Nuno met een metershoge vuurbal tegen een zwarte nachtlucht" loading="lazy" decoding="async"></figure>
   <div class="wrap bay">
     <div class="prose prose--page">
 <h2>Maak Uw Halloween Onvergetelijk: Vuurspuwer Boeken voor een Spectaculaire Show</h2><p>Halloween is dé tijd van het jaar voor mysterie, spanning en onvergetelijke ervaringen. Wilt u dit jaar echt indruk maken op uw gasten? Overweeg dan een <b>vuurspuwer boeken Halloween</b>. De combinatie van angst en fascinatie, perfect gevangen in de dansende vlammen, maakt uw feest gegarandeerd memorabel.</p><h2>Waarom Vuurspuwer Nuno de Perfecte Keuze is voor Uw Halloween Party</h2><p>Nuno, van Vuurspuwer.com, begrijpt de unieke sfeer van Halloween. Zijn shows zijn meer dan alleen trucs; het zijn theatrale optredens die een verhaal vertellen. Stel u voor: metershoge vlammen tegen de donkere nacht, schaduwen die dansen op de gezichten van uw gasten. Of uw thema nu griezelig, elegant of fantasierijk is, Nuno's vuurshow voegt een onmiskenbaar element van gevaarlijke schoonheid toe. De adrenaline giert door de aderen terwijl uw gasten getuige zijn van een onvergetelijke avond. <a href="https://vuurspuwer.com/over-nuno/">meer dan 10 jaar expertise in vuurspuwen en fakirshows</a> <a href="https://vuurspuwer.com/locaties-vuurshows-nederland-belgie/">mogelijkheden voor andere evenementen en locaties</a></p><h3>Meer dan 10 Jaar Ervaring in Vuur- en Fakirshows</h3><p>Ervaring is essentieel, zeker als het om vuur gaat. Nuno brengt meer dan 10 jaar expertise mee in de wereld van het vuurspuwen en de <a href="https://nl.wikipedia.org/wiki/Fakir">fakirshow</a>. Deze ervaring garandeert niet alleen een vlekkeloze uitvoering, maar ook een diepgaand begrip van veiligheidsprotocollen. Van intieme bijeenkomsten tot grote festivals, Nuno benadert elk optreden met dezelfde toewijding. Zijn repertoire omvat vlammenspuiten, vuurvreten, body burning en adembenemende fakir-acts. Deze veelzijdigheid stelt Nuno in staat een show op maat te leveren, perfect passend bij de sfeer van uw Halloween party. Bent u benieuwd wat de mogelijkheden zijn? Neem dan <a href="https://vuurspuwer.com/contact/">contact</a> op!</p><h2>Eenvoudig Vuurspuwer Boeken: Uw Stappenplan</h2><p>Het boeken van een vuurspuwer voor uw Halloween party is eenvoudiger dan u denkt:</p><ol> <li><b>Neem Contact Op:</b> Bel ons (+31 6 20020723) of e-mail (nuno@vuurspuwer.com) met uw wensen, datum, locatie en geschat aantal gasten. Vertel ons over uw thema en eventuele specifieke ideeën.</li> <li><b>Ontvang Een Voorstel Op Maat:</b> Op basis van uw input stellen wij een vrijblijvend voorstel op, inclusief showdetails, benodigde ruimte, veiligheidsmaatregelen en een transparante prijsopgave.</li> <li><b>Bevestig Uw Boeking:</b> Na akkoord leggen we de afspraken definitief vast. Wij zorgen voor alle voorbereidingen, zodat u zich kunt richten op de rest van uw Halloween party planning.</li></ol><h2>Veelgestelde Vragen (FAQ) over een Vuurspuwer Boeken</h2><h3>Is een vuurshow veilig?</h3><p>Absoluut. Veiligheid is onze prioriteit. Nuno werkt uitsluitend met goedgekeurde materialen en volgt strikte veiligheidsprotocollen. Voorafgaand aan elk optreden wordt de locatie zorgvuldig gecontroleerd. Nuno is getraind en ervaren in het beheersen van vuur. <a href="https://vuurspuwer.com/disclaimer-voorwaarden/">veiligheidsprotocollen en voorwaarden</a></p><h3>Wat kost het om een vuurspuwer te boeken voor Halloween?</h3><p>De kosten variëren afhankelijk van de duur van de show, de complexiteit, speciale wensen en de reisafstand. Wij bieden altijd een offerte op maat. Neem contact op voor een vrijblijvende prijsopgave. Wilt u de mogelijkheden voor andere evenementen bekijken? Kijk dan eens op de <a href="https://vuurspuwer.com/">homepagina</a>.</p><h3>Welke ruimte is er nodig voor een vuurshow?</h3><p>Voldoende buitenruimte is essentieel, of een binnenlocatie met zeer hoge plafonds en goede ventilatie. Een vrije open ruimte van minimaal 5x5 meter is aan te raden, met een vrije hoogte van minstens 6 meter indien binnen. Er mogen geen brandbare materialen in de directe omgeving zijn. Neem contact op voor advies op maat.</p>
@@ -114,7 +128,7 @@
     <div class="hero__actions">
       <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
       <a class="btn btn--ghost" href="https://wa.me/31620020723">WhatsApp direct</a>
-      <a class="btn btn--ghost" href="/#boeken">Stuur een aanvraag</a>
+      <a class="btn btn--ghost" href="/contact-3/">Stuur een aanvraag</a>
     </div>
   </section>
 </main>
@@ -163,6 +177,7 @@
         <li><a href="tel:+31620020723">+31 6 200 207 23</a></li>
         <li><a href="https://wa.me/31620020723" rel="noopener">WhatsApp</a></li>
         <li><a href="mailto:nuno@vuurspuwer.com">nuno@vuurspuwer.com</a></li>
+        <li><a href="/contact-3/">Aanvraagformulier</a></li>
         <li><a href="/disclaimer-voorwaarden/">Algemene voorwaarden</a></li>
         <li><a href="/privacybeleid/">Privacybeleid</a></li>
       </ul>

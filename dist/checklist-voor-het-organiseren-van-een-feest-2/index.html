@@ -24,8 +24,9 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
+<link rel="preload" as="image" href="/assets/media/post-cover.webp" fetchpriority="high">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://vuurspuwer.com/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://vuurspuwer.com/blog/"}, {"@type": "ListItem", "position": 3, "name": "feest checklist"}]}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "feest checklist", "datePublished": "2023-12-08", "description": "Onvergetelijk feest organiseren? Gebruik deze stap-voor-stap checklist én boek een vuurspuwer voor extra spektakel. Vraag vrijblijvend aan!", "mainEntityOfPage": "https://vuurspuwer.com/checklist-voor-het-organiseren-van-een-feest-2/", "image": "https://vuurspuwer.com/assets/media/post-cover.webp", "author": {"@type": "Person", "name": "Nuno", "@id": "https://vuurspuwer.com/#nuno"}, "publisher": {"@id": "https://vuurspuwer.com/#business"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "feest checklist", "datePublished": "2023-12-08", "dateModified": "2026-08-30", "description": "Onvergetelijk feest organiseren? Gebruik deze stap-voor-stap checklist én boek een vuurspuwer voor extra spektakel. Vraag vrijblijvend aan!", "mainEntityOfPage": "https://vuurspuwer.com/checklist-voor-het-organiseren-van-een-feest-2/", "image": "https://vuurspuwer.com/assets/media/post-cover.webp", "author": {"@type": "Person", "name": "Nuno", "@id": "https://vuurspuwer.com/#nuno"}, "publisher": {"@id": "https://vuurspuwer.com/#business"}}</script>
 </head>
 <body>
 <a class="skip" href="#top">Naar de inhoud</a>
@@ -55,16 +56,22 @@
      Chrome
      ============================================================ -->
 <header class="nav" id="nav">
-  <a class="nav__brand" href="/#top" aria-label="Vuurspuwer Nuno, naar boven">
-    <span class="logo" id="navLogo" role="img" aria-label="Nuno"></span>
-  </a>
+  <div class="nav__home">
+    <a class="nav__brand" href="/" aria-label="Vuurspuwer Nuno, naar de homepagina">
+      <span class="logo" id="navLogo" role="img" aria-label="Nuno"></span>
+    </a>
+    <a class="nav__stars" href="/beoordelingen/" aria-label="4,9 van de 5 sterren uit 134 reviews — lees de beoordelingen"><i aria-hidden="true">&starf;&starf;&starf;&starf;&starf;</i>4.9 &middot; 134 reviews</a>
+  </div>
 
   <nav class="nav__links" aria-label="Hoofdmenu">
-    <a class="nav__link" href="/#shows">Shows</a>
-    <a class="nav__link" href="/#reel">Showreel</a>
-    <a class="nav__link" href="/#werk">Galerij</a>
-    <a class="nav__link" href="/#reviews">Reviews</a>
-    <a class="nav__link" href="/#locaties">Locaties</a>
+    <a class="nav__link nav__link--home" href="/">Home</a>
+    <a class="nav__link" href="/fotos/">Foto's</a>
+    <a class="nav__link" href="/videos/">Video's</a>
+    <a class="nav__link" href="/vuurspuwer-inhuren/">Vuurshow</a>
+    <a class="nav__link" href="/workshop-vuurspuwen/">Workshop</a>
+    <a class="nav__link nav__link--hot" href="/halloween/">&#127875; Halloween</a>
+    <a class="nav__link" href="/fakir-show-inhuren/">Fakirshow</a>
+    <a class="nav__link" href="/contact-3/">Contact</a>
   </nav>
 
   <div class="nav__act">
@@ -73,19 +80,22 @@
         <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1.1l-2.3 2.1z"/>
       </svg>
     </a>
-    <a class="btn btn--sm" href="/#boeken"><span class="btn__dot"></span>Offerte aanvragen</a>
+    <a class="btn btn--sm" href="/contact-3/"><span class="btn__dot"></span>Offerte aanvragen</a>
   </div>
 
   <button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Menu openen"><i></i></button>
 </header>
 
 <nav class="menu" id="menu" aria-label="Mobiel menu">
-  <a href="/#shows" style="--i:0">Shows</a>
-  <a href="/#reel" style="--i:1">Showreel</a>
-  <a href="/#werk" style="--i:2">Galerij</a>
-  <a href="/#reviews" style="--i:3">Reviews</a>
-  <a href="/#locaties" style="--i:4">Locaties</a>
-  <a href="/#boeken" style="--i:5">Offerte</a>
+  <a href="/" style="--i:0">Home</a>
+  <a href="/fotos/" style="--i:1">Foto's</a>
+  <a href="/videos/" style="--i:2">Video's</a>
+  <a href="/vuurspuwer-inhuren/" style="--i:3">Vuurshow</a>
+  <a href="/workshop-vuurspuwen/" style="--i:4">Workshop</a>
+  <a href="/halloween/" style="--i:5">&#127875; Halloween</a>
+  <a href="/fakir-show-inhuren/" style="--i:6">Fakirshow</a>
+  <a href="/beoordelingen/" style="--i:7">Reviews</a>
+  <a href="/contact-3/" style="--i:8">Contact</a>
   <div class="menu__foot">
     <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
     <p class="menu__meta">Nederland, Belgi&euml; &amp; internationaal</p>
@@ -94,14 +104,18 @@
 
 
 <main class="shell" id="top">
-  <article class="page wrap">
-    <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li><a href="/blog/">Blog</a></li><li><span aria-current="page">feest checklist</span></li></ol></nav>
-    <p class="eyebrow">Blog</p>
-    <h1 class="page__title">feest checklist</h1>
-    <p class="lede">Een feest organiseren kan overweldigend zijn. Of het nu gaat om een verjaardag, bruiloft, jubileum of een ander speciaal evenement, een goede voorbereiding is essentieel. Deze uitgebreide…</p>
-  </article>
+  <header class="phero">
+    <div class="phero__bg" style="background-image:url('/assets/media/post-cover.webp')" aria-hidden="true"></div>
+    <img class="phero__img" src="/assets/media/post-cover.webp" alt="Vuurspuwer Nuno met een metershoge vuurbal tegen een zwarte nachtlucht" fetchpriority="high" decoding="async">
+    <div class="phero__veil" aria-hidden="true"></div>
+    <div class="phero__body wrap">
+      <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li><a href="/blog/">Blog</a></li><li><span aria-current="page">feest checklist</span></li></ol></nav>
+      <p class="eyebrow">Blog</p>
+      <h1 class="page__title">feest checklist</h1>
+      <p class="lede">Een feest organiseren kan overweldigend zijn. Of het nu gaat om een verjaardag, bruiloft, jubileum of een ander speciaal evenement, een goede voorbereiding is essentieel. Deze uitgebreide…</p>
+    </div>
+  </header>
 
-  <figure class="lede-img wrap"><img src="/assets/media/post-cover.webp" alt="Vuurspuwer Nuno met een metershoge vuurbal tegen een zwarte nachtlucht" loading="lazy" decoding="async"></figure>
   <div class="wrap bay">
     <div class="prose prose--page">
 <h2>De Ultieme Checklist om een Onvergetelijk Feest te Organiseren</h2><p>Een feest organiseren kan overweldigend zijn. Of het nu gaat om een verjaardag, bruiloft, jubileum of een ander speciaal evenement, een goede voorbereiding is essentieel. Deze uitgebreide checklist helpt je stap voor stap om van jouw feest een succes te maken. En voor een extra spectaculaire invulling van je feest, overweeg dan eens een <a href="https://vuurspuwer.com/">vuurspuwer</a>!</p><h3>1. Locatie en Datum: De Basis van Elk Succesvol Feest</h3><p>De eerste stap is het kiezen van de perfecte locatie en een geschikte datum. Denk goed na over het aantal gasten dat je verwacht en zorg ervoor dat de locatie voldoende ruimte biedt. Reserveer de locatie ruim van tevoren om teleurstellingen te voorkomen. Houd rekening met de beschikbaarheid van je gasten en vermijd belangrijke feestdagen of evenementen. Een handige tip: bezoek de locatie op verschillende tijdstippen om een goed beeld te krijgen van de sfeer en de mogelijkheden. <a href="https://vuurspuwer.com/over-nuno/">vuurspuwer inhuren</a> <a href="https://vuurspuwer.com/locaties-vuurshows-nederland-belgie/">Informeer vrijblijvend naar de mogelijkheden</a> <a href="https://vuurspuwer.com/een-onvergetelijk-event-bij-martins-patershof-mechelen-be-entertainment-op-hoog-niveau/">vuurspuwer inhuren kan je feest onvergetelijk maken</a></p><h3>2. Gastenlijst: Wie Nodig Je Uit?</h3><p>Een nauwkeurige gastenlijst is cruciaal voor een goede planning. Maak een lijst van alle personen die je wilt uitnodigen en categoriseer ze eventueel op basis van prioriteit. Verzamel de contactgegevens van iedereen, zodat je de uitnodigingen gemakkelijk kunt versturen. Overweeg ook om een 'plus one' optie aan te bieden.</p><h3>3. Uitnodigingen: De Eerste Indruk Maakt het Verschil</h3><p>Verstuur de uitnodigingen ruim van tevoren, idealiter 4 tot 6 weken voor het evenement. Vermeld alle relevante details, zoals locatie, datum, tijd, dresscode en eventuele speciale wensen. Je kunt kiezen voor digitale uitnodigingen, gedrukte kaarten of een combinatie van beide. Vergeet niet om een RSVP-verzoek toe te voegen, zodat je een goed beeld krijgt van het aantal aanwezigen. Voor meer informatie over etiquette rondom feesten, kun je <a href="https://nl.wikipedia.org/wiki/Feest">Wikipedia</a> raadplegen.</p><h3>4. Decoratie: Creëer de Juiste Sfeer</h3><p>De decoratie bepaalt de sfeer van jouw feest. Kies een thema of stijl die past bij de gelegenheid en selecteer de decoraties dienovereenkomstig. Denk aan ballonnen, slingers, bloemen, verlichting en tafeldecoratie. Zorg ervoor dat de decoratie past bij de locatie en de algemene uitstraling van het feest. Heb je al gedacht aan entertainment? Een <a href="https://vuurspuwer.com/vuurspuwer-inhuren-in-lille-zet-de-kempen-in-vuur-en-vlam/">vuurspuwer inhuren</a> kan je feest onvergetelijk maken!</p><h3>5. Muziek: De Soundtrack van Jouw Feest</h3><p>De juiste muziek is essentieel voor een goede sfeer. Overweeg het inhuren van een DJ, band of het samenstellen van een afspeellijst die past bij de smaak van jouw gasten en het thema van het feest. Zorg voor voldoende variatie en houd rekening met de verschillende momenten van de avond. Van achtergrondmuziek tijdens het diner tot dansmuziek later op de avond.</p><h3>6. Eten en Drinken: Verwen Je Gasten</h3><p>Het kiezen van het juiste eten en drinken is cruciaal voor een geslaagd feest. Denk na over het soort evenement dat je organiseert en selecteer de menu-items dienovereenkomstig. Overweeg dieetwensen en allergieën van je gasten en zorg voor voldoende variatie. Of je nu kiest voor catering, een buffet of zelfgemaakte hapjes, zorg ervoor dat er genoeg is voor iedereen.</p><h3>7. Entertainment: Maak het Onvergetelijk</h3><p>Entertainment kan variëren, afhankelijk van het soort feest dat je organiseert. Overweeg het inhuren van een comedian, goochelaar, live band, of het organiseren van spellen en activiteiten. Een vuurspuwer kan een spectaculaire toevoeging zijn aan jouw feest. Informeer vrijblijvend naar de mogelijkheden. Neem <a href="https://vuurspuwer.com/contact/">contact</a> op voor meer informatie.</p><h3>8. Draaiboek: Houd Overzicht en Controle</h3><p>Maak een gedetailleerd draaiboek van de avond. Noteer alle belangrijke momenten en wie verantwoordelijk is voor welke taken. Dit helpt je om het overzicht te bewaren en ervoor te zorgen dat alles soepel verloopt.</p><h3>9. Budget: Houd de Kosten in de Gaten</h3><p>Stel een realistisch budget op en houd de kosten nauwlettend in de gaten. Maak een overzicht van alle verwachte uitgaven en vergelijk prijzen van verschillende leveranciers. Zo voorkom je onverwachte verrassingen en houd je de controle over je financiën.</p><h3>10. Geniet!</h3><p>Last but not least: vergeet niet om zelf te genieten van je feest! Al het harde werk is gedaan, dus ontspan en vier de gelegenheid met je gasten. Een goede voorbereiding zorgt ervoor dat je zelf ook een geweldige tijd hebt.</p>
@@ -114,7 +128,7 @@
     <div class="hero__actions">
       <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
       <a class="btn btn--ghost" href="https://wa.me/31620020723">WhatsApp direct</a>
-      <a class="btn btn--ghost" href="/#boeken">Stuur een aanvraag</a>
+      <a class="btn btn--ghost" href="/contact-3/">Stuur een aanvraag</a>
     </div>
   </section>
 </main>
@@ -163,6 +177,7 @@
         <li><a href="tel:+31620020723">+31 6 200 207 23</a></li>
         <li><a href="https://wa.me/31620020723" rel="noopener">WhatsApp</a></li>
         <li><a href="mailto:nuno@vuurspuwer.com">nuno@vuurspuwer.com</a></li>
+        <li><a href="/contact-3/">Aanvraagformulier</a></li>
         <li><a href="/disclaimer-voorwaarden/">Algemene voorwaarden</a></li>
         <li><a href="/privacybeleid/">Privacybeleid</a></li>
       </ul>

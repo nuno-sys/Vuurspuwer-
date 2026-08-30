@@ -924,18 +924,21 @@
       const body = [
         "Naam: " + naam,
         "E-mail: " + mail,
+        (data.get("telefoon") ? "Telefoon: " + data.get("telefoon") : null),
         "Datum: " + (data.get("datum") || "-"),
         "Act: " + (data.get("act") || "-"),
         "Locatie: " + (data.get("locatie") || "-"),
         "Ruimte: " + (data.get("ruimte") || "-"),
         "", String(data.get("bericht") || "")
-      ].join("\n");
+      ].filter((l) => l !== null).join("\n");
 
       status.innerHTML =
         "Je aanvraag staat klaar &mdash; " +
         '<a href="mailto:nuno@vuurspuwer.com?subject=' +
         encodeURIComponent("Aanvraag " + naam) + "&body=" + encodeURIComponent(body) +
-        '">verstuur hem via je eigen mailprogramma</a>.';
+        '">verstuur hem via je eigen mailprogramma</a> of ' +
+        '<a href="https://wa.me/31620020723?text=' + encodeURIComponent(body) +
+        '" rel="noopener">app hem direct via WhatsApp</a>.';
     });
   }
 

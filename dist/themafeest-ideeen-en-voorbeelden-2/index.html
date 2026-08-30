@@ -24,8 +24,9 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
+<link rel="preload" as="image" href="/assets/media/post-cover.webp" fetchpriority="high">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://vuurspuwer.com/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://vuurspuwer.com/blog/"}, {"@type": "ListItem", "position": 3, "name": "Themafeest ideeën en voorbeelden"}]}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Themafeest ideeën en voorbeelden", "datePublished": "2023-12-08", "description": "Ontdek originele themafeest ideeën voor uw verjaardag, bruiloft of bedrijfsfeest. Nuno maakt elk thema onvergetelijk. Vraag vrijblijvend aan!", "mainEntityOfPage": "https://vuurspuwer.com/themafeest-ideeen-en-voorbeelden-2/", "image": "https://vuurspuwer.com/assets/media/post-cover.webp", "author": {"@type": "Person", "name": "Nuno", "@id": "https://vuurspuwer.com/#nuno"}, "publisher": {"@id": "https://vuurspuwer.com/#business"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Themafeest ideeën en voorbeelden", "datePublished": "2023-12-08", "dateModified": "2026-08-30", "description": "Ontdek originele themafeest ideeën voor uw verjaardag, bruiloft of bedrijfsfeest. Nuno maakt elk thema onvergetelijk. Vraag vrijblijvend aan!", "mainEntityOfPage": "https://vuurspuwer.com/themafeest-ideeen-en-voorbeelden-2/", "image": "https://vuurspuwer.com/assets/media/post-cover.webp", "author": {"@type": "Person", "name": "Nuno", "@id": "https://vuurspuwer.com/#nuno"}, "publisher": {"@id": "https://vuurspuwer.com/#business"}}</script>
 </head>
 <body>
 <a class="skip" href="#top">Naar de inhoud</a>
@@ -55,16 +56,22 @@
      Chrome
      ============================================================ -->
 <header class="nav" id="nav">
-  <a class="nav__brand" href="/#top" aria-label="Vuurspuwer Nuno, naar boven">
-    <span class="logo" id="navLogo" role="img" aria-label="Nuno"></span>
-  </a>
+  <div class="nav__home">
+    <a class="nav__brand" href="/" aria-label="Vuurspuwer Nuno, naar de homepagina">
+      <span class="logo" id="navLogo" role="img" aria-label="Nuno"></span>
+    </a>
+    <a class="nav__stars" href="/beoordelingen/" aria-label="4,9 van de 5 sterren uit 134 reviews — lees de beoordelingen"><i aria-hidden="true">&starf;&starf;&starf;&starf;&starf;</i>4.9 &middot; 134 reviews</a>
+  </div>
 
   <nav class="nav__links" aria-label="Hoofdmenu">
-    <a class="nav__link" href="/#shows">Shows</a>
-    <a class="nav__link" href="/#reel">Showreel</a>
-    <a class="nav__link" href="/#werk">Galerij</a>
-    <a class="nav__link" href="/#reviews">Reviews</a>
-    <a class="nav__link" href="/#locaties">Locaties</a>
+    <a class="nav__link nav__link--home" href="/">Home</a>
+    <a class="nav__link" href="/fotos/">Foto's</a>
+    <a class="nav__link" href="/videos/">Video's</a>
+    <a class="nav__link" href="/vuurspuwer-inhuren/">Vuurshow</a>
+    <a class="nav__link" href="/workshop-vuurspuwen/">Workshop</a>
+    <a class="nav__link nav__link--hot" href="/halloween/">&#127875; Halloween</a>
+    <a class="nav__link" href="/fakir-show-inhuren/">Fakirshow</a>
+    <a class="nav__link" href="/contact-3/">Contact</a>
   </nav>
 
   <div class="nav__act">
@@ -73,19 +80,22 @@
         <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1.1l-2.3 2.1z"/>
       </svg>
     </a>
-    <a class="btn btn--sm" href="/#boeken"><span class="btn__dot"></span>Offerte aanvragen</a>
+    <a class="btn btn--sm" href="/contact-3/"><span class="btn__dot"></span>Offerte aanvragen</a>
   </div>
 
   <button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Menu openen"><i></i></button>
 </header>
 
 <nav class="menu" id="menu" aria-label="Mobiel menu">
-  <a href="/#shows" style="--i:0">Shows</a>
-  <a href="/#reel" style="--i:1">Showreel</a>
-  <a href="/#werk" style="--i:2">Galerij</a>
-  <a href="/#reviews" style="--i:3">Reviews</a>
-  <a href="/#locaties" style="--i:4">Locaties</a>
-  <a href="/#boeken" style="--i:5">Offerte</a>
+  <a href="/" style="--i:0">Home</a>
+  <a href="/fotos/" style="--i:1">Foto's</a>
+  <a href="/videos/" style="--i:2">Video's</a>
+  <a href="/vuurspuwer-inhuren/" style="--i:3">Vuurshow</a>
+  <a href="/workshop-vuurspuwen/" style="--i:4">Workshop</a>
+  <a href="/halloween/" style="--i:5">&#127875; Halloween</a>
+  <a href="/fakir-show-inhuren/" style="--i:6">Fakirshow</a>
+  <a href="/beoordelingen/" style="--i:7">Reviews</a>
+  <a href="/contact-3/" style="--i:8">Contact</a>
   <div class="menu__foot">
     <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
     <p class="menu__meta">Nederland, Belgi&euml; &amp; internationaal</p>
@@ -94,14 +104,18 @@
 
 
 <main class="shell" id="top">
-  <article class="page wrap">
-    <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li><a href="/blog/">Blog</a></li><li><span aria-current="page">Themafeest ideeën en voorbeelden</span></li></ol></nav>
-    <p class="eyebrow">Blog</p>
-    <h1 class="page__title">Themafeest ideeën en voorbeelden</h1>
-    <p class="lede">Themafeesten zijn dé manier om een evenement extra speciaal te maken. Of je nu een verjaardag, bedrijfsfeest of bruiloft organiseert, een origineel thema zorgt voor een unieke sfeer en een…</p>
-  </article>
+  <header class="phero">
+    <div class="phero__bg" style="background-image:url('/assets/media/post-cover.webp')" aria-hidden="true"></div>
+    <img class="phero__img" src="/assets/media/post-cover.webp" alt="Vuurspuwer Nuno met een metershoge vuurbal tegen een zwarte nachtlucht" fetchpriority="high" decoding="async">
+    <div class="phero__veil" aria-hidden="true"></div>
+    <div class="phero__body wrap">
+      <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li><a href="/blog/">Blog</a></li><li><span aria-current="page">Themafeest ideeën en voorbeelden</span></li></ol></nav>
+      <p class="eyebrow">Blog</p>
+      <h1 class="page__title">Themafeest ideeën en voorbeelden</h1>
+      <p class="lede">Themafeesten zijn dé manier om een evenement extra speciaal te maken. Of je nu een verjaardag, bedrijfsfeest of bruiloft organiseert, een origineel thema zorgt voor een unieke sfeer en een…</p>
+    </div>
+  </header>
 
-  <figure class="lede-img wrap"><img src="/assets/media/post-cover.webp" alt="Vuurspuwer Nuno met een metershoge vuurbal tegen een zwarte nachtlucht" loading="lazy" decoding="async"></figure>
   <div class="wrap bay">
     <div class="prose prose--page">
 <h2>Themafeest Ideeën voor een Onvergetelijk Evenement</h2><p>Themafeesten zijn dé manier om een evenement extra speciaal te maken. Of je nu een verjaardag, bedrijfsfeest of bruiloft organiseert, een origineel thema zorgt voor een unieke sfeer en een onvergetelijke ervaring. Hieronder vind je een aantal inspirerende themafeest ideeën om je op weg te helpen.</p><h2>Populaire Themafeest Voorbeelden</h2><h3>Black and White Thema</h3><p>Een 'Black and White' thema is altijd een goede keuze voor een stijlvol en elegant feest. Gasten kleden zich in zwart en wit, en de locatie wordt versierd met bijpassende decoraties. Denk aan zwarte en witte ballonnen, tafelkleden en eventueel accenten in een felle kleur zoals rood of zilver. Voor een extra touch, overweeg een <a href="https://en.wikipedia.org/wiki/Black-tie_event">black tie dresscode</a>. <a href="https://vuurspuwer.com/over-nuno/">unieke acts van Vuurspuwer Nuno</a> <a href="https://vuurspuwer.com/een-spectaculair-event-bij-technopolis-mechelen-entertainment-dat-vonken-geeft/">mogelijkheden voor entertainment</a></p><h3>1001 Nacht Thema</h3><p>Voor een exotische en mystieke sfeer is het '1001 Nacht' thema perfect. Creëer een oosterse ambiance met kleurrijke stoffen, kussens, tapijten en oosterse lantaarns. Gasten kunnen zich verkleden als personages uit de Arabische sprookjes. Serveer Arabische gerechten en zorg voor passende muziek. Als je op zoek bent naar entertainment dat perfect bij dit thema past, overweeg dan een bezoek aan <a href="https://vuurspuwer.com/">Vuurspuwer.com</a> voor unieke acts.</p><h3>Hawaii Thema</h3><p>Breng de zon en het strand naar je feest met een 'Hawaii' thema. Versier de ruimte met bloemenslingers, opblaasbare palmbomen en tropische decoraties. Gasten kunnen zich kleden in Hawaiiaanse shirts, strooien rokken en bloemenkransen. Serveer tropische cocktails en gerechten zoals verse fruitsalade en gegrilde vis.</p><h3>Hollandse Avond Thema</h3><p>Vier de Nederlandse cultuur met een 'Hollandse Avond'. Versier de locatie met oranje decoraties en laat gasten zich in oranje kleden. Serveer typisch Nederlandse snacks zoals haring en bitterballen, en organiseer spelletjes zoals koekhappen en sjoelen. Dit thema is perfect voor een gezellig en feestelijk evenement. Wil je een spectaculaire toevoeging aan je Hollandse avond? Kijk dan eens naar de mogelijkheden voor entertainment op <a href="https://vuurspuwer.com/contact/">onze contact pagina</a>.</p><h3>Halloween Thema</h3><p>Voor een griezelig en spannend feest is het 'Halloween' thema ideaal. Creëer een spookachtige sfeer met pompoenen, skeletten en enge decoraties. Gasten kunnen zich verkleden als heksen, vampiers of andere angstaanjagende figuren. Serveer enge hapjes en organiseer een kostuumwedstrijd.</p><h3>Middeleeuwen Thema</h3><p>Reis terug in de tijd met een 'Middeleeuwen' thema. Creëer een sfeer van ridders en jonkvrouwen met kasteelachtige decoraties. Gasten kunnen zich verkleden als ridders, prinsessen en tovenaars. Serveer traditionele gerechten zoals pastei en gebraden vlees, en organiseer middeleeuwse spelen zoals boogschieten en zwaardgevechten.</p><h3>Carnaval Thema</h3><p>Een kleurrijk en uitbundig thema is 'Carnaval'. Versier de locatie met slingers, confetti en ballonnen in alle kleuren van de regenboog. Gasten kunnen hun meest extravagante kostuums aantrekken en er zal veel muziek en dans zijn. Serveer typische carnavalslekkernijen zoals oliebollen en snoepjes.</p><h2>Tips voor het Organiseren van een Geslaagd Themafeest</h2><p>Met deze themafeest ideeën kun je jouw volgende feest onvergetelijk maken. Kies een thema dat past bij de gelegenheid en de smaak van jou en je gasten. Zorg voor bijpassende decoraties, eten, drinken en entertainment. Veel plezier met het organiseren van je themafeest! <a href="https://vuurspuwer.com/locaties-vuurshows-nederland-belgie/">entertainment op locatie</a></p>
@@ -114,7 +128,7 @@
     <div class="hero__actions">
       <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
       <a class="btn btn--ghost" href="https://wa.me/31620020723">WhatsApp direct</a>
-      <a class="btn btn--ghost" href="/#boeken">Stuur een aanvraag</a>
+      <a class="btn btn--ghost" href="/contact-3/">Stuur een aanvraag</a>
     </div>
   </section>
 </main>
@@ -163,6 +177,7 @@
         <li><a href="tel:+31620020723">+31 6 200 207 23</a></li>
         <li><a href="https://wa.me/31620020723" rel="noopener">WhatsApp</a></li>
         <li><a href="mailto:nuno@vuurspuwer.com">nuno@vuurspuwer.com</a></li>
+        <li><a href="/contact-3/">Aanvraagformulier</a></li>
         <li><a href="/disclaimer-voorwaarden/">Algemene voorwaarden</a></li>
         <li><a href="/privacybeleid/">Privacybeleid</a></li>
       </ul>

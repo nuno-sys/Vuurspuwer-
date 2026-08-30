@@ -24,8 +24,9 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
+<link rel="preload" as="image" href="/assets/media/post-cover.webp" fetchpriority="high">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://vuurspuwer.com/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://vuurspuwer.com/blog/"}, {"@type": "ListItem", "position": 3, "name": "Tips om origineel je verjaardag te vieren"}]}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Tips om origineel je verjaardag te vieren", "datePublished": "2023-12-08", "description": "Origineel verjaardag vieren met een vuurshow, fakirshow of reptielenshow? Ontdek unieke ideeën en boek Nuno voor een onvergetelijk feest!", "mainEntityOfPage": "https://vuurspuwer.com/tips-om-origineel-je-verjaardag-te-vieren-2/", "image": "https://vuurspuwer.com/assets/media/post-cover.webp", "author": {"@type": "Person", "name": "Nuno", "@id": "https://vuurspuwer.com/#nuno"}, "publisher": {"@id": "https://vuurspuwer.com/#business"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Tips om origineel je verjaardag te vieren", "datePublished": "2023-12-08", "dateModified": "2026-08-30", "description": "Origineel verjaardag vieren met een vuurshow, fakirshow of reptielenshow? Ontdek unieke ideeën en boek Nuno voor een onvergetelijk feest!", "mainEntityOfPage": "https://vuurspuwer.com/tips-om-origineel-je-verjaardag-te-vieren-2/", "image": "https://vuurspuwer.com/assets/media/post-cover.webp", "author": {"@type": "Person", "name": "Nuno", "@id": "https://vuurspuwer.com/#nuno"}, "publisher": {"@id": "https://vuurspuwer.com/#business"}}</script>
 </head>
 <body>
 <a class="skip" href="#top">Naar de inhoud</a>
@@ -55,16 +56,22 @@
      Chrome
      ============================================================ -->
 <header class="nav" id="nav">
-  <a class="nav__brand" href="/#top" aria-label="Vuurspuwer Nuno, naar boven">
-    <span class="logo" id="navLogo" role="img" aria-label="Nuno"></span>
-  </a>
+  <div class="nav__home">
+    <a class="nav__brand" href="/" aria-label="Vuurspuwer Nuno, naar de homepagina">
+      <span class="logo" id="navLogo" role="img" aria-label="Nuno"></span>
+    </a>
+    <a class="nav__stars" href="/beoordelingen/" aria-label="4,9 van de 5 sterren uit 134 reviews — lees de beoordelingen"><i aria-hidden="true">&starf;&starf;&starf;&starf;&starf;</i>4.9 &middot; 134 reviews</a>
+  </div>
 
   <nav class="nav__links" aria-label="Hoofdmenu">
-    <a class="nav__link" href="/#shows">Shows</a>
-    <a class="nav__link" href="/#reel">Showreel</a>
-    <a class="nav__link" href="/#werk">Galerij</a>
-    <a class="nav__link" href="/#reviews">Reviews</a>
-    <a class="nav__link" href="/#locaties">Locaties</a>
+    <a class="nav__link nav__link--home" href="/">Home</a>
+    <a class="nav__link" href="/fotos/">Foto's</a>
+    <a class="nav__link" href="/videos/">Video's</a>
+    <a class="nav__link" href="/vuurspuwer-inhuren/">Vuurshow</a>
+    <a class="nav__link" href="/workshop-vuurspuwen/">Workshop</a>
+    <a class="nav__link nav__link--hot" href="/halloween/">&#127875; Halloween</a>
+    <a class="nav__link" href="/fakir-show-inhuren/">Fakirshow</a>
+    <a class="nav__link" href="/contact-3/">Contact</a>
   </nav>
 
   <div class="nav__act">
@@ -73,19 +80,22 @@
         <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1.1l-2.3 2.1z"/>
       </svg>
     </a>
-    <a class="btn btn--sm" href="/#boeken"><span class="btn__dot"></span>Offerte aanvragen</a>
+    <a class="btn btn--sm" href="/contact-3/"><span class="btn__dot"></span>Offerte aanvragen</a>
   </div>
 
   <button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Menu openen"><i></i></button>
 </header>
 
 <nav class="menu" id="menu" aria-label="Mobiel menu">
-  <a href="/#shows" style="--i:0">Shows</a>
-  <a href="/#reel" style="--i:1">Showreel</a>
-  <a href="/#werk" style="--i:2">Galerij</a>
-  <a href="/#reviews" style="--i:3">Reviews</a>
-  <a href="/#locaties" style="--i:4">Locaties</a>
-  <a href="/#boeken" style="--i:5">Offerte</a>
+  <a href="/" style="--i:0">Home</a>
+  <a href="/fotos/" style="--i:1">Foto's</a>
+  <a href="/videos/" style="--i:2">Video's</a>
+  <a href="/vuurspuwer-inhuren/" style="--i:3">Vuurshow</a>
+  <a href="/workshop-vuurspuwen/" style="--i:4">Workshop</a>
+  <a href="/halloween/" style="--i:5">&#127875; Halloween</a>
+  <a href="/fakir-show-inhuren/" style="--i:6">Fakirshow</a>
+  <a href="/beoordelingen/" style="--i:7">Reviews</a>
+  <a href="/contact-3/" style="--i:8">Contact</a>
   <div class="menu__foot">
     <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
     <p class="menu__meta">Nederland, Belgi&euml; &amp; internationaal</p>
@@ -94,14 +104,18 @@
 
 
 <main class="shell" id="top">
-  <article class="page wrap">
-    <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li><a href="/blog/">Blog</a></li><li><span aria-current="page">Tips om origineel je verjaardag te vieren</span></li></ol></nav>
-    <p class="eyebrow">Blog</p>
-    <h1 class="page__title">Tips om origineel je verjaardag te vieren</h1>
-    <p class="lede">Een verjaardag is een speciale gelegenheid die gevierd moet worden, en wat is er nu leuker dan een themafeest om deze dag extra bijzonder te maken? Met een themafeest kun je een unieke…</p>
-  </article>
+  <header class="phero">
+    <div class="phero__bg" style="background-image:url('/assets/media/post-cover.webp')" aria-hidden="true"></div>
+    <img class="phero__img" src="/assets/media/post-cover.webp" alt="Vuurspuwer Nuno met een metershoge vuurbal tegen een zwarte nachtlucht" fetchpriority="high" decoding="async">
+    <div class="phero__veil" aria-hidden="true"></div>
+    <div class="phero__body wrap">
+      <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li><a href="/blog/">Blog</a></li><li><span aria-current="page">Tips om origineel je verjaardag te vieren</span></li></ol></nav>
+      <p class="eyebrow">Blog</p>
+      <h1 class="page__title">Tips om origineel je verjaardag te vieren</h1>
+      <p class="lede">Een verjaardag is een speciale gelegenheid die gevierd moet worden, en wat is er nu leuker dan een themafeest om deze dag extra bijzonder te maken? Met een themafeest kun je een unieke…</p>
+    </div>
+  </header>
 
-  <figure class="lede-img wrap"><img src="/assets/media/post-cover.webp" alt="Vuurspuwer Nuno met een metershoge vuurbal tegen een zwarte nachtlucht" loading="lazy" decoding="async"></figure>
   <div class="wrap bay">
     <div class="prose prose--page">
 <h2>Tips om origineel je verjaardag te vieren</h2><p>Een verjaardag is een speciale gelegenheid die gevierd moet worden, en wat is er nu leuker dan een themafeest om deze dag extra bijzonder te maken? Met een themafeest kun je een unieke sfeer creëren en je gasten verrassen met een feest om nooit te vergeten. In dit artikel geven we je tips en inspiratie om jouw verjaardag in stijl te vieren.</p><h3>Kies het perfecte thema voor je verjaardagsfeest</h3><p>Het kiezen van het juiste thema is de eerste stap naar een geslaagd themafeest. Kijk naar jouw persoonlijke interesses en hobby's, maar vergeet ook niet om rekening te houden met de voorkeuren van je gasten. Misschien ben je een grote fan van de jaren '80 en wil je een retro feest organiseren, of misschien houd je van exotische culturen en wil je een tropisch thema. De mogelijkheden zijn eindeloos! Inspiratie nodig? Kijk eens op <a href="https://nl.wikipedia.org/wiki/Themafeest">Wikipedia</a> voor themafeest ideeën. <a href="https://vuurspuwer.com/locaties-vuurshows-nederland-belgie/">bijzondere locaties voor evenementen</a> <a href="https://vuurspuwer.com/over-nuno/">vuurspuwer voor een onvergetelijke show</a> <a href="https://vuurspuwer.com/een-onvergetelijk-event-bij-martins-patershof-mechelen-be-entertainment-op-hoog-niveau/">unieke historische feestlocatie</a></p><h3>Locatie en decoratie: Maak de sfeer compleet</h3><p>Zodra het thema is gekozen, is het tijd om de locatie en decoraties te regelen. Denk aan bijpassende kleuren, accessoires en decoratieve items om de sfeer van het thema te versterken. Huur bijvoorbeeld retro meubels voor een jaren '80 feest, of versier de locatie met palmbomen en opblaasbare flamingo's voor een tropisch thema. Vergeet ook niet om uitnodigingen en dresscodes in het thema te sturen, zodat je gasten alvast in de feeststemming komen.</p><h3>Catering die past bij je thema</h3><p>Een themafeest biedt ook de mogelijkheid om te experimenteren met de catering. Kies voor hapjes en drankjes die passen bij het thema van het feest. Denk aan fingerfood uit de jaren '80, zoals mini-hamburgers en cocktailprikkers met stukjes ananas, of serveer exotische cocktails met fruitige smaken tijdens een tropisch feest. Hiermee maak je niet alleen indruk op je gasten, maar zorg je ook voor een unieke culinaire ervaring.</p><h3>Entertainment voor een onvergetelijke avond</h3><p>Om je themafeest nog specialer te maken, kun je overwegen om entertainment toe te voegen. Denk aan een DJ die de beste hits uit de jaren '80 draait, of huur een salsadanser in voor een tropisch feest. Je kunt ook thematische games en activiteiten organiseren die je gasten betrekken bij het feest. Denk aan een karaoke wedstrijd voor een jaren '80 feest, of een hula dansworkshop voor een tropisch thema.  Wil je echt iets spectaculairs? Overweeg dan een <a href="https://vuurspuwer.com/">vuurspuwer</a> voor een onvergetelijke show!</p><h2>Een avontuurlijke verjaardag</h2><p>Ben je op zoek naar een unieke manier om je verjaardag te vieren? Waarom niet kiezen voor een avontuurlijke verjaardag?! Of je nu houdt van adrenaline, natuur of nieuwe ervaringen, er zijn tal van mogelijkheden om je verjaardag op een spannende manier te vieren.</p><h3>Ideeën voor een actieve verjaardag</h3><p>Een populaire optie is om te gaan klimmen in een klimpark. Laat je vrienden en familie hun grenzen verleggen door de verschillende parcours te trotseren. Voor degenen die van water houden, is een dagje raften op een wildwaterbaan een geweldige keuze. Je kunt ook kiezen voor een avontuurlijke wandeling in de natuur, waarbij je een mooie route volgt en onderweg geniet van adembenemende uitzichten.</p><h3>Survival: Een onvergetelijke ervaring</h3><p>Als je liever iets minder inspannends wilt, kun je ervoor kiezen om je verjaardag te vieren op een survivalparcours. Leer in een gecontroleerde omgeving hoe je vuur kunt maken, een shelter kunt bouwen en andere survivaltechnieken kunt beheersen. Dit zal zeker een onvergetelijke ervaring worden voor jou en je gasten.  En als je na dit avontuur contact met ons wilt opnemen, kan dat <a href="https://vuurspuwer.com/contact/">hier</a>!</p><h2>Unieke locatie: vier je verjaardag eens anders</h2><p>Wil je je verjaardag op een unieke manier vieren? Kies dan voor een andere locatie dan je gebruikelijke feestlocatie. Er zijn vele interessante plekken waar je jouw verjaardag kunt vieren en je gasten kunt verrassen.</p><h3>Bijzondere locaties voor een speciaal feest</h3><p>Een optie is om je verjaardag te vieren op een boot. Huur een boot voor een dag of avond en geniet van de prachtige omgeving terwijl je feest viert op het water. Je kunt ook een kasteel of landhuis huren voor een koninklijke verjaardag. Laat jezelf onderdompelen in luxe en geniet van het gevoel van een echte kasteelheer of -dame voor een dag.</p><h3>Industrieel of historisch: Kies een unieke sfeer</h3><p>Een andere interessante optie is om je feest te vieren in een bijzondere evenementenlocatie, zoals een oude fabriek of een historisch pand. Deze unieke locaties bieden vaak een bijzondere sfeer en zorgen voor een onvergetelijke ervaring voor jou en je gasten.</p><h2>Maak er een onvergetelijke verjaardag van!</h2><p>Of je nu kiest voor een themafeest, een avontuurlijke verjaardag of een unieke locatie, het belangrijkste is dat je van je verjaardag geniet en dat je er een feest van maakt om nooit te vergeten. Zorg voor een goede voorbereiding, een passende sfeer en verras je gasten met iets bijzonders. Met deze tips ben je klaar om je verjaardag in stijl te vieren!</p>
@@ -114,7 +128,7 @@
     <div class="hero__actions">
       <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
       <a class="btn btn--ghost" href="https://wa.me/31620020723">WhatsApp direct</a>
-      <a class="btn btn--ghost" href="/#boeken">Stuur een aanvraag</a>
+      <a class="btn btn--ghost" href="/contact-3/">Stuur een aanvraag</a>
     </div>
   </section>
 </main>
@@ -163,6 +177,7 @@
         <li><a href="tel:+31620020723">+31 6 200 207 23</a></li>
         <li><a href="https://wa.me/31620020723" rel="noopener">WhatsApp</a></li>
         <li><a href="mailto:nuno@vuurspuwer.com">nuno@vuurspuwer.com</a></li>
+        <li><a href="/contact-3/">Aanvraagformulier</a></li>
         <li><a href="/disclaimer-voorwaarden/">Algemene voorwaarden</a></li>
         <li><a href="/privacybeleid/">Privacybeleid</a></li>
       </ul>

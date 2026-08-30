@@ -24,6 +24,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
+<link rel="preload" as="image" href="/assets/media/vuurshow-850.webp" fetchpriority="high">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://vuurspuwer.com/"}, {"@type": "ListItem", "position": 2, "name": "Locaties", "item": "https://vuurspuwer.com/locaties-vuurshows-nederland-belgie/"}, {"@type": "ListItem", "position": 3, "name": "Vuurspuwer Hove Inhuren: Vurige Magie in de Parel van de Zuidrand"}]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "Vuurspuwer inhuren in Eindhoven", "serviceType": "Vuurshow", "provider": {"@id": "https://vuurspuwer.com/#business"}, "areaServed": {"@type": "City", "name": "Eindhoven"}, "url": "https://vuurspuwer.com/vuurspuwer-boeken-in-eindhoven/"}</script>
 </head>
@@ -55,16 +56,22 @@
      Chrome
      ============================================================ -->
 <header class="nav" id="nav">
-  <a class="nav__brand" href="/#top" aria-label="Vuurspuwer Nuno, naar boven">
-    <span class="logo" id="navLogo" role="img" aria-label="Nuno"></span>
-  </a>
+  <div class="nav__home">
+    <a class="nav__brand" href="/" aria-label="Vuurspuwer Nuno, naar de homepagina">
+      <span class="logo" id="navLogo" role="img" aria-label="Nuno"></span>
+    </a>
+    <a class="nav__stars" href="/beoordelingen/" aria-label="4,9 van de 5 sterren uit 134 reviews — lees de beoordelingen"><i aria-hidden="true">&starf;&starf;&starf;&starf;&starf;</i>4.9 &middot; 134 reviews</a>
+  </div>
 
   <nav class="nav__links" aria-label="Hoofdmenu">
-    <a class="nav__link" href="/#shows">Shows</a>
-    <a class="nav__link" href="/#reel">Showreel</a>
-    <a class="nav__link" href="/#werk">Galerij</a>
-    <a class="nav__link" href="/#reviews">Reviews</a>
-    <a class="nav__link" href="/#locaties">Locaties</a>
+    <a class="nav__link nav__link--home" href="/">Home</a>
+    <a class="nav__link" href="/fotos/">Foto's</a>
+    <a class="nav__link" href="/videos/">Video's</a>
+    <a class="nav__link" href="/vuurspuwer-inhuren/">Vuurshow</a>
+    <a class="nav__link" href="/workshop-vuurspuwen/">Workshop</a>
+    <a class="nav__link nav__link--hot" href="/halloween/">&#127875; Halloween</a>
+    <a class="nav__link" href="/fakir-show-inhuren/">Fakirshow</a>
+    <a class="nav__link" href="/contact-3/">Contact</a>
   </nav>
 
   <div class="nav__act">
@@ -73,19 +80,22 @@
         <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1.1l-2.3 2.1z"/>
       </svg>
     </a>
-    <a class="btn btn--sm" href="/#boeken"><span class="btn__dot"></span>Offerte aanvragen</a>
+    <a class="btn btn--sm" href="/contact-3/"><span class="btn__dot"></span>Offerte aanvragen</a>
   </div>
 
   <button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Menu openen"><i></i></button>
 </header>
 
 <nav class="menu" id="menu" aria-label="Mobiel menu">
-  <a href="/#shows" style="--i:0">Shows</a>
-  <a href="/#reel" style="--i:1">Showreel</a>
-  <a href="/#werk" style="--i:2">Galerij</a>
-  <a href="/#reviews" style="--i:3">Reviews</a>
-  <a href="/#locaties" style="--i:4">Locaties</a>
-  <a href="/#boeken" style="--i:5">Offerte</a>
+  <a href="/" style="--i:0">Home</a>
+  <a href="/fotos/" style="--i:1">Foto's</a>
+  <a href="/videos/" style="--i:2">Video's</a>
+  <a href="/vuurspuwer-inhuren/" style="--i:3">Vuurshow</a>
+  <a href="/workshop-vuurspuwen/" style="--i:4">Workshop</a>
+  <a href="/halloween/" style="--i:5">&#127875; Halloween</a>
+  <a href="/fakir-show-inhuren/" style="--i:6">Fakirshow</a>
+  <a href="/beoordelingen/" style="--i:7">Reviews</a>
+  <a href="/contact-3/" style="--i:8">Contact</a>
   <div class="menu__foot">
     <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
     <p class="menu__meta">Nederland, Belgi&euml; &amp; internationaal</p>
@@ -94,14 +104,18 @@
 
 
 <main class="shell" id="top">
-  <article class="page wrap">
-    <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li><a href="/locaties-vuurshows-nederland-belgie/">Locaties</a></li><li><span aria-current="page">Vuurspuwer Hove Inhuren: Vurige Magie in de Parel van de Zuidrand</span></li></ol></nav>
-    <p class="eyebrow">Vuurshow op locatie</p>
-    <h1 class="page__title">Vuurspuwer Hove Inhuren: Vurige Magie in de Parel van de Zuidrand</h1>
-    <p class="lede">Woont u in het prachtige Hove en organiseert u binnenkort een bijzonder evenement? Of u nu een exclusief tuinfeest geeft in de statige wijken of een bedrijfsreceptie plant nabij het…</p>
-  </article>
+  <header class="phero">
+    <div class="phero__bg" style="background-image:url('/assets/media/vuurshow-850.webp')" aria-hidden="true"></div>
+    <img class="phero__img" src="/assets/media/vuurshow-850.webp" alt="Vuurspuwer inhuren Ternat – Nuno spuwt vuur tijdens een spectaculaire vuurshow op een evenement in Ternat" fetchpriority="high" decoding="async">
+    <div class="phero__veil" aria-hidden="true"></div>
+    <div class="phero__body wrap">
+      <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li><a href="/locaties-vuurshows-nederland-belgie/">Locaties</a></li><li><span aria-current="page">Vuurspuwer Hove Inhuren: Vurige Magie in de Parel van de Zuidrand</span></li></ol></nav>
+      <p class="eyebrow">Vuurshow op locatie</p>
+      <h1 class="page__title">Vuurspuwer Hove Inhuren: Vurige Magie in de Parel van de Zuidrand</h1>
+      <p class="lede">Woont u in het prachtige Hove en organiseert u binnenkort een bijzonder evenement? Of u nu een exclusief tuinfeest geeft in de statige wijken of een bedrijfsreceptie plant nabij het…</p>
+    </div>
+  </header>
 
-  <figure class="lede-img wrap"><img src="/assets/media/vuurshow-850.webp" alt="Vuurspuwer inhuren Ternat – Nuno spuwt vuur tijdens een spectaculaire vuurshow op een evenement in Ternat" loading="lazy" decoding="async"></figure>
   <div class="wrap bay">
     <div class="prose prose--page">
 <h2>Vuurspuwer Hove: Breng Vurige Magie naar uw Evenement</h2><p>Woont u in het prachtige Hove en organiseert u binnenkort een bijzonder evenement? Of u nu een exclusief tuinfeest geeft in de statige wijken of een bedrijfsreceptie plant nabij het centrum: niets maakt meer indruk dan een professionele vuurshow. Bent u op zoek naar een <a href="https://nl.wikipedia.org/wiki/Vuurspuwen">vuurspuwer in Hove</a>? Dan bent u hier aan het juiste adres voor een avond vol vlammend spektakel.</p><h3>Waarom een vuurspuwer inhuren in Hove?</h3><p>Hove staat bekend als de ‘Parel van de Zuidrand’. Met zijn chique lanen, het prachtige Gemeentepark en historische locaties zoals Kasteel Weyninckhoven, straalt de gemeente klasse en rust uit. Maar soms mag die rust doorbroken worden door pure energie en passie. Een vuurkunstenaar biedt precies dat contrast: een explosie van licht en warmte die perfect aansluit bij de stijlvolle ambiance van Hove. Vuurspuwer Nuno is uw partner voor spectaculaire <a href="https://vuurspuwer.com/">vuurshows</a>. <a href="https://vuurspuwer.com/magisch-entertainment-bij-kasteel-cleydael-aartselaar-be-een-vurig-spektakel/">vuurshow bij Kasteel Cleydael in Aartselaar</a> <a href="https://vuurspuwer.com/locaties-vuurshows-nederland-belgie/">vuurshow locaties in Nederland en België</a> <a href="https://vuurspuwer.com/over-nuno/">meer over Vuurspuwer Nuno</a></p><p>Wanneer u kiest voor ‘vuurspuwer Hove’ als entertainment, kiest u voor een act die uw gasten nog lang zal bijblijven. Het is de perfecte manier om de intieme sfeer van een Hoves tuinfeest om te toveren tot een magisch sprookje.</p><h3>Geschikt voor elk type feest in de regio</h3><p>Onze vuurshows zijn flexibel inzetbaar en passen zich aan uw locatie aan, of dit nu in de schaduw van de Sint-Laurentiuskerk is of in een private achtertuin nabij het Uilenbos. Een vuurspuwer is de ideale toevoeging voor:</p><ul> <li><strong>Trouwfeesten:</strong> Geef uw bruiloft een vurig tintje als symbool voor de eeuwige liefde.</li> <li><strong>Tuinfeesten en BBQ's:</strong> Terwijl de zon ondergaat in Hove, ontsteekt de artiest de fakkels.</li> <li><strong>Bedrijfsevenementen:</strong> Maak indruk op klanten en personeel met een krachtige visuele act.</li> <li><strong>Buurtfeesten:</strong> Breng de wijk samen met spektakel voor jong en oud.</li></ul><h3>Veiligheid staat voorop</h3><p>Bij het zoeken naar een vuurspuwer in Hove is veiligheid uiteraard de hoogste prioriteit. Zeker in een groene gemeente met veel bomen en parken, werken wij uitsluitend met ervaren professionals. Wij zorgen voor de nodige veiligheidsmaatregelen, afscherming en blusmiddelen, zodat u zorgeloos kunt genieten van de show.</p><h3>Boek nu uw Vuurspuwer in Hove</h3><p>Wilt u uw evenement in de provincie Antwerpen naar een hoger niveau tillen? Wacht dan niet te lang. De agenda loopt snel vol, zeker tijdens de zomermaanden. Neem vandaag nog <a href="https://vuurspuwer.com/contact/">contact</a> op voor een vrijblijvende offerte en ontdek de mogelijkheden voor een vuurspuwer in Hove op uw feest.</p><p>Laat de vonken overspringen en maak van uw avond een vlammend succes!</p>
@@ -114,7 +128,7 @@
     <div class="hero__actions">
       <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
       <a class="btn btn--ghost" href="https://wa.me/31620020723">WhatsApp direct</a>
-      <a class="btn btn--ghost" href="/#boeken">Stuur een aanvraag</a>
+      <a class="btn btn--ghost" href="/contact-3/">Stuur een aanvraag</a>
     </div>
   </section>
 </main>
@@ -163,6 +177,7 @@
         <li><a href="tel:+31620020723">+31 6 200 207 23</a></li>
         <li><a href="https://wa.me/31620020723" rel="noopener">WhatsApp</a></li>
         <li><a href="mailto:nuno@vuurspuwer.com">nuno@vuurspuwer.com</a></li>
+        <li><a href="/contact-3/">Aanvraagformulier</a></li>
         <li><a href="/disclaimer-voorwaarden/">Algemene voorwaarden</a></li>
         <li><a href="/privacybeleid/">Privacybeleid</a></li>
       </ul>

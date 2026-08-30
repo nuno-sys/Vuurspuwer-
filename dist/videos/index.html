@@ -24,6 +24,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
+<link rel="preload" as="image" href="/assets/media/reel-1-poster.webp" fetchpriority="high">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://vuurspuwer.com/"}, {"@type": "ListItem", "position": 2, "name": "Video's van de shows"}]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "VideoGallery", "name": "Video's van Vuurspuwer Nuno", "url": "https://vuurspuwer.com/videos/", "about": {"@id": "https://vuurspuwer.com/#business"}, "video": [{"@type": "VideoObject", "name": "Vuurshow op locatie — Vuurspuwer Nuno", "description": "Vuurspuwer Nuno tijdens een vuurshow op locatie: vuurspuwen, vuurjongleren en body fire.", "contentUrl": "https://vuurspuwer.com/assets/media/reel-1.mp4", "thumbnailUrl": "https://vuurspuwer.com/assets/media/reel-1-poster.webp", "uploadDate": "2026-08-30", "duration": "PT19S", "publisher": {"@id": "https://vuurspuwer.com/#business"}}, {"@type": "VideoObject", "name": "Acts & fakirwerk — Vuurspuwer Nuno", "description": "Compilatie van vuur- en fakiracts van Vuurspuwer Nuno op festivals en bedrijfsfeesten.", "contentUrl": "https://vuurspuwer.com/assets/media/reel-2.mp4", "thumbnailUrl": "https://vuurspuwer.com/assets/media/reel-2-poster.webp", "uploadDate": "2026-08-30", "duration": "PT58S", "publisher": {"@id": "https://vuurspuwer.com/#business"}}, {"@type": "VideoObject", "name": "Showreel — Vuurspuwer Nuno", "description": "Korte showreel van vuurspuwer en fakir Nuno.", "contentUrl": "https://vuurspuwer.com/assets/media/showreel.mp4", "thumbnailUrl": "https://vuurspuwer.com/assets/media/reel-poster.jpg", "uploadDate": "2026-08-30", "duration": "PT13S", "publisher": {"@id": "https://vuurspuwer.com/#business"}}, {"@type": "VideoObject", "name": "Vuurbal in close-up — Vuurspuwer Nuno", "description": "Meters hoge vuurbal van vuurspuwer Nuno, gefilmd van dichtbij.", "contentUrl": "https://vuurspuwer.com/assets/media/hero-portrait.mp4", "thumbnailUrl": "https://vuurspuwer.com/assets/media/vuurbal-900.webp", "uploadDate": "2026-08-30", "duration": "PT5S", "publisher": {"@id": "https://vuurspuwer.com/#business"}}]}</script>
 </head>
@@ -55,16 +56,22 @@
      Chrome
      ============================================================ -->
 <header class="nav" id="nav">
-  <a class="nav__brand" href="/#top" aria-label="Vuurspuwer Nuno, naar boven">
-    <span class="logo" id="navLogo" role="img" aria-label="Nuno"></span>
-  </a>
+  <div class="nav__home">
+    <a class="nav__brand" href="/" aria-label="Vuurspuwer Nuno, naar de homepagina">
+      <span class="logo" id="navLogo" role="img" aria-label="Nuno"></span>
+    </a>
+    <a class="nav__stars" href="/beoordelingen/" aria-label="4,9 van de 5 sterren uit 134 reviews — lees de beoordelingen"><i aria-hidden="true">&starf;&starf;&starf;&starf;&starf;</i>4.9 &middot; 134 reviews</a>
+  </div>
 
   <nav class="nav__links" aria-label="Hoofdmenu">
-    <a class="nav__link" href="/#shows">Shows</a>
-    <a class="nav__link" href="/#reel">Showreel</a>
-    <a class="nav__link" href="/#werk">Galerij</a>
-    <a class="nav__link" href="/#reviews">Reviews</a>
-    <a class="nav__link" href="/#locaties">Locaties</a>
+    <a class="nav__link nav__link--home" href="/">Home</a>
+    <a class="nav__link" href="/fotos/">Foto's</a>
+    <a class="nav__link" href="/videos/">Video's</a>
+    <a class="nav__link" href="/vuurspuwer-inhuren/">Vuurshow</a>
+    <a class="nav__link" href="/workshop-vuurspuwen/">Workshop</a>
+    <a class="nav__link nav__link--hot" href="/halloween/">&#127875; Halloween</a>
+    <a class="nav__link" href="/fakir-show-inhuren/">Fakirshow</a>
+    <a class="nav__link" href="/contact-3/">Contact</a>
   </nav>
 
   <div class="nav__act">
@@ -73,19 +80,22 @@
         <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1.1l-2.3 2.1z"/>
       </svg>
     </a>
-    <a class="btn btn--sm" href="/#boeken"><span class="btn__dot"></span>Offerte aanvragen</a>
+    <a class="btn btn--sm" href="/contact-3/"><span class="btn__dot"></span>Offerte aanvragen</a>
   </div>
 
   <button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Menu openen"><i></i></button>
 </header>
 
 <nav class="menu" id="menu" aria-label="Mobiel menu">
-  <a href="/#shows" style="--i:0">Shows</a>
-  <a href="/#reel" style="--i:1">Showreel</a>
-  <a href="/#werk" style="--i:2">Galerij</a>
-  <a href="/#reviews" style="--i:3">Reviews</a>
-  <a href="/#locaties" style="--i:4">Locaties</a>
-  <a href="/#boeken" style="--i:5">Offerte</a>
+  <a href="/" style="--i:0">Home</a>
+  <a href="/fotos/" style="--i:1">Foto's</a>
+  <a href="/videos/" style="--i:2">Video's</a>
+  <a href="/vuurspuwer-inhuren/" style="--i:3">Vuurshow</a>
+  <a href="/workshop-vuurspuwen/" style="--i:4">Workshop</a>
+  <a href="/halloween/" style="--i:5">&#127875; Halloween</a>
+  <a href="/fakir-show-inhuren/" style="--i:6">Fakirshow</a>
+  <a href="/beoordelingen/" style="--i:7">Reviews</a>
+  <a href="/contact-3/" style="--i:8">Contact</a>
   <div class="menu__foot">
     <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
     <p class="menu__meta">Nederland, Belgi&euml; &amp; internationaal</p>
@@ -94,14 +104,18 @@
 
 
 <main class="shell" id="top">
-  <article class="page wrap">
-    <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li><span aria-current="page">Video&#x27;s van de shows</span></li></ol></nav>
-    <p class="eyebrow">Vuurspuwer Nuno</p>
-    <h1 class="page__title">Video&#x27;s van de shows</h1>
-    <p class="lede">Vuurshows, fakiracts en vuurspuwen in beweging: een greep uit de optredens van de afgelopen jaren. Klik op een video om hem af te spelen — of bekijk ook alle foto’s en vraag direct een…</p>
-  </article>
+  <header class="phero">
+    <div class="phero__bg" style="background-image:url('/assets/media/reel-1-poster.webp')" aria-hidden="true"></div>
+    <img class="phero__img" src="/assets/media/reel-1-poster.webp" alt="Vuurspuwer Nuno tijdens een vuurshow op locatie" fetchpriority="high" decoding="async">
+    <div class="phero__veil" aria-hidden="true"></div>
+    <div class="phero__body wrap">
+      <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li><span aria-current="page">Video&#x27;s van de shows</span></li></ol></nav>
+      <p class="eyebrow">Video&#x27;s</p>
+      <h1 class="page__title">Video&#x27;s van de shows</h1>
+      <p class="lede">Vuurshows, fakiracts en vuurspuwen in beweging: een greep uit de optredens van de afgelopen jaren. Klik op een video om hem af te spelen — of bekijk ook alle foto’s en vraag direct een…</p>
+    </div>
+  </header>
 
-  
   <div class="wrap bay">
     <div class="prose prose--page">
 <p>Vuurshows, fakiracts en vuurspuwen in beweging: een greep uit de optredens van de afgelopen jaren. Klik op een video om hem af te spelen &mdash; of bekijk ook <a href="/fotos/">alle foto&rsquo;s</a> en <a href="/#boeken">vraag direct een offerte aan</a>.</p><div class="reels reels--page"><figure class="reel rise">
@@ -142,7 +156,7 @@
     <div class="hero__actions">
       <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
       <a class="btn btn--ghost" href="https://wa.me/31620020723">WhatsApp direct</a>
-      <a class="btn btn--ghost" href="/#boeken">Stuur een aanvraag</a>
+      <a class="btn btn--ghost" href="/contact-3/">Stuur een aanvraag</a>
     </div>
   </section>
 </main>
@@ -191,6 +205,7 @@
         <li><a href="tel:+31620020723">+31 6 200 207 23</a></li>
         <li><a href="https://wa.me/31620020723" rel="noopener">WhatsApp</a></li>
         <li><a href="mailto:nuno@vuurspuwer.com">nuno@vuurspuwer.com</a></li>
+        <li><a href="/contact-3/">Aanvraagformulier</a></li>
         <li><a href="/disclaimer-voorwaarden/">Algemene voorwaarden</a></li>
         <li><a href="/privacybeleid/">Privacybeleid</a></li>
       </ul>

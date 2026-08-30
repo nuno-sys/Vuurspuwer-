@@ -7,9 +7,15 @@ van de homepage. Webadressen blijven exact zoals ze nu zijn.
 """
 import html, json, os, re, shutil, sys
 import xml.etree.ElementTree as ET
+from datetime import date
 from html.parser import HTMLParser
 
 import pages_content as PC
+
+TODAY = date.today().isoformat()
+MONTHS_NL = ["", "januari", "februari", "maart", "april", "mei", "juni", "juli",
+             "augustus", "september", "oktober", "november", "december"]
+TODAY_NL = f"{date.today().day} {MONTHS_NL[date.today().month]} {date.today().year}"
 
 XML  = "nunovuurspuwer-vuurshowsampfakirshowenworkshops.WordPress.2026-08-30.xml"
 OUT  = "dist"
@@ -52,7 +58,7 @@ KEEP_PAGES = ["over-nuno", "contact-3", "beoordelingen", "disclaimer-voorwaarden
               "privacybeleid", "fotos", "videos", "blog",
               "locaties-vuurshows-nederland-belgie", "entertainer-huren",
               "vuurspuwer-inhuren", "fakir-show-inhuren", "reptielenhow",
-              "entertainer-huren-voor-bedrijfsfeest"]
+              "workshop-vuurspuwen", "entertainer-huren-voor-bedrijfsfeest"]
 
 # ---------------------------------------------------------------- opschonen
 ALLOWED = {"p","h2","h3","h4","ul","ol","li","strong","em","b","i","a","br",
@@ -218,16 +224,39 @@ def render(p, kind, extra_schema=None, extra_html=""):
         p = {**p, "img": ("/assets/media/post-cover.webp",
                           "Vuurspuwer Nuno met een metershoge vuurbal tegen een zwarte nachtlucht")}
 
-    figure = ""
+    # De kop van elke pagina: de uitgelichte foto beeldvullend, tot achter
+    # het menu, en nooit bijgesneden — de foto zelf past er volledig in
+    # (contain), met dezelfde foto wazig als decor eromheen (cover).
+    eyebrow = p.get("eyebrow") or ("Vuurshow op locatie" if kind == "city"
+                                   else "Blog" if kind == "post" else "Vuurspuwer Nuno")
+    preload = ""
     if p.get("img"):
         iu, ia = p["img"]
-        figure = (f'<figure class="lede-img wrap"><img src="{esc(iu)}" alt="{esc(ia)}" '
-                  f'loading="lazy" decoding="async"></figure>')
+        preload = f'<link rel="preload" as="image" href="{esc(iu)}" fetchpriority="high">'
+        hero = f'''<header class="phero">
+    <div class="phero__bg" style="background-image:url('{esc(iu)}')" aria-hidden="true"></div>
+    <img class="phero__img" src="{esc(iu)}" alt="{esc(ia)}" fetchpriority="high" decoding="async">
+    <div class="phero__veil" aria-hidden="true"></div>
+    <div class="phero__body wrap">
+      {crumb_html}
+      <p class="eyebrow">{esc(eyebrow)}</p>
+      <h1 class="page__title">{esc(p["title"])}</h1>
+      {f'<p class="lede">{esc(intro)}</p>' if intro else ''}
+    </div>
+  </header>'''
+    else:
+        hero = f'''<article class="page wrap">
+    {crumb_html}
+    <p class="eyebrow">{esc(eyebrow)}</p>
+    <h1 class="page__title">{esc(p["title"])}</h1>
+    {f'<p class="lede">{esc(intro)}</p>' if intro else ''}
+  </article>'''
 
     graph = [crumb_data]
     if kind == "post":
         graph.append({"@context": "https://schema.org", "@type": "BlogPosting",
                       "headline": p["title"], "datePublished": p["date"],
+                      "dateModified": TODAY,
                       "description": desc, "mainEntityOfPage": url,
                       **({"image": (SITE + p["img"][0] if p["img"][0].startswith("/") else p["img"][0])} if p.get("img") else {}),
                       "author": {"@type": "Person", "name": "Nuno", "@id": f"{SITE}/#nuno"},
@@ -254,20 +283,15 @@ def render(p, kind, extra_schema=None, extra_html=""):
 <meta name="twitter:card" content="summary_large_image">
 {FONTS}
 <link rel="stylesheet" href="/assets/site.css">
+{preload}
 {ld}
 </head>
 <body>
 <a class="skip" href="#top">Naar de inhoud</a>
 {IGNITION}{STAGE}{HEADER}
 <main class="shell" id="top">
-  <article class="page wrap">
-    {crumb_html}
-    <p class="eyebrow">{esc("Vuurshow op locatie" if kind == "city" else "Blog" if kind == "post" else "Vuurspuwer Nuno")}</p>
-    <h1 class="page__title">{esc(p["title"])}</h1>
-    {f'<p class="lede">{esc(intro)}</p>' if intro else ''}
-  </article>
+  {hero}
 
-  {figure}
   <div class="wrap bay">
     <div class="prose prose--page">
 {p["body"]}
@@ -280,7 +304,7 @@ def render(p, kind, extra_schema=None, extra_html=""):
     <div class="hero__actions">
       <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
       <a class="btn btn--ghost" href="https://wa.me/31620020723">WhatsApp direct</a>
-      <a class="btn btn--ghost" href="/#boeken">Stuur een aanvraag</a>
+      <a class="btn btn--ghost" href="/contact-3/">Stuur een aanvraag</a>
     </div>
   </section>
 </main>
@@ -390,6 +414,9 @@ for slug in CITIES:
 
 posts = [p for p in pages.values() if p["kind"] == "post"]
 for p in posts:
+    # workshop-vuurspuwen is in de export een bericht, maar leeft op de
+    # site als volwaardige showpagina — die komt uit KEEP_PAGES.
+    if p["slug"] in PC.SHOW_PAGES: continue
     write(p["slug"], render(p, "post")); built.append(p["slug"])
 
 for slug in KEEP_PAGES:
@@ -400,15 +427,16 @@ for slug in KEEP_PAGES:
              "seo_title": "Video's | Vuurshow & fakirshow in actie | Vuurspuwer Nuno",
              "seo_desc": "Bekijk video's van de vuurshows, fakiracts en optredens van Vuurspuwer Nuno. Showreels van festivals, bedrijfsfeesten en evenementen in Nederland en België.",
              "body": PC.videos_body(),
+             "eyebrow": "Video's",
              "img": ("/assets/media/reel-1-poster.webp",
                      "Vuurspuwer Nuno tijdens een vuurshow op locatie")}
-        doc = render(p, "page", PC.videos_schema())
-        doc = re.sub(r'<figure class="lede-img wrap">.*?</figure>', "", doc, flags=re.S)
-        write(slug, doc); built.append(slug); continue
+        write(slug, render(p, "page", PC.videos_schema()))
+        built.append(slug); continue
     if slug in PC.SHOW_PAGES:
         sp = PC.SHOW_PAGES[slug]
         p = {**p, "title": sp["title"], "seo_title": sp["seo_title"],
-             "seo_desc": sp["seo_desc"], "body": sp["body"], "img": sp["img"]}
+             "seo_desc": sp["seo_desc"], "body": sp["body"], "img": sp["img"],
+             "eyebrow": sp["eyebrow"]}
         extra = PC.show_faq_html(sp)
         if sp["fotos"]:
             extra += ('<section class="wrap bay"><div class="prose--page" style="max-width:none">'
@@ -420,12 +448,67 @@ for slug in KEEP_PAGES:
              "seo_title": "Foto's | Vuurshow, fakirshow & reptielenshow | Vuurspuwer Nuno",
              "seo_desc": "Bekijk foto's van de vuurshows, fakirshows, reptielenshow en workshops van Vuurspuwer Nuno op festivals, bedrijfsfeesten en bruiloften in Nederland en België.",
              "body": fotos_body(),
+             "eyebrow": "Foto's",
              "img": ("/assets/media/festival-1600.webp",
                      "Vuurspuwer Nuno spuwt een vuurbal op een festivalplein")}
-        doc = render(p, "page", fotos_schema())
-        # geen losse kopfoto boven een pagina die zelf één grote galerij is
-        doc = re.sub(r'<figure class="lede-img wrap">.*?</figure>', "", doc, flags=re.S)
-        write(slug, doc); built.append(slug); continue
+        write(slug, render(p, "page", fotos_schema()))
+        built.append(slug); continue
+    if slug == "beoordelingen":
+        p = {**p, "title": "4,9 uit 134 beoordelingen",
+             "seo_title": "⭐ Reviews Vuurspuwer Nuno — 4.9/5 uit 134 beoordelingen",
+             "seo_desc": "Lees beoordelingen van opdrachtgevers uit heel NL & BE over de vuurshows en fakirshows van Nuno. Gemiddeld 4.9/5 uit 134 reviews.",
+             "body": PC.reviews_body(),
+             "eyebrow": "Beoordelingen",
+             "img": ("/assets/media/festival-1600.webp",
+                     "Vuurspuwer Nuno spuwt een vuurbal op een festivalplein voor een groot publiek")}
+        write(slug, render(p, "page", PC.reviews_schema()))
+        built.append(slug); continue
+    if slug == "contact-3":
+        p = {**p, "title": "Samenwerken met Nuno? Check je datum",
+             "seo_title": "\U0001F525 Contact | Vuurspuwer Nuno boeken — binnen 24 uur antwoord",
+             "seo_desc": "Vuurshow, fakirshow of workshop boeken? Bel, app of mail Nuno, of stuur het aanvraagformulier met datum en locatie. Binnen 24 uur een vrijblijvende offerte.",
+             "body": PC.contact_body(),
+             "eyebrow": "Contact",
+             "img": ("/assets/media/themafeest-1080.webp",
+                     "Vuurspuwer bij een vintage bus tijdens een themafeest in de avond")}
+        write(slug, render(p, "page", PC.contact_schema(), PC.CONTACT_FORM))
+        built.append(slug); continue
+    if slug == "blog":
+        cards = []
+        for bp in sorted(posts, key=lambda x: x["date"], reverse=True):
+            if bp["slug"] in PC.SHOW_PAGES: continue
+            excerpt = text_of(bp["body"], 150)
+            cards.append(
+                f'<article class="bcard"><a href="/{bp["slug"]}/">'
+                f'<img src="/assets/media/post-cover.webp" alt="" width="900" height="600" loading="lazy" decoding="async">'
+                f'<h2>{esc(bp["title"])}</h2></a>'
+                f'<p>{esc(excerpt)}</p>'
+                f'<p class="bcard__meta"><time datetime="{TODAY}">Bijgewerkt op {TODAY_NL}</time></p>'
+                f'</article>')
+        blog_posts = [bp for bp in sorted(posts, key=lambda x: x["date"], reverse=True)
+                      if bp["slug"] not in PC.SHOW_PAGES]
+        blog_ld = [{"@context": "https://schema.org", "@type": "Blog",
+                    "@id": f"{SITE}/blog/#blog", "url": f"{SITE}/blog/",
+                    "name": "Blog van Vuurspuwer Nuno", "dateModified": TODAY,
+                    "publisher": {"@id": f"{SITE}/#business"},
+                    "blogPost": [{"@type": "BlogPosting",
+                                  "headline": bp["title"],
+                                  "url": f"{SITE}/{bp['slug']}/",
+                                  "datePublished": bp["date"],
+                                  "dateModified": TODAY}
+                                 for bp in blog_posts]}]
+        p = {**p, "title": "Blog: gidsen, tips & inspiratie",
+             "seo_title": "\U0001F525 Blog | Gidsen & tips over vuurshows | Vuurspuwer Nuno",
+             "seo_desc": "Gidsen en tips over vuurshows, fakirshows en entertainment boeken: prijzen, veiligheid, Halloween, bruiloften en bedrijfsfeesten. Door vuurspuwer Nuno.",
+             "body": ('<p>Gidsen, tips en inspiratie uit de praktijk: wat kost een vuurshow, '
+                      'waar let je op qua veiligheid, en hoe maak je van een bedrijfsfeest, '
+                      'bruiloft of Halloween-avond iets onvergetelijks. Alle artikelen zijn '
+                      f'bijgewerkt op {TODAY_NL}.</p><div class="bloglist">' + "".join(cards) + "</div>"),
+             "eyebrow": "Blog",
+             "img": ("/assets/media/post-cover.webp",
+                     "Vuurspuwer Nuno met een metershoge vuurbal tegen een zwarte nachtlucht")}
+        write(slug, render(p, "page", blog_ld))
+        built.append(slug); continue
     write(slug, render(p, "page")); built.append(slug)
 
 hp = PC.SHOW_PAGES["halloween"]
@@ -444,13 +527,18 @@ json.dump(built, open("/tmp/_built.json", "w"))
 
 # ------------------------------------------- doorverwijzingen en sitemap
 kept = set(built)
-lines = ["# oude adressen die blijven werken", ""]
+lines = ["# oude adressen die blijven werken", "",
+         # het kanonieke contactadres is /contact-3/ (zo heet het op de
+         # live site); alle andere contact-varianten wijzen daarheen
+         "/contact/  /contact-3/  301"]
 
 # 1. dubbelingen naar het origineel zonder cijfer
 for slug in pages:
     base = re.sub(r"-\d+$", "", slug)
     if base != slug and base in kept:
         lines.append(f"/{slug}/  /{base}/  301")
+    elif base in ("contact", "contact-me") and slug not in kept:
+        lines.append(f"/{slug}/  /contact-3/  301")
 
 # 2. stadspagina's die niet meegaan, naar de locatiepagina
 HUB = "/locaties-vuurshows-nederland-belgie/"
@@ -478,7 +566,7 @@ urls = [(SITE + "/", "1.0")] + [(f"{SITE}/{s}/", "0.8" if s in CITIES else "0.6"
 sm = ['<?xml version="1.0" encoding="UTF-8"?>',
       '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
 for u, pr in urls:
-    sm.append(f"  <url><loc>{u}</loc><priority>{pr}</priority></url>")
+    sm.append(f"  <url><loc>{u}</loc><lastmod>{TODAY}</lastmod><priority>{pr}</priority></url>")
 sm.append("</urlset>")
 open(os.path.join(OUT, "sitemap.xml"), "w").write("\n".join(sm) + "\n")
 open(os.path.join(OUT, "robots.txt"), "w").write(

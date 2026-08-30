@@ -24,8 +24,9 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
+<link rel="preload" as="image" href="/assets/media/post-cover.webp" fetchpriority="high">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://vuurspuwer.com/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://vuurspuwer.com/blog/"}, {"@type": "ListItem", "position": 3, "name": "Vuurspuwer Boeken voor een personeelsfeest: De Ultieme Spectaculaire Ervaring"}]}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Vuurspuwer Boeken voor een personeelsfeest: De Ultieme Spectaculaire Ervaring", "datePublished": "2025-10-12", "description": "Artiest bedrijfsfeest boeken? Vuurspuwer Nuno verzorgt een spectaculaire vuurshow voor uw personeelsfeest. Heel NL & BE. Vraag vrijblijvend een offerte aan! 📞", "mainEntityOfPage": "https://vuurspuwer.com/vuurspuwer-boeken-voor-een-personeelsfeest-de-ultieme-spectaculaire-ervaring/", "image": "https://vuurspuwer.com/assets/media/post-cover.webp", "author": {"@type": "Person", "name": "Nuno", "@id": "https://vuurspuwer.com/#nuno"}, "publisher": {"@id": "https://vuurspuwer.com/#business"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Vuurspuwer Boeken voor een personeelsfeest: De Ultieme Spectaculaire Ervaring", "datePublished": "2025-10-12", "dateModified": "2026-08-30", "description": "Artiest bedrijfsfeest boeken? Vuurspuwer Nuno verzorgt een spectaculaire vuurshow voor uw personeelsfeest. Heel NL & BE. Vraag vrijblijvend een offerte aan! 📞", "mainEntityOfPage": "https://vuurspuwer.com/vuurspuwer-boeken-voor-een-personeelsfeest-de-ultieme-spectaculaire-ervaring/", "image": "https://vuurspuwer.com/assets/media/post-cover.webp", "author": {"@type": "Person", "name": "Nuno", "@id": "https://vuurspuwer.com/#nuno"}, "publisher": {"@id": "https://vuurspuwer.com/#business"}}</script>
 </head>
 <body>
 <a class="skip" href="#top">Naar de inhoud</a>
@@ -55,16 +56,22 @@
      Chrome
      ============================================================ -->
 <header class="nav" id="nav">
-  <a class="nav__brand" href="/#top" aria-label="Vuurspuwer Nuno, naar boven">
-    <span class="logo" id="navLogo" role="img" aria-label="Nuno"></span>
-  </a>
+  <div class="nav__home">
+    <a class="nav__brand" href="/" aria-label="Vuurspuwer Nuno, naar de homepagina">
+      <span class="logo" id="navLogo" role="img" aria-label="Nuno"></span>
+    </a>
+    <a class="nav__stars" href="/beoordelingen/" aria-label="4,9 van de 5 sterren uit 134 reviews — lees de beoordelingen"><i aria-hidden="true">&starf;&starf;&starf;&starf;&starf;</i>4.9 &middot; 134 reviews</a>
+  </div>
 
   <nav class="nav__links" aria-label="Hoofdmenu">
-    <a class="nav__link" href="/#shows">Shows</a>
-    <a class="nav__link" href="/#reel">Showreel</a>
-    <a class="nav__link" href="/#werk">Galerij</a>
-    <a class="nav__link" href="/#reviews">Reviews</a>
-    <a class="nav__link" href="/#locaties">Locaties</a>
+    <a class="nav__link nav__link--home" href="/">Home</a>
+    <a class="nav__link" href="/fotos/">Foto's</a>
+    <a class="nav__link" href="/videos/">Video's</a>
+    <a class="nav__link" href="/vuurspuwer-inhuren/">Vuurshow</a>
+    <a class="nav__link" href="/workshop-vuurspuwen/">Workshop</a>
+    <a class="nav__link nav__link--hot" href="/halloween/">&#127875; Halloween</a>
+    <a class="nav__link" href="/fakir-show-inhuren/">Fakirshow</a>
+    <a class="nav__link" href="/contact-3/">Contact</a>
   </nav>
 
   <div class="nav__act">
@@ -73,19 +80,22 @@
         <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1.1l-2.3 2.1z"/>
       </svg>
     </a>
-    <a class="btn btn--sm" href="/#boeken"><span class="btn__dot"></span>Offerte aanvragen</a>
+    <a class="btn btn--sm" href="/contact-3/"><span class="btn__dot"></span>Offerte aanvragen</a>
   </div>
 
   <button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Menu openen"><i></i></button>
 </header>
 
 <nav class="menu" id="menu" aria-label="Mobiel menu">
-  <a href="/#shows" style="--i:0">Shows</a>
-  <a href="/#reel" style="--i:1">Showreel</a>
-  <a href="/#werk" style="--i:2">Galerij</a>
-  <a href="/#reviews" style="--i:3">Reviews</a>
-  <a href="/#locaties" style="--i:4">Locaties</a>
-  <a href="/#boeken" style="--i:5">Offerte</a>
+  <a href="/" style="--i:0">Home</a>
+  <a href="/fotos/" style="--i:1">Foto's</a>
+  <a href="/videos/" style="--i:2">Video's</a>
+  <a href="/vuurspuwer-inhuren/" style="--i:3">Vuurshow</a>
+  <a href="/workshop-vuurspuwen/" style="--i:4">Workshop</a>
+  <a href="/halloween/" style="--i:5">&#127875; Halloween</a>
+  <a href="/fakir-show-inhuren/" style="--i:6">Fakirshow</a>
+  <a href="/beoordelingen/" style="--i:7">Reviews</a>
+  <a href="/contact-3/" style="--i:8">Contact</a>
   <div class="menu__foot">
     <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
     <p class="menu__meta">Nederland, Belgi&euml; &amp; internationaal</p>
@@ -94,14 +104,18 @@
 
 
 <main class="shell" id="top">
-  <article class="page wrap">
-    <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li><a href="/blog/">Blog</a></li><li><span aria-current="page">Vuurspuwer Boeken voor een personeelsfeest: De Ultieme Spectaculaire Ervaring</span></li></ol></nav>
-    <p class="eyebrow">Blog</p>
-    <h1 class="page__title">Vuurspuwer Boeken voor een personeelsfeest: De Ultieme Spectaculaire Ervaring</h1>
-    <p class="lede">Een personeelsfeest organiseren draait om het creëren van een memorabele ervaring voor uw collega&#x27;s. Wilt u een evenement dat echt indruk maakt? Overweeg dan een vuurspuwer te boeken voor…</p>
-  </article>
+  <header class="phero">
+    <div class="phero__bg" style="background-image:url('/assets/media/post-cover.webp')" aria-hidden="true"></div>
+    <img class="phero__img" src="/assets/media/post-cover.webp" alt="Vuurspuwer Nuno met een metershoge vuurbal tegen een zwarte nachtlucht" fetchpriority="high" decoding="async">
+    <div class="phero__veil" aria-hidden="true"></div>
+    <div class="phero__body wrap">
+      <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li><a href="/blog/">Blog</a></li><li><span aria-current="page">Vuurspuwer Boeken voor een personeelsfeest: De Ultieme Spectaculaire Ervaring</span></li></ol></nav>
+      <p class="eyebrow">Blog</p>
+      <h1 class="page__title">Vuurspuwer Boeken voor een personeelsfeest: De Ultieme Spectaculaire Ervaring</h1>
+      <p class="lede">Een personeelsfeest organiseren draait om het creëren van een memorabele ervaring voor uw collega&#x27;s. Wilt u een evenement dat echt indruk maakt? Overweeg dan een vuurspuwer te boeken voor…</p>
+    </div>
+  </header>
 
-  <figure class="lede-img wrap"><img src="/assets/media/post-cover.webp" alt="Vuurspuwer Nuno met een metershoge vuurbal tegen een zwarte nachtlucht" loading="lazy" decoding="async"></figure>
   <div class="wrap bay">
     <div class="prose prose--page">
 <h2>Maak Uw Personeelsfeest Onvergetelijk: Vuurspuwer Boeken</h2><p>Een personeelsfeest organiseren draait om het creëren van een memorabele ervaring voor uw collega's. Wilt u een evenement dat echt indruk maakt? Overweeg dan een <a href="https://vuurspuwer.com/">vuurspuwer te boeken</a> voor uw personeelsfeest. Een professionele vuurshow is een adembenemend spektakel dat gegarandeerd de sfeer verhoogt en uw team verbindt. Het is de perfecte manier om waardering te tonen en een onvergetelijke herinnering te creëren.</p><h2>Waarom een Vuurspuwer Boeken voor Uw Personeelsfeest?</h2><p>Het vinden van uniek entertainment voor een personeelsfeest kan lastig zijn. Een vuurspuwer boeken biedt een spectaculaire en onverwachte wending. Het is een dynamische en krachtige show die een blijvende indruk achterlaat, veel meer dan standaard entertainment. Het is een investering in de teamspirit en de positieve herinneringen van uw organisatie. Een vuurshow is niet alleen visueel aantrekkelijk, maar creëert ook een gevoel van opwinding en verwondering. <a href="https://vuurspuwer.com/over-nuno/">meer dan tien jaar ervaring in vuur- en fakirshows</a> <a href="https://vuurspuwer.com/locaties-vuurshows-nederland-belgie/">vuurshow locaties in Nederland en België</a></p><h3>Nuno: De Perfecte Vuurartiest voor Uw Evenement</h3><p>Bij het kiezen van een vuurspuwer wilt u meer dan alleen iemand die vuur kan spuwen. U zoekt een artiest die de kunst van het spektakel beheerst en een verhaal kan vertellen met vlammen. Nuno is een ervaren vuurartiest die perfect inspeelt op de sfeer en doelstellingen van uw personeelsfeest. Zijn shows zijn zorgvuldig gechoreografeerd en getuigen van professionaliteit en publieksinteractie.</p><p>De combinatie van behendigheid, timing en de kracht van vuur zorgt voor een hypnotiserend schouwspel. Het brengt mensen samen en creëert een gedeelde, positieve ervaring, essentieel voor het versterken van de banden binnen uw team. Net zoals een vuurshow een hoogtepunt kan zijn op een <a href="https://vuurspuwer.com/vuurspuwer-deventer-breng-vlammende-magie-naar-de-hanzestad/">bedrijfsfeest</a>, is het ook de ideale toevoeging aan uw personeelsfeest.</p><h2>Meer dan 10 Jaar Ervaring met Vuur- en Fakirshows</h2><p>Betrouwbaarheid en professionaliteit zijn cruciaal, zeker bij een vuuract. Met meer dan tien jaar ervaring in vuur- en <a href="https://nl.wikipedia.org/wiki/Fakir">fakirshows</a>, biedt Nuno expertise en gemoedsrust. Hij heeft talloze evenementen verrijkt, van intieme feesten tot grote festivals, altijd met de hoogste veiligheids- en artistieke standaarden.</p><p>De veiligheid van uw gasten en de locatie staat altijd voorop. Nuno werkt met gecertificeerd materiaal, volgt strikte veiligheidsprotocollen en voert risicoanalyses uit. Zijn ervaring stelt hem in staat snel te reageren op onverwachte situaties, waardoor de show altijd soepel verloopt. Deze professionaliteit maakt Nuno de ideale partner voor uw personeelsfeest. <a href="https://vuurspuwer.com/disclaimer-voorwaarden/">veiligheidsprotocollen en voorwaarden</a></p><h2>Eenvoudig een Vuurshow Boeken in 3 Stappen</h2><p>Het boeken van een vuurspuwer voor uw personeelsfeest is eenvoudig:</p><h3>Stap 1: Neem Contact Op</h3><p>Vraag vrijblijvend informatie aan via telefoon of e-mail. Deel de datum, locatie en details van uw personeelsfeest.</p><h3>Stap 2: Ontvang een Voorstel op Maat</h3><p>U ontvangt een gedetailleerd voorstel en offerte, afgestemd op uw wensen en de locatie. We bespreken de mogelijkheden en de optimale invulling van de vuurshow.</p><h3>Stap 3: Geniet van een Spectaculaire Show!</h3><p>Na akkoord zorgen wij voor alle voorbereidingen. Nuno arriveert op tijd voor de setup en controles. U kunt ontspannen en genieten van een onvergetelijke vuurshow.</p><p>Neem vandaag nog <a href="https://vuurspuwer.com/contact/">contact op</a> via +31 6 20020723 of nuno@vuurspuwer.com voor een onvergetelijke show.</p><h2>Veelgestelde Vragen (FAQ)</h2><p>Hieronder beantwoorden we enkele veelgestelde vragen over het plannen van een vuurshow voor uw personeelsfeest:</p><h3>Is een vuurshow veilig?</h3><p>Ja, veiligheid is de prioriteit. Nuno werkt volgens de strengste veiligheidsprotocollen en gebruikt goedgekeurde materialen. Voorafgaand aan elke show wordt een locatiebeoordeling uitgevoerd.</p><h3>Wat kost het om een vuurspuwer te boeken?</h3><p>De kosten variëren afhankelijk van de duur, complexiteit, reisafstand en specifieke wensen. Wij bieden altijd een offerte op maat.</p><h3>Hoeveel ruimte is er nodig?</h3><p>Een open ruimte van minimaal 4x4 meter met een vrije hoogte van 3-4 meter is noodzakelijk voor binnenshows. Voor buitenshows gelden vergelijkbare richtlijnen, met aandacht voor wind.</p><h3>Kan de vuurshow ook binnen plaatsvinden?</h3><p>Ja, mits de locatie voldoet aan de veiligheidseisen qua ruimte en ventilatie. Alternatieven met minder vuur zijn mogelijk voor binnenruimtes.</p><p>Een personeelsfeest met een vuurspuwer is een evenement dat de verwachtingen overtreft en een blijvende indruk achterlaat. Het is de ideale manier om uw medewerkers te bedanken en samen een moment van pure magie te delen.</p>
@@ -114,7 +128,7 @@
     <div class="hero__actions">
       <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
       <a class="btn btn--ghost" href="https://wa.me/31620020723">WhatsApp direct</a>
-      <a class="btn btn--ghost" href="/#boeken">Stuur een aanvraag</a>
+      <a class="btn btn--ghost" href="/contact-3/">Stuur een aanvraag</a>
     </div>
   </section>
 </main>
@@ -163,6 +177,7 @@
         <li><a href="tel:+31620020723">+31 6 200 207 23</a></li>
         <li><a href="https://wa.me/31620020723" rel="noopener">WhatsApp</a></li>
         <li><a href="mailto:nuno@vuurspuwer.com">nuno@vuurspuwer.com</a></li>
+        <li><a href="/contact-3/">Aanvraagformulier</a></li>
         <li><a href="/disclaimer-voorwaarden/">Algemene voorwaarden</a></li>
         <li><a href="/privacybeleid/">Privacybeleid</a></li>
       </ul>

@@ -63,6 +63,96 @@ def _fotorij(items):
     return f'<h2>Foto’s uit de show</h2><div class="fgrid">{tiles}</div>'
 
 SHOW_PAGES = {
+ "workshop-vuurspuwen": {
+  "title": "Workshop vuurspuwen",
+  "seo_title": "\U0001F525 Workshop Vuurspuwen | Leer Vuurspuwen met Nuno",
+  "seo_desc": "Workshop vuurspuwen met professioneel begeleiding van Nuno. Ideaal voor teambuilding, vrijgezellenfeest of bedrijfsfeest. Boek nu uw workshop!",
+  "eyebrow": "Workshop",
+  "img": ("/assets/media/workshop-1125.webp", "Workshop vuurspuwen onder begeleiding van professioneel vuurspuwer Nuno"),
+  "body": """
+<h2>Workshop Vuurspuwen: Ontketen het Vuur in Jezelf (en je Team)!</h2>
+<p>Droom je ervan om vuur te spuwen? Wil je een onvergetelijke ervaring beleven die tegelijkertijd spannend en leerzaam is? Dan is de workshop vuurspuwen van Nuno, de <a href="/over-nuno/" title="ervaren vuurspuwer en fakir">ervaren vuurspuwer en fakir</a> van Vuurspuwer.com, precies wat je zoekt! Nuno leert je op een veilige en verantwoorde manier de kunst van het vuurspuwen en vuurhappen. Durf jij het aan?</p>
+<h3>Waarom een Workshop Vuurspuwen volgen?</h3>
+<p>Een workshop vuurspuwen is meer dan alleen een spectaculaire activiteit. Het is een unieke ervaring die perfect is voor:</p>
+<ul>
+<li><strong>Vrijgezellenfeesten:</strong> geef de aanstaande bruidegom of bruid een vurige start van het huwelijk!</li>
+<li><strong>Verjaardagen:</strong> maak je verjaardagsfeest onvergetelijk met een spectaculaire vuurspuwdemonstratie en workshop. Overweeg om een <a href="/vuurspuwer-boeken-voor-een-verjaardag-de-ultieme-spectaculaire-ervaring/">vuurspuwer te boeken voor een verjaardag</a> voor een extra speciale ervaring.</li>
+<li><strong>Bedrijfsfeesten:</strong> verras je collega&rsquo;s met een originele en uitdagende activiteit die de teamgeest versterkt.</li>
+<li><strong>Verenigingen en Chirogroepen:</strong> zorg voor een avond vol spanning, sensatie en onvergetelijke momenten.</li>
+<li><strong>Teambuilding:</strong> verbeter de samenwerking en het vertrouwen binnen je team op een unieke en uitdagende manier.</li>
+</ul>
+<h3>Veiligheid staat voorop!</h3>
+<p>Bij Vuurspuwer.com staat veiligheid altijd voorop. Nuno leert je niet alleen de technieken van het vuurspuwen, maar ook alles over de veiligheidsmaatregelen. Je leert over de juiste brandstoffen, de benodigde beschermende kleding en hoe je risico&rsquo;s kunt minimaliseren. Nuno zorgt ervoor dat je je comfortabel en zelfverzekerd voelt voordat je begint met vuurspuwen. Meer informatie over vuurspuwen vind je op <a href="https://nl.wikipedia.org/wiki/Vuurspuwen" rel="noopener">Wikipedia</a>.</p>
+<h3>Voor Beginners en Gevorderden</h3>
+<p>Of je nu nog nooit vuur hebt aangeraakt of al enige ervaring hebt, de workshop vuurspuwen is geschikt voor iedereen. Nuno past de workshop aan aan jouw niveau en wensen. Beginners worden stap voor stap begeleid, terwijl gevorderden nieuwe technieken en trucs leren om hun vaardigheden te verbeteren.</p>
+<h3>Teambuilding met Vuur: Versterk de Band!</h3>
+<p>Vuurspuwen is een perfecte teambuildingactiviteit. Het vereist samenwerking, communicatie en vertrouwen. Door samen te leren vuurspuwen, versterken collega&rsquo;s, vrienden of clubleden hun band en cre&euml;ren ze een onvergetelijke ervaring. Een <a href="/vuurspuwer-inhuren/">vuurspuwer inhuren</a> kan ook een geweldige manier zijn om de teamgeest te versterken.</p>
+<h3>Maatwerk Workshop Vuurspuwen</h3>
+<p>De workshop vuurspuwen kan volledig worden aangepast aan jouw specifieke wensen en behoeften. Of je nu een korte demonstratie wilt of een volledige cursus, Nuno staat klaar om aan je verwachtingen te voldoen. De workshop kan zowel op locatie als op een <a href="/locaties-vuurshows-nederland-belgie/" title="op een door jou gekozen externe locatie">door jou gekozen externe locatie</a> worden georganiseerd. Neem <a href="/contact-3/">contact</a> op om de mogelijkheden te bespreken.</p>
+<h3>Boek nu jouw Onvergetelijke Vuurspuw Experience!</h3>
+<p>Wacht niet langer en plan vandaag nog jouw onvergetelijke workshop vuurspuwen met Nuno! Ontdek de sensatie van vuurhappen en verleg je grenzen. Neem <a href="/contact-3/">contact</a> op met Nuno via Vuurspuwer.com en maak van jouw evenement een vurig succes!</p>
+""",
+  "faq": [
+   ("Is de workshop vuurspuwen veilig?",
+    "Ja. Veiligheid staat altijd voorop: je leert eerst alles over de juiste brandstoffen, beschermende kleding en het minimaliseren van risico's, en oefent stap voor stap onder professionele begeleiding van Nuno."),
+   ("Voor wie is de workshop geschikt?",
+    "Voor iedereen vanaf 18 jaar, van complete beginners tot gevorderden. De workshop wordt aangepast aan het niveau en de wensen van de groep — ideaal voor vrijgezellenfeesten, verjaardagen, bedrijfsfeesten en teambuilding."),
+   ("Waar kan de workshop plaatsvinden?",
+    "Zowel op locatie als op een door jou gekozen externe plek in Nederland of België, mits er buiten voldoende vrije ruimte is. Nuno neemt alle materialen mee."),
+   ("Wat kost een workshop vuurspuwen?",
+    "De prijs hangt af van de groepsgrootte, duur en locatie. Vraag vrijblijvend een offerte aan via het contactformulier, telefoon of WhatsApp — je ontvangt binnen 24 uur een voorstel op maat."),
+  ],
+  "service": {"name": "Workshop vuurspuwen", "type": "Workshop / Teambuilding",
+              "desc": "Workshop vuurspuwen met professionele begeleiding van Nuno. Veilig leren vuurspuwen en vuurhappen — ideaal voor teambuilding, vrijgezellenfeesten en bedrijfsfeesten."},
+  "fotos": [("workshop-900.webp", "workshop-1125.webp", 900, 1130, "Vuurspuwen tegen de avondlucht", "Vuurspuwer blaast een grote vuurbal tegen de avondlucht vanaf een balustrade"),
+            ("avondvuur-900.webp", "avondvuur-1080.webp", 900, 893, "Vuurbal in de avondschemering", "Vuurspuwer Nuno spuwt een enorme vuurbal in de avondschemering"),
+            ("vuurshow-850.webp", "vuurshow-850.webp", 850, 1024, "Vuurshow bij daglicht", "Vuurshow overdag op een festival, publiek kijkt vanaf enkele meters toe")],
+ },
+
+ "over-nuno": {
+  "title": "Over Vuurspuwer & Fakir Nuno: 17 jaar meesterschap",
+  "seo_title": "\U0001F525 Vuurspuwer & Fakir Nuno | 17 Jaar Meesterschap",
+  "seo_desc": "Vuurspuwer en fakir Nuno: 17 jaar ervaring als entertainer in Nederland en België. Vuurshow, fakirshow, mentalist én reptielenshow. Vraag vrijblijvend een offerte aan!",
+  "eyebrow": "Over Nuno",
+  "img": ("/assets/media/mentalist-1371.webp", "Nuno op het podium van een theaterzaal"),
+  "body": """
+<p><strong>Vuurspuwer en fakir Nuno is al meer dan 17 jaar een van de meest ervaren entertainers van Nederland en Belgi&euml;. Vuurspuwer, fakir, mentalist &eacute;n reptielenshow-artiest: Nuno combineert vakmanschap met spektakel en laat bij elk optreden een blijvende indruk achter.</strong></p>
+<h2>Over Vuurspuwer &amp; Fakir Nuno: 17 Jaar Meesterschap in Entertainment</h2>
+<p>Welkom in een wereld vol adrenaline, passie en pure magie. Ik ben Nuno, en al meer dan 17 jaar verleg ik grenzen op het podium. Wat begon als een fascinatie voor vuur, is uitgegroeid tot een internationale carri&egrave;re als professioneel <strong>vuurspuwer</strong> en fakir. Van spectaculaire <a href="https://nl.wikipedia.org/wiki/Vuurspuwen" rel="noopener">vuurshows</a> op festivals tot mysterieuze optredens in videoclips en op nationale televisie: mijn doel is altijd om een onvergetelijke indruk achter te laten.</p>
+<h2>Van Nationale TV-Studio&rsquo;s tot Internationale Podia</h2>
+<p>Mijn reis heeft mij op plekken gebracht waar weinigen komen. Met optredens voor zenders als SBS6, RTL, VTM en producties in Engeland, heb ik bewezen dat entertainment meer is dan een act; het is vakmanschap. Of het nu gaat om een intiem huwelijk, een grootschalig bedrijfsfeest of een dynamische festivalset in Nederland of Belgi&euml;, ik breng een niveau van professionaliteit en spektakel dat wordt erkend. Wilt u ook een onvergetelijk evenement? Neem dan <a href="/contact-3/">contact</a> op.</p>
+<h3>Vuurspuwer Nuno: De Kunst van het Onmogelijke</h3>
+<p>Als fakir en mentalist draait mijn werk om de kracht van de geest over het lichaam. Het verleggen van de pijngrens en het beheersen van mentale krachten staan centraal in mijn shows. Ik beheers verschillende disciplines:</p>
+<ul>
+<li><strong>Vuurmeesterschap:</strong> metershoge vlammen en uiterste precisie.</li>
+<li><strong>Fakir-technieken:</strong> het trotseren van glas en spijkerbedden met totale mentale controle.</li>
+<li><strong>Passie voor Perfectie:</strong> elke show is 100% veilig, professioneel en afgestemd op de locatie.</li>
+</ul>
+<p>Entertainment zit in mijn bloed. De passie voor het publiek en de kick van het onmogelijke drijven mij om mijn acts naar een hoger niveau te tillen. Als u Nuno wilt <a href="/vuurspuwer-inhuren/">inhuren</a>, kiest u voor bijna twee decennia aan ervaring, passie en de garantie op een &lsquo;WOW-factor&rsquo;.</p>
+<h2>Beleef de Kracht van Vuur en Magie Zelf</h2>
+<p>Bent u klaar om uw evenement naar een ongekend niveau te tillen? Of u nu een <a href="/vuurspuwer-inhuren/"><strong>vuurshow</strong></a> wilt boeken voor een opening, een <a href="/fakir-show-inhuren/">fakir-act</a> voor een themafeest of een interactieve <a href="/workshop-vuurspuwen/">workshop</a>: ik denk graag met u mee om uw visie werkelijkheid te maken.</p>
+<p>Laten we samen iets legendarisch cre&euml;ren. <a href="/contact-3/">Vraag direct een vrijblijvende offerte aan!</a></p>
+""",
+  "faq": [],
+  "service": None,
+  "extra_ld": [{"@context": "https://schema.org", "@type": "AboutPage",
+                "@id": f"{SITE}/over-nuno/#about",
+                "url": f"{SITE}/over-nuno/",
+                "name": "Over Vuurspuwer & Fakir Nuno",
+                "mainEntity": {"@id": f"{SITE}/#nuno"},
+                "about": {"@id": f"{SITE}/#business"}},
+               {"@context": "https://schema.org", "@type": "Person",
+                "@id": f"{SITE}/#nuno", "name": "Nuno",
+                "jobTitle": "Vuurspuwer, fakir, mentalist en reptielenshow-artiest",
+                "description": "Professioneel vuurspuwer en fakir met 17 jaar ervaring, bekend van SBS6, RTL, VTM en producties in Engeland.",
+                "url": f"{SITE}/over-nuno/",
+                "worksFor": {"@id": f"{SITE}/#business"},
+                "knowsAbout": ["Vuurspuwen", "Fakirshow", "Mentalisme", "Reptielenshow", "Workshop vuurspuwen"]}],
+  "fotos": [("mentalist-900.webp", "mentalist-1371.webp", 900, 900, "Mentalist Nuno in het theater", "Nuno op het podium van een lege theaterzaal voor een mentalismeshow"),
+            ("festival-900.webp", "festival-1600.webp", 900, 902, "Vuurshow op een festivalplein", "Vuurspuwer Nuno spuwt een vuurbal op een festivalplein voor een groot publiek"),
+            ("fakir-900.webp", "fakir-1080.webp", 900, 1124, "Fakiract met glas en gewicht", "Fakiract: Nuno draagt het gewicht van een staande toeschouwer")],
+ },
+
  "vuurspuwer-inhuren": {
   "title": "Vuurspuwer inhuren: boek de meest spectaculaire vuurshow van Nederland & België",
   "seo_title": "\U0001F525 Vuurspuwer Inhuren – Meest Spectaculaire Vuurshow NL & BE",
@@ -244,7 +334,9 @@ SHOW_PAGES = {
 
 def show_schema(slug, page):
     svc = page["service"]
-    out = [{"@context": "https://schema.org", "@type": "Service",
+    out = []
+    if svc:
+        out.append({"@context": "https://schema.org", "@type": "Service",
             "@id": f"{SITE}/{slug}/#service",
             "name": svc["name"], "serviceType": svc["type"],
             "description": svc["desc"], "url": f"{SITE}/{slug}/",
@@ -252,7 +344,9 @@ def show_schema(slug, page):
             "provider": {"@id": f"{SITE}/#business"},
             "areaServed": [{"@type": "Country", "name": "Nederland"},
                            {"@type": "Country", "name": "België"}],
-            **({"offers": svc["offers"]} if "offers" in svc else {})}]
+            **({"offers": svc["offers"]} if "offers" in svc else {})})
+    if page.get("extra_ld"):
+        out.extend(page["extra_ld"])
     if page["faq"]:
         out.append({"@context": "https://schema.org", "@type": "FAQPage",
                     "mainEntity": [{"@type": "Question", "name": q,
@@ -270,3 +364,170 @@ def show_faq_html(page):
             '<div class="bay__head"><p class="eyebrow eyebrow--dim rise">Veelgestelde vragen</p>'
             '<h2 class="bay__title rise" data-delay="1">Eerst even <em>zeker weten</em></h2></div>'
             f'<div class="faq">{items}</div></section>')
+
+# ------------------------------------------------------------- beoordelingen
+# De echte reviews van het Google-profiel, zoals aangeleverd van de
+# live reviewspagina: 4,9 uit 134 beoordelingen, hieronder de 30 uitgelichte.
+GOOGLE_PROFILE = "https://share.google/2S3Fcj7r3VXT3VtbB"
+RATING = {"value": "4.9", "count": "134"}
+REVIEWS = [
+ ("Silke van Dam", "Amsterdam", "Wat een magisch optreden van Vuurspuwer Nuno in Amsterdam! Het vuurspuwen was professioneel en het publiek was muisstil van spanning. Een onvergetelijke avond."),
+ ("Eva Smit", "Amsterdam", "Vuurspuwer Nuno leverde een hypnotiserende performance in Amsterdam. Van gevaarlijke stunts tot de spannende climax — ideaal voor feesten en events."),
+ ("Bas van der Linden", "Antwerpen", "Wat een talent! Nuno's show in Antwerpen met perfect vuurspuwen en mystieke elementen was puur genot. 10/10!"),
+ ("Stijn Claes", "Antwerpen", "Geweldige fakir- en vuurperformance van Nuno in Antwerpen. Elke stunt werd met precisie uitgevoerd. Topentertainment!"),
+ ("Joke Vermeulen", "Utrecht", "Wat een talent! Nuno's show in Utrecht met indrukwekkend vuurspuwen en mystieke elementen was puur genot. 10/10!"),
+ ("Nina Peters", "Utrecht", "Geweldige fakir- en vuurperformance van Nuno in Utrecht. Een mix van gevaar en schoonheid die ons betoverde. Topentertainment!"),
+ ("Wim Verhoeven", "Gent", "Vuurspuwer Nuno maakte indruk met zijn opwindende fakirtrucs tijdens het event in Gent. Alles was perfect getimed en magisch. 5 sterren waard!"),
+ ("Pieter van Dijk", "Gent", "Nuno leverde een adembenemende performance in Gent. Van lichaamskunsten tot de spannende climax — betoverend."),
+ ("Nina Peters", "Tilburg", "Vuurspuwer Nuno maakte indruk met zijn intense circusachtige show tijdens het event in Tilburg. Perfect getimed en adembenemend. 5 sterren!"),
+ ("Femke Hoekstra", "Tilburg", "Indrukwekkend en perfect was het optreden van Vuurspuwer Nuno in Tilburg. Een must-see voor avontuurlijke geesten!"),
+ ("Joke Vermeulen", "Brussel", "Nuno maakte indruk met zijn verrassende lichaamskunsten tijdens het event in Brussel. De fakirshow was het hoogtepunt. 5 sterren waard!"),
+ ("Sara Peeters", "Brussel", "Briljant optreden in Brussel met Nuno's perfecte fakirkunsten en vuuracts. Een unieke ervaring die ik niet snel vergeet."),
+ ("Lien de Smet", "Eindhoven", "Vuurspuwer Nuno leverde een briljante performance in Eindhoven. Van stunts tot de spannende climax, alles was professioneel. Betoverend gedaan!"),
+ ("Femke Hoekstra", "Eindhoven", "Nuno maakte indruk met zijn hypnotiserende fakirtrucs tijdens het event in Eindhoven. Alles was perfect getimed en indrukwekkend."),
+ ("Femke Hoekstra", "Leuven", "Wat een opwindend optreden van Vuurspuwer Nuno in Leuven! Het publiek was muisstil van spanning. Echt een aanrader!"),
+ ("Rik van den Berg", "Leuven", "Wat een talent! Nuno's show in Leuven met spannend vuurspuwen en mystieke elementen was puur genot. 10/10!"),
+ ("Silke van Dam", "Groningen", "Wat een ongelooflijk optreden van Vuurspuwer Nuno in Groningen! De fakirtrucs waren spectaculair en het publiek was muisstil van spanning."),
+ ("Tom Hendrikx", "Groningen", "Briljant optreden in Groningen met Nuno's fakirkunsten en vuuracts. Een unieke ervaring die ik niet snel vergeet."),
+ ("Bram van der Velde", "Rotterdam", "Vuurspuwer Nuno maakte indruk met zijn verrassende circusachtige show tijdens het event in Rotterdam. Alles was perfect getimed. 5 sterren waard!"),
+ ("Tom Hendrikx", "Rotterdam", "Wat een talent! Nuno's show in Rotterdam met ongelooflijk vuurspuwen en mystieke elementen was puur genot. 10/10!"),
+ ("Lien de Smet", "Nijmegen", "Wat een talent! Nuno's show in Nijmegen met spectaculair vuurspuwen en mystieke elementen was puur genot. 10/10!"),
+ ("Jeroen Claes", "Nijmegen", "Geweldige fakir- en vuurperformance van Nuno in Nijmegen. Een mix van gevaar en schoonheid die ons betoverde. Topentertainment!"),
+ ("Mark de Groot", "Den Haag", "Vuurspuwer Nuno maakte indruk met zijn adembenemende circusachtige show tijdens het event in Den Haag. De fakirshow was het hoogtepunt."),
+ ("Lotte de Boer", "Den Haag", "Nuno als Vuurspuwer in Den Haag was fantastisch. Professioneel en veilig, ondanks de risico's. Sterk aanbevolen!"),
+ ("Stijn Claes", "Breda", "Nuno maakte indruk met zijn professionele mystieke performance tijdens het event in Breda. De fakirshow was het hoogtepunt. 5 sterren waard!"),
+ ("Eva Smit", "Breda", "Incredibel! Nuno's vuurshow in Breda was creatief en vol adrenaline. Zijn beheersing over het vuur is indrukwekkend."),
+ ("Annelies Dubois", "Almere", "Nuno maakte indruk met zijn professionele acts tijdens het event in Almere. Alles was perfect getimed en ongelooflijk. 5 sterren waard!"),
+ ("Tessa van Wijk", "Almere", "Wat een talent! Nuno's show in Almere met ontzagwekkend vuurspuwen was puur genot. 10/10!"),
+ ("Pieter van Dijk", "Apeldoorn", "Vuurspuwer Nuno leverde een magische performance in Apeldoorn. Van fakiracts tot de spannende climax — fascinerend gedaan!"),
+ ("Silke van Dam", "Apeldoorn", "Nuno als Vuurspuwer in Apeldoorn was fantastisch. Professioneel en veilig, ondanks de risico's. Sterk aanbevolen!"),
+]
+
+def reviews_body():
+    cards = "".join(
+        f'<article class="rcard"><p class="rcard__stars" aria-label="5 van de 5 sterren">'
+        f'★★★★★</p><blockquote><p>{t}</p></blockquote>'
+        f'<footer class="rcard__who">{n} <span>&middot; {c}</span></footer></article>'
+        for n, c, t in REVIEWS)
+    return f'''
+<div class="rkop">
+  <span class="rkop__cijfer">{RATING["value"].replace(".", ",")}</span>
+  <div class="rkop__rechts">
+    <span class="rkop__sterren" aria-hidden="true">★★★★★</span>
+    <small>gebaseerd op {RATING["count"]} beoordelingen</small>
+    <a href="{GOOGLE_PROFILE}" rel="noopener">Bekijk het Google-profiel &rsaquo;</a>
+  </div>
+</div>
+<p>Opdrachtgevers uit heel Nederland en Belgi&euml; over de vuurshows, fakirshows en
+workshops van Nuno &mdash; van Amsterdam tot Antwerpen en van Groningen tot Brussel.</p>
+<div class="rgrid">{cards}</div>
+<p>Alle beoordelingen lezen? Bekijk het volledige overzicht op het
+<a href="{GOOGLE_PROFILE}" rel="noopener">Google-profiel van Vuurspuwer Nuno</a>.
+Zelf zo&rsquo;n ervaring beleven? <a href="/contact-3/">Vraag een vrijblijvende offerte aan</a>.</p>
+'''
+
+def reviews_schema():
+    return [{"@context": "https://schema.org", "@type": "LocalBusiness",
+             "@id": f"{SITE}/#business",
+             "name": "Vuurspuwer Nuno", "url": f"{SITE}/",
+             "aggregateRating": {"@type": "AggregateRating",
+                                 "ratingValue": RATING["value"],
+                                 "reviewCount": RATING["count"],
+                                 "bestRating": "5", "worstRating": "1"},
+             "review": [{"@type": "Review",
+                         "author": {"@type": "Person", "name": n},
+                         "reviewRating": {"@type": "Rating", "ratingValue": "5",
+                                          "bestRating": "5"},
+                         "reviewBody": t,
+                         "itemReviewed": {"@id": f"{SITE}/#business"}}
+                        for n, _, t in REVIEWS]}]
+
+# ------------------------------------------------------------------ contact
+def contact_body():
+    return '''
+<p>Samenwerken met Nuno? Of het nu gaat om een <a href="/vuurspuwer-inhuren/">vuurshow</a>,
+<a href="/fakir-show-inhuren/">fakirshow</a>, <a href="/workshop-vuurspuwen/">workshop
+vuurspuwen</a>, <a href="/reptielenhow/">reptielenshow</a> of een complete
+<a href="/halloween/">Halloween-productie</a>: vertel kort wat je viert, waar en wanneer
+&mdash; dan hoor je <strong>binnen 24 uur</strong> of de datum vrij is, met een
+vrijblijvende offerte op maat.</p>
+'''
+
+CONTACT_FORM = '''
+<section class="wrap bay" aria-label="Direct contact en aanvraagformulier">
+  <div class="book">
+    <div class="contact rise">
+      <div class="contact__line">
+        <span class="eyebrow eyebrow--dim">Telefoon &mdash; ma t/m za, 9:00&ndash;18:00</span>
+        <b><a href="tel:+31620020723">+31 6 200 207 23</a></b>
+      </div>
+      <div class="contact__line">
+        <span class="eyebrow eyebrow--dim">Vast / zakelijk</span>
+        <b><a href="tel:+31852033547">+31 85 203 35 47</a></b>
+      </div>
+      <div class="contact__line">
+        <span class="eyebrow eyebrow--dim">WhatsApp</span>
+        <b><a href="https://wa.me/31620020723?text=Hallo%20Nuno%2C%20is%20mijn%20datum%20nog%20vrij%3F" rel="noopener">Stuur een bericht</a></b>
+      </div>
+      <div class="contact__line">
+        <span class="eyebrow eyebrow--dim">Mail</span>
+        <b><a href="mailto:nuno@vuurspuwer.com">nuno@vuurspuwer.com</a></b>
+      </div>
+      <div class="contact__line">
+        <span class="eyebrow eyebrow--dim">Werkgebied</span>
+        <b>Nederland, Belgi&euml; &amp; internationaal</b>
+      </div>
+      <p class="form__note">Voor een datum binnen twee weken: bel of app even, dan gaat het sneller dan mail.</p>
+    </div>
+
+    <form class="form rise" data-delay="1" id="bookForm" novalidate>
+      <div class="form__row">
+        <label class="field"><span>Naam</span><input type="text" name="naam" autocomplete="name" required></label>
+        <label class="field"><span>E-mail</span><input type="email" name="email" autocomplete="email" required></label>
+      </div>
+      <div class="form__row">
+        <label class="field"><span>Telefoon (optioneel)</span><input type="tel" name="telefoon" autocomplete="tel"></label>
+        <label class="field"><span>Datum van het evenement</span><input type="date" name="datum"></label>
+      </div>
+      <div class="form__row">
+        <label class="field"><span>Welke show?</span>
+          <select name="act">
+            <option>Weet ik nog niet</option>
+            <option>Vuurshow</option>
+            <option>Fakirshow</option>
+            <option>Workshop vuurspuwen</option>
+            <option>Reptielenshow</option>
+            <option>Halloween-act</option>
+            <option>Mentalisme</option>
+            <option>Themafeest / combinatie</option>
+          </select>
+        </label>
+        <label class="field"><span>Binnen of buiten</span>
+          <select name="ruimte">
+            <option>Buiten</option>
+            <option>Binnen</option>
+            <option>Allebei</option>
+          </select>
+        </label>
+      </div>
+      <label class="field"><span>Locatie</span><input type="text" name="locatie" placeholder="Plaats of zaal, bijv. Utrecht of De Vereeniging"></label>
+      <label class="field"><span>Vertel kort over het evenement</span><textarea name="bericht" rows="4" placeholder="Bijv. bedrijfsfeest voor 80 personen, show rond 21:00 uur"></textarea></label>
+
+      <div class="status" id="formStatus" hidden role="status"></div>
+
+      <div>
+        <button class="btn" type="submit"><span class="btn__dot"></span>Verstuur aanvraag</button>
+      </div>
+      <p class="form__note">Dit formulier opent je aanvraag in je eigen mailprogramma &mdash; of app <a href="https://wa.me/31620020723" rel="noopener">direct via WhatsApp</a>.</p>
+    </form>
+  </div>
+</section>
+'''
+
+def contact_schema():
+    return [{"@context": "https://schema.org", "@type": "ContactPage",
+             "@id": f"{SITE}/contact-3/#contact",
+             "url": f"{SITE}/contact-3/",
+             "name": "Contact — Vuurspuwer Nuno",
+             "about": {"@id": f"{SITE}/#business"},
+             "mainEntity": {"@id": f"{SITE}/#business"}}]

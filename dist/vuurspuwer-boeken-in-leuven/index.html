@@ -24,6 +24,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
+<link rel="preload" as="image" href="/assets/media/vuurbal-1333.webp" fetchpriority="high">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://vuurspuwer.com/"}, {"@type": "ListItem", "position": 2, "name": "Locaties", "item": "https://vuurspuwer.com/locaties-vuurshows-nederland-belgie/"}, {"@type": "ListItem", "position": 3, "name": "Vuurspuwer Leuven: Zet uw evenement in vlam en vuur in de Dijlevallei"}]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "Vuurspuwer inhuren in Leuven", "serviceType": "Vuurshow", "provider": {"@id": "https://vuurspuwer.com/#business"}, "areaServed": {"@type": "City", "name": "Leuven"}, "url": "https://vuurspuwer.com/vuurspuwer-boeken-in-leuven/"}</script>
 </head>
@@ -55,16 +56,22 @@
      Chrome
      ============================================================ -->
 <header class="nav" id="nav">
-  <a class="nav__brand" href="/#top" aria-label="Vuurspuwer Nuno, naar boven">
-    <span class="logo" id="navLogo" role="img" aria-label="Nuno"></span>
-  </a>
+  <div class="nav__home">
+    <a class="nav__brand" href="/" aria-label="Vuurspuwer Nuno, naar de homepagina">
+      <span class="logo" id="navLogo" role="img" aria-label="Nuno"></span>
+    </a>
+    <a class="nav__stars" href="/beoordelingen/" aria-label="4,9 van de 5 sterren uit 134 reviews — lees de beoordelingen"><i aria-hidden="true">&starf;&starf;&starf;&starf;&starf;</i>4.9 &middot; 134 reviews</a>
+  </div>
 
   <nav class="nav__links" aria-label="Hoofdmenu">
-    <a class="nav__link" href="/#shows">Shows</a>
-    <a class="nav__link" href="/#reel">Showreel</a>
-    <a class="nav__link" href="/#werk">Galerij</a>
-    <a class="nav__link" href="/#reviews">Reviews</a>
-    <a class="nav__link" href="/#locaties">Locaties</a>
+    <a class="nav__link nav__link--home" href="/">Home</a>
+    <a class="nav__link" href="/fotos/">Foto's</a>
+    <a class="nav__link" href="/videos/">Video's</a>
+    <a class="nav__link" href="/vuurspuwer-inhuren/">Vuurshow</a>
+    <a class="nav__link" href="/workshop-vuurspuwen/">Workshop</a>
+    <a class="nav__link nav__link--hot" href="/halloween/">&#127875; Halloween</a>
+    <a class="nav__link" href="/fakir-show-inhuren/">Fakirshow</a>
+    <a class="nav__link" href="/contact-3/">Contact</a>
   </nav>
 
   <div class="nav__act">
@@ -73,19 +80,22 @@
         <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1.1l-2.3 2.1z"/>
       </svg>
     </a>
-    <a class="btn btn--sm" href="/#boeken"><span class="btn__dot"></span>Offerte aanvragen</a>
+    <a class="btn btn--sm" href="/contact-3/"><span class="btn__dot"></span>Offerte aanvragen</a>
   </div>
 
   <button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Menu openen"><i></i></button>
 </header>
 
 <nav class="menu" id="menu" aria-label="Mobiel menu">
-  <a href="/#shows" style="--i:0">Shows</a>
-  <a href="/#reel" style="--i:1">Showreel</a>
-  <a href="/#werk" style="--i:2">Galerij</a>
-  <a href="/#reviews" style="--i:3">Reviews</a>
-  <a href="/#locaties" style="--i:4">Locaties</a>
-  <a href="/#boeken" style="--i:5">Offerte</a>
+  <a href="/" style="--i:0">Home</a>
+  <a href="/fotos/" style="--i:1">Foto's</a>
+  <a href="/videos/" style="--i:2">Video's</a>
+  <a href="/vuurspuwer-inhuren/" style="--i:3">Vuurshow</a>
+  <a href="/workshop-vuurspuwen/" style="--i:4">Workshop</a>
+  <a href="/halloween/" style="--i:5">&#127875; Halloween</a>
+  <a href="/fakir-show-inhuren/" style="--i:6">Fakirshow</a>
+  <a href="/beoordelingen/" style="--i:7">Reviews</a>
+  <a href="/contact-3/" style="--i:8">Contact</a>
   <div class="menu__foot">
     <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
     <p class="menu__meta">Nederland, Belgi&euml; &amp; internationaal</p>
@@ -94,14 +104,18 @@
 
 
 <main class="shell" id="top">
-  <article class="page wrap">
-    <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li><a href="/locaties-vuurshows-nederland-belgie/">Locaties</a></li><li><span aria-current="page">Vuurspuwer Leuven: Zet uw evenement in vlam en vuur in de Dijlevallei</span></li></ol></nav>
-    <p class="eyebrow">Vuurshow op locatie</p>
-    <h1 class="page__title">Vuurspuwer Leuven: Zet uw evenement in vlam en vuur in de Dijlevallei</h1>
-    <p class="lede">Leuven, de bruisende studentenstad met haar rijke historie, is de perfecte locatie voor een onvergetelijk evenement. Wilt u uw gasten versteld doen staan? Huur dan een professionele…</p>
-  </article>
+  <header class="phero">
+    <div class="phero__bg" style="background-image:url('/assets/media/vuurbal-1333.webp')" aria-hidden="true"></div>
+    <img class="phero__img" src="/assets/media/vuurbal-1333.webp" alt="Vuurspuwer inhuren Ternat – Nuno spuwt vuur tijdens een spectaculaire vuurshow op een evenement in Ternat" fetchpriority="high" decoding="async">
+    <div class="phero__veil" aria-hidden="true"></div>
+    <div class="phero__body wrap">
+      <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li><a href="/locaties-vuurshows-nederland-belgie/">Locaties</a></li><li><span aria-current="page">Vuurspuwer Leuven: Zet uw evenement in vlam en vuur in de Dijlevallei</span></li></ol></nav>
+      <p class="eyebrow">Vuurshow op locatie</p>
+      <h1 class="page__title">Vuurspuwer Leuven: Zet uw evenement in vlam en vuur in de Dijlevallei</h1>
+      <p class="lede">Leuven, de bruisende studentenstad met haar rijke historie, is de perfecte locatie voor een onvergetelijk evenement. Wilt u uw gasten versteld doen staan? Huur dan een professionele…</p>
+    </div>
+  </header>
 
-  <figure class="lede-img wrap"><img src="/assets/media/vuurbal-1333.webp" alt="Vuurspuwer inhuren Ternat – Nuno spuwt vuur tijdens een spectaculaire vuurshow op een evenement in Ternat" loading="lazy" decoding="async"></figure>
   <div class="wrap bay">
     <div class="prose prose--page">
 <h2>Vuurspuwer Leuven: Laat Uw Evenement Vlammen!</h2><p>Leuven, de bruisende studentenstad met haar rijke historie, is de perfecte locatie voor een onvergetelijk evenement. Wilt u uw gasten versteld doen staan? Huur dan een professionele <strong>vuurspuwer Leuven</strong> in en creëer een spectaculaire sfeer die nog lang zal nazinderen.</p><h3>Waarom een Vuurshow in Leuven Onmisbaar is</h3><p>Of het nu gaat om een intiem trouwfeest, een grootschalig bedrijfsevenement of een bruisend studentenfeest, een vuurshow is de ideale manier om indruk te maken. Denk aan: <a href="https://vuurspuwer.com/maak-je-evenement-bij-3hoog-leuven-onvergetelijk-met-spectaculair-entertainment/">onvergetelijk entertainment bij 3Hoog Leuven</a> <a href="https://vuurspuwer.com/locaties-vuurshows-nederland-belgie/">alle vuurshow locaties in Nederland en België</a></p><ul> <li><strong>Visuele impact:</strong> De flakkerende vlammen vormen een adembenemend contrast met de historische achtergrond van Leuven.</li> <li><strong>Unieke fotomomenten:</strong> Stel je voor: spectaculaire foto's met vuur en de iconische Grote Markt op de achtergrond.</li> <li><strong>Onvergetelijke energie:</strong> Vuur brengt warmte en actie, perfect om uw evenement een boost te geven.</li></ul><h3>Vuurspuwer Leuven: Geschikt voor Elk Evenement in de Dijlestad</h3><p>Als ervaren vuurartiest pas ik mijn shows aan op de specifieke wensen van uw evenement. Leuven biedt talloze prachtige locaties waar een vuurshow perfect tot zijn recht komt: <a href="https://vuurspuwer.com/magisch-entertainment-bij-abdij-van-park-leuven-be-een-onvergetelijke-ervaring/">spectaculaire vuurshow bij de Abdij van Park in Leuven</a></p><ul> <li><strong>Trouwfeesten:</strong> Romantische vuuracts als een spetterende afsluiter van uw speciale dag.</li> <li><strong>Bedrijfsfeesten:</strong> Indrukwekkende shows voor uw medewerkers en partners. Overweeg ook eens <a href="https://vuurspuwer.com/exclusief-entertainment-bij-hotel-metropole-brussel-be-maak-uw-event-onvergetelijk/">exclusief entertainment</a>.</li> <li><strong>Publieke evenementen:</strong> Spectaculaire straattheater acts die passen bij de culturele sfeer van de stad.</li></ul><h3>Veiligheid Voorop bij Elke Vuurshow</h3><p>Veiligheid is mijn hoogste prioriteit. Ik werk uitsluitend met professionele materialen en veilige brandstoffen, en heb uitgebreide ervaring met de veiligheidsvoorschriften die gelden voor evenementen in Leuven en België. Meer informatie over vuurspuwen kunt u vinden op <a href="https://nl.wikipedia.org/wiki/Vuurspuwen">Wikipedia</a>.</p><h3>Boek Uw Vuurspuwer in Leuven Vandaag Nog!</h3><p>Wilt u de magie van vuur naar uw evenement in Leuven brengen? Wacht niet langer en neem contact op! Zeker tijdens het drukke seizoen is het raadzaam om tijdig te boeken. Neem <a href="https://vuurspuwer.com/contact/">contact</a> op om de mogelijkheden te bespreken en een vrijblijvende offerte aan te vragen.</p><p>Maak van uw evenement een vurig succes met <a href="https://vuurspuwer.com/">Vuurspuwer.com</a>!</p>
@@ -114,7 +128,7 @@
     <div class="hero__actions">
       <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
       <a class="btn btn--ghost" href="https://wa.me/31620020723">WhatsApp direct</a>
-      <a class="btn btn--ghost" href="/#boeken">Stuur een aanvraag</a>
+      <a class="btn btn--ghost" href="/contact-3/">Stuur een aanvraag</a>
     </div>
   </section>
 </main>
@@ -163,6 +177,7 @@
         <li><a href="tel:+31620020723">+31 6 200 207 23</a></li>
         <li><a href="https://wa.me/31620020723" rel="noopener">WhatsApp</a></li>
         <li><a href="mailto:nuno@vuurspuwer.com">nuno@vuurspuwer.com</a></li>
+        <li><a href="/contact-3/">Aanvraagformulier</a></li>
         <li><a href="/disclaimer-voorwaarden/">Algemene voorwaarden</a></li>
         <li><a href="/privacybeleid/">Privacybeleid</a></li>
       </ul>

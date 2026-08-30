@@ -24,8 +24,9 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
+<link rel="preload" as="image" href="/assets/media/post-cover.webp" fetchpriority="high">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://vuurspuwer.com/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://vuurspuwer.com/blog/"}, {"@type": "ListItem", "position": 3, "name": "Vuurspuwer Boeken voor 'bruiloft'"}]}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Vuurspuwer Boeken voor 'bruiloft'", "datePublished": "2025-09-21", "description": "Vuurspuwer Nuno verzorgt een onvergetelijke vuurshow op uw bruiloft. ✉️ Vraag vrijblijvend een offerte aan voor uw grote dag!", "mainEntityOfPage": "https://vuurspuwer.com/vuurspuwer-boeken-voor-bruiloft/", "image": "https://vuurspuwer.com/assets/media/post-cover.webp", "author": {"@type": "Person", "name": "Nuno", "@id": "https://vuurspuwer.com/#nuno"}, "publisher": {"@id": "https://vuurspuwer.com/#business"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Vuurspuwer Boeken voor 'bruiloft'", "datePublished": "2025-09-21", "dateModified": "2026-08-30", "description": "Vuurspuwer Nuno verzorgt een onvergetelijke vuurshow op uw bruiloft. ✉️ Vraag vrijblijvend een offerte aan voor uw grote dag!", "mainEntityOfPage": "https://vuurspuwer.com/vuurspuwer-boeken-voor-bruiloft/", "image": "https://vuurspuwer.com/assets/media/post-cover.webp", "author": {"@type": "Person", "name": "Nuno", "@id": "https://vuurspuwer.com/#nuno"}, "publisher": {"@id": "https://vuurspuwer.com/#business"}}</script>
 </head>
 <body>
 <a class="skip" href="#top">Naar de inhoud</a>
@@ -55,16 +56,22 @@
      Chrome
      ============================================================ -->
 <header class="nav" id="nav">
-  <a class="nav__brand" href="/#top" aria-label="Vuurspuwer Nuno, naar boven">
-    <span class="logo" id="navLogo" role="img" aria-label="Nuno"></span>
-  </a>
+  <div class="nav__home">
+    <a class="nav__brand" href="/" aria-label="Vuurspuwer Nuno, naar de homepagina">
+      <span class="logo" id="navLogo" role="img" aria-label="Nuno"></span>
+    </a>
+    <a class="nav__stars" href="/beoordelingen/" aria-label="4,9 van de 5 sterren uit 134 reviews — lees de beoordelingen"><i aria-hidden="true">&starf;&starf;&starf;&starf;&starf;</i>4.9 &middot; 134 reviews</a>
+  </div>
 
   <nav class="nav__links" aria-label="Hoofdmenu">
-    <a class="nav__link" href="/#shows">Shows</a>
-    <a class="nav__link" href="/#reel">Showreel</a>
-    <a class="nav__link" href="/#werk">Galerij</a>
-    <a class="nav__link" href="/#reviews">Reviews</a>
-    <a class="nav__link" href="/#locaties">Locaties</a>
+    <a class="nav__link nav__link--home" href="/">Home</a>
+    <a class="nav__link" href="/fotos/">Foto's</a>
+    <a class="nav__link" href="/videos/">Video's</a>
+    <a class="nav__link" href="/vuurspuwer-inhuren/">Vuurshow</a>
+    <a class="nav__link" href="/workshop-vuurspuwen/">Workshop</a>
+    <a class="nav__link nav__link--hot" href="/halloween/">&#127875; Halloween</a>
+    <a class="nav__link" href="/fakir-show-inhuren/">Fakirshow</a>
+    <a class="nav__link" href="/contact-3/">Contact</a>
   </nav>
 
   <div class="nav__act">
@@ -73,19 +80,22 @@
         <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1.1l-2.3 2.1z"/>
       </svg>
     </a>
-    <a class="btn btn--sm" href="/#boeken"><span class="btn__dot"></span>Offerte aanvragen</a>
+    <a class="btn btn--sm" href="/contact-3/"><span class="btn__dot"></span>Offerte aanvragen</a>
   </div>
 
   <button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Menu openen"><i></i></button>
 </header>
 
 <nav class="menu" id="menu" aria-label="Mobiel menu">
-  <a href="/#shows" style="--i:0">Shows</a>
-  <a href="/#reel" style="--i:1">Showreel</a>
-  <a href="/#werk" style="--i:2">Galerij</a>
-  <a href="/#reviews" style="--i:3">Reviews</a>
-  <a href="/#locaties" style="--i:4">Locaties</a>
-  <a href="/#boeken" style="--i:5">Offerte</a>
+  <a href="/" style="--i:0">Home</a>
+  <a href="/fotos/" style="--i:1">Foto's</a>
+  <a href="/videos/" style="--i:2">Video's</a>
+  <a href="/vuurspuwer-inhuren/" style="--i:3">Vuurshow</a>
+  <a href="/workshop-vuurspuwen/" style="--i:4">Workshop</a>
+  <a href="/halloween/" style="--i:5">&#127875; Halloween</a>
+  <a href="/fakir-show-inhuren/" style="--i:6">Fakirshow</a>
+  <a href="/beoordelingen/" style="--i:7">Reviews</a>
+  <a href="/contact-3/" style="--i:8">Contact</a>
   <div class="menu__foot">
     <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
     <p class="menu__meta">Nederland, Belgi&euml; &amp; internationaal</p>
@@ -94,14 +104,18 @@
 
 
 <main class="shell" id="top">
-  <article class="page wrap">
-    <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li><a href="/blog/">Blog</a></li><li><span aria-current="page">Vuurspuwer Boeken voor &#x27;bruiloft&#x27;</span></li></ol></nav>
-    <p class="eyebrow">Blog</p>
-    <h1 class="page__title">Vuurspuwer Boeken voor &#x27;bruiloft&#x27;</h1>
-    <p class="lede">Bent u op zoek naar een unieke en spectaculaire toevoeging aan uw bruiloft? Een professionele vuurshow van vuurspuwer Nuno transformeert uw speciale dag in een magische en adembenemende…</p>
-  </article>
+  <header class="phero">
+    <div class="phero__bg" style="background-image:url('/assets/media/post-cover.webp')" aria-hidden="true"></div>
+    <img class="phero__img" src="/assets/media/post-cover.webp" alt="Vuurspuwer Nuno met een metershoge vuurbal tegen een zwarte nachtlucht" fetchpriority="high" decoding="async">
+    <div class="phero__veil" aria-hidden="true"></div>
+    <div class="phero__body wrap">
+      <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li><a href="/blog/">Blog</a></li><li><span aria-current="page">Vuurspuwer Boeken voor &#x27;bruiloft&#x27;</span></li></ol></nav>
+      <p class="eyebrow">Blog</p>
+      <h1 class="page__title">Vuurspuwer Boeken voor &#x27;bruiloft&#x27;</h1>
+      <p class="lede">Bent u op zoek naar een unieke en spectaculaire toevoeging aan uw bruiloft? Een professionele vuurshow van vuurspuwer Nuno transformeert uw speciale dag in een magische en adembenemende…</p>
+    </div>
+  </header>
 
-  <figure class="lede-img wrap"><img src="/assets/media/post-cover.webp" alt="Vuurspuwer Nuno met een metershoge vuurbal tegen een zwarte nachtlucht" loading="lazy" decoding="async"></figure>
   <div class="wrap bay">
     <div class="prose prose--page">
 <h2>Vuurspuwer Boeken voor een Onvergetelijke Bruiloft</h2><p>Bent u op zoek naar een unieke en spectaculaire toevoeging aan uw bruiloft? Een professionele vuurshow van vuurspuwer Nuno transformeert uw speciale dag in een magische en adembenemende ervaring. Laat uw gasten versteld staan met een performance die ze zich nog lang zullen herinneren. Boek een ervaren <a href="https://vuurspuwer.com/">vuurspuwer</a> en maak uw bruiloft écht bijzonder.</p><h2>Waarom Kiezen voor Vuurspuwer Nuno voor Uw Bruiloft?</h2><p>Nuno is een ervaren en gepassioneerde vuurspuwer en fakir met meer dan 10 jaar ervaring in het verzorgen van spectaculaire shows op bruiloften en andere evenementen. Zijn expertise en toewijding aan veiligheid en kwaliteit staan garant voor een onvergetelijke show die perfect aansluit bij de sfeer van uw bruiloft. <a href="https://vuurspuwer.com/over-nuno/">meer dan 10 jaar ervaring als vuurspuwer en fakir</a></p><h3>Een Show Op Maat voor Uw Speciale Dag</h3><p>Met een uitgebreid repertoire aan acts creëert Nuno een show op maat die uw persoonlijke wensen en de stijl van uw bruiloft weerspiegelt. Zijn reputatie staat garant voor een professionele, veilige en bovenal adembenemende ervaring. Talloze tevreden klanten bevestigen zijn uitzonderlijke talent en betrouwbaarheid.</p><h2>De Perfecte Toevoeging voor Elke Bruiloft</h2><p>Een vuurshow is dé perfecte manier om uw bruiloft een extra dimensie te geven. Of het nu gaat om een intiem diner of een groot feest, een vuurshow voegt een element van magie en spanning toe dat uw gasten zal verbazen. De combinatie van vuur, licht en beweging creëert een adembenemend spektakel dat perfect past bij zowel moderne als klassieke bruiloften. Meer informatie over vuurspuwen kunt u vinden op <a href="https://nl.wikipedia.org/wiki/Vuurspuwen">Wikipedia</a>.</p><h3>Afgestemd op Uw Thema</h3><p>Nuno kan de show afstemmen op het thema van uw bruiloft, of het nu een romantische, elegante of juist een extravagante viering is. De show kan plaatsvinden tijdens de receptie, het diner of zelfs na het feest, afhankelijk van uw voorkeur. <a href="https://vuurspuwer.com/locaties-vuurshows-nederland-belgie/">vuurshow op diverse locaties in Nederland en België</a></p><h2>Hoe U Nuno Kunt Boeken voor Uw Bruiloft</h2><p>Het boeken van Nuno voor uw bruiloft is eenvoudig en ontspannen. Neem <a href="https://vuurspuwer.com/contact/">contact</a> met ons op om uw wensen te bespreken en een datum te reserveren. We bespreken graag uw ideeën en helpen u bij het samenstellen van een op maat gemaakte vuurshow die perfect past bij uw bruiloft. We zorgen voor een vlotte en professionele communicatie van begin tot eind, zodat u zich kunt concentreren op het genieten van uw speciale dag.</p><p>Boek nu uw spectaculaire vuurshow en maak uw bruiloft onvergetelijk! Overweeg ook eens een vuurshow in <a href="https://vuurspuwer.com/vuurspuwer-in-vlissingen-inhuren-spectaculair-entertainment-aan-de-zeeuwse-kust/">Vlissingen</a> als alternatief.</p><h2>FAQ's - Veelgestelde Vragen over Vuurshows op Bruiloften</h2><h3>Wat zijn de kosten van een vuurshow voor een bruiloft?</h3><p>De kosten van een vuurshow zijn afhankelijk van verschillende factoren, zoals de duur van de show, de complexiteit van de acts en de locatie. Neem contact met ons op voor een vrijblijvende offerte op maat. We bieden verschillende pakketten aan om aan uw budget te voldoen.</p><h3>Is een vuurshow veilig op locatie?</h3><p>De veiligheid van onze shows staat bij ons voorop. Nuno beschikt over jarenlange ervaring en werkt met professionele, veilige apparatuur. Voorafgaand aan de show wordt de locatie zorgvuldig geïnspecteerd om eventuele risico's te minimaliseren. We werken nauw samen met de locatie om ervoor te zorgen dat de show op een veilige en verantwoorde manier plaatsvindt. De veiligheid van uw gasten en de omgeving is onze hoogste prioriteit. <a href="https://vuurspuwer.com/disclaimer-voorwaarden/">onze voorwaarden voor een professionele vuurshow</a></p>
@@ -114,7 +128,7 @@
     <div class="hero__actions">
       <a class="btn" href="tel:+31620020723"><span class="btn__dot"></span>+31 6 200 207 23</a>
       <a class="btn btn--ghost" href="https://wa.me/31620020723">WhatsApp direct</a>
-      <a class="btn btn--ghost" href="/#boeken">Stuur een aanvraag</a>
+      <a class="btn btn--ghost" href="/contact-3/">Stuur een aanvraag</a>
     </div>
   </section>
 </main>
@@ -163,6 +177,7 @@
         <li><a href="tel:+31620020723">+31 6 200 207 23</a></li>
         <li><a href="https://wa.me/31620020723" rel="noopener">WhatsApp</a></li>
         <li><a href="mailto:nuno@vuurspuwer.com">nuno@vuurspuwer.com</a></li>
+        <li><a href="/contact-3/">Aanvraagformulier</a></li>
         <li><a href="/disclaimer-voorwaarden/">Algemene voorwaarden</a></li>
         <li><a href="/privacybeleid/">Privacybeleid</a></li>
       </ul>
