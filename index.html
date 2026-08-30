@@ -1505,11 +1505,10 @@ button,input,select,textarea{ font:inherit; color:inherit; }
     <!-- Drop hero footage in assets/media/. The video only becomes visible
          once it genuinely plays; otherwise the live flame carries the hero. -->
     <div class="hero__reel" aria-hidden="true">
-      <video id="heroVideo" muted loop playsinline autoplay preload="auto"
-             poster="assets/media/hero-poster.jpg">
-        <source src="assets/media/hero.webm" type="video/webm">
-        <source src="assets/media/hero.mp4" type="video/mp4">
-      </video>
+      <!-- No src here on purpose: the script picks a file that suits the
+           screen shape, so a phone never downloads a landscape master and a
+           desktop never stretches a portrait clip. -->
+      <video id="heroVideo" muted loop playsinline preload="none"></video>
     </div>
 
     <div class="hero__body">
@@ -1637,7 +1636,6 @@ button,input,select,textarea{ font:inherit; color:inherit; }
 
     <div class="reel rise">
       <video id="reelVideo" muted loop playsinline preload="metadata" poster="assets/media/reel-poster.jpg">
-        <source src="assets/media/showreel.webm" type="video/webm">
         <source src="assets/media/showreel.mp4" type="video/mp4">
       </video>
       <!-- Drop showreel.mp4 / .webm into assets/media and this placeholder
@@ -2540,6 +2538,15 @@ button,input,select,textarea{ font:inherit; color:inherit; }
      ============================================================== */
   const REEL_PLATE = { hue: 26, seed: 91, kind: "eight" };
 
+  /* Footage that suits the screen. A portrait clip blown up across a
+     desktop hero looks soft, so each shape gets its own file and the
+     other one is never downloaded. Missing file, no harm: the flame
+     carries the hero on its own. */
+  const HERO_VIDEO = {
+    portrait:  "assets/media/hero-portrait.mp4",
+    landscape: "assets/media/hero-landscape.mp4"
+  };
+
   function initVideo(){
     const hero = $("#heroVideo");
     if (hero) {
@@ -2549,8 +2556,12 @@ button,input,select,textarea{ font:inherit; color:inherit; }
       };
       hero.addEventListener("playing", live);
       hero.addEventListener("loadeddata", () => { if (hero.readyState >= 2) live(); });
+
+      hero.src = innerWidth / innerHeight < 1 ? HERO_VIDEO.portrait : HERO_VIDEO.landscape;
+      hero.preload = "auto";
+      hero.load();
       const p = hero.play();
-      if (p && p.catch) p.catch(() => { /* no footage yet — the flame carries it */ });
+      if (p && p.catch) p.catch(() => {});
     }
 
     const reel = $("#reelVideo"), holder = $("#reelHolder"),
@@ -2561,6 +2572,14 @@ button,input,select,textarea{ font:inherit; color:inherit; }
     if (rp) requestAnimationFrame(() => plate(rp, REEL_PLATE));
 
     let has = false;
+    reel.addEventListener("loadedmetadata", () => {
+      /* let the frame take the shape of the footage, whatever gets
+         dropped in — square social crop or a 16:9 master */
+      if (reel.videoWidth && reel.videoHeight) {
+        const r = reel.videoWidth / reel.videoHeight;
+        reel.parentElement.style.aspectRatio = clamp(r, 0.72, 1.9).toFixed(4);
+      }
+    });
     reel.addEventListener("loadeddata", () => {
       has = true;
       reel.classList.add("is-live");
