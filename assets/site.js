@@ -842,11 +842,29 @@
         ? (HERO_VIDEO.panel || HERO_VIDEO.portrait)
         : HERO_VIDEO.portrait;
       if (src) {
+        /* mobiel is streng over autoplay: expliciet gedempt en
+           autoplay aan vóór het laden, anders weigert iOS soms */
+        hero.muted = true;
+        hero.defaultMuted = true;
+        hero.autoplay = true;
+        hero.setAttribute("muted", "");
         hero.src = src;
         hero.preload = "auto";
         hero.load();
-        const p = hero.play();
-        if (p && p.catch) p.catch(() => {});
+        const tryPlay = () => {
+          const p = hero.play();
+          if (p && p.catch) p.catch(() => {});
+        };
+        tryPlay();
+        hero.addEventListener("loadeddata", tryPlay, { once: true });
+        /* energiebesparing/databesparing blokkeert stille autoplay
+           tot de eerste aanraking — dan alsnog starten */
+        const kick = () => { if (hero.paused) tryPlay(); };
+        ["touchstart", "pointerdown", "scroll"].forEach((ev) =>
+          addEventListener(ev, kick, { once: true, passive: true }));
+        document.addEventListener("visibilitychange", () => {
+          if (!document.hidden && hero.paused) tryPlay();
+        });
       }
     }
 
@@ -897,6 +915,19 @@
         }
       }, { threshold: 0.4 }).observe(fig);
     });
+
+    /* mobiel vangnet: weigerde de browser stille autoplay, start dan
+       bij de eerste aanraking alsnog de zichtbare reels */
+    const kickReels = () => {
+      for (const vid of players) {
+        const r = vid.getBoundingClientRect();
+        if (r.top < innerHeight && r.bottom > 0 && vid.paused && vid.src) {
+          vid.play().catch(() => {});
+        }
+      }
+    };
+    ["touchstart", "pointerdown"].forEach((ev) =>
+      addEventListener(ev, kickReels, { once: true, passive: true }));
   }
 
   /* ==============================================================
