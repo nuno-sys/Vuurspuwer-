@@ -1104,7 +1104,7 @@ body.is-locked .nav__call{ opacity:0; pointer-events:none; transition:opacity .3
   gap:clamp(1rem,2vw,1.5rem);
 }
 @media (min-width:820px){
-  .reels{ grid-template-columns:4fr 5fr; align-items:start; }
+  .reels{ grid-template-columns:1fr 1fr; align-items:start; }
 }
 
 .reel{

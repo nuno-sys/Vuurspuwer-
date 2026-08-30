@@ -1,0 +1,12 @@
+// Cloudflare Workers: serveer de gebouwde site uit ./dist.
+// Zonder dit bestand pakt een Worker-deploy de repo-root en bestaan
+// de onderliggende pagina's (bijv. /vuurspuwer-inhuren/) niet.
+{
+  "name": "vuurspuwer",
+  "compatibility_date": "2026-08-30",
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}

@@ -489,4 +489,5 @@ print(f"  sitemap.xml: {len(urls)} adressen")
 shutil.copy("index.html", os.path.join(OUT, "index.html"))
 shutil.copytree("assets", os.path.join(OUT, "assets"))
 shutil.copy("_headers", os.path.join(OUT, "_headers"))
+shutil.copy("404.html", os.path.join(OUT, "404.html")) if os.path.exists("404.html") else None
 print("  homepage en assets gekopieerd")
