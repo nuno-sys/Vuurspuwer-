@@ -260,6 +260,10 @@ _FOOTER_LABELS = {
         "Vergunningseisen &amp; veiligheidsafstanden geregeld": "Permits &amp; safety distances arranged",
         "4.9/5 uit 134 reviews": "4.9/5 from 134 reviews",
         'aria-label="Zekerheden"': 'aria-label="Guarantees"',
+        ">Bekend van<": ">As seen on<",
+        'aria-label="Bekend van deze zenders en producties"': 'aria-label="Known from these channels and productions"',
+        'alt="Duo-act van vuurspuwer Nuno: geknield spuwt hij een vuurbal terwijl een danseres met grote rode vleugels achter hem staat"':
+        'alt="Duo act by fire breather Nuno: kneeling, he breathes a fireball while a dancer with large red wings stands behind him"',
         "Nederland, Belgi&euml; &amp; internationaal": "Netherlands, Belgium &amp; international"},
  "de": {">Reptielenshow<": ">Reptilienshow<", ">Workshop vuurspuwen<": ">Feuerspucker-Workshop<",
         ">Mentalisme<": ">Mentalismus<", ">Themafeesten<": ">Mottopartys<",
@@ -273,6 +277,10 @@ _FOOTER_LABELS = {
         "Vergunningseisen &amp; veiligheidsafstanden geregeld": "Genehmigungen &amp; Sicherheitsabst&auml;nde geregelt",
         "4.9/5 uit 134 reviews": "4,9/5 aus 134 Bewertungen",
         'aria-label="Zekerheden"': 'aria-label="Garantien"',
+        ">Bekend van<": ">Bekannt aus<",
+        'aria-label="Bekend van deze zenders en producties"': 'aria-label="Bekannt aus diesen Sendern und Produktionen"',
+        'alt="Duo-act van vuurspuwer Nuno: geknield spuwt hij een vuurbal terwijl een danseres met grote rode vleugels achter hem staat"':
+        'alt="Duo-Act von Feuerspucker Nuno: kniend spuckt er einen Feuerball, w&auml;hrend eine T&auml;nzerin mit gro&szlig;en roten Fl&uuml;geln hinter ihm steht"',
         "Nederland, Belgi&euml; &amp; internationaal": "Niederlande, Belgien &amp; international"},
  "fr": {">Reptielenshow<": ">Spectacle de reptiles<", ">Workshop vuurspuwen<": ">Atelier cracheur de feu<",
         ">Mentalisme<": ">Mentalisme<", ">Themafeesten<": ">Fêtes à thème<",
@@ -286,6 +294,10 @@ _FOOTER_LABELS = {
         "Vergunningseisen &amp; veiligheidsafstanden geregeld": "Autorisations &amp; distances de sécurité gérées",
         "4.9/5 uit 134 reviews": "4,9/5 sur 134 avis",
         'aria-label="Zekerheden"': 'aria-label="Garanties"',
+        ">Bekend van<": ">Vu sur<",
+        'aria-label="Bekend van deze zenders en producties"': 'aria-label="Vu sur ces chaînes et productions"',
+        'alt="Duo-act van vuurspuwer Nuno: geknield spuwt hij een vuurbal terwijl een danseres met grote rode vleugels achter hem staat"':
+        'alt="Duo du cracheur de feu Nuno : à genoux, il crache une boule de feu tandis qu\'une danseuse aux grandes ailes rouges se tient derrière lui"',
         "Nederland, Belgi&euml; &amp; internationaal": "Pays-Bas, Belgique &amp; international"},
 }
 _WA_TEXT = {

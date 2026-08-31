@@ -1116,10 +1116,9 @@
         '<button class="lightbox__close" aria-label="Sluiten">&#10005;</button>' +
         '<button class="lightbox__prev" aria-label="Vorige foto">&#8592;</button>' +
         '<img alt="">' +
-        '<figcaption></figcaption>' +
         '<button class="lightbox__next" aria-label="Volgende foto">&#8594;</button>';
       document.body.appendChild(box);
-      const big = $("img", box), cap = $("figcaption", box);
+      const big = $("img", box);
       let cur = 0, opener = null;
 
       const show = (i) => {
@@ -1127,7 +1126,6 @@
         const a = shots[cur];
         big.src = a.getAttribute("href");
         big.alt = $("img", a) ? $("img", a).alt : "";
-        cap.textContent = a.dataset.cap || "";
       };
       const open = (i, src) => {
         opener = src || null;
