@@ -250,8 +250,9 @@ _BUSINESS_LD = {
     "logo": {"@type": "ImageObject",
              "url": f"{SITE}/assets/media/logo-mail.png",
              "width": 560, "height": 153},
-    "address": {"@type": "PostalAddress", "addressLocality": "Zeist",
-                "addressRegion": "Utrecht", "addressCountry": "NL"},
+    "address": {"@type": "PostalAddress", "postalCode": "3703 BM",
+                "addressLocality": "Zeist", "addressRegion": "Utrecht",
+                "addressCountry": "NL"},
     "areaServed": [{"@type": "Country", "name": "Nederland"},
                    {"@type": "Country", "name": "België"}],
     "sameAs": ["https://www.facebook.com/show.nuno",
@@ -273,6 +274,7 @@ def _augment_rich_results(graph, lang, page_desc=None, page_img=None):
                            "lowPrice": "350", "description": _OFFER_TXT[lang]})
             g.pop("aggregateRating", None)
             offers.setdefault("highPrice", "1500")
+            offers.setdefault("offerCount", "6")
             offers.setdefault("availability", "https://schema.org/InStock")
             if g.get("url"): offers.setdefault("url", g["url"])
             pid = (g.get("@id") or (g.get("url", "") + "#service")).replace("#service", "#product")
