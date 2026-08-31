@@ -3545,3 +3545,38 @@ html[data-theme="light"] .bchip:hover{ color:var(--ember); }
   padding-bottom:.5rem;
   border-bottom:1px solid var(--hairline);
 }
+
+/* ============================================================
+   Foto-strip halverwege de inhoud: dezelfde galerijplaten als op
+   de homepage, als natuurlijke horizontale scroll (puur CSS)
+   ============================================================ */
+.midgal{
+  width:100vw;
+  margin:clamp(2rem,4.5vw,3.2rem) calc(50% - 50vw);
+}
+.midgal__eyebrow{
+  font-family:var(--f-mono);
+  font-size:.66rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--flame);
+  margin:0 0 .9rem;
+  padding:0 var(--gutter);
+}
+.midgal__track{
+  display:flex;
+  gap:clamp(.8rem,1.8vw,1.3rem);
+  overflow-x:auto;
+  padding:0 var(--gutter) .9rem;
+  scroll-snap-type:x proximity;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;
+}
+.midgal .plate{
+  height:clamp(230px,34vh,340px);
+  scroll-snap-align:start;
+  -webkit-mask-image:none;
+  mask-image:none;
+}
+.midgal .plate a{ display:block; height:100%; }
+.midgal .plate img{ height:100%; width:auto; display:block; }

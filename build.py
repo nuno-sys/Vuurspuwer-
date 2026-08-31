@@ -530,6 +530,104 @@ def spec_rules(lang):
     return ('<script type="speculationrules">'
             + json.dumps(rules, separators=(",", ":")) + "</script>")
 
+# ---------------------------------------------- foto-strip halverwege
+# Dezelfde galerijplaten als op de homepage, als horizontale scroll-strip
+# na ±25% van de inhoud: bezoekers zien de shows, de foto's tellen mee in
+# de image-sitemap per pagina en de meest relevante foto staat vooraan.
+_MIDGAL_IMGS = [
+ ("bruiloft",   "bruiloft-480.webp",   "bruiloft-1080.webp",   480, 541, ("bruiloft", "trouw", "wedding", "hochzeit", "mariage")),
+ ("festival",   "festival-480.webp",   "festival-1600.webp",   480, 481, ("festival",)),
+ ("vuurbal",    "vuurbal-480.webp",    "vuurbal-1333.webp",    480, 720, ("halloween", "vuurwerk", "firework", "feuerwerk", "artifice", "kerst", "silvester", "nieuwjaar", "new-year", "noel")),
+ ("themafeest", "themafeest-480.webp", "themafeest-1080.webp", 480, 600, ("bedrijfsfeest", "corporate", "firmenfeier", "entreprise", "themafeest")),
+ ("workshop",   "workshop-480.webp",   "workshop-1125.webp",   480, 603, ("workshop", "vrijgezell", "bachelor", "junggesell", "evjf", "atelier")),
+ ("fakir",      "fakir-480.webp",      "fakir-1080.webp",      480, 599, ("fakir", "spijker")),
+ ("avondvuur",  "avondvuur-480.webp",  "avondvuur-1080.webp",  480, 476, ("verjaardag", "birthday", "geburtstag", "anniversaire", "jubil")),
+ ("reptiel",    "reptiel-480.webp",    "reptiel-960.webp",     480, 447, ("reptiel", "slang", "reptile")),
+]
+_MIDGAL_ALT = {
+ "bruiloft":   {"nl": "Duo-act op een bruiloft: vuurspuwer Nuno met danseres met rode vleugels",
+                "en": "Duo act at a wedding: fire breather Nuno with a dancer with red wings",
+                "de": "Duo-Act auf einer Hochzeit: Feuerspucker Nuno mit Tänzerin mit roten Flügeln",
+                "fr": "Duo à un mariage : le cracheur de feu Nuno avec une danseuse aux ailes rouges"},
+ "festival":   {"nl": "Vuurspuwer Nuno spuwt een vuurbal op een festivalplein voor een groot publiek",
+                "en": "Fire breather Nuno blows a fireball on a festival square for a large crowd",
+                "de": "Feuerspucker Nuno spuckt einen Feuerball auf einem Festivalplatz vor großem Publikum",
+                "fr": "Le cracheur de feu Nuno souffle une boule de feu devant une grande foule de festival"},
+ "vuurbal":    {"nl": "Meters hoge vuurbal tegen een zwarte nachtlucht boven de vuurspuwer",
+                "en": "Towering fireball against a black night sky above the fire breather",
+                "de": "Meterhoher Feuerball vor schwarzem Nachthimmel über dem Feuerspucker",
+                "fr": "Immense boule de feu contre un ciel nocturne au-dessus du cracheur de feu"},
+ "themafeest": {"nl": "Vuurspuwer bij een vintage bus tijdens een themafeest in de avond",
+                "en": "Fire breather next to a vintage bus during an evening theme party",
+                "de": "Feuerspucker neben einem Oldtimer-Bus bei einer abendlichen Mottoparty",
+                "fr": "Cracheur de feu près d'un bus vintage lors d'une soirée à thème"},
+ "workshop":   {"nl": "Workshopdeelnemer blaast een grote vuurbal tegen de avondlucht",
+                "en": "Workshop participant blows a large fireball against the evening sky",
+                "de": "Workshop-Teilnehmer bläst einen großen Feuerball gegen den Abendhimmel",
+                "fr": "Participant à l'atelier soufflant une grande boule de feu au crépuscule"},
+ "fakir":      {"nl": "Fakiract: Nuno draagt het gewicht van een staande toeschouwer",
+                "en": "Fakir act: Nuno bears the weight of a standing spectator",
+                "de": "Fakir-Act: Nuno trägt das Gewicht eines stehenden Zuschauers",
+                "fr": "Numéro de fakir : Nuno porte le poids d'un spectateur debout"},
+ "avondvuur":  {"nl": "Vuurspuwer Nuno spuwt een enorme vuurbal in de avondschemering",
+                "en": "Fire breather Nuno blows an enormous fireball at dusk",
+                "de": "Feuerspucker Nuno spuckt einen riesigen Feuerball in der Abenddämmerung",
+                "fr": "Le cracheur de feu Nuno souffle une énorme boule de feu au crépuscule"},
+ "reptiel":    {"nl": "Nuno met een boa constrictor om zijn arm tijdens de reptielenshow",
+                "en": "Nuno with a boa constrictor around his arm during the reptile show",
+                "de": "Nuno mit einer Boa constrictor um den Arm während der Reptilienshow",
+                "fr": "Nuno avec un boa constricteur autour du bras pendant le spectacle de reptiles"},
+}
+_MIDGAL_HEAD = {"nl": "Zo ziet het eruit — foto's uit de shows",
+                "en": "What it looks like — photos from the shows",
+                "de": "So sieht es aus — Fotos aus den Shows",
+                "fr": "Aperçu en images — photos des spectacles"}
+_MIDGAL_SKIP = {"", "blog", "404", "en", "de", "fr",
+                "fotos", "videos", "contact-3", "beoordelingen",
+                "disclaimer-voorwaarden", "privacybeleid"}
+for _s in ("fotos", "videos", "contact-3", "beoordelingen"):
+    for _l in ("en", "de", "fr"):
+        _MIDGAL_SKIP.add(f"{_l}/{I.SLUGS[_s][_l]}")
+
+def midgal(lang, slug):
+    s = slug.lower()
+    order = sorted(range(len(_MIDGAL_IMGS)),
+                   key=lambda i: (0 if any(k in s for k in _MIDGAL_IMGS[i][5]) else 1, i))
+    tiles, fulls = [], []
+    for i in order:
+        base, thumb, full, w, h, _k = _MIDGAL_IMGS[i]
+        alt = _MIDGAL_ALT[base][lang]
+        ss = srcset_of(f"/assets/media/{thumb}")
+        ss_attr = f' srcset="{ss}" sizes="(max-width:700px) 62vw, 300px"' if ss else ""
+        tiles.append(
+            f'<figure class="plate"><a href="/assets/media/{full}" data-lightbox>'
+            f'<img src="/assets/media/{thumb}"{ss_attr} width="{w}" height="{h}" '
+            f'loading="lazy" decoding="async" alt="{esc(alt)}"></a></figure>')
+        fulls.append(f"{SITE}/assets/media/{full}")
+    head = _MIDGAL_HEAD[lang]
+    html_out = (f'<aside class="midgal" aria-label="{esc(head)}">'
+                f'<p class="midgal__eyebrow">📸 {esc(head)}</p>'
+                f'<div class="midgal__track">{"".join(tiles)}</div></aside>')
+    return html_out, fulls[:4]
+
+def _insert_mid(body, snippet, frac=0.25):
+    parts = re.split(r"(</p>|</ul>|</ol>|</table>|</blockquote>)", body)
+    chunks = []
+    for i in range(0, len(parts) - 1, 2):
+        chunks.append(parts[i] + parts[i + 1])
+    if len(parts) % 2:
+        chunks.append(parts[-1])
+    if len(chunks) < 3:
+        return body + snippet
+    text_len = lambda c: len(re.sub(r"<[^>]+>", "", c))
+    total = sum(text_len(c) for c in chunks)
+    cum = 0
+    for idx, c in enumerate(chunks[:-1]):
+        cum += text_len(c)
+        if cum >= total * frac and idx >= 1:
+            return "".join(chunks[:idx + 1]) + snippet + "".join(chunks[idx + 1:])
+    return body + snippet
+
 def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alternates=None):
     L = I.UI[lang]
     if not p.get("no_toc"):
@@ -538,6 +636,14 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
     desc  = p["seo_desc"] or text_of(p["body"], 155)
     path  = path or (f'/{p["slug"]}/' if p["slug"] else "/")
     url   = SITE + path
+
+    # foto-strip na ±25% van de inhoud (niet op galerij-, contact- en
+    # indexpagina's), plus registratie in de image-sitemap van deze pagina
+    if (kind in ("page", "post", "city") and p["slug"] not in _MIDGAL_SKIP
+            and len(p.get("body", "")) > 1500):
+        _mg_html, _mg_fulls = midgal(lang, p["slug"])
+        p = {**p, "body": _insert_mid(p["body"], _mg_html)}
+        SITEMAP_IMG[path] = list(dict.fromkeys(SITEMAP_IMG.get(path, []) + _mg_fulls))
     home  = "/" if lang == "nl" else f"/{lang}/"
     trail = [(L["crumb_home"], home)]
     if kind == "post":   trail.append(("Blog", "/blog/"))
@@ -591,7 +697,8 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
     preload = ""
     if p.get("img"):
         iu, ia = p["img"]
-        if iu.startswith("/"): SITEMAP_IMG[path] = [SITE + iu]
+        if iu.startswith("/"):
+            SITEMAP_IMG[path] = list(dict.fromkeys([SITE + iu] + SITEMAP_IMG.get(path, [])))
         ss = srcset_of(iu)
         ss_attr = f' srcset="{ss}" sizes="100vw"' if ss else ""
         pre_ss = f' imagesrcset="{ss}" imagesizes="100vw"' if ss else ""
