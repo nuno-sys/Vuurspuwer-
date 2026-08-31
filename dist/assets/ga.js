@@ -1,4 +1,13 @@
-(function(){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-window.gtag=gtag;gtag("js",new Date());gtag("config","G-VBKVM99CPB",{transport_type:"beacon"});var loaded=false;function load(){if(loaded)return;loaded=true;var s=document.createElement("script");s.async=true;s.src="https://www.googletagmanager.com/gtag/js?id=G-VBKVM99CPB";document.head.appendChild(s);}
-if(document.readyState==="complete"){setTimeout(load,250);}else{addEventListener("load",function(){setTimeout(load,250);});}
-["pointerdown","keydown","touchstart","scroll"].forEach(function(ev){addEventListener(ev,load,{once:true,passive:true});});addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")load();});})();
+(function(){var ID="G-VBKVM99CPB";var SLEUTEL="vsCookies";window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+window.gtag=gtag;function keuze(){try{return localStorage.getItem(SLEUTEL);}catch(e){return null;}}
+function bewaar(v){try{localStorage.setItem(SLEUTEL,v);}catch(e){}}
+var gestart=false,geladen=false;function start(){if(gestart)return;gestart=true;gtag("js",new Date());gtag("config",ID,{transport_type:"beacon",anonymize_ip:true});function laad(){if(geladen)return;geladen=true;var s=document.createElement("script");s.async=true;s.src="https://www.googletagmanager.com/gtag/js?id="+ID;document.head.appendChild(s);}
+if(document.readyState==="complete")setTimeout(laad,250);else addEventListener("load",function(){setTimeout(laad,250);});["pointerdown","keydown","touchstart","scroll"].forEach(function(ev){addEventListener(ev,laad,{once:true,passive:true});});addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")laad();});}
+function kaart(){return document.getElementById("cookie");}
+function toon(){var k=kaart();if(!k)return;k.hidden=false;document.documentElement.classList.add("cookie-open");var ja=document.getElementById("cookieJa");if(ja)setTimeout(function(){try{ja.focus();}catch(e){}},60);}
+function sluit(){var k=kaart();if(k)k.hidden=true;document.documentElement.classList.remove("cookie-open");}
+function antwoord(v){bewaar(v);sluit();if(v==="ja")start();}
+function koppel(){var k=kaart();if(!k)return;var ja=document.getElementById("cookieJa");var nee=document.getElementById("cookieNee");if(ja)ja.addEventListener("click",function(){antwoord("ja");});if(nee)nee.addEventListener("click",function(){antwoord("nee");});document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!k.hidden)antwoord("nee");});k.addEventListener("keydown",function(e){if(e.key!=="Tab")return;var f=k.querySelectorAll("button, a[href]");if(!f.length)return;var eerste=f[0],laatste=f[f.length-1];if(e.shiftKey&&document.activeElement===eerste){laatste.focus();e.preventDefault();}
+else if(!e.shiftKey&&document.activeElement===laatste){eerste.focus();e.preventDefault();}});var herzie=document.querySelectorAll("[data-cookie-herzie]");for(var i=0;i<herzie.length;i++){herzie[i].addEventListener("click",function(e){e.preventDefault();toon();});}}
+function begin(){koppel();var v=keuze();if(v==="ja")start();else if(v!=="nee")toon();}
+if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",begin);}else{begin();}})();

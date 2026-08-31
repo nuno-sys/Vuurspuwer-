@@ -537,6 +537,48 @@ _PRICES_LBL = {"en": "Prices", "de": "Preise", "fr": "Tarifs"}
 
 SITEMAP_IMG = {}   # pad -> [volledige afbeeldings-urls] voor de image-sitemap
 
+# ------------------------------------------------- cookiekeuze per taal
+# De beeldvullende toestemmingskaart staat in index.html en komt via de
+# FOOTER-chunk op elke pagina terecht; hier de vertalingen ervan.
+_COOKIE_LBL = {
+ "en": {
+  ">🍪 Even eerlijk<": ">🍪 Let's be honest<",
+  "Wij spuwen vuur,<br><em>geen rook</em>": "We breathe fire,<br><em>not smoke</em>",
+  "Deze site meet alleen anoniem hoeveel mensen langskomen en\n    welke shows ze bekijken &mdash; zodat Nuno weet waar hij op moet inzetten.\n    Geen advertenties, geen doorverkoop, geen gedoe.":
+  "This site only measures anonymously how many people drop by and which shows they look at &mdash; so Nuno knows what to focus on. No ads, no reselling, no nonsense.",
+  "Liever niet? Ook prima. Dan meten we\n    niets en werkt alles gewoon door. Je kunt je keuze altijd wijzigen onderaan de site.":
+  "Rather not? That's fine too. Then we measure nothing and everything keeps working. You can change your choice at any time at the bottom of the site.",
+  ">Prima, meet maar mee<": ">Sure, count me in<",
+  ">Liever niet<": ">Rather not<",
+  ">Lees het privacybeleid<": ">Read the privacy policy<",
+  ">Cookievoorkeur<": ">Cookie preference<",
+ },
+ "de": {
+  ">🍪 Even eerlijk<": ">🍪 Mal ehrlich<",
+  "Wij spuwen vuur,<br><em>geen rook</em>": "Wir spucken Feuer,<br><em>keinen Rauch</em>",
+  "Deze site meet alleen anoniem hoeveel mensen langskomen en\n    welke shows ze bekijken &mdash; zodat Nuno weet waar hij op moet inzetten.\n    Geen advertenties, geen doorverkoop, geen gedoe.":
+  "Diese Seite misst nur anonym, wie viele Menschen vorbeischauen und welche Shows sie ansehen &mdash; damit Nuno weiß, worauf er setzen soll. Keine Werbung, kein Weiterverkauf, kein Theater.",
+  "Liever niet? Ook prima. Dan meten we\n    niets en werkt alles gewoon door. Je kunt je keuze altijd wijzigen onderaan de site.":
+  "Lieber nicht? Auch gut. Dann messen wir nichts und alles funktioniert weiterhin. Ihre Wahl können Sie unten auf der Seite jederzeit ändern.",
+  ">Prima, meet maar mee<": ">Passt, messt ruhig<",
+  ">Liever niet<": ">Lieber nicht<",
+  ">Lees het privacybeleid<": ">Datenschutzerklärung lesen<",
+  ">Cookievoorkeur<": ">Cookie-Einstellung<",
+ },
+ "fr": {
+  ">🍪 Even eerlijk<": ">🍪 Soyons honnêtes<",
+  "Wij spuwen vuur,<br><em>geen rook</em>": "Nous crachons du feu,<br><em>pas de la fumée</em>",
+  "Deze site meet alleen anoniem hoeveel mensen langskomen en\n    welke shows ze bekijken &mdash; zodat Nuno weet waar hij op moet inzetten.\n    Geen advertenties, geen doorverkoop, geen gedoe.":
+  "Ce site mesure uniquement de façon anonyme combien de personnes passent et quels spectacles elles regardent &mdash; pour que Nuno sache où concentrer ses efforts. Pas de publicité, pas de revente, pas d'histoires.",
+  "Liever niet? Ook prima. Dan meten we\n    niets en werkt alles gewoon door. Je kunt je keuze altijd wijzigen onderaan de site.":
+  "Vous préférez pas ? Aucun souci. Nous ne mesurons rien et tout continue de fonctionner. Vous pouvez modifier votre choix à tout moment en bas du site.",
+  ">Prima, meet maar mee<": ">D'accord, mesurez<",
+  ">Liever niet<": ">Plutôt pas<",
+  ">Lees het privacybeleid<": ">Lire la politique de confidentialité<",
+  ">Cookievoorkeur<": ">Préférence cookies<",
+ },
+}
+
 _CHROME_CACHE = {}
 def localize_doc(d, lang):
     """Past alle taalvervangingen (labels, links, WhatsApp) toe op een stuk
@@ -577,6 +619,7 @@ def localize_doc(d, lang):
     d = d.replace('<button class="burger"',
                   f'<button class="burger" data-txt-open="{L["close_btn"]}" data-txt-closed="{L["menu_btn"]}"')
     for a, b in _FOOTER_LABELS[lang].items(): d = d.replace(a, b)
+    for a, b in _COOKIE_LBL[lang].items(): d = d.replace(a, b)
     # WhatsApp-knop: taalversie van tekst, label en statuswoorden
     d = d.replace("Hallo%20Nuno%2C%20ik%20heb%20een%20vraag%20over%20een%20boeking", _WA_TEXT[lang])
     d = d.replace('aria-label="Chat met Nuno op WhatsApp"', f'aria-label="{_WA_ARIA[lang]}"')

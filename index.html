@@ -1550,6 +1550,7 @@
         <li><a href="/contact-3/">Aanvraagformulier</a></li>
         <li><a href="/disclaimer-voorwaarden/">Algemene voorwaarden</a></li>
         <li><a href="/privacybeleid/">Privacybeleid</a></li>
+        <li><button type="button" class="cookie-herzie" data-cookie-herzie>Cookievoorkeur</button></li>
       </ul>
     </nav>
   </div>
@@ -1606,6 +1607,28 @@
     <a class="share__item" data-share="wa" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a9.94 9.94 0 0 0-8.51 15.1L2 22l5.03-1.44A9.94 9.94 0 1 0 12 2zm-3.14 5.9c-.18 0-.47.07-.72.34-.25.27-.95.93-.95 2.27 0 1.34.97 2.63 1.11 2.81.13.18 1.87 2.99 4.63 4.07 2.29.9 2.76.72 3.26.68.5-.05 1.6-.66 1.83-1.29.23-.63.23-1.17.16-1.29-.07-.11-.25-.18-.52-.31-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.13-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.72-1.34-1.6-1.5-1.87-.16-.27-.02-.42.12-.55.12-.12.27-.32.4-.47.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.47-.07-.14-.6-1.46-.83-2-.21-.52-.44-.5-.61-.51z"/></svg><span>WhatsApp</span></a>
     <a class="share__item" data-share="mail"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg><span>E-mail</span></a>
     <a class="share__item" data-share="sms"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM8 11H6V9h2v2zm5 0h-2V9h2v2zm5 0h-2V9h2v2z"/></svg><span>SMS</span></a>
+  </div>
+</div>
+
+<!-- Cookiekeuze: beeldvullend, in huisstijl. Blijft verborgen tot ga.js
+     vaststelt dat er nog geen keuze is gemaakt; weigeren laadt Google
+     Analytics nooit, accepteren laadt hem meteen. -->
+<div class="cookie" id="cookie" hidden role="dialog" aria-modal="true" aria-labelledby="cookieKop">
+  <div class="cookie__doek" aria-hidden="true"></div>
+  <div class="cookie__kaart" role="document">
+    <span class="logo cookie__logo" role="img" aria-label="Nuno"></span>
+    <p class="cookie__eyebrow">🍪 Even eerlijk</p>
+    <h2 class="cookie__kop" id="cookieKop">Wij spuwen vuur,<br><em>geen rook</em></h2>
+    <p class="cookie__tekst">Deze site meet alleen anoniem hoeveel mensen langskomen en
+    welke shows ze bekijken &mdash; zodat Nuno weet waar hij op moet inzetten.
+    Geen advertenties, geen doorverkoop, geen gedoe.</p>
+    <p class="cookie__tekst cookie__tekst--klein">Liever niet? Ook prima. Dan meten we
+    niets en werkt alles gewoon door. Je kunt je keuze altijd wijzigen onderaan de site.</p>
+    <div class="cookie__knoppen">
+      <button type="button" class="cookie__ja" id="cookieJa">Prima, meet maar mee</button>
+      <button type="button" class="cookie__nee" id="cookieNee">Liever niet</button>
+    </div>
+    <a class="cookie__link" href="/privacybeleid/">Lees het privacybeleid</a>
   </div>
 </div>
 

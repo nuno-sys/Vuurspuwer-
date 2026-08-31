@@ -12,7 +12,7 @@
 <script>try{if(localStorage.vsTheme==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script>
 <link rel="mask-icon" href="/assets/pinned-tab.svg" color="#FFB020">
 <link rel="preconnect" href="https://www.googletagmanager.com">
-<script src="/assets/ga.js?v=49c91cc572" defer></script>
+<script src="/assets/ga.js?v=1145479962" defer></script>
 <title>🔥 Atelier Cracheur de Feu | Nuno</title>
 <meta name="description" content="💨 Atelier cracheur de feu avec l&#x27;encadrement professionnel de Nuno. Idéal pour un team building, un enterrement de vie de garçon ou une fête d&#x27;entreprise.…">
 <meta name="keywords" content="workshop vuurspuwen, teambuilding activiteit, vrijgezellenfeest workshop, vuurspuwer inhuren, vuurspuwer boeken, Nederland, België">
@@ -44,7 +44,7 @@
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-latin.woff2" crossorigin><link rel="preload" as="font" type="font/woff2" href="/assets/fonts/instrument-latin.woff2" crossorigin><link rel="preload" as="font" type="font/woff2" href="/assets/fonts/jetbrains-latin.woff2" crossorigin>
-<link rel="stylesheet" href="/assets/site.css?v=49c91cc572">
+<link rel="stylesheet" href="/assets/site.css?v=1145479962">
 <link rel="preload" as="image" href="/assets/media/workshop-1125.webp" imagesrcset="/assets/media/workshop-480.avif 480w, /assets/media/workshop-720.avif 720w, /assets/media/workshop-900.avif 900w, /assets/media/workshop-1125.avif 1125w" imagesizes="100vw" fetchpriority="high" type="image/avif">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": ["LocalBusiness", "EntertainmentBusiness"], "@id": "https://vuurspuwer.com/#business", "name": "Vuurspuwer Nuno", "legalName": "Nuno Art", "url": "https://vuurspuwer.com/", "description": "Vuurspuwer, fakir en mentalist voor bedrijfsfeesten, festivals, bruiloften en themafeesten in Nederland en België.", "telephone": "+31620020723", "email": "nuno@vuurspuwer.com", "priceRange": "€€", "image": ["https://vuurspuwer.com/assets/media/festival-1600.webp", "https://vuurspuwer.com/assets/media/vuurbal-1333.webp", "https://vuurspuwer.com/assets/media/fakir-1080.webp"], "logo": {"@type": "ImageObject", "url": "https://vuurspuwer.com/assets/media/logo-mail.png", "width": 560, "height": 153, "creator": {"@type": "Person", "@id": "https://vuurspuwer.com/#nuno", "name": "Nuno"}, "creditText": "Vuurspuwer Nuno", "copyrightNotice": "© Vuurspuwer Nuno", "license": "https://vuurspuwer.com/disclaimer-voorwaarden/", "acquireLicensePage": "https://vuurspuwer.com/contact-3/"}, "address": {"@type": "PostalAddress", "postalCode": "3703 BM", "addressLocality": "Zeist", "addressRegion": "Utrecht", "addressCountry": "NL"}, "areaServed": [{"@type": "Country", "name": "Nederland"}, {"@type": "Country", "name": "België"}], "sameAs": ["https://www.facebook.com/show.nuno", "https://www.instagram.com/officialnuno", "https://x.com/mentalist_nuno"], "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "136", "bestRating": "5", "worstRating": "1"}}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Product", "@id": "https://vuurspuwer.com/fr/atelier-cracheur-de-feu/#product", "name": "Atelier cracheur de feu", "description": "Atelier cracheur de feu avec encadrement professionnel de Nuno. Apprenez à cracher et manger le feu en toute sécurité — idéal pour team building, enterrements de vie de garçon et fêtes d'entreprise.", "brand": {"@type": "Brand", "name": "Vuurspuwer Nuno"}, "offers": {"@type": "AggregateOffer", "priceCurrency": "EUR", "lowPrice": "350", "description": "Prix de 350 € à 1500 €, selon le spectacle et la durée. Devis gratuit sur mesure.", "highPrice": "1500", "offerCount": "6", "availability": "https://schema.org/InStock", "url": "https://vuurspuwer.com/fr/atelier-cracheur-de-feu/"}, "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "136", "bestRating": "5", "worstRating": "1"}, "image": "https://vuurspuwer.com/assets/media/workshop-1125.webp", "inLanguage": "fr"}</script>
@@ -316,6 +316,7 @@
         <li><a href="/fr/contact/">Formulaire de demande</a></li>
         <li><a href="/disclaimer-voorwaarden/">Conditions générales</a></li>
         <li><a href="/privacybeleid/">Confidentialité</a></li>
+        <li><button type="button" class="cookie-herzie" data-cookie-herzie>Préférence cookies</button></li>
       </ul>
     </nav>
   </div>
@@ -376,7 +377,26 @@
   </div>
 </div>
 
+<!-- Cookiekeuze: beeldvullend, in huisstijl. Blijft verborgen tot ga.js
+     vaststelt dat er nog geen keuze is gemaakt; weigeren laadt Google
+     Analytics nooit, accepteren laadt hem meteen. -->
+<div class="cookie" id="cookie" hidden role="dialog" aria-modal="true" aria-labelledby="cookieKop">
+  <div class="cookie__doek" aria-hidden="true"></div>
+  <div class="cookie__kaart" role="document">
+    <span class="logo cookie__logo" role="img" aria-label="Nuno"></span>
+    <p class="cookie__eyebrow">🍪 Soyons honnêtes</p>
+    <h2 class="cookie__kop" id="cookieKop">Nous crachons du feu,<br><em>pas de la fumée</em></h2>
+    <p class="cookie__tekst">Ce site mesure uniquement de façon anonyme combien de personnes passent et quels spectacles elles regardent &mdash; pour que Nuno sache où concentrer ses efforts. Pas de publicité, pas de revente, pas d'histoires.</p>
+    <p class="cookie__tekst cookie__tekst--klein">Vous préférez pas ? Aucun souci. Nous ne mesurons rien et tout continue de fonctionner. Vous pouvez modifier votre choix à tout moment en bas du site.</p>
+    <div class="cookie__knoppen">
+      <button type="button" class="cookie__ja" id="cookieJa">D'accord, mesurez</button>
+      <button type="button" class="cookie__nee" id="cookieNee">Plutôt pas</button>
+    </div>
+    <a class="cookie__link" href="/privacybeleid/">Lire la politique de confidentialité</a>
+  </div>
+</div>
 
-<script src="/assets/site.js?v=49c91cc572" defer></script>
+
+<script src="/assets/site.js?v=1145479962" defer></script>
 </body>
 </html>
