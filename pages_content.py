@@ -345,7 +345,7 @@ SHOW_PAGES = {
   "service": {"name": "Halloween entertainment", "type": "Halloween entertainment",
               "desc": "Halloween vuurshows, horror-fakiracts en scare-entertainment voor Fright Nights, spooktochten en themafeesten in Nederland en België.",
               "offers": {"@type": "AggregateOffer", "priceCurrency": "EUR",
-                         "lowPrice": "350", "highPrice": "1800",
+                         "lowPrice": "350", "highPrice": "1500",
                          "description": "Vanaf-prijs, exclusief reiskosten. Vrijblijvende offerte op maat."}},
   "fotos": [("vuurbal-900.webp", "vuurbal-1333.webp", 900, 1350, "Vuurbal tijdens een nachtshow", "Meters hoge vuurbal tegen een zwarte nachtlucht boven de vuurspuwer"),
             ("spijkerbed-900.webp", "spijkerbed-1242.webp", 900, 873, "Horror-fakir: het spijkerbord", "Close-up van de fakiract: Nuno balanceert het spijkerbord met kettingen op zijn gezicht"),

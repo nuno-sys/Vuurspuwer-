@@ -229,10 +229,10 @@ def crumbs(items):
 _RATING_LD = {"@type": "AggregateRating", "ratingValue": "4.9",
               "reviewCount": "134", "bestRating": "5", "worstRating": "1"}
 _OFFER_TXT = {
-    "nl": "Vanaf-prijs, exclusief reiskosten. Vrijblijvende offerte op maat.",
-    "en": "Starting price, excluding travel costs. Free tailored quote.",
-    "de": "Ab-Preis, zzgl. Anfahrt. Kostenloses Angebot nach Maß.",
-    "fr": "Prix à partir de, hors frais de déplacement. Devis gratuit sur mesure.",
+    "nl": "Prijzen van €350 tot €1500, afhankelijk van show en duur. Vrijblijvende offerte op maat.",
+    "en": "Prices from €350 to €1500, depending on show and duration. Free tailored quote.",
+    "de": "Preise von 350 € bis 1500 €, je nach Show und Dauer. Kostenloses Angebot nach Maß.",
+    "fr": "Prix de 350 € à 1500 €, selon le spectacle et la durée. Devis gratuit sur mesure.",
 }
 _BUSINESS_LD = {
     "@context": "https://schema.org",
@@ -272,6 +272,7 @@ def _augment_rich_results(graph, lang, page_desc=None, page_img=None):
                           {"@type": "AggregateOffer", "priceCurrency": "EUR",
                            "lowPrice": "350", "description": _OFFER_TXT[lang]})
             g.pop("aggregateRating", None)
+            offers.setdefault("highPrice", "1500")
             offers.setdefault("availability", "https://schema.org/InStock")
             if g.get("url"): offers.setdefault("url", g["url"])
             pid = (g.get("@id") or (g.get("url", "") + "#service")).replace("#service", "#product")
@@ -289,6 +290,14 @@ def _augment_rich_results(graph, lang, page_desc=None, page_img=None):
                for g in graph):
         extra.append(_BUSINESS_LD)
     graph.extend(extra)
+    # het bedrijf en de producten (sterren, prijzen) als eerste blokken in de
+    # head, zodat zoekmachines ze zo vroeg mogelijk lezen
+    def _prio(g):
+        ts = types(g) if isinstance(g, dict) else []
+        if "LocalBusiness" in ts or "EntertainmentBusiness" in ts: return 0
+        if "Product" in ts: return 1
+        return 2
+    graph.sort(key=_prio)
 
 # --------------------------------------------- meertalige chrome en helpers
 # vertaalde kop- en voetstukken: de NL-blokken uit index.html met de
