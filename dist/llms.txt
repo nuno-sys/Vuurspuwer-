@@ -1,32 +1,36 @@
-# Vuurspuwer Nuno — vuurspuwer.com
+# Vuurspuwer Nuno
 
-> Professionele vuurspuwer, fakir, mentalist en reptielenshow-artiest met
-> 17 jaar ervaring. Optredens in heel Nederland en België (en de Duitse
-> grensregio), vanuit Zeist (NL). Beoordeeld met 4,9/5 uit 134
-> Google-reviews. Bekend van SBS6, RTL, VTM en de Halloween Fright
-> Nights van Walibi Holland. Gecertificeerd en verzekerd.
+> Professionele vuurspuwer, fakir, mentalist en reptielenshow-artiest met 17 jaar ervaring. Optredens in heel Nederland en België (en de Duitse grensregio), vanuit Zeist (NL). Beoordeeld met 4,9/5 uit 134 reviews. Prijzen van €350 tot €1500 per show. Bekend van SBS6, RTL 4, VTM, Uri Geller, Walibi Fright Nights, Julianatoren en Emporium. Volledig gecertificeerd.
 
-## Diensten
-- Vuurshow (5–30 min, ook duo met danseres): https://vuurspuwer.com/vuurspuwer-inhuren/
-- Fakirshow (spijkerbed, glaslopen, zwaarden): https://vuurspuwer.com/fakir-show-inhuren/
-- Workshop vuurspuwen (teambuilding, vrijgezellenfeest): https://vuurspuwer.com/workshop-vuurspuwen/
-- Halloween-acts (vanaf €395; horror-fakir vanaf €450; productie vanaf €750): https://vuurspuwer.com/halloween/
-- Reptielenshow: https://vuurspuwer.com/reptielenhow/
-- Mentalisme: https://vuurspuwer.com/entertainer-huren/
+Boekingen lopen via het aanvraagformulier of WhatsApp; reactie binnen 24 uur. De volledige site-inhoud in platte tekst staat in [llms-full.txt](https://vuurspuwer.com/llms-full.txt).
 
-## Contact & boeken
-- Aanvraagformulier (antwoord binnen 24 uur): https://vuurspuwer.com/contact-3/
-- Telefoon: +31 6 200 207 23 (ma–za 9:00–18:00) · zakelijk +31 85 203 35 47
-- E-mail: nuno@vuurspuwer.com · WhatsApp: https://wa.me/31620020723
-- KvK 98164325 · Werkgebied: Nederland, België, Duitse grensregio, internationaal op aanvraag
+## Shows en diensten
+- [Vuurshow](https://vuurspuwer.com/vuurspuwer-inhuren/): choreografie van vuurspuwen, vuurjongleren en body fire, 5–30 min, ook als duo met danseres
+- [Fakirshow](https://vuurspuwer.com/fakir-show-inhuren/): spijkerbed, glaslopen en zwaarden, met het publiek als deel van de act
+- [Workshop vuurspuwen](https://vuurspuwer.com/workshop-vuurspuwen/): zelf leren vuurspuwen — teambuilding, vrijgezellen- en bedrijfsfeesten
+- [Halloween-acts](https://vuurspuwer.com/halloween/): duivelse vuurshows en horror-fakir, bekend van de Walibi Fright Nights
+- [Reptielenshow](https://vuurspuwer.com/reptielenhow/): educatieve ontmoeting met exotische slangen
+- [Mentalisme](https://vuurspuwer.com/entertainer-huren/): gedachtelezen en psychologische illusies, ook binnen inzetbaar
+- [Themafeesten](https://vuurspuwer.com/entertainer-huren-voor-bedrijfsfeest/): complete themaproducties van 1001 Nacht tot Caribbean
+
+## Prijzen en boeken
+- [Contact en offerte](https://vuurspuwer.com/contact-3/): aanvraagformulier, antwoord binnen 24 uur; prijzen €350–€1500 afhankelijk van show en duur
+- [Beoordelingen](https://vuurspuwer.com/beoordelingen/): 4,9/5 uit 134 reviews van opdrachtgevers
+- [Over Nuno](https://vuurspuwer.com/over-nuno/): 17 jaar ervaring, tv-optredens bij SBS6, RTL en VTM
+- Telefoon/WhatsApp: +31 6 200 207 23 · E-mail: nuno@vuurspuwer.com · KvK 98164325
+
+## Media
+- [Foto's](https://vuurspuwer.com/fotos/): galerij met licenseerbare showfoto's
+- [Video's](https://vuurspuwer.com/videos/): showreels van vuur- en fakiracts
+- [Locaties](https://vuurspuwer.com/locaties-vuurshows-nederland-belgie/): alle steden in Nederland en België
 
 ## Talen
-De site bestaat in vier talen: Nederlands (https://vuurspuwer.com/), English (https://vuurspuwer.com/en/),
-Deutsch (https://vuurspuwer.com/de/), Français (https://vuurspuwer.com/fr/).
+- [Nederlands](https://vuurspuwer.com/): hoofdversie
+- [English](https://vuurspuwer.com/en/): fire breather for hire in the Netherlands & Belgium
+- [Deutsch](https://vuurspuwer.com/de/): Feuerspucker für NRW und die Grenzregion
+- [Français](https://vuurspuwer.com/fr/): cracheur de feu pour la Belgique francophone
 
-## Belangrijkste pagina's
-- Beoordelingen (4,9/5, 134 reviews): https://vuurspuwer.com/beoordelingen/
-- Foto's: https://vuurspuwer.com/fotos/ · Video's: https://vuurspuwer.com/videos/
-- Over Nuno: https://vuurspuwer.com/over-nuno/
-- Alle locaties: https://vuurspuwer.com/locaties-vuurshows-nederland-belgie/
-- Sitemap: https://vuurspuwer.com/sitemap.xml
+## Optional
+- [Volledige inhoud (llms-full.txt)](https://vuurspuwer.com/llms-full.txt): alle pagina's, veelgestelde vragen en reviews in platte tekst
+- [Sitemap](https://vuurspuwer.com/sitemap.xml): alle 229 pagina's met afbeeldingen en video's
+- [Blog](https://vuurspuwer.com/blog/): artikelen over vuurshows, veiligheid en evenementen

@@ -279,13 +279,16 @@ def _license_images(g):
     elif isinstance(g, list):
         for v in g: _license_images(v)
 
-def _augment_rich_results(graph, lang, page_desc=None, page_img=None):
+def _augment_rich_results(graph, lang, page_desc=None, page_img=None, page_url=None):
     def types(g):
         t = g.get("@type")
         return t if isinstance(t, list) else [t]
     extra = []
     for g in graph:
         if not isinstance(g, dict): continue
+        if "FAQPage" in types(g):
+            if page_url: g.setdefault("@id", page_url + "#faq")
+            g.setdefault("inLanguage", I.HTML_LANG[lang])
         if "Service" in types(g):
             offers = dict(g.pop("offers", None) or
                           {"@type": "AggregateOffer", "priceCurrency": "EUR",
@@ -557,7 +560,7 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
                       "publisher": {"@id": f"{SITE}/#business"}})
     if extra_schema:
         graph.extend(extra_schema) if isinstance(extra_schema, list) else graph.append(extra_schema)
-    _augment_rich_results(graph, lang, page_desc=desc,
+    _augment_rich_results(graph, lang, page_desc=desc, page_url=url,
         page_img=(SITE + p["img"][0]) if p.get("img") and p["img"][0].startswith("/") else None)
     ld = "\n".join(f'<script type="application/ld+json">{json.dumps(g, ensure_ascii=False)}</script>' for g in graph)
 
@@ -1178,6 +1181,11 @@ _VIDEOS = [
      "Meters hoge vuurbal van vuurspuwer Nuno, gefilmd van dichtbij.",
      "/assets/media/vuurbal-900.webp", "/assets/media/hero-portrait.mp4", 5),
 ]
+# de fotopagina's melden de complete galerij aan Google Afbeeldingen
+_GALLERY = [f"{SITE}/assets/media/{full}" for _k, _t, full, _w, _h, _c, _a in FOTOS]
+for _p in ("/fotos/", "/en/photos/", "/de/fotos/", "/fr/photos/"):
+    SITEMAP_IMG[_p] = list(dict.fromkeys(SITEMAP_IMG.get(_p, []) + _GALLERY))
+
 for pth, pr in urls:
     entry = f"  <url><loc>{SITE}{pth}</loc><lastmod>{TODAY}</lastmod><priority>{pr}</priority>"
     for l, alt in sorted((LANG_ALTS.get(pth) or {}).items()):
@@ -1196,49 +1204,164 @@ for pth, pr in urls:
     sm.append(entry + "</url>")
 sm.append("</urlset>")
 open(os.path.join(OUT, "sitemap.xml"), "w").write("\n".join(sm) + "\n")
-open(os.path.join(OUT, "robots.txt"), "w").write(
-    f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
+open(os.path.join(OUT, "robots.txt"), "w").write(f"""# vuurspuwer.com — alles mag gecrawld worden, ook door AI-assistenten.
+# Overzicht voor taalmodellen: {SITE}/llms.txt
+# Volledige inhoud in platte tekst: {SITE}/llms-full.txt
+
+User-agent: *
+Allow: /
+
+# AI-crawlers expliciet welkom (zoek-, antwoord- en assistentverkeer)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Gemini-Deep-Research
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Sitemap: {SITE}/sitemap.xml
+""")
 print(f"  sitemap.xml: {len(urls)} adressen")
 
 # IndexNow: het sleutelbestand moet op de site zelf staan
 _inkey = open("indexnow-key.txt").read().strip()
 open(os.path.join(OUT, f"{_inkey}.txt"), "w").write(_inkey)
 
-# llms.txt: een compact, feitelijk overzicht voor AI-assistenten
-open(os.path.join(OUT, "llms.txt"), "w", encoding="utf-8").write(f"""# Vuurspuwer Nuno — vuurspuwer.com
+# llms.txt: index voor AI-assistenten volgens llmstxt.org — een H1, een
+# samenvatting en secties met echte markdown-links [titel](url): omschrijving
+open(os.path.join(OUT, "llms.txt"), "w", encoding="utf-8").write(f"""# Vuurspuwer Nuno
 
-> Professionele vuurspuwer, fakir, mentalist en reptielenshow-artiest met
-> 17 jaar ervaring. Optredens in heel Nederland en België (en de Duitse
-> grensregio), vanuit Zeist (NL). Beoordeeld met 4,9/5 uit 134
-> Google-reviews. Bekend van SBS6, RTL, VTM en de Halloween Fright
-> Nights van Walibi Holland. Gecertificeerd en verzekerd.
+> Professionele vuurspuwer, fakir, mentalist en reptielenshow-artiest met 17 jaar ervaring. Optredens in heel Nederland en België (en de Duitse grensregio), vanuit Zeist (NL). Beoordeeld met 4,9/5 uit 134 reviews. Prijzen van €350 tot €1500 per show. Bekend van SBS6, RTL 4, VTM, Uri Geller, Walibi Fright Nights, Julianatoren en Emporium. Volledig gecertificeerd.
 
-## Diensten
-- Vuurshow (5–30 min, ook duo met danseres): {SITE}/vuurspuwer-inhuren/
-- Fakirshow (spijkerbed, glaslopen, zwaarden): {SITE}/fakir-show-inhuren/
-- Workshop vuurspuwen (teambuilding, vrijgezellenfeest): {SITE}/workshop-vuurspuwen/
-- Halloween-acts (vanaf €395; horror-fakir vanaf €450; productie vanaf €750): {SITE}/halloween/
-- Reptielenshow: {SITE}/reptielenhow/
-- Mentalisme: {SITE}/entertainer-huren/
+Boekingen lopen via het aanvraagformulier of WhatsApp; reactie binnen 24 uur. De volledige site-inhoud in platte tekst staat in [llms-full.txt]({SITE}/llms-full.txt).
 
-## Contact & boeken
-- Aanvraagformulier (antwoord binnen 24 uur): {SITE}/contact-3/
-- Telefoon: +31 6 200 207 23 (ma–za 9:00–18:00) · zakelijk +31 85 203 35 47
-- E-mail: nuno@vuurspuwer.com · WhatsApp: https://wa.me/31620020723
-- KvK 98164325 · Werkgebied: Nederland, België, Duitse grensregio, internationaal op aanvraag
+## Shows en diensten
+- [Vuurshow]({SITE}/vuurspuwer-inhuren/): choreografie van vuurspuwen, vuurjongleren en body fire, 5–30 min, ook als duo met danseres
+- [Fakirshow]({SITE}/fakir-show-inhuren/): spijkerbed, glaslopen en zwaarden, met het publiek als deel van de act
+- [Workshop vuurspuwen]({SITE}/workshop-vuurspuwen/): zelf leren vuurspuwen — teambuilding, vrijgezellen- en bedrijfsfeesten
+- [Halloween-acts]({SITE}/halloween/): duivelse vuurshows en horror-fakir, bekend van de Walibi Fright Nights
+- [Reptielenshow]({SITE}/reptielenhow/): educatieve ontmoeting met exotische slangen
+- [Mentalisme]({SITE}/entertainer-huren/): gedachtelezen en psychologische illusies, ook binnen inzetbaar
+- [Themafeesten]({SITE}/entertainer-huren-voor-bedrijfsfeest/): complete themaproducties van 1001 Nacht tot Caribbean
+
+## Prijzen en boeken
+- [Contact en offerte]({SITE}/contact-3/): aanvraagformulier, antwoord binnen 24 uur; prijzen €350–€1500 afhankelijk van show en duur
+- [Beoordelingen]({SITE}/beoordelingen/): 4,9/5 uit 134 reviews van opdrachtgevers
+- [Over Nuno]({SITE}/over-nuno/): 17 jaar ervaring, tv-optredens bij SBS6, RTL en VTM
+- Telefoon/WhatsApp: +31 6 200 207 23 · E-mail: nuno@vuurspuwer.com · KvK 98164325
+
+## Media
+- [Foto's]({SITE}/fotos/): galerij met licenseerbare showfoto's
+- [Video's]({SITE}/videos/): showreels van vuur- en fakiracts
+- [Locaties]({SITE}/locaties-vuurshows-nederland-belgie/): alle steden in Nederland en België
 
 ## Talen
-De site bestaat in vier talen: Nederlands ({SITE}/), English ({SITE}/en/),
-Deutsch ({SITE}/de/), Français ({SITE}/fr/).
+- [Nederlands]({SITE}/): hoofdversie
+- [English]({SITE}/en/): fire breather for hire in the Netherlands & Belgium
+- [Deutsch]({SITE}/de/): Feuerspucker für NRW und die Grenzregion
+- [Français]({SITE}/fr/): cracheur de feu pour la Belgique francophone
 
-## Belangrijkste pagina's
-- Beoordelingen (4,9/5, 134 reviews): {SITE}/beoordelingen/
-- Foto's: {SITE}/fotos/ · Video's: {SITE}/videos/
-- Over Nuno: {SITE}/over-nuno/
-- Alle locaties: {SITE}/locaties-vuurshows-nederland-belgie/
-- Sitemap: {SITE}/sitemap.xml
+## Optional
+- [Volledige inhoud (llms-full.txt)]({SITE}/llms-full.txt): alle pagina's, veelgestelde vragen en reviews in platte tekst
+- [Sitemap]({SITE}/sitemap.xml): alle 229 pagina's met afbeeldingen en video's
+- [Blog]({SITE}/blog/): artikelen over vuurshows, veiligheid en evenementen
 """)
-print("  llms.txt en IndexNow-sleutel geschreven")
+
+# llms-full.txt: de complete inhoud in platte tekst, zodat ChatGPT, Claude,
+# Gemini en Perplexity de site in één bestand kunnen inlezen
+import glob as _glob
+import html as _htmllib
+def _plain(fragment):
+    t = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", fragment, flags=re.S)
+    t = re.sub(r"<[^>]+>", " ", t)
+    t = _htmllib.unescape(t)
+    return re.sub(r"\s+", " ", t).strip()
+
+def _dist_main(pth):
+    h = open(os.path.join(OUT, pth.strip("/"), "index.html"), encoding="utf-8").read()
+    title = _plain(re.search(r"<title>(.*?)</title>", h, re.S).group(1))
+    m = re.search(r"<main.*?</main>", h, re.S)
+    return title, _plain(m.group(0) if m else "")
+
+_FULL = ["vuurspuwer-inhuren", "fakir-show-inhuren", "workshop-vuurspuwen",
+         "reptielenhow", "entertainer-huren", "entertainer-huren-voor-bedrijfsfeest",
+         "halloween", "over-nuno", "locaties-vuurshows-nederland-belgie", "contact-3"]
+parts = ["# Vuurspuwer Nuno — volledige inhoud (vuurspuwer.com)\n",
+         "> Automatisch gegenereerd uit de live site. Index: "
+         f"{SITE}/llms.txt · Sitemap: {SITE}/sitemap.xml\n"]
+for slug in _FULL:
+    t, b = _dist_main(f"/{slug}/")
+    parts.append(f"## {t}\nURL: {SITE}/{slug}/\n\n{b}\n")
+
+# alle veelgestelde vragen van de hele site (alle talen), ontdubbeld
+faq_seen, faq_md = set(), []
+for f in ["index.html"] + sorted(_glob.glob(os.path.join(OUT, "**", "index.html"), recursive=True)):
+    for mm in re.findall(r'<script type="application/ld\+json">(.*?)</script>',
+                         open(f, encoding="utf-8").read(), re.S):
+        try: d = json.loads(mm)
+        except ValueError: continue
+        nodes = d.get("@graph", [d]) if isinstance(d, dict) else (d if isinstance(d, list) else [d])
+        for g in nodes:
+            if not isinstance(g, dict): continue
+            t = g.get("@type")
+            if "FAQPage" not in (t if isinstance(t, list) else [t]): continue
+            for q in g.get("mainEntity", []):
+                qq = q.get("name"); aa = (q.get("acceptedAnswer") or {}).get("text")
+                if qq and aa and qq not in faq_seen:
+                    faq_seen.add(qq)
+                    faq_md.append(f"**V: {qq}**\nA: {_plain(aa)}\n")
+parts.append("## Veelgestelde vragen (alle pagina's en talen)\n\n" + "\n".join(faq_md))
+
+parts.append("## Reviews van opdrachtgevers (4,9/5 uit 134 beoordelingen)\n\n" +
+             "\n".join(f"- {n}: “{_plain(t)}”" for n, _, t in PC.REVIEWS))
+
+parts.append("## Blogartikelen\n\n" +
+             "\n".join(f"- [{p['title']}]({SITE}/{p['slug']}/)" for p in posts))
+
+_city_paths = sorted(u for u, _ in urls if u.count("/") == 2 and
+                     any(k in u for k in ("vuurspuwer-", "fakirshow-", "workshop-vuurspuwen-",
+                                          "halloween-")))
+parts.append("## Stedenpagina's (Nederland en België)\n\n" +
+             "\n".join(f"- {SITE}{u}" for u in _city_paths))
+open(os.path.join(OUT, "llms-full.txt"), "w", encoding="utf-8").write(
+    "\n".join(parts) + "\n")
+print(f"  llms.txt, llms-full.txt ({len(faq_md)} FAQ's, {len(PC.REVIEWS)} reviews) "
+      "en IndexNow-sleutel geschreven")
 
 # homepage en assets meenemen; ook daar de versie-stempel op css/js,
 # de volledige hreflang-set en de taalkeuze in de footer
