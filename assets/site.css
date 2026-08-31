@@ -4016,3 +4016,16 @@ html[data-theme="light"] .gloss__item{ background-color:rgba(255,255,255,.6); }
 
 /* de vier verse reviews als intro: royale 2x2-indeling op desktop */
 .rgrid--feat{ grid-template-columns:repeat(auto-fill,minmax(min(440px,100%),1fr)); }
+
+/* ============================================================
+   Zichtbare publicatie- en bijwerkdatum (artikelen, prijzen)
+   ============================================================ */
+.pdate{
+  font-family:var(--f-mono);
+  font-size:var(--t-xs);
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--ink-dim);
+  margin:.6rem 0 0;
+}
+.pdate time + time::before{ content:""; }

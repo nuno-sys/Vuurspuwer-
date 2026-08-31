@@ -30,6 +30,28 @@ MONTHS_NL = ["", "januari", "februari", "maart", "april", "mei", "juni", "juli",
              "augustus", "september", "oktober", "november", "december"]
 TODAY_NL = f"{date.today().day} {MONTHS_NL[date.today().month]} {date.today().year}"
 
+MONTHS_LOC = {
+ "nl": MONTHS_NL,
+ "en": ["", "January", "February", "March", "April", "May", "June", "July",
+        "August", "September", "October", "November", "December"],
+ "de": ["", "Januar", "Februar", "März", "April", "Mai", "Juni", "Juli",
+        "August", "September", "Oktober", "November", "Dezember"],
+ "fr": ["", "janvier", "février", "mars", "avril", "mai", "juin", "juillet",
+        "août", "septembre", "octobre", "novembre", "décembre"],
+}
+
+def nl_datum(iso, lang="nl"):
+    """'2026-08-31' -> '31 augustus 2026' (of de vorm van de gekozen taal)"""
+    try:
+        j, m, d = iso.split("-")
+        maand = MONTHS_LOC.get(lang, MONTHS_NL)[int(m)]
+        return f"{int(d)}. {maand} {j}" if lang == "de" else f"{int(d)} {maand} {j}"
+    except Exception:
+        return iso
+
+# de bouwdatum in elke taal — plaatshouders die write() omzet
+TODAY_LOC = {l: nl_datum(str(date.today()), l) for l in ("nl", "en", "de", "fr")}
+
 XML  = "nunovuurspuwer-vuurshowsampfakirshowenworkshops.WordPress.2026-08-30.xml"
 OUT  = "dist"
 SITE = "https://vuurspuwer.com"
@@ -195,6 +217,13 @@ FONTS    = ('<link rel="preload" as="font" type="font/woff2" href="/assets/fonts
             '<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/jetbrains-latin.woff2" crossorigin>')
 
 def esc(t): return html.escape(t or "", quote=True)
+
+_DATUM_LBL = {
+ "nl": {"pub": "Gepubliceerd", "mod": "bijgewerkt"},
+ "en": {"pub": "Published",    "mod": "updated"},
+ "de": {"pub": "Veröffentlicht", "mod": "aktualisiert"},
+ "fr": {"pub": "Publié",       "mod": "mis à jour"},
+}
 
 OG_LOCALE = {"nl": "nl_NL", "en": "en_GB", "de": "de_DE", "fr": "fr_BE"}
 
@@ -1258,6 +1287,20 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
     # (contain), met dezelfde foto wazig als decor eromheen (cover).
     eyebrow = p.get("eyebrow") or ("Vuurshow op locatie" if kind == "city" and lang == "nl"
                                    else "Blog" if kind == "post" else L["eyebrow_default"])
+    # Zichtbare datum: alleen waar hij de lezer iets zegt — bij artikelen
+    # (hoe actueel is dit?) en bij pagina's die op actualiteit drijven, zoals
+    # de prijzen. De 'bijgewerkt'-datum is een plaatshouder die write() door
+    # de echte grootboekdatum vervangt, zodat zichtbaar en schema gelijk zijn.
+    datumregel = ""
+    if kind == "post" or p.get("toon_datum"):
+        L_DAT = _DATUM_LBL[lang]
+        pub = p.get("date") or ""
+        delen = []
+        if pub and kind == "post":
+            delen.append(f'<time datetime="{pub}">{L_DAT["pub"]} {nl_datum(pub, lang)}</time>')
+        delen.append(f'<time datetime="{TODAY}">{L_DAT["mod"]} {TODAY_LOC[lang]}</time>')
+        datumregel = f'<p class="pdate">{" · ".join(delen)}</p>'
+
     preload = ""
     if p.get("img"):
         iu, ia = p["img"]
@@ -1275,6 +1318,7 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
       {crumb_html}
       <p class="eyebrow">{esc(eyebrow)}</p>
       <h1 class="page__title">{esc(p["title"])}</h1>
+      {datumregel}
       {f'<p class="lede">{esc(intro)}</p>' if intro else ''}
     </div>
   </header>'''
@@ -1437,6 +1481,10 @@ def write(slug, doc):
     path = f"/{slug}/" if slug else "/"
     mod = _lastmod(path, doc)
     doc = doc.replace(f'"dateModified": "{TODAY}"', f'"dateModified": "{mod}"')
+    if mod != TODAY:                       # zichtbare datum meeschuiven
+        doc = doc.replace(f'<time datetime="{TODAY}">', f'<time datetime="{mod}">')
+        for _l, _vandaag in TODAY_LOC.items():
+            doc = doc.replace(_vandaag, nl_datum(mod, _l))
     d = os.path.join(OUT, slug)
     os.makedirs(d, exist_ok=True)
     open(os.path.join(d, "index.html"), "w", encoding="utf-8").write(doc)
@@ -2005,6 +2053,7 @@ for slug in KEEP_PAGES:
              "seo_desc": sp["seo_desc"], "body": sp["body"], "img": sp["img"],
              "eyebrow": sp["eyebrow"]}
         if slug == "halloween":
+            p["toon_datum"] = True
             p["body"] = hw_top("nl") + '<div class="hwpage">' + p["body"] + "</div>"
         extra = wizard("nl") + prijs_strip("nl") + PC.show_faq_html(sp)
         if sp["fotos"]:
@@ -2057,6 +2106,8 @@ for slug in KEEP_PAGES:
         cat_order = [c[0] for c in _BLOG_CATS] + [_BLOG_FALLBACK[0]]
         def _bcard(bp):
             excerpt = text_of(bp["body"], 140)
+            # de echte bijwerkdatum van dit artikel, niet de bouwdatum
+            _bd = _LEDGER.get(f'/{bp["slug"]}/', {}).get("d", TODAY)
             return (
                 f'<article class="bcard"><a href="/{bp["slug"]}/">'
                 f'<img src="/assets/media/post-cover-480.webp" '
@@ -2066,7 +2117,7 @@ for slug in KEEP_PAGES:
                 f'width="480" height="720" loading="lazy" decoding="async">'
                 f'<h2>{esc(bp["title"])}</h2></a>'
                 f'<p>{esc(excerpt)}</p>'
-                f'<p class="bcard__meta"><time datetime="{TODAY}">Bijgewerkt op {TODAY_NL}</time></p>'
+                f'<p class="bcard__meta"><time datetime="{_bd}">Bijgewerkt op {nl_datum(_bd)}</time></p>'
                 f'</article>')
         chips, sections = [], []
         for cid in cat_order:
@@ -2317,7 +2368,7 @@ def lang_home_body(lang):
 
 # de prijzenpagina: cornerstone zonder WXR-bron, dus synthetisch gebouwd
 PZ = PC.PRIJZEN
-_pz = {"slug": "wat-kost-een-vuurspuwer", "title": PZ["title"],
+_pz = {"slug": "wat-kost-een-vuurspuwer", "toon_datum": True, "title": PZ["title"],
        "seo_title": PZ["seo_title"], "seo_desc": PZ["seo_desc"],
        "img": PZ["img"], "eyebrow": PZ["eyebrow"], "date": TODAY,
        "body": PZ["body"]}
@@ -2376,7 +2427,10 @@ for lang in I.LANGS:
         out = path.strip("/")
         p = {"slug": out, "title": T["title"], "seo_title": T["seo_title"],
              "seo_desc": T["seo_desc"], "img": T["img"], "eyebrow": T["eyebrow"],
-             "date": TODAY, "body": T.get("body", "")}
+             "date": TODAY, "body": T.get("body", ""),
+             # prijzen en Halloween drijven op actualiteit: daar zegt een
+             # zichtbare bijwerkdatum de lezer iets
+             "toon_datum": nl_slug in ("wat-kost-een-vuurspuwer", "halloween")}
         extra_html, extra_ld = "", lang_schema(lang, path, T)
         if nl_slug == "fotos":
             p["body"] = lang_fotos_body(lang)
