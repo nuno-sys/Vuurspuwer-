@@ -136,6 +136,10 @@ HOME = {
   '&ldquo;Super fun experience! Nuno takes his whole audience along in a great show full of jokes and truly spectacular stunts. Never expected to breathe fire myself one day — thank you so much for the wonderful experience!&rdquo;',
   '>NIEUW<':
   '>NEW<',
+  'alt="Vuurspuwer Nuno blaast een enorme vuurzee met vonkenregen in een uitgaansstraat bij nacht"': 'alt="Fire breather Nuno blowing an enormous sea of fire with a rain of sparks in a nightlife street"',
+  'alt="Fakiract op straat: twee toeschouwers staan op Nuno terwijl hij op het spijkerbed ligt"': 'alt="Fakir act in the street: two spectators standing on Nuno while he lies on the bed of nails"',
+  'alt="Nuno steunt met zijn handen in de glasscherven tijdens een theatershow"': 'alt="Nuno resting his hands in broken glass during a theatre show"',
+  'alt="Nuno op het festivalpodium met vuur boven een juichende festivalmenigte"': 'alt="Nuno on the festival stage with fire above a cheering festival crowd"',
   '&ldquo;Geweldige workshop gehad van Nuno. Veiligheid voor alles! Ik heb er ontzettend veel van geleerd. En een hele fijne middag gehad. Iemand zonder kapsones en passie voor zijn vak. Diepe buiging!&rdquo;': '&ldquo;Had a great workshop with Nuno. Safety first, always! I learned an awful lot and had a really lovely afternoon. Someone without any airs and with true passion for his craft. Deep bow!&rdquo;',
   'alt="Originele Google-review van Anton Fennema"': 'alt="Original Google review by Anton Fennema"',
   '&ldquo;Wij hadden een vuurspuw workshop geboekt voor een vrijgezellenfeest bij Nuno. Nuno weet er echt een feestje van te maken en we hebben dan ook een hele leuke workshop gehad. Aanrader!&rdquo;': '&ldquo;We booked a fire-breathing workshop with Nuno for a bachelor party. Nuno really knows how to turn it into a party, and we had a great workshop indeed. Highly recommended!&rdquo;',
@@ -368,6 +372,10 @@ HOME = {
   '&ldquo;Super schöne Erfahrung! Nuno nimmt sein ganzes Publikum mit in eine großartige Show voller Witze und wirklich spektakulärer Stunts. Nie erwartet, selbst einmal Feuer spucken zu dürfen — vielen Dank für dieses schöne Erlebnis!&rdquo;',
   '>NIEUW<':
   '>NEU<',
+  'alt="Vuurspuwer Nuno blaast een enorme vuurzee met vonkenregen in een uitgaansstraat bij nacht"': 'alt="Feuerspucker Nuno bläst ein riesiges Feuermeer mit Funkenregen in einer Ausgehstraße bei Nacht"',
+  'alt="Fakiract op straat: twee toeschouwers staan op Nuno terwijl hij op het spijkerbed ligt"': 'alt="Fakir-Act auf der Straße: zwei Zuschauer stehen auf Nuno, während er auf dem Nagelbrett liegt"',
+  'alt="Nuno steunt met zijn handen in de glasscherven tijdens een theatershow"': 'alt="Nuno stützt sich während einer Theatershow mit den Händen in Glasscherben"',
+  'alt="Nuno op het festivalpodium met vuur boven een juichende festivalmenigte"': 'alt="Nuno auf der Festivalbühne mit Feuer über einer jubelnden Menge"',
   '&ldquo;Geweldige workshop gehad van Nuno. Veiligheid voor alles! Ik heb er ontzettend veel van geleerd. En een hele fijne middag gehad. Iemand zonder kapsones en passie voor zijn vak. Diepe buiging!&rdquo;': '&ldquo;Großartigen Workshop bei Nuno gehabt. Sicherheit geht vor! Ich habe unheimlich viel gelernt und einen sehr schönen Nachmittag gehabt. Jemand ohne Allüren und mit Leidenschaft für sein Fach. Tiefe Verbeugung!&rdquo;',
   'alt="Originele Google-review van Anton Fennema"': 'alt="Originale Google-Bewertung von Anton Fennema"',
   '&ldquo;Wij hadden een vuurspuw workshop geboekt voor een vrijgezellenfeest bij Nuno. Nuno weet er echt een feestje van te maken en we hebben dan ook een hele leuke workshop gehad. Aanrader!&rdquo;': '&ldquo;Wir hatten bei Nuno einen Feuerspuck-Workshop für einen Junggesellenabschied gebucht. Nuno weiß daraus wirklich ein Fest zu machen, und wir hatten einen richtig tollen Workshop. Sehr zu empfehlen!&rdquo;',
@@ -593,6 +601,10 @@ HOME = {
   '&ldquo;Une expérience super sympa ! Nuno embarque tout son public dans un spectacle génial, plein d&rsquo;humour et de cascades vraiment spectaculaires. Jamais je n&rsquo;aurais pensé cracher du feu moi-même un jour — merci beaucoup pour cette belle expérience !&rdquo;',
   '>NIEUW<':
   '>NOUVEAU<',
+  'alt="Vuurspuwer Nuno blaast een enorme vuurzee met vonkenregen in een uitgaansstraat bij nacht"': 'alt="Le cracheur de feu Nuno souffle une immense mer de feu avec pluie d&rsquo;étincelles dans une rue animée"',
+  'alt="Fakiract op straat: twee toeschouwers staan op Nuno terwijl hij op het spijkerbed ligt"': 'alt="Numéro de fakir dans la rue : deux spectateurs debout sur Nuno allongé sur la planche à clous"',
+  'alt="Nuno steunt met zijn handen in de glasscherven tijdens een theatershow"': 'alt="Nuno prend appui les mains dans les tessons de verre pendant un spectacle en salle"',
+  'alt="Nuno op het festivalpodium met vuur boven een juichende festivalmenigte"': 'alt="Nuno sur la scène du festival, du feu au-dessus d&rsquo;une foule en liesse"',
   '&ldquo;Geweldige workshop gehad van Nuno. Veiligheid voor alles! Ik heb er ontzettend veel van geleerd. En een hele fijne middag gehad. Iemand zonder kapsones en passie voor zijn vak. Diepe buiging!&rdquo;': '&ldquo;Superbe atelier avec Nuno. La sécurité avant tout ! J&rsquo;y ai énormément appris et passé un très bel après-midi. Quelqu&rsquo;un sans prétention et passionné par son métier. Chapeau bas !&rdquo;',
   'alt="Originele Google-review van Anton Fennema"': 'alt="Avis Google original d&rsquo;Anton Fennema"',
   '&ldquo;Wij hadden een vuurspuw workshop geboekt voor een vrijgezellenfeest bij Nuno. Nuno weet er echt een feestje van te maken en we hebben dan ook een hele leuke workshop gehad. Aanrader!&rdquo;': '&ldquo;Nous avions réservé un atelier cracheur de feu chez Nuno pour un enterrement de vie de garçon. Nuno sait vraiment en faire une fête, et nous avons passé un atelier très sympa. À recommander !&rdquo;',

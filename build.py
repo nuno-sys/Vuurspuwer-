@@ -643,6 +643,10 @@ _MIDGAL_IMGS = [
  ("fakir",      "fakir-480.webp",      "fakir-1080.webp",      480, 599, ("fakir", "spijker")),
  ("avondvuur",  "avondvuur-480.webp",  "avondvuur-1080.webp",  480, 476, ("verjaardag", "birthday", "geburtstag", "anniversaire", "jubil")),
  ("reptiel",    "reptiel-480.webp",    "reptiel-960.webp",     480, 447, ("reptiel", "slang", "reptile")),
+ ("vuurzee",    "vuurzee-480.webp",    "vuurzee-1234.webp",    480, 479, ("vuurwerk", "firework", "feuerwerk", "artifice", "halloween", "kerst", "nieuwjaar", "silvester", "noel", "new-year")),
+ ("straatfakir", "straatfakir-480.webp", "straatfakir-1081.webp", 480, 320, ("fakir", "spijker", "entertainer")),
+ ("glasact",    "glasact-480.webp",    "glasact-1600.webp",    480, 320, ("fakir", "glas", "spijker", "mentalis")),
+ ("podium",     "podium-480.webp",     "podium-1024.webp",     480, 353, ("festival", "concert")),
 ]
 _MIDGAL_ALT = {
  "bruiloft":   {"nl": "Duo-act op een bruiloft: vuurspuwer Nuno met danseres met rode vleugels",
@@ -677,6 +681,22 @@ _MIDGAL_ALT = {
                 "en": "Nuno with a boa constrictor around his arm during the reptile show",
                 "de": "Nuno mit einer Boa constrictor um den Arm während der Reptilienshow",
                 "fr": "Nuno avec un boa constricteur autour du bras pendant le spectacle de reptiles"},
+ "vuurzee":     {"nl": "Vuurspuwer Nuno blaast een enorme vuurzee met vonkenregen in een uitgaansstraat bij nacht",
+                "en": "Fire breather Nuno blowing an enormous sea of fire with a rain of sparks in a nightlife street",
+                "de": "Feuerspucker Nuno bläst ein riesiges Feuermeer mit Funkenregen in einer Ausgehstraße bei Nacht",
+                "fr": "Le cracheur de feu Nuno souffle une immense mer de feu avec pluie d'étincelles dans une rue animée"},
+ "straatfakir": {"nl": "Fakiract op straat: twee toeschouwers staan op Nuno terwijl hij op het spijkerbed ligt",
+                "en": "Fakir act in the street: two spectators standing on Nuno while he lies on the bed of nails",
+                "de": "Fakir-Act auf der Straße: zwei Zuschauer stehen auf Nuno, während er auf dem Nagelbrett liegt",
+                "fr": "Numéro de fakir dans la rue : deux spectateurs debout sur Nuno allongé sur la planche à clous"},
+ "glasact":     {"nl": "Nuno steunt met zijn handen in de glasscherven tijdens een theatershow",
+                "en": "Nuno resting his hands in broken glass during a theatre show",
+                "de": "Nuno stützt sich während einer Theatershow mit den Händen in Glasscherben",
+                "fr": "Nuno prend appui les mains dans les tessons de verre pendant un spectacle en salle"},
+ "podium":      {"nl": "Nuno op het festivalpodium met vuur boven een juichende festivalmenigte",
+                "en": "Nuno on the festival stage with fire above a cheering festival crowd",
+                "de": "Nuno auf der Festivalbühne mit Feuer über einer jubelnden Menge",
+                "fr": "Nuno sur la scène du festival, du feu au-dessus d'une foule en liesse"},
 }
 _MIDGAL_HEAD = {"nl": "Zo ziet het eruit — foto's uit de shows",
                 "en": "What it looks like — photos from the shows",
@@ -1362,6 +1382,18 @@ def write(slug, doc):
 # Eigen galerij in plaats van de oude WordPress-inhoud: alle foto's,
 # klik opent de lightbox, en elke foto staat als ImageObject in de markup.
 FOTOS = [
+    ("vuurzee",     "vuurzee-900.webp",     "vuurzee-1234.webp",     900, 899,
+     "Vuurzee in de uitgaansstraat",
+     "Vuurspuwer Nuno blaast een enorme vuurzee met vonkenregen in een uitgaansstraat bij nacht"),
+    ("straatfakir", "straatfakir-900.webp", "straatfakir-1081.webp", 900, 599,
+     "Fakirshow op straat: publiek staat óp Nuno",
+     "Fakiract op straat: twee toeschouwers staan op Nuno terwijl hij op het spijkerbed ligt"),
+    ("glasact",     "glasact-900.webp",     "glasact-1600.webp",     900, 600,
+     "Glasscherven-act in het theater",
+     "Nuno steunt met zijn handen in de glasscherven tijdens een theatershow"),
+    ("podium",      "podium-900.webp",      "podium-1024.webp",      900, 662,
+     "Festivalpodium voor duizenden",
+     "Nuno op het festivalpodium met vuur boven een juichende festivalmenigte"),
     ("festival",   "festival-900.webp",   "festival-1600.webp",  900, 902,
      "Complete vuurshow op een festivalplein",
      "Vuurspuwer Nuno spuwt een vuurbal op een festivalplein voor een groot publiek"),
@@ -2363,7 +2395,9 @@ SITEMAP_IMG["/"] = [SITE + u for u in (
     "/assets/media/fakir-1080.webp", "/assets/media/mentalist-1371.webp",
     "/assets/media/schemering-640.webp", "/assets/media/avondvuur-1080.webp",
     "/assets/media/spijkerbed-1242.webp", "/assets/media/bruiloft-1080.webp",
-    "/assets/media/reptiel-960.webp")]
+    "/assets/media/reptiel-960.webp", "/assets/media/vuurzee-1234.webp",
+    "/assets/media/straatfakir-1081.webp", "/assets/media/glasact-1600.webp",
+    "/assets/media/podium-1024.webp")]
 _VIDEOS = [
     ("Showreel Vuurspuwer Nuno - vuurshow op locatie",
      "Beelden van een vuurshow van Vuurspuwer Nuno: vuurspuwen, vuurjongleren en body fire.",
