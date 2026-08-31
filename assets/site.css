@@ -3049,7 +3049,7 @@ body.is-locked .wa{ opacity:0; pointer-events:none; transition:opacity .3s var(-
   inset:0;
   background:linear-gradient(180deg,
     var(--bg) 0%, rgba(10,7,5,.06) 26%,
-    rgba(10,7,5,.14) 58%, rgba(10,7,5,.78) 86%, var(--bg) 100%);
+    rgba(10,7,5,.22) 58%, rgba(10,7,5,.86) 84%, var(--bg) 100%);
 }
 .foot__known{
   position:relative;
@@ -3069,20 +3069,17 @@ body.is-locked .wa{ opacity:0; pointer-events:none; transition:opacity .3s var(-
   margin:0; padding:0;
 }
 .foot__logos li{
-  font-family:'Archivo', system-ui, sans-serif;
-  font-weight:800;
-  text-transform:uppercase;
-  letter-spacing:.14em;
-  font-size:clamp(.8rem,1.6vw,1.15rem);
-  line-height:1;
-  color:rgba(255,242,224,.85);
-  text-shadow:0 2px 16px rgba(0,0,0,.7);
-  white-space:nowrap;
-  transition:color .35s var(--ease), transform .35s var(--ease);
+  display:flex;
+  align-items:center;
 }
-.foot__logos li:hover{
-  color:var(--core);
-  transform:translateY(-2px);
+.foot__logos img{
+  height:clamp(26px,3.2vw,40px);
+  width:auto;
+  filter:drop-shadow(0 3px 14px rgba(0,0,0,.7));
+  transition:transform .35s var(--ease);
+}
+.foot__logos li:hover img{
+  transform:translateY(-2px) scale(1.05);
 }
 @media (max-width:700px){
   .foot__stage{ height:min(64vh, 30rem); }
