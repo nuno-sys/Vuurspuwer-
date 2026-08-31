@@ -279,13 +279,17 @@ def _license_images(g):
     elif isinstance(g, list):
         for v in g: _license_images(v)
 
-def _augment_rich_results(graph, lang, page_desc=None, page_img=None, page_url=None):
+def _augment_rich_results(graph, lang, page_desc=None, page_img=None, page_url=None,
+                          page_words=0):
     def types(g):
         t = g.get("@type")
         return t if isinstance(t, list) else [t]
     extra = []
     for g in graph:
         if not isinstance(g, dict): continue
+        if "WebPage" in types(g) and page_words > 150:
+            g.setdefault("wordCount", page_words)
+            g.setdefault("timeRequired", f"PT{max(1, round(page_words / 220))}M")
         if "FAQPage" in types(g):
             if page_url: g.setdefault("@id", page_url + "#faq")
             g.setdefault("inLanguage", I.HTML_LANG[lang])
@@ -599,17 +603,21 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
 
     graph = [crumb_data]
     if kind == "post":
+        _wc = len(re.findall(r"\w+", text_of(p["body"])))
         graph.append({"@context": "https://schema.org", "@type": "BlogPosting",
                       "headline": p["title"], "datePublished": p["date"],
                       "dateModified": TODAY,
                       "description": desc, "mainEntityOfPage": url,
+                      "wordCount": _wc,
+                      "timeRequired": f"PT{max(1, round(_wc / 220))}M",
                       **({"image": (SITE + p["img"][0] if p["img"][0].startswith("/") else p["img"][0])} if p.get("img") else {}),
                       "author": {"@type": "Person", "name": "Nuno", "@id": f"{SITE}/#nuno"},
                       "publisher": {"@id": f"{SITE}/#business"}})
     if extra_schema:
         graph.extend(extra_schema) if isinstance(extra_schema, list) else graph.append(extra_schema)
     _augment_rich_results(graph, lang, page_desc=desc, page_url=url,
-        page_img=(SITE + p["img"][0]) if p.get("img") and p["img"][0].startswith("/") else None)
+        page_img=(SITE + p["img"][0]) if p.get("img") and p["img"][0].startswith("/") else None,
+        page_words=len(re.findall(r"\w+", text_of(p["body"]))))
     ogv = ""
     if p.get("og_video"):
         vu, vw, vh = p["og_video"]
