@@ -618,6 +618,13 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0A0705">
+<meta name="color-scheme" content="dark">
+<meta name="application-name" content="Vuurspuwer Nuno">
+<meta name="apple-mobile-web-app-title" content="Vuurspuwer Nuno">
+<meta name="msapplication-TileColor" content="#0A0705">
+<style>html{{background:#0A0705;color-scheme:dark}}</style>
+<link rel="mask-icon" href="/assets/pinned-tab.svg" color="#FFB020">
+<link rel="preconnect" href="https://www.googletagmanager.com">
 {GTAG}
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
