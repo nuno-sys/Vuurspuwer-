@@ -3037,7 +3037,8 @@ body.is-locked .wa{ opacity:0; pointer-events:none; transition:opacity .3s var(-
   align-items:flex-end;
   justify-content:center;
 }
-.foot__stage > img{
+.foot__stage > img,
+.foot__stage > picture > img{
   position:absolute;
   inset:0;
   width:100%; height:100%;
@@ -3723,3 +3724,66 @@ html[data-theme="light"] .bchip:hover{ color:var(--ember); }
   color:var(--ink-dim);
 }
 html[data-theme="light"] .relcard a{ background-color:rgba(255,255,255,.6); }
+
+/* ============================================================
+   AVIF via <picture>: de wrapper mag nooit layout beïnvloeden —
+   de img gedraagt zich exact alsof hij direct in zijn ouder staat
+   ============================================================ */
+picture{ display:contents; }
+
+/* ============================================================
+   Auteursblok onder blogartikelen (E-E-A-T): gezicht, ervaring
+   en bewijs, in dezelfde luxe kaartstijl als de rest
+   ============================================================ */
+.abio__card{
+  display:flex;
+  gap:clamp(1rem,2.5vw,1.6rem);
+  align-items:flex-start;
+  max-width:760px;
+  border:1px solid var(--hairline);
+  border-radius:clamp(16px,2vw,24px);
+  background:var(--ash);
+  padding:clamp(1.1rem,2.5vw,1.7rem);
+  box-shadow:0 24px 60px -28px rgba(0,0,0,.6);
+}
+.abio__pic{
+  width:clamp(72px,9vw,104px);
+  aspect-ratio:1;
+  height:auto;
+  border-radius:50%;
+  object-fit:cover;
+  flex:0 0 auto;
+  border:2px solid rgba(255,176,32,.55);
+  box-shadow:0 0 0 4px rgba(255,176,32,.12);
+}
+.abio__eyebrow{
+  font-family:var(--f-mono);
+  font-size:var(--t-xs);
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--flame);
+  margin:0 0 .2rem;
+}
+.abio__name{
+  color:var(--ink);
+  font-weight:700;
+  margin:0 0 .45rem;
+}
+.abio__bio{
+  margin:0 0 .65rem;
+  font-size:var(--t-sm);
+  color:var(--ink-dim);
+  line-height:1.65;
+}
+.abio__links{
+  margin:0;
+  display:flex;
+  gap:1.1rem;
+  flex-wrap:wrap;
+  align-items:center;
+  font-size:var(--t-sm);
+}
+.abio__links a{ color:var(--flame); font-weight:600; }
+.abio__stars{ color:var(--ink-dim); }
+html[data-theme="light"] .abio__card{ background-color:rgba(255,255,255,.6); }
+@media print{ .abio__pic{ display:none !important; } }

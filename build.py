@@ -221,6 +221,75 @@ def srcset_of(iu):
     if len(cands) < 2: return ""
     return ", ".join(f"{u} {w}w" for w, u in cands)
 
+# ------------------------------------------------------------- AVIF
+# Naast elke WebP-foto komt een AVIF-variant (±30% kleiner bij gelijke
+# kwaliteit). In de pagina's wordt elke <img> die volledig in AVIF
+# beschikbaar is in een <picture> gewikkeld: moderne browsers laden AVIF,
+# de rest valt terug op WebP. De og-*-deelplaatjes blijven JPG/WebP,
+# want social-scrapers begrijpen AVIF niet altijd.
+_AVIF_OK = set()
+
+def gen_avif():
+    from PIL import Image
+    made = 0
+    for f in sorted(os.listdir("assets/media")):
+        if not f.endswith(".webp") or f.startswith("og-"):
+            continue
+        src = f"assets/media/{f}"
+        dst = src[:-5] + ".avif"
+        if not os.path.exists(dst) or os.path.getmtime(dst) < os.path.getmtime(src):
+            Image.open(src).save(dst, "AVIF", quality=50)
+            os.utime(dst)
+            made += 1
+        # alleen gebruiken als AVIF ook echt kleiner is dan de WebP
+        if os.path.getsize(dst) < os.path.getsize(src):
+            _AVIF_OK.add("/" + dst)
+    if made:
+        print(f"  {made} AVIF-varianten aangemaakt")
+
+def _avif_set(cand):
+    """'url w, url w' -> zelfde lijst in AVIF, of None als iets ontbreekt."""
+    out = []
+    for e in cand.split(","):
+        parts = e.split()
+        if not parts: return None
+        u = parts[0]
+        if not (u.startswith("/assets/media/") and u.endswith(".webp")):
+            return None
+        a = u[:-5] + ".avif"
+        if a not in _AVIF_OK: return None
+        out.append(" ".join([a] + parts[1:]))
+    return ", ".join(out)
+
+def _avifize(doc):
+    def img_repl(m):
+        tag = m.group(0)
+        srcset = re.search(r'srcset="([^"]+)"', tag)
+        src = re.search(r'src="([^"]+)"', tag)
+        cand = srcset.group(1) if srcset else (src.group(1) if src else None)
+        if not cand: return tag
+        av = _avif_set(cand)
+        if not av: return tag
+        sizes = re.search(r'sizes="([^"]+)"', tag)
+        s_attr = f' sizes="{sizes.group(1)}"' if sizes else ""
+        return (f'<picture><source type="image/avif" srcset="{av}"{s_attr}>'
+                f'{tag}</picture>')
+    doc = re.sub(r"<img [^>]*>", img_repl, doc)
+    def pre_repl(m):
+        tag = m.group(0)
+        if "image/avif" in tag: return tag
+        iss = re.search(r'imagesrcset="([^"]+)"', tag)
+        href = re.search(r'href="([^"]+)"', tag)
+        av = _avif_set(iss.group(1) if iss else (href.group(1) if href else ""))
+        if not av: return tag
+        if iss:
+            tag = tag.replace(f'imagesrcset="{iss.group(1)}"',
+                              f'imagesrcset="{av}"')
+        else:
+            tag = tag.replace(">", f' imagesrcset="{av}">')
+        return tag.replace(">", ' type="image/avif">')
+    return re.sub(r'<link rel="preload" as="image"[^>]*>', pre_repl, doc)
+
 def crumbs(items):
     li = "".join(
         f'<li><a href="{esc(u)}">{esc(n)}</a></li>' if u else f'<li><span aria-current="page">{esc(n)}</span></li>'
@@ -268,6 +337,32 @@ _BUSINESS_LD = {
                "https://www.instagram.com/officialnuno",
                "https://x.com/mentalist_nuno"],
     "aggregateRating": _RATING_LD,
+}
+
+# De auteur/artiest als volwaardige entiteit op élke pagina (E-E-A-T):
+# zoekmachines koppelen zo alle artikelen en shows aan één herkenbaar
+# persoon met gezicht, ervaring en socials.
+_PERSON_LD = {
+    "@context": "https://schema.org", "@type": "Person",
+    "@id": f"{SITE}/#nuno", "name": "Nuno",
+    "alternateName": "Vuurspuwer Nuno",
+    "jobTitle": "Vuurspuwer, fakir, mentalist en reptielenshow-artiest",
+    "description": ("Professioneel vuurspuwer en fakir met 17 jaar ervaring, "
+                    "bekend van SBS6, RTL, VTM en optredens voor o.a. Walibi, "
+                    "Julianatoren en IKEA."),
+    "image": {"@type": "ImageObject",
+              "url": f"{SITE}/assets/media/nuno-avatar.webp",
+              "width": 288, "height": 288,
+              "caption": "Portret van vuurspuwer Nuno"},
+    "url": f"{SITE}/over-nuno/",
+    "sameAs": ["https://www.facebook.com/show.nuno",
+               "https://www.instagram.com/officialnuno",
+               "https://x.com/mentalist_nuno"],
+    "worksFor": {"@id": f"{SITE}/#business"},
+    "knowsAbout": ["Vuurspuwen", "Fakirshow", "Mentalisme",
+                   "Reptielenshow", "Workshop vuurspuwen",
+                   "Veiligheid bij vuurshows"],
+    "knowsLanguage": ["nl", "en"],
 }
 
 # Google Afbeeldingen: elke foto draagt maker, licentie en de pagina waar
@@ -325,6 +420,8 @@ def _augment_rich_results(graph, lang, page_desc=None, page_img=None, page_url=N
                ("LocalBusiness" in types(g) or "EntertainmentBusiness" in types(g))
                for g in graph):
         extra.append(_BUSINESS_LD)
+    if not any(isinstance(g, dict) and "Person" in types(g) for g in graph):
+        extra.append(_PERSON_LD)
     graph.extend(extra)
     _license_images(graph)
     # het bedrijf en de producten (sterren, prijzen) als eerste blokken in de
@@ -834,7 +931,9 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
                       "wordCount": _wc,
                       "timeRequired": f"PT{max(1, round(_wc / 220))}M",
                       **({"image": (SITE + p["img"][0] if p["img"][0].startswith("/") else p["img"][0])} if p.get("img") else {}),
-                      "author": {"@type": "Person", "name": "Nuno", "@id": f"{SITE}/#nuno"},
+                      "author": {"@type": "Person", "name": "Nuno",
+                                 "@id": f"{SITE}/#nuno",
+                                 "url": f"{SITE}/over-nuno/"},
                       **({"articleSection": p["cat_label"]} if p.get("cat_label") else {}),
                       **({"keywords": p["keywords"]} if p.get("keywords") else {}),
                       "publisher": {"@id": f"{SITE}/#business"}})
@@ -872,6 +971,7 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+<meta name="author" content="Nuno (Vuurspuwer Nuno)">
 <link rel="canonical" href="{url}">
 {hreflang}
 <meta property="og:type" content="{'article' if kind == 'post' else 'website'}">
@@ -930,7 +1030,7 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
 def write(slug, doc):
     d = os.path.join(OUT, slug)
     os.makedirs(d, exist_ok=True)
-    open(os.path.join(d, "index.html"), "w", encoding="utf-8").write(doc)
+    open(os.path.join(d, "index.html"), "w", encoding="utf-8").write(_avifize(doc))
 
 
 # ------------------------------------------------- de fotopagina
@@ -1115,6 +1215,7 @@ def foot_seo():
 FOOTER = FOOTER.replace("<!--FOOT:SEO-->", foot_seo())
 
 # ------------------------------------------------------------------ bouwen
+gen_avif()
 if os.path.isdir(OUT): shutil.rmtree(OUT)
 os.makedirs(OUT, exist_ok=True)
 built, missing = [], []
@@ -1299,6 +1400,26 @@ def _related(cur, blogset):
           "name": "Gerelateerde artikelen", "itemListElement": items}
     return html_out, ld
 
+# het auteursblok onder elk artikel: gezicht, ervaring en bewijs (E-E-A-T),
+# met rel=author naar de over-pagina waar het volledige Person-schema leeft
+_AUTHOR_BOX = """
+<section class="wrap bay abio" aria-label="Over de auteur">
+  <div class="abio__card rise">
+    <img class="abio__pic" src="/assets/media/nuno-avatar.webp" width="288" height="288"
+         loading="lazy" decoding="async" alt="Portret van vuurspuwer Nuno">
+    <div class="abio__txt">
+      <p class="abio__eyebrow">Geschreven door</p>
+      <p class="abio__name">Nuno — vuurspuwer, fakir &amp; mentalist</p>
+      <p class="abio__bio">17 jaar podiumervaring, bekend van SBS6, RTL&nbsp;4 en VTM en
+      optredens voor o.a. Walibi, Julianatoren en IKEA. Nuno schrijft zelf over vuur,
+      veiligheid en entertainment — rechtstreeks uit de praktijk van honderden shows
+      in Nederland en België.</p>
+      <p class="abio__links"><a rel="author" href="/over-nuno/">Meer over Nuno →</a>
+      <span class="abio__stars">★ 4,9 · 134 reviews</span></p>
+    </div>
+  </div>
+</section>"""
+
 posts = [p for p in pages.values() if p["kind"] == "post"]
 _blogset = sorted((bp for bp in posts if bp["slug"] not in PC.SHOW_PAGES),
                   key=lambda x: x["date"], reverse=True)
@@ -1314,7 +1435,7 @@ for p in posts:
          "cat_label": _clabel.split(" ", 1)[1],
          "keywords": f'{_clabel.split(" ", 1)[1]}, vuurshow, vuurspuwer, fakirshow, entertainment boeken'}
     _extra_ld = [_faq_ld] + ([_rel_ld] if _rel_ld else [])
-    write(p["slug"], render(p, "post", _extra_ld, _faq_html + _rel_html))
+    write(p["slug"], render(p, "post", _extra_ld, _AUTHOR_BOX + _faq_html + _rel_html))
     built.append(p["slug"])
 
 for slug in KEEP_PAGES:
@@ -2044,7 +2165,7 @@ hp_doc = hp_doc.replace('<div class="foot__bar">',
                         lang_row("nl", home_alts) + '\n  <div class="foot__bar">')
 hp_doc = hp_doc.replace("</head>", spec_rules("nl") + "\n</head>", 1)
 hp_doc = hp_doc.replace("<!--FOOT:SEO-->", foot_seo())
-open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(hp_doc)
+open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(_avifize(hp_doc))
 shutil.copytree("assets", os.path.join(OUT, "assets"))
 
 # css en js geminificeerd in dist; de bronbestanden blijven leesbaar
@@ -2100,7 +2221,7 @@ _p404 = {"slug": "404", "title": "Deze pagina is in rook opgegaan",
 <li>✉️ <a href="/contact-3/">Contact en offerte</a> — of app direct via <a href="https://wa.me/31620020723" rel="noopener">WhatsApp</a></li>
 </ul>"""}
 open(os.path.join(OUT, "404.html"), "w", encoding="utf-8").write(
-    render(_p404, "page", path="/"))
+    _avifize(render(_p404, "page", path="/")))
 print("  _headers met Early Hints en 404.html geschreven")
 
 # service worker: assets cache-first (staan toch een jaar vast), pagina's
