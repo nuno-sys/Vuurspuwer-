@@ -3,3 +3,8 @@ node_modules/
 .wrangler/
 XML Sitemap*.xml
 __pycache__/
+
+# Google service-accountsleutels — nooit in de repo
+*.iam.gserviceaccount.com.json
+service-account*.json
+google-sa*.json

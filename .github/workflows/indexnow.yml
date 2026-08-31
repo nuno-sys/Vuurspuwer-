@@ -1,5 +1,5 @@
-# Meldt elke wijziging op main direct bij IndexNow (Bing, DuckDuckGo,
-# Yandex, Seznam...), zodat nieuwe en gewijzigde pagina's binnen minuten
+# Meldt elke wijziging op main direct bij IndexNow (Bing, Yandex, Naver,
+# Seznam, Yep, Amazon — DuckDuckGo leunt op Bing), zodat nieuwe en gewijzigde pagina's binnen minuten
 # in plaats van weken geïndexeerd worden.
 name: IndexNow ping
 on:
@@ -11,8 +11,8 @@ on:
       - "indexing-state.json"
       - "dagplan.md"
   schedule:
-    # elke maandagochtend alles opnieuw aanmelden: houdt Bing, DuckDuckGo,
-    # Yandex e.a. (en daarmee ook ChatGPT-search, dat op Bing draait) vers
+    # elke maandagochtend alles opnieuw aanmelden: houdt Bing, Yandex e.a.
+    # (en daarmee ook ChatGPT-search, dat op Bing draait) vers
     - cron: "0 6 * * 1"
   workflow_dispatch: {}
 permissions: {}

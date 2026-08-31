@@ -28,15 +28,29 @@ jobs:
           BING_API_KEY: ${{ secrets.BING_API_KEY }}
         run: python3 tools/dagplan.py
 
+      - name: Google Search Console — sitemap indienen en status meten
+        # Read-only meting plus officiele sitemap-indiening. Slaat zichzelf
+        # netjes over zolang het geheim GOOGLE_SA_JSON niet is ingesteld.
+        env:
+          GOOGLE_SA_JSON: ${{ secrets.GOOGLE_SA_JSON }}
+        continue-on-error: true
+        run: python3 tools/gsc.py --sitemap --inspect 30
+
       - name: Dagplan en stand vastleggen
+        # ook als het aanmelden deels faalde: de URL's zijn dan al verstuurd,
+        # dus de stand moet hoe dan ook vastliggen
+        if: always()
         run: |
           git config user.name  "vuurspuwer-indexeerbot"
           git config user.email "nuno@vuurspuwer.com"
+          git add indexing-state.json dagplan.md gsc-status.json gsc-rapport.md 2>/dev/null || true
           git add indexing-state.json dagplan.md
           if git diff --cached --quiet; then
             echo "Niets gewijzigd."
           else
             git commit -m "Indexeer-dagplan $(date -u +%F) [skip ci]"
+            # er kan tijdens de run iets anders op main zijn geland
+            git pull --rebase --autostash origin main
             git push origin HEAD:main
           fi
 

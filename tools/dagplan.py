@@ -17,7 +17,8 @@ willekeurig maar berekend uit drie factoren:
      dezelfde pagina's elkaar verdringen.
 
 Wat er per dag gebeurt:
-  • IndexNow   — volautomatisch (Bing, DuckDuckGo, Yandex, Seznam, Naver).
+  • IndexNow   — volautomatisch (Bing, Yandex, Naver, Seznam, Yep, Amazon).
+                 DuckDuckGo is géén deelnemer maar profiteert via Bing.
   • Bing API   — volautomatisch zodra het geheim BING_API_KEY is ingesteld.
   • Sitemaps   — opnieuw aangemeld bij Bing.
   • Google     — Google heeft géén open aanmeld-API voor gewone pagina's
@@ -152,11 +153,13 @@ def post_json(url, payload, headers=None):
         return r.status, r.read().decode("utf-8", "replace")[:200]
 
 def naar_indexnow(urls):
-    """Bing, DuckDuckGo, Yandex, Seznam en Naver in één melding."""
+    """Bing, Yandex, Naver, Seznam, Yep en Amazon in één melding.
+    (DuckDuckGo neemt niet deel maar leunt op de Bing-index.)"""
     payload = {"host": "vuurspuwer.com", "key": KEY,
                "keyLocation": f"{SITE}/{KEY}.txt", "urlList": urls}
     st, body = post_json("https://api.indexnow.org/indexnow", payload)
-    return f"IndexNow: {st} ({len(urls)} adressen)"
+    staart = f" — {body.strip()[:80]}" if body.strip() else ""
+    return f"IndexNow: {st} ({len(urls)} adressen){staart}"
 
 def naar_bing(urls):
     """Bing URL Submission API — alleen als het geheim is ingesteld."""
@@ -165,19 +168,8 @@ def naar_bing(urls):
         return "Bing API: overgeslagen (geen BING_API_KEY ingesteld)"
     ep = f"https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlbatch?apikey={api}"
     st, body = post_json(ep, {"siteUrl": SITE, "urlList": urls})
-    return f"Bing API: {st} ({len(urls)} adressen)"
-
-def sitemaps_aanmelden(sitemaps):
-    """Bing accepteert nog een sitemap-ping; Google stopte daar in 2023 mee."""
-    uit = []
-    for sm in sitemaps:
-        doel = "https://www.bing.com/ping?sitemap=" + urllib.parse.quote(sm, safe="")
-        try:
-            with urllib.request.urlopen(doel, timeout=20) as r:
-                uit.append(f"Bing sitemap-ping {r.status}: {sm}")
-        except Exception as e:
-            uit.append(f"Bing sitemap-ping mislukt ({e.__class__.__name__}): {sm}")
-    return uit
+    staart = f" — {body.strip()[:80]}" if body.strip() else ""
+    return f"Bing API: {st} ({len(urls)} adressen){staart}"
 
 # ------------------------------------------------------------- dagplan.md
 def gsc_link(url):
@@ -218,16 +210,11 @@ def main():
         meldingen = ["(dry-run, niets verstuurd)"]
     else:
         print("\n── Aanmelden")
-        sitemaps = [f"{SITE}/sitemap.xml"]
-        if os.path.exists("dist/sitemap-index.xml"):
-            sitemaps.insert(0, f"{SITE}/sitemap-index.xml")
-        for fn in (lambda: naar_indexnow(plan), lambda: naar_bing(plan)):
+        for naam, fn in (("IndexNow", naar_indexnow), ("Bing API", naar_bing)):
             try:
-                m = fn()
+                m = fn(plan)
             except Exception as e:
-                m = f"{fn.__name__ if hasattr(fn,'__name__') else 'kanaal'} mislukt: {e}"
-            print("  ", m); meldingen.append(m)
-        for m in sitemaps_aanmelden(sitemaps):
+                m = f"{naam} MISLUKT: {e.__class__.__name__}: {e}"
             print("  ", m); meldingen.append(m)
         for u in plan:
             state.setdefault("laatst", {})[u] = vandaag.isoformat()
@@ -235,8 +222,9 @@ def main():
             {"datum": vandaag.isoformat(), "urls": plan})
         schrijf_state(state)
 
-    schrijf_dagplan(plan, vandaag, meldingen)
-    print(f"\n✓ {PLAN_FILE} geschreven — tien Search Console-links klaar om aan te klikken")
+    if not dry:
+        schrijf_dagplan(plan, vandaag, meldingen)
+    print(f"\n✓ {PLAN_FILE} {'ongewijzigd (dry-run)' if dry else 'geschreven'}")
     aangemeld = len(state.get("laatst", {}))
     print(f"✓ dekking: {aangemeld}/{len(urls)} adressen ooit aangemeld")
 

@@ -1417,7 +1417,11 @@ try:
 except Exception:
     _LEDGER = {}
 _WRITTEN_PATHS = set()
-_VOLATILE = re.compile(r"\?v=[0-9a-f]+|\d{4}-\d{2}-\d{2}")
+# de datums zoals ze vóór deze build in het grootboek stonden, om achteraf
+# te kunnen zien hoeveel er daadwerkelijk verschoven
+_LEDGER_VOOR = {p: v.get("d") for p, v in _LEDGER.items()}
+_NL_DATUM = r"\d{1,2} (?:" + "|".join(MONTHS_NL[1:]) + r") \d{4}"
+_VOLATILE = re.compile(r"\?v=[0-9a-f]+|\d{4}-\d{2}-\d{2}|" + _NL_DATUM)
 
 def _lastmod(path, doc):
     _WRITTEN_PATHS.add(path)
@@ -1656,6 +1660,41 @@ def hw_cities(lang):
     return (f'<section class="wrap bay hwcities"><h2 class="bay__title">{esc(L["cities"])}</h2>'
             f'<p class="hwcities__p">{esc(L["cities_p"])}</p>'
             f'<ul class="citylist">{links}</ul></section>')
+
+# ------------------------------------------------- regio-dwarslinks (de/fr)
+# De Duitse en Franse regiopagina's zonder Nederlandse tegenhanger
+# (Düsseldorf, Duisburg, Namur, Charleroi, Mons) werden door niets gelinkt:
+# ze stonden alleen in de sitemap. Een sitemap regelt ontdekking, interne
+# links regelen prioriteit — dus krijgen alle regiopagina's van een taal
+# hier een dwarsverwijzing naar elkaar.
+_REGIO_KOP = {
+ "de": ("Feuershow in Ihrer Stadt",
+        "Nuno tritt regelmäßig im deutschen Grenzgebiet auf — wählen Sie Ihre Stadt."),
+ "fr": ("Spectacle de feu dans votre ville",
+        "Nuno se produit régulièrement en Belgique francophone — choisissez votre ville."),
+ "en": ("Fire show in your region",
+        "Nuno performs across the Netherlands, Belgium and the German border region."),
+}
+def regio_steden(lang):
+    """[(stadsnaam, pad)] van álle regiopagina's van een taal."""
+    uit = []
+    for nl_city, R in I.REGIO_PAGES.get(lang, {}).items():
+        uit.append((R["stad"], f"/{lang}/{I.REGIO_SLUGS[lang][nl_city]}/"))
+    for loc, R in I.STANDALONE_REGIO.get(lang, {}).items():
+        uit.append((R["stad"], f"/{lang}/{loc}/"))
+    return sorted(uit)
+
+def regio_links(lang, skip=None):
+    if lang not in _REGIO_KOP:
+        return ""
+    steden = [(n, u) for n, u in regio_steden(lang) if u != skip]
+    if not steden:
+        return ""
+    kop, sub = _REGIO_KOP[lang]
+    li = "".join(f'<li><a href="{u}">📍 {esc(n)}</a></li>' for n, u in steden)
+    return (f'<section class="wrap bay hwcities"><h2 class="bay__title">{esc(kop)}</h2>'
+            f'<p class="hwcities__p">{esc(sub)}</p>'
+            f'<ul class="citylist">{li}</ul></section>')
 
 _PRIJS_STRIP = {
  "nl": ("Benieuwd naar de kosten?", "Bekijk alle prijzen & pakketten — vanaf €350"),
@@ -2390,7 +2429,8 @@ for lang in I.LANGS:
                "url": SITE + path, "inLanguage": I.HTML_LANG[lang],
                "provider": {"@id": f"{SITE}/#business"},
                "areaServed": {"@type": "City", "name": R["stad"]}}]
-        write(f"{lang}/{loc}", render(p, "page", ld, "", lang=lang, path=path, alternates=alts))
+        write(f"{lang}/{loc}", render(p, "page", ld, regio_links(lang, skip=path),
+                                      lang=lang, path=path, alternates=alts))
         built.append(f"{lang}/{loc}")
     # steden zonder NL-tegenhanger (Düsseldorf, Duisburg, Namur, Charleroi, Mons)
     for loc, R in I.STANDALONE_REGIO.get(lang, {}).items():
@@ -2406,7 +2446,8 @@ for lang in I.LANGS:
                "url": SITE + path, "inLanguage": I.HTML_LANG[lang],
                "provider": {"@id": f"{SITE}/#business"},
                "areaServed": {"@type": "City", "name": R["stad"]}}]
-        write(f"{lang}/{loc}", render(p, "page", ld, "", lang=lang, path=path))
+        write(f"{lang}/{loc}", render(p, "page", ld, regio_links(lang, skip=path),
+                                      lang=lang, path=path))
         built.append(f"{lang}/{loc}")
 print(f"  vertaalde pagina's: {sum(len(I.PAGES[l]) for l in I.LANGS)} + "
       f"{sum(len(I.REGIO_PAGES[l]) for l in I.REGIO_PAGES)} regiopagina's (en/de/fr)")
@@ -2455,9 +2496,11 @@ for _hl in ("nl", "en", "de", "fr"):
                       f'<meta property="og:url" content="{SITE}/{_hl}/">', 1)
         d = d.replace('content="nl_NL"', f'content="{OG_LOCALE[_hl]}"')
         d = d.replace('"inLanguage": "nl-NL"', f'"inLanguage": "{I.HTML_LANG[_hl]}"')
-    # de offerte-wizard vlak vóór het boekingsblok
+    # de offerte-wizard vlak vóór het boekingsblok, en voor de Duitse en
+    # Franse versie ook de regiosteden — anders is dat de enige groep
+    # pagina's die vanaf de homepage onbereikbaar blijft
     d = d.replace('<section class="bay wrap" id="boeken"',
-                  wizard(_hl) + '\n\n  <section class="bay wrap" id="boeken"', 1)
+                  regio_links(_hl) + wizard(_hl) + '\n\n  <section class="bay wrap" id="boeken"', 1)
     for _a in ("assets/site.css", "assets/site.js", "assets/ga.js"):
         d = d.replace(f'"/{_a}"', f'"/{_a}?v={VER}"')
     d = d.replace(_HRE_NL, _HRE_ALL, 1)
@@ -2484,10 +2527,14 @@ lines = ["# oude adressen die blijven werken", "",
          "/contact/  /contact-3/  301"]
 
 # 1. dubbelingen naar het origineel zonder cijfer
+# adressen die een 301 krijgen horen niet in de sitemap: Google zou ze
+# aanbieden en dan als 'pagina met omleiding' terugmelden
+_OMGELEID = set()
 for slug in pages:
     base = re.sub(r"-\d+$", "", slug)
     if base != slug and base in kept:
         lines.append(f"/{slug}/  /{base}/  301")
+        _OMGELEID.add(slug)
     elif base in ("contact", "contact-me") and slug not in kept:
         lines.append(f"/{slug}/  /contact-3/  301")
 
@@ -2526,7 +2573,7 @@ def _prio(s):
     if s in CITIES: return "0.8"
     if s.split("/")[0] in I.LANGS: return "0.7"
     return "0.6"
-urls = [("/", "1.0")] + [(f"/{s}/", _prio(s)) for s in sorted(kept)]
+urls = [("/", "1.0")] + [(f"/{s}/", _prio(s)) for s in sorted(kept - _OMGELEID)]
 sm = ['<?xml version="1.0" encoding="UTF-8"?>',
       '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
       'xmlns:xhtml="http://www.w3.org/1999/xhtml" '
@@ -2899,4 +2946,12 @@ print("  homepage en assets gekopieerd")
 _LEDGER = {p: v for p, v in _LEDGER.items() if p in _WRITTEN_PATHS}
 json.dump(_LEDGER, open(_LEDGER_F, "w", encoding="utf-8"),
           ensure_ascii=False, indent=0, sort_keys=True)
-print(f"  lastmod.json bijgewerkt ({len(_LEDGER)} pagina's)")
+_verschoven = sum(1 for p, v in _LEDGER.items()
+                  if _LEDGER_VOOR.get(p) not in (None, v["d"]))
+_nieuw = sum(1 for p in _LEDGER if p not in _LEDGER_VOOR)
+print(f"  lastmod.json bijgewerkt ({len(_LEDGER)} pagina's: "
+      f"{_verschoven} datums verschoven, {_nieuw} nieuw)")
+if _verschoven > len(_LEDGER) // 2 and os.environ.get("LASTMOD_BULK") != "1":
+    print("  ⚠ meer dan de helft van de lastmod-datums verschoof. Als dat niet de "
+          "bedoeling was, push dit niet: Google vertrouwt lastmod alleen als hij "
+          "klopt. Bewust? Draai: LASTMOD_BULK=1 python3 build.py")

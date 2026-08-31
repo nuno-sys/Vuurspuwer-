@@ -5,7 +5,8 @@
 Wat het doet:
   1. Haalt de live sitemap op en meldt ALLE adressen in één keer aan bij
      IndexNow (api.indexnow.org) — die verdeelt de melding zelf over Bing,
-     DuckDuckGo, Yandex, Seznam en Naver. Bing voedt ook ChatGPT-search.
+     Yandex, Naver, Seznam, Yep en Amazon. DuckDuckGo neemt niet deel maar
+     leunt op de Bing-index; Bing voedt ook ChatGPT-search.
   2. Controleert dat sitemap, feed, llms.txt en robots.txt live bereikbaar
      zijn en de IndexNow-sleutel klopt.
   3. Schrijft gsc-plan.txt: een dag-voor-dag plan (10 URL's per dag, de
@@ -55,7 +56,7 @@ def main():
     prios = dict(re.findall(r"<loc>(.*?)</loc>.*?<priority>(.*?)</priority>", sm))
     print(f"   {len(urls)} pagina-adressen gevonden")
 
-    print("── 3. IndexNow: alles aanmelden (Bing/DuckDuckGo/Yandex/Seznam/Naver)")
+    print("── 3. IndexNow: alles aanmelden (Bing/Yandex/Naver/Seznam/Yep/Amazon)")
     payload = json.dumps({"host": "vuurspuwer.com", "key": KEY,
                           "keyLocation": f"{SITE}/{KEY}.txt",
                           "urlList": urls[:10000]}).encode()
