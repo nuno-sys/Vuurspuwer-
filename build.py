@@ -222,8 +222,10 @@ def crumbs(items):
                                 for k, (n, u) in enumerate(items)]}
     return f'<nav class="crumbs" aria-label="Kruimelpad"><ol>{li}</ol></nav>', data
 
-# Elke Service in de structured data krijgt de echte beoordeling en de
-# vanafprijs mee, zodat Google sterren en "vanaf € 350" kan tonen.
+# Google toont reviewsterren en prijzen alleen bij bepaalde typen; Service
+# hoort daar niet bij. Daarom krijgt elke pagina met een Service ook een
+# Product-knoop (sterren + vanafprijs) en draagt elke pagina het volledige
+# LocalBusiness-blok, zodat beide rich results overal gedetecteerd worden.
 _RATING_LD = {"@type": "AggregateRating", "ratingValue": "4.9",
               "reviewCount": "134", "bestRating": "5", "worstRating": "1"}
 _OFFER_TXT = {
@@ -232,16 +234,61 @@ _OFFER_TXT = {
     "de": "Ab-Preis, zzgl. Anfahrt. Kostenloses Angebot nach Maß.",
     "fr": "Prix à partir de, hors frais de déplacement. Devis gratuit sur mesure.",
 }
-def _enrich_services(g, lang):
-    if isinstance(g, dict):
+_BUSINESS_LD = {
+    "@context": "https://schema.org",
+    "@type": ["LocalBusiness", "EntertainmentBusiness"],
+    "@id": f"{SITE}/#business",
+    "name": "Vuurspuwer Nuno", "legalName": "Nuno Art",
+    "url": f"{SITE}/",
+    "description": ("Vuurspuwer, fakir en mentalist voor bedrijfsfeesten, festivals, "
+                    "bruiloften en themafeesten in Nederland en België."),
+    "telephone": "+31620020723", "email": "nuno@vuurspuwer.com",
+    "priceRange": "€€",
+    "image": [f"{SITE}/assets/media/festival-1600.webp",
+              f"{SITE}/assets/media/vuurbal-1333.webp",
+              f"{SITE}/assets/media/fakir-1080.webp"],
+    "logo": {"@type": "ImageObject",
+             "url": f"{SITE}/assets/media/logo-mail.png",
+             "width": 560, "height": 153},
+    "address": {"@type": "PostalAddress", "addressLocality": "Zeist",
+                "addressRegion": "Utrecht", "addressCountry": "NL"},
+    "areaServed": [{"@type": "Country", "name": "Nederland"},
+                   {"@type": "Country", "name": "België"}],
+    "sameAs": ["https://www.facebook.com/show.nuno",
+               "https://www.instagram.com/officialnuno",
+               "https://x.com/mentalist_nuno"],
+    "aggregateRating": _RATING_LD,
+}
+
+def _augment_rich_results(graph, lang, page_desc=None, page_img=None):
+    def types(g):
         t = g.get("@type")
-        if "Service" in (t if isinstance(t, list) else [t]):
-            g.setdefault("aggregateRating", _RATING_LD)
-            g.setdefault("offers", {"@type": "AggregateOffer", "priceCurrency": "EUR",
-                                    "lowPrice": "350", "description": _OFFER_TXT[lang]})
-        for v in g.values(): _enrich_services(v, lang)
-    elif isinstance(g, list):
-        for v in g: _enrich_services(v, lang)
+        return t if isinstance(t, list) else [t]
+    extra = []
+    for g in graph:
+        if not isinstance(g, dict): continue
+        if "Service" in types(g):
+            offers = dict(g.pop("offers", None) or
+                          {"@type": "AggregateOffer", "priceCurrency": "EUR",
+                           "lowPrice": "350", "description": _OFFER_TXT[lang]})
+            g.pop("aggregateRating", None)
+            offers.setdefault("availability", "https://schema.org/InStock")
+            if g.get("url"): offers.setdefault("url", g["url"])
+            pid = (g.get("@id") or (g.get("url", "") + "#service")).replace("#service", "#product")
+            prod = {"@context": "https://schema.org", "@type": "Product",
+                    "@id": pid, "name": g.get("name"),
+                    "description": g.get("description") or page_desc,
+                    "brand": {"@type": "Brand", "name": "Vuurspuwer Nuno"},
+                    "offers": offers, "aggregateRating": _RATING_LD}
+            img = g.get("image") or page_img
+            if img: prod["image"] = img
+            if g.get("inLanguage"): prod["inLanguage"] = g["inLanguage"]
+            extra.append(prod)
+    if not any(isinstance(g, dict) and
+               ("LocalBusiness" in types(g) or "EntertainmentBusiness" in types(g))
+               for g in graph):
+        extra.append(_BUSINESS_LD)
+    graph.extend(extra)
 
 # --------------------------------------------- meertalige chrome en helpers
 # vertaalde kop- en voetstukken: de NL-blokken uit index.html met de
@@ -477,7 +524,8 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
                       "publisher": {"@id": f"{SITE}/#business"}})
     if extra_schema:
         graph.extend(extra_schema) if isinstance(extra_schema, list) else graph.append(extra_schema)
-    for g in graph: _enrich_services(g, lang)
+    _augment_rich_results(graph, lang, page_desc=desc,
+        page_img=(SITE + p["img"][0]) if p.get("img") and p["img"][0].startswith("/") else None)
     ld = "\n".join(f'<script type="application/ld+json">{json.dumps(g, ensure_ascii=False)}</script>' for g in graph)
 
     return f'''<!doctype html>
