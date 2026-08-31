@@ -778,7 +778,7 @@ def midgal(lang, slug):
     html_out = (f'<aside class="midgal" aria-label="{esc(head)}">'
                 f'<p class="midgal__eyebrow">📸 {esc(head)}</p>'
                 f'<div class="midgal__track">{"".join(tiles)}</div></aside>')
-    return html_out, fulls[:4]
+    return html_out, fulls[:8]
 
 # ------------------------------------------------- video-strip
 # Twee showreels verderop in de inhoud: eerst het vuur, als uitsmijter de
@@ -1286,6 +1286,15 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
     {f'<p class="lede">{esc(intro)}</p>' if intro else ''}
   </article>'''
 
+    # Google Afbeeldingen: elke foto op deze pagina krijgt een eigen
+    # ImageObject met een unieke naam op basis van de paginatitel, plus
+    # licentie-info (via _license_images). De kopfoto wordt gemarkeerd
+    # als representativeOfPage.
+    _pg_ld = []
+    if (kind in ("page", "post", "city") and p["slug"] not in _MIDGAL_SKIP
+            and SITEMAP_IMG.get(path)):
+        _pg_ld = [page_images_ld(lang, url, p["title"], SITEMAP_IMG[path])]
+
     graph = [crumb_data]
     if kind == "post":
         _wc = len(re.findall(r"\w+", text_of(p["body"])))
@@ -1305,6 +1314,7 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
     if extra_schema:
         graph.extend(extra_schema) if isinstance(extra_schema, list) else graph.append(extra_schema)
     graph.extend(_vg_ld)
+    graph.extend(_pg_ld)
     _augment_rich_results(graph, lang, page_desc=desc, page_url=url,
         page_img=(SITE + p["img"][0]) if p.get("img") and p["img"][0].startswith("/") else None,
         page_words=len(re.findall(r"\w+", text_of(p["body"]))))
@@ -1514,6 +1524,60 @@ FOTOS = [
      "Mentalist Nuno in het theater",
      "Nuno op het podium van een lege theaterzaal voor een mentalismeshow"),
 ]
+
+# ------------------------------------------------- foto-meta per pagina
+# Elke foto heeft een bijschrift en alt-tekst in vier talen (de
+# galerijteksten); per pagina krijgt elke getoonde foto daarmee een eigen
+# ImageObject met een unieke naam op basis van de paginatitel — zo leest
+# Google Afbeeldingen context, licentie en maker bij álle foto's.
+_IMG_CAPS = {}
+for _k, _t, _full, _w, _h, _cap, _alt in FOTOS:
+    _IMG_CAPS.setdefault(_k, {})["nl"] = (_cap, _alt)
+for _l in ("en", "de", "fr"):
+    for _k, (_cap, _alt) in I.PAGES[_l]["fotos"]["captions"].items():
+        _IMG_CAPS.setdefault(_k, {})[_l] = (_cap, _alt)
+_IMG_BY_URL = {}
+for _k, _t, _full, _w, _h, _c, _a in FOTOS:
+    _IMG_BY_URL[f"{SITE}/assets/media/{_full}"] = _k
+for _k, _t, _full, _w, _h, _kw in _MIDGAL_IMGS:
+    _IMG_BY_URL.setdefault(f"{SITE}/assets/media/{_full}", _k)
+
+_PGAL_NAME = {"nl": "Foto's bij", "en": "Photos for",
+              "de": "Fotos zu", "fr": "Photos pour"}
+
+def _short_title(t, limit=48):
+    t2 = re.split(r"\s*[|–—]\s*", t)[0].strip() or t
+    if len(t2) > limit:
+        t2 = t2[:limit].rsplit(" ", 1)[0].rstrip(" ,.:;-")
+    return t2
+
+def page_images_ld(lang, url, title, img_urls):
+    kern = _short_title(title)
+    items = []
+    for n, iu in enumerate(img_urls[:15], 1):
+        base = _IMG_BY_URL.get(iu)
+        caps = _IMG_CAPS.get(base, {}) if base else {}
+        pair = caps.get(lang) or caps.get("nl")
+        if pair:
+            naam = f"{pair[0]} — {kern}"
+            alt = pair[1]
+        else:
+            naam = f"{kern} — Vuurspuwer Nuno"
+            alt = kern
+        node = {"@type": "ImageObject", "@id": f"{url}#foto-{n}",
+                "name": naam,
+                "description": alt,
+                "contentUrl": iu, "url": iu,
+                "inLanguage": I.HTML_LANG[lang]}
+        if n == 1:
+            node["representativeOfPage"] = True
+        items.append(node)
+    return {"@context": "https://schema.org", "@type": "ImageGallery",
+            "@id": f"{url}#fotogalerij",
+            "name": f"{_PGAL_NAME[lang]}: {kern}",
+            "url": url, "inLanguage": I.HTML_LANG[lang],
+            "about": {"@id": f"{SITE}/#business"},
+            "image": items}
 
 def fotos_body():
     tiles = []
