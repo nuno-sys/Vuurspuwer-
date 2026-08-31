@@ -3048,8 +3048,8 @@ body.is-locked .wa{ opacity:0; pointer-events:none; transition:opacity .3s var(-
   position:absolute;
   inset:0;
   background:linear-gradient(180deg,
-    var(--bg) 0%, rgba(10,7,5,.06) 26%,
-    rgba(10,7,5,.22) 58%, rgba(10,7,5,.86) 84%, var(--bg) 100%);
+    var(--soot) 0%, rgba(10,7,5,.06) 26%,
+    rgba(10,7,5,.22) 58%, rgba(10,7,5,.86) 84%, var(--soot) 100%);
 }
 .foot__known{
   position:relative;
@@ -3326,4 +3326,103 @@ html{ scrollbar-width:thin; scrollbar-color:#8a5514 #0d0806; }
   .hw{ background:none !important; border:1px solid #000; box-shadow:none !important; }
   .hw__cell b, .hw__eyebrow, .hw__eyebrow b{ color:#000 !important; }
   .eyebrow{ color:#444 !important; }
+}
+
+/* ============================================================
+   Lichte modus: zelfde ontwerp, warm ivoor met zwarte tekst.
+   Alles loopt via de tokens; hieronder de gerichte bijstellingen.
+   ============================================================ */
+html[data-theme="light"]{
+  --soot:#FAF4E9;
+  --soot-deep:#F2E8D6;
+  --ash:#F3EAD9;
+  --ash-hi:#EBDDC3;
+  --night:#E4EDF6;
+  --ink:#221507;
+  --ink-dim:#5D4B34;
+  --smoke:#8A7554;
+  --hairline:rgba(110,64,10,.25);
+  color-scheme:light;
+}
+html[data-theme="light"] .nav.is-stuck{
+  background:rgba(250,244,233,.82);
+}
+html[data-theme="light"] .menu{
+  background:rgba(250,244,233,.94);
+}
+html[data-theme="light"] .nav__link:hover,
+html[data-theme="light"] .foot__logos li:hover img{ color:var(--ember); }
+html[data-theme="light"] .nav__link:hover{ color:var(--ember); }
+html[data-theme="light"] .toc,
+html[data-theme="light"] .pstrip p{
+  background:rgba(255,255,255,.75);
+}
+html[data-theme="light"] .share__panel{
+  background:linear-gradient(180deg,#FFFDF8,#F6EEDF);
+  box-shadow:0 18px 50px rgba(60,30,5,.25);
+}
+html[data-theme="light"] .share__item{ color:var(--ink-dim); }
+html[data-theme="light"] .share__item:hover{ background:rgba(255,140,20,.14); color:var(--ink); }
+html[data-theme="light"] .chat{
+  background:linear-gradient(180deg,#FFFDF8,#F6EEDF);
+  box-shadow:0 18px 50px rgba(60,30,5,.25);
+}
+html[data-theme="light"] .chat__msg{ background:rgba(110,64,10,.08); color:var(--ink); }
+html[data-theme="light"] .chat__close{ color:var(--ink-dim); }
+html[data-theme="light"] .rcard,
+html[data-theme="light"] .bcard,
+html[data-theme="light"] .faq__item,
+html[data-theme="light"] .form,
+html[data-theme="light"] .hwcities .citylist a{
+  background-color:rgba(255,255,255,.6);
+}
+html[data-theme="light"] .ptable td:nth-child(3){ color:#9A4A00; }
+html[data-theme="light"] .hw__sub{ color:#C6B29E; }
+html[data-theme="light"] .hw .hw__eyebrow{ color:var(--flame); }
+html[data-theme="light"] ::selection{ background:var(--ember); color:#FFF3D6; }
+html[data-theme="light"]{ scrollbar-color:#B9793A #EFE5D2; }
+html[data-theme="light"] ::-webkit-scrollbar-track{ background:#EFE5D2; }
+html[data-theme="light"] .readbar{ background:linear-gradient(90deg,#B04000,var(--ember) 55%,var(--flame)); }
+@media (max-width:900px){
+  html[data-theme="light"] .nav.is-stuck .nav__home{ filter:drop-shadow(0 8px 18px rgba(90,50,10,.35)); }
+}
+
+/* themaknop in de header */
+.themebtn{
+  display:grid;
+  place-items:center;
+  width:40px; height:40px;
+  border-radius:50%;
+  border:1px solid var(--hairline);
+  background:none;
+  color:var(--ink);
+  cursor:pointer;
+  box-shadow:0 0 0 3px rgba(5,3,2,.85);
+  transition:background .35s var(--ease), color .35s var(--ease), border-color .35s var(--ease);
+}
+html[data-theme="light"] .themebtn{ box-shadow:0 0 0 3px rgba(250,244,233,.85); }
+.themebtn:hover{ background:var(--flame); border-color:var(--flame); color:#170800; }
+.themebtn svg{ width:17px; height:17px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; }
+.themebtn__moon{ display:none; }
+html[data-theme="light"] .themebtn__sun{ display:none; }
+html[data-theme="light"] .themebtn__moon{ display:block; }
+@media (max-width:900px){ .themebtn{ width:38px; height:38px; } }
+
+/* in lichte modus gaan de donkere sfeer-canvassen (vlammen, rook,
+   vonken) uit: die zijn voor zwart ontworpen; de foto's dragen het vuur */
+html[data-theme="light"] .stage,
+html[data-theme="light"] #burn,
+html[data-theme="light"] #flame,
+html[data-theme="light"] #embers{ display:none !important; }
+
+/* lichte modus: hero-foto's faden naar het ivoor en het logo krijgt
+   net iets meer definitie op de lichte ondergrond */
+html[data-theme="light"] .phero__veil{
+  background:
+    linear-gradient(180deg, rgba(250,244,233,.4), rgba(250,244,233,0) 24%),
+    linear-gradient(0deg, var(--soot) 2%, rgba(250,244,233,.75) 16%, rgba(250,244,233,0) 46%);
+}
+html[data-theme="light"] .logo,
+html[data-theme="light"] .foot__brand .logo{
+  filter:drop-shadow(0 1px 1px rgba(110,50,0,.45));
 }

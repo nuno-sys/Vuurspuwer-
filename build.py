@@ -429,6 +429,10 @@ def chrome(lang):
            'aria-label="4,9 van de 5 sterren uit 134 reviews — lees de beoordelingen"': f'aria-label="{L["stars_label"]}"',
            '4.9 &middot; 134 reviews': L["stars_txt"].replace("·", "&middot;"),
            'aria-label="Bel Nuno op +31 6 200 207 23"': f'aria-label="{_CALL_ARIA[lang]}"',
+           'aria-label="Wissel tussen donkere en lichte weergave"':
+           {"en": 'aria-label="Switch between dark and light mode"',
+            "de": 'aria-label="Zwischen dunklem und hellem Modus wechseln"',
+            "fr": 'aria-label="Basculer entre mode sombre et clair"'}[lang],
            'aria-label="Menu openen"': f'aria-label="{L["menu_btn"]}"',
            'data-i18n-open="Menu"': "",
            }
@@ -638,7 +642,8 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
 <meta name="application-name" content="Vuurspuwer Nuno">
 <meta name="apple-mobile-web-app-title" content="Vuurspuwer Nuno">
 <meta name="msapplication-TileColor" content="#0A0705">
-<style>html{{background:#0A0705;color-scheme:dark}}</style>
+<style>html{{background:#0A0705;color-scheme:dark}}html[data-theme="light"]{{background:#FAF4E9;color-scheme:light}}</style>
+<script>try{{if(localStorage.vsTheme==="light")document.documentElement.setAttribute("data-theme","light")}}catch(e){{}}</script>
 <link rel="mask-icon" href="/assets/pinned-tab.svg" color="#FFB020">
 <link rel="preconnect" href="https://www.googletagmanager.com">
 {GTAG}

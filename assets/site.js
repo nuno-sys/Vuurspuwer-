@@ -1427,3 +1427,22 @@ if ("serviceWorker" in navigator) {
     });
   });
 })();
+
+/* Licht/donker-schakelaar: keuze onthouden, theme-color meebewegen. */
+(function () {
+  var btn = document.getElementById("themeBtn");
+  var meta = document.querySelector('meta[name="theme-color"]');
+  function apply(t, save) {
+    if (t === "light") document.documentElement.setAttribute("data-theme", "light");
+    else document.documentElement.removeAttribute("data-theme");
+    if (meta) meta.setAttribute("content", t === "light" ? "#FAF4E9" : "#0A0705");
+    if (btn) btn.setAttribute("aria-pressed", String(t === "light"));
+    if (save) try { localStorage.vsTheme = t; } catch (e) {}
+  }
+  apply(document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark", false);
+  if (btn) btn.addEventListener("click", function () {
+    var t = document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light";
+    apply(t, true);
+    try { if (window.gtag) gtag("event", "theme_toggle", { theme: t }); } catch (e) {}
+  });
+})();
