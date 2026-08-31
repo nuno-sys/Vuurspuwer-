@@ -136,6 +136,9 @@ HOME = {
   '&ldquo;Super fun experience! Nuno takes his whole audience along in a great show full of jokes and truly spectacular stunts. Never expected to breathe fire myself one day — thank you so much for the wonderful experience!&rdquo;',
   '>NIEUW<':
   '>NEW<',
+  '>📸 Origineel van Google<': '>📸 Original from Google<',
+  'alt="Originele Google-review van EL Mul"': 'alt="Original Google review by EL Mul"',
+  'alt="Originele Google-review van Henk Mulder"': 'alt="Original Google review by Henk Mulder"',
   '>augustus 2026<':
   '>August 2026<',
   "136 beoordelingen op Google &middot;": "136 reviews on Google &middot;",
@@ -367,6 +370,9 @@ HOME = {
   '&ldquo;Super schöne Erfahrung! Nuno nimmt sein ganzes Publikum mit in eine großartige Show voller Witze und wirklich spektakulärer Stunts. Nie erwartet, selbst einmal Feuer spucken zu dürfen — vielen Dank für dieses schöne Erlebnis!&rdquo;',
   '>NIEUW<':
   '>NEU<',
+  '>📸 Origineel van Google<': '>📸 Original von Google<',
+  'alt="Originele Google-review van EL Mul"': 'alt="Originale Google-Bewertung von EL Mul"',
+  'alt="Originele Google-review van Henk Mulder"': 'alt="Originale Google-Bewertung von Henk Mulder"',
   '>augustus 2026<':
   '>August 2026<',
   "136 beoordelingen op Google &middot;": "136 Bewertungen auf Google &middot;",
@@ -591,6 +597,9 @@ HOME = {
   '&ldquo;Une expérience super sympa ! Nuno embarque tout son public dans un spectacle génial, plein d&rsquo;humour et de cascades vraiment spectaculaires. Jamais je n&rsquo;aurais pensé cracher du feu moi-même un jour — merci beaucoup pour cette belle expérience !&rdquo;',
   '>NIEUW<':
   '>NOUVEAU<',
+  '>📸 Origineel van Google<': '>📸 Original de Google<',
+  'alt="Originele Google-review van EL Mul"': 'alt="Avis Google original d&rsquo;EL Mul"',
+  'alt="Originele Google-review van Henk Mulder"': 'alt="Avis Google original de Henk Mulder"',
   '>augustus 2026<':
   '>août 2026<',
   "136 beoordelingen op Google &middot;": "136 avis sur Google &middot;",

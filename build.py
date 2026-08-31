@@ -2017,11 +2017,17 @@ def lang_contact_form(lang):
 
 _REV_BADGE = {"en": "NEW", "de": "NEU", "fr": "NOUVEAU"}
 _REV_AGO = {"en": "August 2026", "de": "August 2026", "fr": "août 2026"}
+_REV_PROOF = {"en": "📸 Original from Google", "de": "📸 Original von Google",
+              "fr": "📸 Original de Google"}
+_REV_PROOF_ALT = {"en": "Original Google review by", "de": "Originale Google-Bewertung von",
+                  "fr": "Avis Google original de"}
 
 def lang_reviews_body(lang):
     T = I.PAGES[lang]["beoordelingen"]["texts"]
     cards = PC.new_review_cards(badge=_REV_BADGE[lang], ago=_REV_AGO[lang],
-                                lang_attr=' lang="nl"') + "".join(
+                                lang_attr=' lang="nl"',
+                                proof=_REV_PROOF[lang],
+                                proof_alt=_REV_PROOF_ALT[lang]) + "".join(
         f'<article class="rcard" lang="nl"><p class="rcard__stars" aria-label="5/5">★★★★★</p>'
         f'<blockquote><p>{t}</p></blockquote>'
         f'<footer class="rcard__who">{n} <span>&middot; {c}</span></footer></article>'

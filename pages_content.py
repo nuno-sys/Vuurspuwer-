@@ -437,15 +437,16 @@ REVIEWS = [
 # en een levende "x geleden"-tijd — site.js rekent die bij elk bezoek
 # opnieuw uit, en laat de badge na 45 dagen vanzelf verdwijnen
 NEW_REVIEWS = [
- ("EL Mul", "Local Guide", "2026-08-31",
+ ("EL Mul", "Local Guide", "2026-08-31", "review-elmul", (480, 543),
   "Wil je een spectaculaire show met een flinke dosis humor, liters spanning en een portie &bdquo;drakenadem&rdquo; waar je wenkbrauwen spontaan van gaan krullen? Dan ben je bij Nuno aan het juiste adres! Een absolute knaller! Je gasten praten er dagen later nog over&hellip; met sterren in hun ogen &eacute;n waarschijnlijk een lichte rookgeur in hun kleding. 😂✨"),
- ("Henk Mulder", "Local Guide", "2026-08-31",
+ ("Henk Mulder", "Local Guide", "2026-08-31", "review-henk", (480, 246),
   "Super leuke ervaring! Nuno neemt zijn hele publiek mee in een geweldige show vol grappen en echte spectaculaire stunts. Nooit verwacht om zelf nog eens vuur te mogen spuwen, heel erg bedankt voor de mooie ervaring!"),
 ]
 
-def new_review_cards(badge="NIEUW", ago="augustus 2026", lang_attr=""):
+def new_review_cards(badge="NIEUW", ago="augustus 2026", lang_attr="",
+                     proof="📸 Origineel van Google", proof_alt="Originele Google-review van"):
     out = []
-    for i, (n, meta, d, t) in enumerate(NEW_REVIEWS):
+    for i, (n, meta, d, img, (iw, ih), t) in enumerate(NEW_REVIEWS):
         delay = f' data-delay="{i}"' if i else ""
         out.append(
             f'<article class="rcard rcard--new rise"{delay}{lang_attr}>'
@@ -453,7 +454,13 @@ def new_review_cards(badge="NIEUW", ago="augustus 2026", lang_attr=""):
             f'<span class="rcard__new" data-rev-new data-rev-date="{d}">{badge}</span></p>'
             f'<blockquote><p>&ldquo;{t}&rdquo;</p></blockquote>'
             f'<footer class="rcard__who">{n} <span>&middot; {meta}</span>'
-            f'<time class="rcard__ago" data-rev-date="{d}" datetime="{d}">{ago}</time></footer></article>')
+            f'<time class="rcard__ago" data-rev-date="{d}" datetime="{d}">{ago}</time></footer>'
+            f'<a class="rcard__proof" href="/assets/media/{img}-900.webp" data-lightbox>'
+            f'<img src="/assets/media/{img}-480.webp" '
+            f'srcset="/assets/media/{img}-480.webp 480w, /assets/media/{img}-900.webp 900w" '
+            f'sizes="(max-width:760px) 86vw, 350px" width="{iw}" height="{ih}" '
+            f'loading="lazy" decoding="async" alt="{proof_alt} {n}">'
+            f'<span class="rcard__prooftag">{proof}</span></a></article>')
     return "".join(out)
 
 def reviews_body():
@@ -494,7 +501,7 @@ def reviews_schema():
                                           "bestRating": "5"},
                          "reviewBody": _html.unescape(t),
                          "itemReviewed": {"@id": f"{SITE}/#business"}}
-                        for n, _m, d, t in NEW_REVIEWS]
+                        for n, _m, d, _img, _wh, t in NEW_REVIEWS]
                        + [{"@type": "Review",
                            "author": {"@type": "Person", "name": n},
                            "reviewRating": {"@type": "Rating", "ratingValue": "5",

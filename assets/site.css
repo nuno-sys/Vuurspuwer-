@@ -3980,3 +3980,36 @@ html[data-theme="light"] .gloss__item{ background-color:rgba(255,255,255,.6); }
   letter-spacing:.08em;
   color:var(--flame);
 }
+
+/* screenshot-bewijs in de verse reviewkaarten: klik opent de lightbox */
+.rcard__proof{
+  display:block;
+  position:relative;
+  margin-top:.85rem;
+  border-radius:12px;
+  overflow:hidden;
+  border:1px solid var(--hairline);
+  transition:border-color .4s var(--ease), transform .4s var(--ease);
+}
+.rcard__proof:hover{ border-color:rgba(255,176,32,.5); transform:translateY(-2px); }
+.rcard__proof img{
+  display:block;
+  width:100%;
+  height:auto;
+  max-height:150px;
+  object-fit:cover;
+  object-position:top;
+  background:#fff;
+}
+.rcard__prooftag{
+  position:absolute;
+  left:0; right:0; bottom:0;
+  padding:.9rem .8rem .45rem;
+  font-family:var(--f-mono);
+  font-size:.6rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:#FFE9C4;
+  background:linear-gradient(to top, rgba(5,3,2,.88), transparent);
+}
+@media print{ .rcard__proof{ display:none !important; } }
