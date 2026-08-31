@@ -5,6 +5,11 @@ name: IndexNow ping
 on:
   push:
     branches: [main]
+  schedule:
+    # elke maandagochtend alles opnieuw aanmelden: houdt Bing, DuckDuckGo,
+    # Yandex e.a. (en daarmee ook ChatGPT-search, dat op Bing draait) vers
+    - cron: "0 6 * * 1"
+  workflow_dispatch: {}
 permissions: {}
 jobs:
   ping:

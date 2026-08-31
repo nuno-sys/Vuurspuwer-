@@ -677,6 +677,7 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
 <meta name="twitter:card" content="summary_large_image">
 {ogv}
 <link rel="alternate" type="application/rss+xml" title="Blog — Vuurspuwer Nuno" href="/feed.xml">
+<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
