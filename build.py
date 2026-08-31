@@ -610,6 +610,102 @@ def midgal(lang, slug):
                 f'<div class="midgal__track">{"".join(tiles)}</div></aside>')
     return html_out, fulls[:4]
 
+# ------------------------------------------------- video-strip
+# Twee showreels verderop in de inhoud: eerst het vuur, als uitsmijter de
+# metershoge vuurbal in portret. Zelfde .reel-mechaniek als de homepage:
+# het bestand laadt pas (data-src) zodra de video in beeld schuift en
+# speelt dan gedempt vanzelf af; uit beeld pauzeert hij zichzelf.
+_VIDGAL = [
+    ("reel-1.mp4", "reel-1-poster.webp", "reel-1-poster-640.webp",
+     "PT19S", 640, 480, ""),
+    ("hero-portrait.mp4", "vuurbal-900.webp", "vuurbal-640.webp",
+     "PT5S", 730, 1022, " reel--tall"),
+]
+_VIDGAL_TXT = {
+ "nl": {"head": "De show in beweging", "play": "Video afspelen",
+        "cc": "Geen gesproken tekst",
+        "names": ("Vuurshow op locatie", "Vuurbal in close-up"),
+        "descs": ("Vuurspuwer Nuno tijdens een vuurshow op locatie: vuurspuwen, vuurjongleren en body fire.",
+                  "Meters hoge vuurbal van vuurspuwer Nuno, gefilmd van dichtbij.")},
+ "en": {"head": "The show in motion", "play": "Play video",
+        "cc": "No spoken text",
+        "names": ("Fire show on location", "Fireball in close-up"),
+        "descs": ("Fire breather Nuno during a fire show on location: fire breathing, fire juggling and body fire.",
+                  "Towering fireball by fire breather Nuno, filmed up close.")},
+ "de": {"head": "Die Show in Bewegung", "play": "Video abspielen",
+        "cc": "Kein gesprochener Text",
+        "names": ("Feuershow vor Ort", "Feuerball in Nahaufnahme"),
+        "descs": ("Feuerspucker Nuno während einer Feuershow vor Ort: Feuerspucken, Feuerjonglage und Body Fire.",
+                  "Meterhoher Feuerball von Feuerspucker Nuno, aus nächster Nähe gefilmt.")},
+ "fr": {"head": "Le spectacle en mouvement", "play": "Lire la vidéo",
+        "cc": "Pas de texte parlé",
+        "names": ("Spectacle de feu sur place", "Boule de feu en gros plan"),
+        "descs": ("Le cracheur de feu Nuno pendant un spectacle de feu sur place : crachage de feu, jonglerie enflammée et body fire.",
+                  "Immense boule de feu du cracheur de feu Nuno, filmée de près.")},
+}
+
+def vidgal(lang, page_url):
+    """De strip zelf plus de bijbehorende VideoObject-blokken."""
+    t = _VIDGAL_TXT[lang]
+    tiles, ld = [], []
+    for i, (src, poster, small, dur, w, h, cls) in enumerate(_VIDGAL):
+        name, desc = t["names"][i], t["descs"][i]
+        ratio = "" if cls else ' data-ratio="4/3"'
+        tiles.append(f'''<figure class="reel{cls}"{ratio}>
+        <video muted loop playsinline preload="none" poster="/assets/media/{small}"
+               data-src="/assets/media/{src}" aria-label="{esc(desc)}"><track kind="captions" src="/assets/media/stil.vtt" srclang="nl" label="{esc(t["cc"])}"></video>
+        <button class="reel__play" type="button" aria-label="{esc(t["play"])}: {esc(name)}">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <figcaption class="reel__hud"><span>{esc(name)}</span><span class="reel__time"></span></figcaption>
+      </figure>''')
+        ld.append({"@context": "https://schema.org", "@type": "VideoObject",
+                   "@id": f"{page_url}#showreel-{i + 1}",
+                   "name": f"{name} — Vuurspuwer Nuno", "description": desc,
+                   "contentUrl": f"{SITE}/assets/media/{src}",
+                   "thumbnailUrl": f"{SITE}/assets/media/{poster}",
+                   "uploadDate": "2026-08-30", "duration": dur,
+                   "width": w, "height": h,
+                   "inLanguage": I.HTML_LANG[lang],
+                   "publisher": {"@id": f"{SITE}/#business"}})
+    head = t["head"]
+    html_out = (f'<aside class="vidgal" aria-label="{esc(head)}"><div class="vidgal__inner">'
+                f'<p class="vidgal__eyebrow">🎬 {esc(head)}</p>'
+                f'<div class="vidgal__track">{"".join(tiles)}</div></div></aside>')
+    return html_out, ld
+
+def _insert_two(body, first, second):
+    """`first` (fotostrip) na ±25% van de tekst, `second` (videostrip) na
+    ±62% — met minstens één blok ertussen, zodat de twee stroken nooit
+    direct op elkaar volgen. Geeft (body, is-de-videostrip-geplaatst) terug."""
+    parts = re.split(r"(</p>|</ul>|</ol>|</table>|</blockquote>)", body)
+    chunks = [parts[i] + parts[i + 1] for i in range(0, len(parts) - 1, 2)]
+    if len(parts) % 2:
+        chunks.append(parts[-1])
+    if len(chunks) < 3:
+        return body + first, False
+    text_len = lambda c: len(re.sub(r"<[^>]+>", "", c))
+    total = sum(text_len(c) for c in chunks) or 1
+    def pick(frac, lo):
+        cum = 0
+        for idx in range(len(chunks) - 1):
+            cum += text_len(chunks[idx])
+            if cum >= total * frac and idx >= lo:
+                return idx
+        return None
+    i1 = pick(0.25, 1)
+    if i1 is None:
+        return body + first, False
+    i2 = pick(0.62, i1 + 2) if second else None
+    out = []
+    for idx, c in enumerate(chunks):
+        out.append(c)
+        if idx == i1:
+            out.append(first)
+        if idx == i2:
+            out.append(second)
+    return "".join(out), i2 is not None
+
 def _insert_mid(body, snippet, frac=0.25):
     parts = re.split(r"(</p>|</ul>|</ol>|</table>|</blockquote>)", body)
     chunks = []
@@ -637,13 +733,19 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
     path  = path or (f'/{p["slug"]}/' if p["slug"] else "/")
     url   = SITE + path
 
-    # foto-strip na ±25% van de inhoud (niet op galerij-, contact- en
-    # indexpagina's), plus registratie in de image-sitemap van deze pagina
+    # foto-strip na ±25% en video-strip na ±62% van de inhoud (niet op
+    # galerij-, contact- en indexpagina's, en nooit direct op elkaar),
+    # plus registratie in de image-sitemap van deze pagina
+    _vg_ld = []
     if (kind in ("page", "post", "city") and p["slug"] not in _MIDGAL_SKIP
             and len(p.get("body", "")) > 1500):
         _mg_html, _mg_fulls = midgal(lang, p["slug"])
-        p = {**p, "body": _insert_mid(p["body"], _mg_html)}
+        _vg_html, _ld = vidgal(lang, url)
+        _body, _vid_in = _insert_two(p["body"], _mg_html, _vg_html)
+        p = {**p, "body": _body}
         SITEMAP_IMG[path] = list(dict.fromkeys(SITEMAP_IMG.get(path, []) + _mg_fulls))
+        if _vid_in:
+            _vg_ld = _ld
     home  = "/" if lang == "nl" else f"/{lang}/"
     trail = [(L["crumb_home"], home)]
     if kind == "post":   trail.append(("Blog", "/blog/"))
@@ -738,6 +840,7 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
                       "publisher": {"@id": f"{SITE}/#business"}})
     if extra_schema:
         graph.extend(extra_schema) if isinstance(extra_schema, list) else graph.append(extra_schema)
+    graph.extend(_vg_ld)
     _augment_rich_results(graph, lang, page_desc=desc, page_url=url,
         page_img=(SITE + p["img"][0]) if p.get("img") and p["img"][0].startswith("/") else None,
         page_words=len(re.findall(r"\w+", text_of(p["body"]))))
@@ -1067,17 +1170,152 @@ _POST_CTA = """
   </p>
 </div>"""
 
+# mini-FAQ onder elk artikel: per rubriek de drie vragen die lezers van
+# zo'n artikel het vaakst stellen, mét FAQPage-schema (posts hebben verder
+# geen FAQPage, dus dit botst nergens mee)
+_POST_FAQ = {
+ "halloween": [
+  ("Wat kost een vuurshow met Halloween?",
+   "Een Halloween-vuurshow boek je vanaf €350. De meeste opdrachtgevers kiezen een show van 15–20 minuten tussen €350 en €750, afhankelijk van locatie en gewenste acts. Halloween-avond is snel volgeboekt, dus reserveer op tijd."),
+  ("Kan de vuurshow in Halloween-thema?",
+   "Ja. Kostuum, muziek en acts worden afgestemd op het griezelthema: fakiracts, vuurspuwen en een spannende opbouw die perfect past bij een Halloween-feest, spooktocht of themapark-event."),
+  ("Kan een vuurshow ook bij een spooktocht of buitenevenement?",
+   "Zeker. Nuno speelt op pleinen, in tuinen en langs routes; een vrije buitenruimte van enkele meters is genoeg. Veiligheid en afstemming met de organisatie zijn altijd inbegrepen.")],
+ "bruiloften": [
+  ("Wat kost een vuurshow op een bruiloft?",
+   "Een vuurshow op een bruiloft boek je vanaf €350; de meeste bruidsparen kiezen een show van 15–20 minuten tussen €350 en €750, inclusief afstemming met de locatie."),
+  ("Wanneer plan je de vuurshow op de trouwdag?",
+   "Meestal na het diner of als opening van het avondfeest, wanneer het net donker is — dan komt het vuur het mooist uit en staan alle gasten erbij."),
+  ("Is een vuurshow veilig op onze trouwlocatie?",
+   "Ja. Nuno stemt vooraf met de locatie af, houdt veilige afstanden aan en is volledig verzekerd. Ook op binnenplaatsen en strandlocaties is vaak meer mogelijk dan je denkt.")],
+ "zakelijk": [
+  ("Wat kost entertainment voor een bedrijfsfeest?",
+   "Een vuurshow of fakirshow voor een bedrijfsfeest boek je tussen €350 en €1500, afhankelijk van duur, acts en locatie. Binnen 24 uur ontvang je een offerte op maat."),
+  ("Is een vuurshow geschikt voor een zakelijk publiek?",
+   "Absoluut: van personeelsfeest tot productlancering. Nuno stond op SBS6, RTL4 en VTM en speelde voor merken als IKEA en parken als Walibi — professioneel, spectaculair en veilig."),
+  ("Regelt Nuno de veiligheid en eventuele vergunningen?",
+   "Nuno stemt vooraf af met de locatie en waar nodig met gemeente of brandweer, houdt veilige afstanden aan en is volledig verzekerd. Jij hoeft alleen de datum te prikken.")],
+ "workshops": [
+  ("Wat kost een workshop vuurspuwen?",
+   "Een workshop vuurspuwen boek je vanaf €350, afhankelijk van groepsgrootte en locatie. Ideaal voor vrijgezellenfeesten, teamuitjes en verjaardagen."),
+  ("Is vuurspuwen leren veilig voor beginners?",
+   "Ja. Je leert stap voor stap onder professionele begeleiding: eerst techniek en veiligheid, daarna pas echt vuur. Nuno werkt met de juiste brandstoffen en bescherming."),
+  ("Voor welke groepen is de workshop geschikt?",
+   "Voor vrijgezellenfeesten, bedrijfsuitjes, teambuilding en verenigingen. De workshop wordt aangepast aan het niveau en de wensen van de groep.")],
+ "acts": [
+  ("Welke acts doet Nuno naast vuurspuwen?",
+   "Fakiracts (spijkerbed, glas lopen), mentalisme en een reptielenshow met slangen. Alles is te combineren tot één spectaculair programma."),
+  ("Wat kost een fakirshow of mentalist?",
+   "Een fakirshow of mentalist-act boek je vanaf €350; een uitgebreid programma met meerdere acts loopt tot €1500. Binnen 24 uur ontvang je een offerte."),
+  ("Kan een show ook binnen plaatsvinden?",
+   "Fakiracts, mentalisme en de reptielenshow kunnen prima binnen. Vuurspuwen gebeurt buiten of in hoge zalen, altijd na afstemming met de locatie.")],
+ "feesten": [
+  ("Wat kost een vuurshow op een verjaardag of feest?",
+   "Een vuurshow op een feest boek je vanaf €350; de populairste keuze is een show van 15–20 minuten tussen €350 en €750, inclusief reistijd in de offerte."),
+  ("Hoe lang duurt een show op een feest?",
+   "Een show duurt 10 tot 20 minuten — precies lang genoeg om iedereen ademloos te houden. Voor grotere feesten zijn meerdere sets op een avond mogelijk."),
+  ("Moet ik zelf iets regelen voor de show?",
+   "Alleen een vrije buitenruimte van enkele meters. Nuno neemt alles mee, stemt af met de locatie en is volledig verzekerd.")],
+ "veiligheid": [
+  ("Is een professionele vuurshow veilig?",
+   "Ja. Nuno werkt al meer dan 20 jaar met vaste veiligheidsafstanden, professionele brandstoffen en een volledige verzekering. Veiligheid is altijd stap één van de voorbereiding."),
+  ("Is er een vergunning nodig voor een vuurshow?",
+   "Voor de meeste privéfeesten niet. Bij grote of openbare evenementen kan een melding bij gemeente of brandweer nodig zijn — Nuno denkt mee en levert de benodigde informatie aan."),
+  ("Is Nuno verzekerd?",
+   "Ja, volledig. Locaties ontvangen op verzoek vooraf de verzekerings- en veiligheidsinformatie voor hun eigen administratie.")],
+ "prijzen": [
+  ("Wat kost een vuurspuwer?",
+   "Een vuurspuwer boek je tussen €350 en €1500: vanaf €350 voor een korte show, rond €750 voor de populairste 20 minuten en tot €1500 voor een volledig festivalprogramma."),
+  ("Wat bepaalt de prijs van een vuurshow?",
+   "De duur van de show, het aantal acts (vuur, fakir, mentalisme, reptielen), de reisafstand en de datum. In de offerte staat alles transparant op een rij."),
+  ("Hoe snel krijg ik een offerte?",
+   "Binnen 24 uur. Stuur de datum, locatie en het soort feest mee, dan krijg je direct een passend voorstel en weet je of je datum nog vrij is.")],
+ "steden": [
+  ("In welke regio's treedt Nuno op?",
+   "In heel Nederland en België, en ook net over de grens in Duitsland en Frankrijk. Van Amsterdam tot Antwerpen en van Groningen tot Gent."),
+  ("Worden er reiskosten gerekend?",
+   "Reistijd wordt transparant in de offerte opgenomen, zodat je vooraf precies weet wat de show op jouw locatie kost — zonder verrassingen achteraf."),
+  ("Hoe ver van tevoren moet ik boeken?",
+   "Populaire data (zaterdagen, Halloween, december) zijn vaak 4–8 weken vooruit volgeboekt. Vroeg aanvragen loont; last-minute kan soms ook — vraag het gewoon.")],
+ "vuurshows": [
+  ("Wat kost het boeken van een vuurshow?",
+   "Een vuurshow boek je tussen €350 en €1500, afhankelijk van duur en acts. De populairste show duurt 20 minuten en is geschikt voor bruiloften, verjaardagen en bedrijfsfeesten."),
+  ("Hoe lang duurt een vuurshow?",
+   "Van 10 tot 20 minuten per set; op festivals speelt Nuno tot vijf sets van 20 minuten verspreid over de dag of avond."),
+  ("Waar kan een vuurshow plaatsvinden?",
+   "Vrijwel overal met een vrije buitenruimte: tuinen, pleinen, festivalterreinen, stranden en binnenplaatsen. Nuno stemt de show af op jouw locatie.")],
+}
+
+def _post_faq(cid):
+    qa = _POST_FAQ.get(cid) or _POST_FAQ["vuurshows"]
+    items = "".join(
+        f'<details class="faq__item"><summary>{q}</summary><p>{a}</p></details>'
+        for q, a in qa)
+    html_out = ('<section class="wrap bay" aria-label="Veelgestelde vragen">'
+                '<div class="bay__head"><p class="eyebrow eyebrow--dim rise">Veelgestelde vragen</p>'
+                '<h2 class="bay__title rise" data-delay="1">Eerst even <em>zeker weten</em></h2></div>'
+                f'<div class="faq">{items}</div></section>')
+    ld = {"@context": "https://schema.org", "@type": "FAQPage",
+          "mainEntity": [{"@type": "Question", "name": q,
+                          "acceptedAnswer": {"@type": "Answer", "text": a}}
+                         for q, a in qa]}
+    return html_out, ld
+
+# "Lees ook": drie artikelen uit dezelfde rubriek (aangevuld met de
+# nieuwste andere artikelen), als luxe kaarten mét ItemList-schema
+def _related(cur, blogset):
+    cid, _ = post_cat(cur)
+    same = [bp for bp in blogset if bp["slug"] != cur["slug"] and post_cat(bp)[0] == cid]
+    rest = [bp for bp in blogset if bp["slug"] != cur["slug"] and post_cat(bp)[0] != cid]
+    pick = (same + rest)[:3]
+    if not pick:
+        return "", None
+    cards, items, used = [], [], set()
+    for pos, bp in enumerate(pick, 1):
+        # elke kaart een eigen foto: bij een botsing doorschuiven
+        gi = sum(map(ord, bp["slug"])) % len(_MIDGAL_IMGS)
+        while gi in used:
+            gi = (gi + 1) % len(_MIDGAL_IMGS)
+        used.add(gi)
+        base, thumb, _full, w, h, _k = _MIDGAL_IMGS[gi]
+        alt = _MIDGAL_ALT[base]["nl"]
+        _, lab = post_cat(bp)
+        mins = max(1, round(len(re.findall(r"\w+", text_of(bp["body"]))) / 220))
+        cards.append(
+            f'<article class="relcard"><a href="/{bp["slug"]}/">'
+            f'<span class="relcard__media"><img src="/assets/media/{thumb}" width="{w}" height="{h}" '
+            f'loading="lazy" decoding="async" alt="{esc(alt)}"></span>'
+            f'<span class="relcard__body"><span class="relcard__cat">{lab}</span>'
+            f'<span class="relcard__t">{esc(bp["title"])}</span>'
+            f'<span class="relcard__meta">{mins} min lezen · Lees verder →</span></span>'
+            f'</a></article>')
+        items.append({"@type": "ListItem", "position": pos,
+                      "url": f'{SITE}/{bp["slug"]}/', "name": bp["title"]})
+    html_out = ('<section class="wrap bay relposts" aria-label="Gerelateerde artikelen">'
+                '<div class="bay__head"><p class="eyebrow eyebrow--dim rise">Lees ook</p>'
+                '<h2 class="bay__title rise" data-delay="1">Verder <em>lezen</em></h2></div>'
+                f'<div class="relposts__grid">{"".join(cards)}</div></section>')
+    ld = {"@context": "https://schema.org", "@type": "ItemList",
+          "name": "Gerelateerde artikelen", "itemListElement": items}
+    return html_out, ld
+
 posts = [p for p in pages.values() if p["kind"] == "post"]
+_blogset = sorted((bp for bp in posts if bp["slug"] not in PC.SHOW_PAGES),
+                  key=lambda x: x["date"], reverse=True)
 for p in posts:
     # workshop-vuurspuwen is in de export een bericht, maar leeft op de
     # site als volwaardige showpagina — die komt uit KEEP_PAGES.
     if p["slug"] in PC.SHOW_PAGES: continue
     _cid, _clabel = post_cat(p)
+    _faq_html, _faq_ld = _post_faq(_cid)
+    _rel_html, _rel_ld = _related(p, _blogset)
     p = {**p, "body": p["body"] + _POST_CTA,
          "eyebrow": _clabel,
          "cat_label": _clabel.split(" ", 1)[1],
          "keywords": f'{_clabel.split(" ", 1)[1]}, vuurshow, vuurspuwer, fakirshow, entertainment boeken'}
-    write(p["slug"], render(p, "post")); built.append(p["slug"])
+    _extra_ld = [_faq_ld] + ([_rel_ld] if _rel_ld else [])
+    write(p["slug"], render(p, "post", _extra_ld, _faq_html + _rel_html))
+    built.append(p["slug"])
 
 for slug in KEEP_PAGES:
     p = pages.get(slug)
