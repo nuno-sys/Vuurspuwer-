@@ -13,6 +13,15 @@ from html.parser import HTMLParser
 import pages_content as PC
 import i18n as I
 import matrix as MX
+import occasions as OCC
+import occasions_i18n as OCCI
+
+# gelegenheid-pagina's registreren: slugs voor hreflang, vertalingen
+# in de taalbouw (de NL-versies worden verderop apart gebouwd)
+I.SLUGS.update(OCC.SLUGS)
+I.PAGES["en"].update(OCCI.EN)
+I.PAGES["de"].update(OCCI.DE)
+I.PAGES["fr"].update(OCCI.FR)
 
 TODAY = date.today().isoformat()
 MONTHS_NL = ["", "januari", "februari", "maart", "april", "mei", "juni", "juli",
@@ -334,7 +343,7 @@ def _augment_rich_results(graph, lang, page_desc=None, page_img=None, page_url=N
 _FOOTER_LABELS = {
  "en": {">Reptielenshow<": ">Reptile show<", ">Workshop vuurspuwen<": ">Fire-breathing workshop<",
         ">Mentalisme<": ">Mentalism<", ">Themafeesten<": ">Theme parties<",
-        ">Over Nuno<": ">About Nuno<", ">Prijzen<": ">Prices<", ">Beoordelingen<": ">Reviews<", ">Locaties<": ">Locations<",
+        ">Over Nuno<": ">About Nuno<", ">Prijzen<": ">Prices<", ">Bruiloften<": ">Weddings<", ">Bedrijfsfeesten<": ">Corporate events<", ">🎄 Kerst &amp; nieuwjaar<": ">🎄 Christmas &amp; New Year<", ">Beoordelingen<": ">Reviews<", ">Locaties<": ">Locations<",
         ">Aanvraagformulier<": ">Request form<", ">Algemene voorwaarden<": ">Terms &amp; conditions<",
         ">Privacybeleid<": ">Privacy policy<", "<h2>Shows</h2>": "<h2>Shows</h2>",
         "<h2>Site</h2>": "<h2>Site</h2>", "<h2>Contact</h2>": "<h2>Contact</h2>",
@@ -351,7 +360,7 @@ _FOOTER_LABELS = {
         "Nederland, Belgi&euml; &amp; internationaal": "Netherlands, Belgium &amp; international"},
  "de": {">Reptielenshow<": ">Reptilienshow<", ">Workshop vuurspuwen<": ">Feuerspucker-Workshop<",
         ">Mentalisme<": ">Mentalismus<", ">Themafeesten<": ">Mottopartys<",
-        ">Over Nuno<": ">Über Nuno<", ">Prijzen<": ">Preise<", ">Beoordelingen<": ">Bewertungen<", ">Locaties<": ">Standorte<",
+        ">Over Nuno<": ">Über Nuno<", ">Prijzen<": ">Preise<", ">Bruiloften<": ">Hochzeiten<", ">Bedrijfsfeesten<": ">Firmenfeiern<", ">🎄 Kerst &amp; nieuwjaar<": ">🎄 Weihnachten &amp; Silvester<", ">Beoordelingen<": ">Bewertungen<", ">Locaties<": ">Standorte<",
         ">Aanvraagformulier<": ">Anfrageformular<", ">Algemene voorwaarden<": ">AGB<",
         ">Privacybeleid<": ">Datenschutz<", "<h2>Shows</h2>": "<h2>Shows</h2>",
         "<h2>Site</h2>": "<h2>Website</h2>", "<h2>Contact</h2>": "<h2>Kontakt</h2>",
@@ -368,7 +377,7 @@ _FOOTER_LABELS = {
         "Nederland, Belgi&euml; &amp; internationaal": "Niederlande, Belgien &amp; international"},
  "fr": {">Reptielenshow<": ">Spectacle de reptiles<", ">Workshop vuurspuwen<": ">Atelier cracheur de feu<",
         ">Mentalisme<": ">Mentalisme<", ">Themafeesten<": ">Fêtes à thème<",
-        ">Over Nuno<": ">À propos de Nuno<", ">Prijzen<": ">Tarifs<", ">Beoordelingen<": ">Avis<", ">Locaties<": ">Villes<",
+        ">Over Nuno<": ">À propos de Nuno<", ">Prijzen<": ">Tarifs<", ">Bruiloften<": ">Mariages<", ">Bedrijfsfeesten<": ">Fêtes d'entreprise<", ">🎄 Kerst &amp; nieuwjaar<": ">🎄 Noël &amp; Nouvel An<", ">Beoordelingen<": ">Avis<", ">Locaties<": ">Villes<",
         ">Aanvraagformulier<": ">Formulaire de demande<", ">Algemene voorwaarden<": ">Conditions générales<",
         ">Privacybeleid<": ">Confidentialité<", "<h2>Shows</h2>": "<h2>Spectacles</h2>",
         "<h2>Site</h2>": "<h2>Site</h2>", "<h2>Contact</h2>": "<h2>Contact</h2>",
@@ -844,6 +853,26 @@ def prijs_strip(lang):
     return (f'<section class="wrap bay pstrip"><p>💶 <strong>{esc(t)}</strong> '
             f'<a href="{I.url_of(lang, "wat-kost-een-vuurspuwer")}">{esc(a)}</a></p></section>')
 
+# het gelegenheden-linkweb: elke show- en gelegenheid-pagina verwijst naar
+# de andere gelegenheden, zodat Google de structuur meteen begrijpt
+_OCC_HEAD = {"nl": "Populair voor deze gelegenheden", "en": "Popular occasions",
+             "de": "Beliebte Anlässe", "fr": "Occasions populaires"}
+_OCC_LBL = {
+ "vuurshow-bruiloft":       {"nl": "💍 Bruiloften", "en": "💍 Weddings", "de": "💍 Hochzeiten", "fr": "💍 Mariages"},
+ "vuurshow-bedrijfsfeest":  {"nl": "🏢 Bedrijfsfeesten", "en": "🏢 Corporate events", "de": "🏢 Firmenfeiern", "fr": "🏢 Fêtes d'entreprise"},
+ "vuurshow-verjaardag":     {"nl": "🎉 Verjaardagen & jubilea", "en": "🎉 Birthdays", "de": "🎉 Geburtstage", "fr": "🎉 Anniversaires"},
+ "vuurshow-festival":       {"nl": "🎪 Festivals", "en": "🎪 Festivals", "de": "🎪 Festivals", "fr": "🎪 Festivals"},
+ "vrijgezellenfeest":       {"nl": "🥂 Vrijgezellenfeesten", "en": "🥂 Bachelor parties", "de": "🥂 Junggesellenabschiede", "fr": "🥂 EVG & EVJF"},
+ "vuurwerk-alternatief":    {"nl": "🎆 Vuurwerk-alternatief", "en": "🎆 Fireworks alternative", "de": "🎆 Feuerwerk-Alternative", "fr": "🎆 Alternative à l'artifice"},
+ "kerst-nieuwjaar-entertainment": {"nl": "🎄 Kerst & nieuwjaar", "en": "🎄 Christmas & New Year", "de": "🎄 Weihnachten & Silvester", "fr": "🎄 Noël & Nouvel An"},
+}
+def occ_links(lang, skip=None):
+    items = "".join(
+        f'<li><a href="{I.url_of(lang, s)}">{lbl[lang]}</a></li>'
+        for s, lbl in _OCC_LBL.items() if s != skip)
+    return (f'<section class="wrap bay occlinks"><h2 class="bay__title">{esc(_OCC_HEAD[lang])}</h2>'
+            f'<ul class="citylist">{items}</ul></section>')
+
 # ------------------------------------------------------------------ bouwen
 if os.path.isdir(OUT): shutil.rmtree(OUT)
 os.makedirs(OUT, exist_ok=True)
@@ -867,11 +896,25 @@ for slug in CITIES:
     write(slug, render(p, "city", svc, near, alternates=regio_alternates(slug)))
     built.append(slug)
 
+# elke blogpost eindigt met een boekings-CTA: van informatie naar aanvraag
+_POST_CTA = """
+<div class="postcta">
+  <p class="postcta__t">🔥 Zelf een vuurshow, fakirshow of workshop boeken?</p>
+  <p>Nuno speelt door heel Nederland en België — 4,9/5 uit 134 beoordelingen,
+  prijzen van €350 tot €1500 en binnen 24 uur antwoord op je aanvraag.</p>
+  <p class="postcta__row">
+    <a class="btn" href="/contact-3/"><span class="btn__dot"></span>Check je datum</a>
+    <a class="postcta__alt" href="/wat-kost-een-vuurspuwer/">Bekijk alle prijzen</a>
+    <a class="postcta__alt" href="https://wa.me/31620020723?text=Hallo%20Nuno%2C%20ik%20heb%20een%20vraag%20over%20een%20boeking" rel="noopener">App direct via WhatsApp</a>
+  </p>
+</div>"""
+
 posts = [p for p in pages.values() if p["kind"] == "post"]
 for p in posts:
     # workshop-vuurspuwen is in de export een bericht, maar leeft op de
     # site als volwaardige showpagina — die komt uit KEEP_PAGES.
     if p["slug"] in PC.SHOW_PAGES: continue
+    p = {**p, "body": p["body"] + _POST_CTA}
     write(p["slug"], render(p, "post")); built.append(p["slug"])
 
 for slug in KEEP_PAGES:
@@ -903,6 +946,7 @@ for slug in KEEP_PAGES:
                       + PC._fotorij(sp["fotos"]) + "</div></section>")
         if slug == "halloween":
             extra += hw_cities("nl")
+        extra += occ_links("nl")
         write(slug, render(p, "page", PC.show_schema(slug, sp), extra, alternates=alts))
         built.append(slug); continue
     if slug == "fotos":
@@ -984,7 +1028,7 @@ p = {"slug": "halloween", "kind": "page", "title": hp["title"],
 extra = prijs_strip("nl") + PC.show_faq_html(hp)
 extra += ('<section class="wrap bay"><div class="prose--page" style="max-width:none">'
           + PC._fotorij(hp["fotos"]) + "</div></section>")
-extra += hw_cities("nl")
+extra += hw_cities("nl") + occ_links("nl")
 write("halloween", render(p, "page", PC.show_schema("halloween", hp), extra,
                           alternates=alternates_for("halloween")))
 built.append("halloween")
@@ -1188,6 +1232,22 @@ write("wat-kost-een-vuurspuwer",
              alternates=alternates_for("wat-kost-een-vuurspuwer")))
 built.append("wat-kost-een-vuurspuwer")
 
+# gelegenheid-pagina's (NL): bruiloft, bedrijfsfeest, verjaardag, festival,
+# vrijgezellenfeest, vuurwerk-alternatief en kerst/nieuwjaar
+for _slug, OC in OCC.NL.items():
+    _p = {"slug": _slug, "title": OC["title"], "seo_title": OC["seo_title"],
+          "seo_desc": OC["seo_desc"], "img": OC["img"], "eyebrow": OC["eyebrow"],
+          "date": TODAY, "body": OC["body"]}
+    _extra = prijs_strip("nl") + PC.show_faq_html(OC)
+    if OC.get("fotos"):
+        _extra += ('<section class="wrap bay"><div class="prose--page" style="max-width:none">'
+                   + PC._fotorij(OC["fotos"]) + "</div></section>")
+    _extra += occ_links("nl", skip=_slug)
+    write(_slug, render(_p, "page", PC.show_schema(_slug, OC), _extra,
+                        alternates=alternates_for(_slug)))
+    built.append(_slug)
+print(f"  {len(OCC.NL)} gelegenheid-pagina's (nl) gebouwd")
+
 LANG_ALTS = {}   # pad -> alternates, voor de sitemap
 for slug_nl in I.SLUGS:
     alts = alternates_for(slug_nl)
@@ -1223,7 +1283,7 @@ for lang in I.LANGS:
         else:
             extra_html = lang_faq_html(lang, T.get("faq"))
             if nl_slug in ("vuurspuwer-inhuren", "fakir-show-inhuren",
-                           "workshop-vuurspuwen", "halloween"):
+                           "workshop-vuurspuwen", "halloween") or nl_slug in OCC.SLUGS:
                 extra_html = prijs_strip(lang) + extra_html
             if T.get("fotos"):
                 extra_html += ('<section class="wrap bay"><div class="prose--page" style="max-width:none">'
@@ -1231,6 +1291,9 @@ for lang in I.LANGS:
             if nl_slug == "halloween":
                 p["body"] = hw_top(lang) + '<div class="hwpage">' + p["body"] + "</div>"
                 extra_html += hw_cities(lang)
+            if nl_slug in ("vuurshow-inhuren", "vuurspuwer-inhuren", "fakir-show-inhuren",
+                           "workshop-vuurspuwen", "halloween") or nl_slug in OCC.SLUGS:
+                extra_html += occ_links(lang, skip=nl_slug if nl_slug in OCC.SLUGS else None)
         write(out, render(p, "page", extra_ld, extra_html,
                           lang=lang, path=path, alternates=alts))
         built.append(out)
@@ -1318,6 +1381,8 @@ _TOP_PAGES = {"halloween", "wat-kost-een-vuurspuwer",
               "en/halloween", "de/halloween", "fr/halloween",
               "en/fire-breather-prices", "de/feuerspucker-kosten",
               "fr/prix-cracheur-de-feu"}
+_TOP_PAGES |= set(OCC.SLUGS)
+_TOP_PAGES |= {f"{l}/{OCC.SLUGS[s][l]}" for s in OCC.SLUGS for l in ("en", "de", "fr")}
 def _prio(s):
     if s in _TOP_PAGES: return "0.9"
     if s in CITIES: return "0.8"
@@ -1450,6 +1515,15 @@ Boekingen lopen via het aanvraagformulier of WhatsApp; reactie binnen 24 uur. De
 - [Reptielenshow]({SITE}/reptielenhow/): educatieve ontmoeting met exotische slangen
 - [Mentalisme]({SITE}/entertainer-huren/): gedachtelezen en psychologische illusies, ook binnen inzetbaar
 - [Themafeesten]({SITE}/entertainer-huren-voor-bedrijfsfeest/): complete themaproducties van 1001 Nacht tot Caribbean
+
+## Gelegenheden
+- [Bruiloften]({SITE}/vuurshow-bruiloft/): romantische vuurshow bij de eerste dans of avondopening, vaak toegestaan waar vuurwerk verboden is
+- [Bedrijfsfeesten]({SITE}/vuurshow-bedrijfsfeest/): opening of grande finale voor personeelsfeesten en klantevents, op factuur
+- [Verjaardagen en jubilea]({SITE}/vuurshow-verjaardag/): verrassingsact aan huis, in de tuin of op de oprit
+- [Festivals]({SITE}/vuurshow-festival/): tot vijf sets van 20 minuten per dag, met technische rider
+- [Vrijgezellenfeesten]({SITE}/vrijgezellenfeest/): workshop vuurspuwen met de hele groep
+- [Vuurwerk-alternatief]({SITE}/vuurwerk-alternatief/): spektakel dat wél mag waar vuurwerk verboden is
+- [Kerst en nieuwjaar]({SITE}/kerst-nieuwjaar-entertainment/): winterspektakel voor kerstborrels en oud & nieuw
 
 ## Prijzen en boeken
 - [Prijzen en pakketten]({SITE}/wat-kost-een-vuurspuwer/): power-act 10 min vanaf €350, showblok 20 min vanaf €450, volledige show 30 min vanaf €595, festivalpakket tot 5×20 min €950–€1500

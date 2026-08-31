@@ -2620,3 +2620,29 @@ linear-gradient(0deg, var(--soot) 2%, rgba(250,244,233,.75) 16%, rgba(250,244,23
 html[data-theme="light"] .logo,
 html[data-theme="light"] .foot__brand .logo{
 filter:drop-shadow(0 1px 1px rgba(110,50,0,.45));}
+.postcta{
+margin:2.4rem 0 0;
+padding:1.4rem 1.5rem 1.5rem;
+border:1px solid var(--hairline);
+border-radius:16px;
+background:linear-gradient(180deg,rgba(255,120,20,.09),rgba(10,7,5,.02));}
+.postcta__t{
+font-family:var(--f-display);
+font-weight:800;
+font-size:1.15em;
+margin:0 0 .4rem;}
+.postcta__row{
+display:flex;
+flex-wrap:wrap;
+align-items:center;
+gap:.8rem 1.4rem;
+margin:.9rem 0 0;}
+.postcta__alt{
+color:var(--flame);
+text-decoration:underline;
+text-underline-offset:3px;}
+.postcta__alt:hover{ color:var(--core); }
+html[data-theme="light"] .postcta{ background:linear-gradient(180deg,rgba(255,120,20,.10),rgba(255,255,255,.5)); }
+html[data-theme="light"] .postcta__alt:hover{ color:var(--ember); }
+.occlinks .citylist a:hover{ color:var(--core); }
+html[data-theme="light"] .occlinks .citylist a:hover{ color:var(--ember); }
