@@ -554,3 +554,79 @@ def contact_schema():
              "name": "Contact — Vuurspuwer Nuno",
              "about": {"@id": f"{SITE}/#business"},
              "mainEntity": {"@id": f"{SITE}/#business"}}]
+
+# ------------------------------------------------------------- prijzenpagina
+PRIJZEN = {
+ "title": "Wat kost een vuurspuwer inhuren?",
+ "seo_title": "\U0001F4B6 Wat Kost een Vuurspuwer Inhuren? Prijzen & Pakketten 2026",
+ "seo_desc": "Vuurspuwer inhuren vanaf €350. Bekijk alle prijzen en pakketten: van 10 minuten power-act tot complete festivalshow (€350–€1500), incl. uitleg over reiskosten. Transparant en all-in.",
+ "eyebrow": "Prijzen & pakketten",
+ "img": ("/assets/media/avondvuur-1080.webp", "Vuurspuwer Nuno spuwt een enorme vuurbal in de avondschemering"),
+ "body": """
+<p><strong>Een vuurspuwer inhuren kost bij Nuno tussen de €350 en €1500, afhankelijk van de showduur en het pakket. Op deze pagina zie je precies wat elke show kost, wat er is inbegrepen en hoe reiskosten werken — transparant en zonder verrassingen.</strong></p>
+
+<h2>Prijzen vuurshow 2026: overzicht per pakket</h2>
+<p>In de markt lopen prijzen voor een "vuurshow" uiteen van zo'n €400 tot ruim €6000, omdat onder die naam van alles wordt verkocht — van een enkele fakkel tot complete producties. Nuno werkt met heldere pakketten en een vanafprijs van €350:</p>
+<table class="ptable">
+<thead><tr><th>Pakket</th><th>Duur</th><th>Indicatie</th><th>Perfect voor</th></tr></thead>
+<tbody>
+<tr><td><strong>Power-act</strong></td><td>10 min</td><td>vanaf €350</td><td>Opening of grande finale, productlancering</td></tr>
+<tr><td><strong>Showblok</strong></td><td>20 min</td><td>vanaf €450</td><td>Bruiloften, verjaardagen, jubilea, bedrijfsfeesten</td></tr>
+<tr><td><strong>Volledige vuurshow</strong></td><td>30 min</td><td>vanaf €595</td><td>Themafeesten en gala's, met fakir-elementen en interactie</td></tr>
+<tr><td><strong>Festivalpakket</strong></td><td>tot 5 × 20 min</td><td>€950 – €1500</td><td>Festivals en meerdaagse evenementen, verspreid over de dag of avond</td></tr>
+</tbody>
+</table>
+<p><em>Alle bedragen zijn indicaties exclusief reiskosten; je ontvangt altijd eerst een vrijblijvende offerte op maat met één all-in totaalprijs.</em></p>
+
+<h2>Wat is er bij de prijs inbegrepen?</h2>
+<ul>
+<li><strong>Alles voor de show</strong> — professioneel materiaal, veilige showbrandstoffen, kostuums en op- en afbouw.</li>
+<li><strong>Veiligheid geregeld</strong> — Nuno werkt volledig gecertificeerd, binnen de vergunningseisen en met de voorgeschreven veiligheidsafstanden; dit stemt hij vooraf met de locatie af.</li>
+<li><strong>Overleg en maatwerk</strong> — vooraf afstemming over muziek, timing en het programma, zodat de show naadloos in jouw evenement past.</li>
+<li><strong>Eén aanspreekpunt</strong> — je boekt rechtstreeks bij de artiest, zonder bureau-marges.</li>
+</ul>
+
+<h2>Reiskosten</h2>
+<p>Nuno reist vanuit Zeist (regio Utrecht) door heel <a href="/locaties-vuurshows-nederland-belgie/">Nederland en België</a>. Reiskosten worden per kilometer berekend en staan altijd vooraf in de offerte — binnen Nederland meestal tussen de €25 en €75, voor België iets meer. Verder weg of internationaal? Ook dat kan, op aanvraag.</p>
+
+<h2>Waarvan hangt de prijs af?</h2>
+<ul>
+<li><strong>Duur en aantal optredens</strong> — één power-act is voordeliger dan vijf showblokken op een festivaldag.</li>
+<li><strong>Type act</strong> — een <a href="/vuurspuwer-inhuren/">vuurshow</a>, <a href="/fakir-show-inhuren/">fakirshow</a>, <a href="/reptielenhow/">reptielenshow</a> of combinatie; een <a href="/entertainer-huren/">mentalisme-act</a> kan ook binnen waar vuur niet mag.</li>
+<li><strong>Duo of solo</strong> — samen met een vuurdanseres wordt de show groter (en het budget iets ruimer).</li>
+<li><strong>Datum en seizoen</strong> — <a href="/halloween/">oktober (Halloween)</a> en december zijn topmaanden: vroeg boeken loont.</li>
+<li><strong>Locatie</strong> — afstand en bijzondere wensen van de venue.</li>
+</ul>
+
+<h2>Voorbeelden uit de praktijk</h2>
+<ul>
+<li><strong>Bruiloft in Amsterdam</strong> — showblok van 20 minuten als avondopener: rond de €500 all-in.</li>
+<li><strong>Bedrijfsfeest in Eindhoven</strong> — volledige vuurshow van 30 minuten met fakir-finale: rond de €650 all-in.</li>
+<li><strong>Festival in Antwerpen</strong> — vier optredens van 20 minuten verspreid over de avond: rond de €1250 all-in.</li>
+</ul>
+<p>Twijfel je welk pakket past? Stuur je datum en locatie via het <a href="/contact-3/">aanvraagformulier</a> — binnen 24 uur weet je of de datum vrij is, mét prijsvoorstel. Liever direct contact? Bel of app <a href="https://wa.me/31620020723" rel="noopener">+31 6 200 207 23</a>.</p>
+
+<h2>Waarom opdrachtgevers voor Nuno kiezen</h2>
+<p>Met <a href="/over-nuno/">17 jaar ervaring</a>, tv-optredens bij SBS6, RTL en VTM, de Walibi Fright Nights op zijn naam en <a href="/beoordelingen/">een 4,9 uit 134 beoordelingen</a> weet je precies wat je in huis haalt. Bekijk de <a href="/fotos/">foto's</a> en <a href="/videos/">video's</a> voor een voorproefje.</p>
+""",
+ "faq": [
+  ("Wat kost een vuurspuwer voor een bruiloft of verjaardag?",
+   "Voor bruiloften, verjaardagen, jubilea en bedrijfsfeesten is het showblok van 20 minuten het populairst: vanaf €450, exclusief reiskosten. Een korte power-act van 10 minuten kan al vanaf €350."),
+  ("Wat kost een vuurshow op een festival?",
+   "Voor festivals is er een pakket tot vijf optredens van 20 minuten, verspreid over de dag of avond: €950 tot €1500 all-in, afhankelijk van het aantal sets en de reisafstand."),
+  ("Zijn er nog bijkomende kosten?",
+   "Alleen reiskosten (per kilometer vanaf Zeist, meestal €25–€75 binnen Nederland). Materiaal, brandstoffen, op- en afbouw en afstemming met de locatie zitten bij de prijs in. De offerte toont altijd één all-in totaalbedrag."),
+  ("Waarom lopen prijzen van vuurshows online zo uiteen?",
+   "Onder 'vuurshow' wordt van alles verkocht: van één artiest met een fakkel tot complete producties met meerdere performers — daardoor zie je online prijzen van €400 tot ruim €6000. Vraag daarom altijd na wat er precies is inbegrepen; bij Nuno staat dat zwart-op-wit in de offerte."),
+  ("Is een aanbetaling nodig en hoe zit het met annuleren?",
+   "De afspraken over betaling en annulering staan helder in de offerte en de algemene voorwaarden — geen kleine lettertjes. Een datum staat pas definitief vast na schriftelijke bevestiging."),
+  ("Kan de show ook binnen, en kost dat extra?",
+   "Binnen kan zodra de locatie en de brandweer het toelaten; anders schakelt Nuno naar acts zonder open vuur, zoals mentalisme of de fakirshow. Dat verandert niets aan de pakketprijs."),
+ ],
+ "service": {"name": "Vuurspuwer inhuren (prijzen en pakketten)", "type": "Vuurshow",
+             "desc": "Vuurshow boeken van 10 tot 5×20 minuten: power-act, showblok voor bruiloften en bedrijfsfeesten, volledige vuurshow of festivalpakket. Transparante prijzen van €350 tot €1500.",
+             "offers": {"@type": "AggregateOffer", "priceCurrency": "EUR",
+                        "lowPrice": "350", "highPrice": "1500", "offerCount": "4",
+                        "description": "Vier pakketten: power-act 10 min (vanaf €350), showblok 20 min (vanaf €450), volledige show 30 min (vanaf €595), festivalpakket tot 5×20 min (€950–€1500)."}},
+ "fotos": [],
+}

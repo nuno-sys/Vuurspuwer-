@@ -1336,3 +1336,179 @@ STANDALONE_REGIO = {
   },
  },
 }
+
+# ------------------------------------------------------------- prijzenpagina
+SLUGS["wat-kost-een-vuurspuwer"] = {"en": "fire-breather-prices",
+                                    "de": "feuerspucker-kosten",
+                                    "fr": "prix-cracheur-de-feu"}
+
+PAGES["en"]["wat-kost-een-vuurspuwer"] = {
+ "title": "How much does a fire breather cost?",
+ "seo_title": "\U0001F4B6 Fire Breather Prices 2026 | From €350 — Transparent Packages",
+ "seo_desc": "Hire a fire breather from €350. See all prices and packages: from a 10-minute power act to a full festival show (€350–€1500), including travel costs. Transparent and all-in.",
+ "eyebrow": "Prices & packages",
+ "img": ("/assets/media/avondvuur-1080.webp", "Fire breather Nuno blows an enormous fireball at dusk"),
+ "body": """
+<p><strong>Hiring fire breather Nuno costs between €350 and €1500, depending on show length and package. This page shows exactly what each show costs, what is included and how travel costs work — transparent, with no surprises.</strong></p>
+<h2>Fire show prices 2026: package overview</h2>
+<p>Across the market, "fire show" prices range from about €400 to well over €6000, because the term covers everything from a single torch act to full productions. Nuno works with clear packages and a starting price of €350:</p>
+<table class="ptable">
+<thead><tr><th>Package</th><th>Duration</th><th>Indication</th><th>Perfect for</th></tr></thead>
+<tbody>
+<tr><td><strong>Power act</strong></td><td>10 min</td><td>from €350</td><td>Opening or grand finale, product launch</td></tr>
+<tr><td><strong>Show block</strong></td><td>20 min</td><td>from €450</td><td>Weddings, birthdays, anniversaries, company parties</td></tr>
+<tr><td><strong>Full fire show</strong></td><td>30 min</td><td>from €595</td><td>Theme parties and galas, with fakir elements and interaction</td></tr>
+<tr><td><strong>Festival package</strong></td><td>up to 5 × 20 min</td><td>€950 – €1500</td><td>Festivals and multi-day events, spread across the day or evening</td></tr>
+</tbody>
+</table>
+<p><em>All amounts are indications excluding travel costs; you always receive a free tailored quote first, with one all-in total price.</em></p>
+<h2>What is included?</h2>
+<ul>
+<li><strong>Everything for the show</strong> — professional equipment, safe show fuels, costumes, set-up and breakdown.</li>
+<li><strong>Safety arranged</strong> — Nuno is fully certified and works within permit requirements and prescribed safety distances, coordinated with the venue in advance.</li>
+<li><strong>Consultation and customisation</strong> — music, timing and programme are agreed beforehand so the show fits your event seamlessly.</li>
+<li><strong>One point of contact</strong> — you book directly with the artist, without agency margins.</li>
+</ul>
+<h2>Travel costs</h2>
+<p>Nuno travels from Zeist (Utrecht region) across the <a href="/en/">Netherlands and Belgium</a>. Travel costs are calculated per kilometre and always stated upfront in the quote — usually €25–€75 within the Netherlands, slightly more for Belgium. Further away or international? Also possible, on request.</p>
+<h2>What determines the price?</h2>
+<ul>
+<li><strong>Duration and number of sets</strong> — one power act costs less than five show blocks on a festival day.</li>
+<li><strong>Type of act</strong> — a <a href="/en/fire-show/">fire show</a>, <a href="/en/fakir-show/">fakir show</a> or combination; a mentalism act works indoors where fire is not allowed.</li>
+<li><strong>Duo or solo</strong> — performing with a fire dancer makes the show bigger (and the budget slightly larger).</li>
+<li><strong>Date and season</strong> — <a href="/en/halloween/">October (Halloween)</a> and December are peak months: booking early pays off.</li>
+</ul>
+<p>Not sure which package fits? Send your date and location via the <a href="/en/contact/">request form</a> — within 24 hours you will know whether the date is free, with a price proposal. Prefer direct contact? Call or WhatsApp <a href="https://wa.me/31620020723" rel="noopener">+31 6 200 207 23</a>. With <a href="/en/about-nuno/">17 years of experience</a> and <a href="/en/reviews/">4.9/5 from 134 reviews</a>, you know exactly what you are booking.</p>
+""",
+ "faq": [
+  ("How much does a fire breather cost for a wedding or birthday?",
+   "The 20-minute show block is the most popular for weddings, birthdays, anniversaries and company parties: from €450 excluding travel costs. A short 10-minute power act starts at €350."),
+  ("What does a fire show at a festival cost?",
+   "For festivals there is a package of up to five 20-minute sets spread across the day or evening: €950 to €1500 all-in, depending on the number of sets and travel distance."),
+  ("Are there any additional costs?",
+   "Only travel costs (per kilometre from Zeist, usually €25–€75 within the Netherlands). Equipment, fuels, set-up and coordination with the venue are included. The quote always shows one all-in total."),
+  ("Why do fire show prices vary so much online?",
+   "The term 'fire show' covers everything from a single artist with a torch to full productions with several performers — hence online prices from €400 to over €6000. Always check what is included; with Nuno it is in writing in the quote."),
+  ("Can the show take place indoors, and does that cost extra?",
+   "Indoors is possible whenever the venue and fire brigade allow it; otherwise Nuno switches to acts without open fire, such as mentalism or the fakir show. The package price stays the same."),
+ ],
+ "service": {"name": "Hire a fire breather (prices and packages)", "type": "Fire show",
+             "desc": "Book a fire show from 10 minutes to 5×20 minutes: power act, show block for weddings and company parties, full fire show or festival package. Transparent prices from €350 to €1500.",
+             "offers": {"@type": "AggregateOffer", "priceCurrency": "EUR",
+                        "lowPrice": "350", "highPrice": "1500", "offerCount": "4",
+                        "description": "Four packages: power act 10 min (from €350), show block 20 min (from €450), full show 30 min (from €595), festival package up to 5×20 min (€950–€1500)."}},
+}
+
+PAGES["de"]["wat-kost-een-vuurspuwer"] = {
+ "title": "Was kostet ein Feuerspucker?",
+ "seo_title": "\U0001F4B6 Feuerspucker Kosten 2026 | Ab 350 € — Transparente Pakete",
+ "seo_desc": "Feuerspucker buchen ab 350 €. Alle Preise und Pakete: vom 10-Minuten-Power-Act bis zur kompletten Festivalshow (350–1500 €), inklusive Erklärung der Anfahrtskosten.",
+ "eyebrow": "Preise & Pakete",
+ "img": ("/assets/media/avondvuur-1080.webp", "Feuerspucker Nuno spuckt einen riesigen Feuerball in der Abenddämmerung"),
+ "body": """
+<p><strong>Einen Feuerspucker zu buchen kostet bei Nuno zwischen 350 und 1500 €, je nach Showdauer und Paket. Auf dieser Seite sehen Sie genau, was jede Show kostet, was enthalten ist und wie die Anfahrt berechnet wird — transparent und ohne Überraschungen.</strong></p>
+<h2>Feuershow-Preise 2026: Pakete im Überblick</h2>
+<p>Am Markt reichen die Preise für eine „Feuershow“ von etwa 400 bis weit über 6000 €, weil darunter alles verkauft wird — von der einzelnen Fackel bis zur Großproduktion. Nuno arbeitet mit klaren Paketen und einem Ab-Preis von 350 €:</p>
+<table class="ptable">
+<thead><tr><th>Paket</th><th>Dauer</th><th>Richtwert</th><th>Perfekt für</th></tr></thead>
+<tbody>
+<tr><td><strong>Power-Act</strong></td><td>10 Min</td><td>ab 350 €</td><td>Eröffnung oder großes Finale, Produktlaunch</td></tr>
+<tr><td><strong>Showblock</strong></td><td>20 Min</td><td>ab 450 €</td><td>Hochzeiten, Geburtstage, Jubiläen, Firmenfeiern</td></tr>
+<tr><td><strong>Komplette Feuershow</strong></td><td>30 Min</td><td>ab 595 €</td><td>Mottopartys und Galas, mit Fakir-Elementen und Interaktion</td></tr>
+<tr><td><strong>Festivalpaket</strong></td><td>bis 5 × 20 Min</td><td>950 – 1500 €</td><td>Festivals und mehrtägige Events, über den Tag oder Abend verteilt</td></tr>
+</tbody>
+</table>
+<p><em>Alle Beträge sind Richtwerte zzgl. Anfahrt; Sie erhalten immer zuerst ein kostenloses Angebot mit einem All-in-Gesamtpreis.</em></p>
+<h2>Was ist im Preis enthalten?</h2>
+<ul>
+<li><strong>Alles für die Show</strong> — professionelles Material, sichere Showbrennstoffe, Kostüme, Auf- und Abbau.</li>
+<li><strong>Sicherheit geregelt</strong> — Nuno arbeitet voll zertifiziert, innerhalb der Genehmigungsauflagen und mit den vorgeschriebenen Sicherheitsabständen.</li>
+<li><strong>Abstimmung und Maßarbeit</strong> — Musik, Timing und Programm werden vorab abgestimmt.</li>
+<li><strong>Ein Ansprechpartner</strong> — Sie buchen direkt beim Künstler, ohne Agenturmargen.</li>
+</ul>
+<h2>Anfahrtskosten</h2>
+<p>Nuno reist von Zeist (Region Utrecht) nach <a href="/de/">NRW und in die gesamte Grenzregion</a>. Die Anfahrt wird pro Kilometer berechnet und steht immer vorab im Angebot — für NRW meist zwischen 50 und 100 €. Weiter weg? Auf Anfrage ebenfalls möglich.</p>
+<h2>Wovon hängt der Preis ab?</h2>
+<ul>
+<li><strong>Dauer und Anzahl der Auftritte</strong> — ein Power-Act kostet weniger als fünf Showblöcke an einem Festivaltag.</li>
+<li><strong>Art des Acts</strong> — eine <a href="/de/feuershow/">Feuershow</a>, <a href="/de/fakirshow/">Fakirshow</a> oder Kombination; Mentalismus funktioniert auch drinnen, wo Feuer nicht erlaubt ist.</li>
+<li><strong>Duo oder solo</strong> — mit Feuertänzerin wird die Show größer.</li>
+<li><strong>Termin und Saison</strong> — <a href="/de/halloween/">Oktober (Halloween)</a> und Dezember sind Spitzenmonate: früh buchen lohnt sich.</li>
+</ul>
+<p>Unsicher, welches Paket passt? Senden Sie Datum und Ort über das <a href="/de/kontakt/">Anfrageformular</a> — innerhalb von 24 Stunden wissen Sie, ob der Termin frei ist, inklusive Preisvorschlag. Mit <a href="/de/ueber-nuno/">17 Jahren Erfahrung</a> und <a href="/de/bewertungen/">4,9/5 aus 134 Bewertungen</a> wissen Sie genau, wen Sie buchen.</p>
+""",
+ "faq": [
+  ("Was kostet ein Feuerspucker für eine Hochzeit oder einen Geburtstag?",
+   "Der 20-Minuten-Showblock ist für Hochzeiten, Geburtstage, Jubiläen und Firmenfeiern am beliebtesten: ab 450 € zzgl. Anfahrt. Ein kurzer Power-Act von 10 Minuten beginnt bei 350 €."),
+  ("Was kostet eine Feuershow auf einem Festival?",
+   "Für Festivals gibt es ein Paket mit bis zu fünf Auftritten à 20 Minuten, über den Tag oder Abend verteilt: 950 bis 1500 € all-in, je nach Anzahl der Sets und Anfahrt."),
+  ("Gibt es zusätzliche Kosten?",
+   "Nur die Anfahrt (pro Kilometer ab Zeist, für NRW meist 50–100 €). Material, Brennstoffe, Auf- und Abbau und die Abstimmung mit der Location sind enthalten. Das Angebot zeigt immer einen All-in-Gesamtpreis."),
+  ("Warum schwanken Feuershow-Preise online so stark?",
+   "Unter „Feuershow“ wird alles verkauft — vom einzelnen Künstler mit Fackel bis zur Großproduktion; daher Preise von 400 bis über 6000 €. Prüfen Sie immer, was enthalten ist; bei Nuno steht es schwarz auf weiß im Angebot."),
+  ("Kann die Show auch drinnen stattfinden, und kostet das extra?",
+   "Drinnen geht, sobald Location und Feuerwehr es erlauben; andernfalls wechselt Nuno zu Acts ohne offenes Feuer wie Mentalismus oder Fakirshow. Am Paketpreis ändert das nichts."),
+ ],
+ "service": {"name": "Feuerspucker buchen (Preise und Pakete)", "type": "Feuershow",
+             "desc": "Feuershow buchen von 10 Minuten bis 5×20 Minuten: Power-Act, Showblock für Hochzeiten und Firmenfeiern, komplette Feuershow oder Festivalpaket. Transparente Preise von 350 bis 1500 €.",
+             "offers": {"@type": "AggregateOffer", "priceCurrency": "EUR",
+                        "lowPrice": "350", "highPrice": "1500", "offerCount": "4",
+                        "description": "Vier Pakete: Power-Act 10 Min (ab 350 €), Showblock 20 Min (ab 450 €), komplette Show 30 Min (ab 595 €), Festivalpaket bis 5×20 Min (950–1500 €)."}},
+}
+
+PAGES["fr"]["wat-kost-een-vuurspuwer"] = {
+ "title": "Combien coûte un cracheur de feu ?",
+ "seo_title": "\U0001F4B6 Prix Cracheur de Feu 2026 | Dès 350 € — Forfaits Transparents",
+ "seo_desc": "Réserver un cracheur de feu dès 350 €. Tous les prix et forfaits : du power act de 10 minutes au spectacle complet de festival (350–1500 €), frais de déplacement expliqués.",
+ "eyebrow": "Prix & forfaits",
+ "img": ("/assets/media/avondvuur-1080.webp", "Le cracheur de feu Nuno souffle une énorme boule de feu au crépuscule"),
+ "body": """
+<p><strong>Réserver le cracheur de feu Nuno coûte entre 350 et 1500 €, selon la durée du spectacle et le forfait. Cette page montre exactement le prix de chaque spectacle, ce qui est inclus et comment fonctionnent les frais de déplacement — en toute transparence.</strong></p>
+<h2>Prix des spectacles de feu 2026 : les forfaits</h2>
+<p>Sur le marché, les prix d'un « spectacle de feu » vont d'environ 400 à plus de 6000 €, car ce terme recouvre tout — d'une simple torche à une production complète. Nuno travaille avec des forfaits clairs et un prix de départ de 350 € :</p>
+<table class="ptable">
+<thead><tr><th>Forfait</th><th>Durée</th><th>Indication</th><th>Parfait pour</th></tr></thead>
+<tbody>
+<tr><td><strong>Power act</strong></td><td>10 min</td><td>dès 350 €</td><td>Ouverture ou grand final, lancement de produit</td></tr>
+<tr><td><strong>Bloc spectacle</strong></td><td>20 min</td><td>dès 450 €</td><td>Mariages, anniversaires, jubilés, fêtes d'entreprise</td></tr>
+<tr><td><strong>Spectacle complet</strong></td><td>30 min</td><td>dès 595 €</td><td>Fêtes à thème et galas, avec éléments de fakir et interaction</td></tr>
+<tr><td><strong>Forfait festival</strong></td><td>jusqu'à 5 × 20 min</td><td>950 – 1500 €</td><td>Festivals et événements sur plusieurs jours, répartis sur la journée ou la soirée</td></tr>
+</tbody>
+</table>
+<p><em>Tous les montants sont indicatifs, hors frais de déplacement ; vous recevez toujours d'abord un devis gratuit sur mesure avec un prix total tout compris.</em></p>
+<h2>Qu'est-ce qui est inclus ?</h2>
+<ul>
+<li><strong>Tout pour le spectacle</strong> — matériel professionnel, combustibles sûrs, costumes, montage et démontage.</li>
+<li><strong>Sécurité assurée</strong> — Nuno est entièrement certifié et respecte les autorisations et distances de sécurité, en concertation avec le lieu.</li>
+<li><strong>Concertation et sur-mesure</strong> — musique, timing et programme sont convenus à l'avance.</li>
+<li><strong>Un seul interlocuteur</strong> — vous réservez directement auprès de l'artiste, sans marge d'agence.</li>
+</ul>
+<h2>Frais de déplacement</h2>
+<p>Nuno se déplace depuis Zeist (région d'Utrecht) dans <a href="/fr/">toute la Belgique et les Pays-Bas</a>. Les frais sont calculés au kilomètre et toujours indiqués à l'avance dans le devis — pour la Belgique généralement entre 50 et 100 €.</p>
+<h2>De quoi dépend le prix ?</h2>
+<ul>
+<li><strong>Durée et nombre de passages</strong> — un power act coûte moins que cinq blocs sur une journée de festival.</li>
+<li><strong>Type de numéro</strong> — un <a href="/fr/spectacle-de-feu/">spectacle de feu</a>, un <a href="/fr/spectacle-de-fakir/">spectacle de fakir</a> ou une combinaison ; le mentalisme fonctionne aussi en intérieur.</li>
+<li><strong>Duo ou solo</strong> — avec une danseuse de feu, le spectacle prend de l'ampleur.</li>
+<li><strong>Date et saison</strong> — <a href="/fr/halloween/">octobre (Halloween)</a> et décembre sont les mois de pointe : réservez tôt.</li>
+</ul>
+<p>Vous hésitez sur le forfait ? Envoyez votre date et lieu via le <a href="/fr/contact/">formulaire</a> — sous 24 heures vous saurez si la date est libre, avec une proposition de prix. Avec <a href="/fr/a-propos-de-nuno/">17 ans d'expérience</a> et <a href="/fr/avis/">4,9/5 sur 134 avis</a>, vous savez exactement qui vous réservez.</p>
+""",
+ "faq": [
+  ("Combien coûte un cracheur de feu pour un mariage ou un anniversaire ?",
+   "Le bloc spectacle de 20 minutes est le plus populaire pour les mariages, anniversaires, jubilés et fêtes d'entreprise : dès 450 € hors déplacement. Un power act de 10 minutes commence à 350 €."),
+  ("Combien coûte un spectacle de feu en festival ?",
+   "Pour les festivals, il existe un forfait jusqu'à cinq passages de 20 minutes répartis sur la journée ou la soirée : 950 à 1500 € tout compris, selon le nombre de sets et la distance."),
+  ("Y a-t-il des frais supplémentaires ?",
+   "Uniquement les frais de déplacement (au kilomètre depuis Zeist, généralement 50–100 € pour la Belgique). Matériel, combustibles, montage et concertation avec le lieu sont inclus. Le devis affiche toujours un total tout compris."),
+  ("Pourquoi les prix des spectacles de feu varient-ils autant en ligne ?",
+   "Sous « spectacle de feu » on vend de tout — d'un artiste seul avec une torche à une production complète ; d'où des prix de 400 à plus de 6000 €. Vérifiez toujours ce qui est inclus ; chez Nuno, c'est écrit noir sur blanc dans le devis."),
+  ("Le spectacle peut-il avoir lieu en intérieur, et cela coûte-t-il plus cher ?",
+   "En intérieur, c'est possible dès que le lieu et les pompiers l'autorisent ; sinon Nuno passe à des numéros sans flamme comme le mentalisme ou le fakir. Le prix du forfait ne change pas."),
+ ],
+ "service": {"name": "Réserver un cracheur de feu (prix et forfaits)", "type": "Spectacle de feu",
+             "desc": "Réservez un spectacle de feu de 10 minutes à 5×20 minutes : power act, bloc spectacle pour mariages et fêtes d'entreprise, spectacle complet ou forfait festival. Prix transparents de 350 à 1500 €.",
+             "offers": {"@type": "AggregateOffer", "priceCurrency": "EUR",
+                        "lowPrice": "350", "highPrice": "1500", "offerCount": "4",
+                        "description": "Quatre forfaits : power act 10 min (dès 350 €), bloc 20 min (dès 450 €), spectacle complet 30 min (dès 595 €), forfait festival jusqu'à 5×20 min (950–1500 €)."}},
+}

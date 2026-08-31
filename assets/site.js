@@ -1303,3 +1303,39 @@
     else addEventListener("load", arm, { once: true });
   }
 })();
+
+/* Halloween-countdown: telt af naar 31 oktober, schakelt zelf door
+   naar volgend jaar en toont op de dag zelf een live-melding. */
+(function () {
+  var box = document.getElementById("hwBox");
+  if (!box) return;
+  var els = {};
+  box.querySelectorAll("[data-hw]").forEach(function (e) { els[e.dataset.hw] = e; });
+  function target() {
+    var now = new Date(), y = now.getFullYear();
+    if (now > new Date(y, 10, 1)) y += 1;           /* na 1 november: volgend jaar */
+    return { y: y, t: new Date(y, 9, 31, 20, 0, 0) };
+  }
+  function pad(n) { return n < 10 ? "0" + n : "" + n; }
+  function tick() {
+    var tg = target(), now = new Date(), ms = tg.t - now;
+    if (els.y) els.y.textContent = tg.y;
+    if (ms <= 0) {                                   /* 31 oktober zelf */
+      if (!box.classList.contains("hw--live")) {
+        box.classList.add("hw--live");
+        var p = document.createElement("p");
+        p.className = "hw__live";
+        p.textContent = box.dataset.live || "";
+        box.querySelector(".hw__timer").after(p);
+      }
+      return;
+    }
+    var s = Math.floor(ms / 1000);
+    if (els.d) els.d.textContent = Math.floor(s / 86400);
+    if (els.h) els.h.textContent = pad(Math.floor(s / 3600) % 24);
+    if (els.m) els.m.textContent = pad(Math.floor(s / 60) % 60);
+    if (els.s) els.s.textContent = pad(s % 60);
+  }
+  tick();
+  setInterval(tick, 1000);
+})();

@@ -330,7 +330,7 @@ def _augment_rich_results(graph, lang, page_desc=None, page_img=None, page_url=N
 _FOOTER_LABELS = {
  "en": {">Reptielenshow<": ">Reptile show<", ">Workshop vuurspuwen<": ">Fire-breathing workshop<",
         ">Mentalisme<": ">Mentalism<", ">Themafeesten<": ">Theme parties<",
-        ">Over Nuno<": ">About Nuno<", ">Beoordelingen<": ">Reviews<", ">Locaties<": ">Locations<",
+        ">Over Nuno<": ">About Nuno<", ">Prijzen<": ">Prices<", ">Beoordelingen<": ">Reviews<", ">Locaties<": ">Locations<",
         ">Aanvraagformulier<": ">Request form<", ">Algemene voorwaarden<": ">Terms &amp; conditions<",
         ">Privacybeleid<": ">Privacy policy<", "<h2>Shows</h2>": "<h2>Shows</h2>",
         "<h2>Site</h2>": "<h2>Site</h2>", "<h2>Contact</h2>": "<h2>Contact</h2>",
@@ -347,7 +347,7 @@ _FOOTER_LABELS = {
         "Nederland, Belgi&euml; &amp; internationaal": "Netherlands, Belgium &amp; international"},
  "de": {">Reptielenshow<": ">Reptilienshow<", ">Workshop vuurspuwen<": ">Feuerspucker-Workshop<",
         ">Mentalisme<": ">Mentalismus<", ">Themafeesten<": ">Mottopartys<",
-        ">Over Nuno<": ">Über Nuno<", ">Beoordelingen<": ">Bewertungen<", ">Locaties<": ">Standorte<",
+        ">Over Nuno<": ">Über Nuno<", ">Prijzen<": ">Preise<", ">Beoordelingen<": ">Bewertungen<", ">Locaties<": ">Standorte<",
         ">Aanvraagformulier<": ">Anfrageformular<", ">Algemene voorwaarden<": ">AGB<",
         ">Privacybeleid<": ">Datenschutz<", "<h2>Shows</h2>": "<h2>Shows</h2>",
         "<h2>Site</h2>": "<h2>Website</h2>", "<h2>Contact</h2>": "<h2>Kontakt</h2>",
@@ -364,7 +364,7 @@ _FOOTER_LABELS = {
         "Nederland, Belgi&euml; &amp; internationaal": "Niederlande, Belgien &amp; international"},
  "fr": {">Reptielenshow<": ">Spectacle de reptiles<", ">Workshop vuurspuwen<": ">Atelier cracheur de feu<",
         ">Mentalisme<": ">Mentalisme<", ">Themafeesten<": ">Fêtes à thème<",
-        ">Over Nuno<": ">À propos de Nuno<", ">Beoordelingen<": ">Avis<", ">Locaties<": ">Villes<",
+        ">Over Nuno<": ">À propos de Nuno<", ">Prijzen<": ">Tarifs<", ">Beoordelingen<": ">Avis<", ">Locaties<": ">Villes<",
         ">Aanvraagformulier<": ">Formulaire de demande<", ">Algemene voorwaarden<": ">Conditions générales<",
         ">Privacybeleid<": ">Confidentialité<", "<h2>Shows</h2>": "<h2>Spectacles</h2>",
         "<h2>Site</h2>": "<h2>Site</h2>", "<h2>Contact</h2>": "<h2>Contact</h2>",
@@ -392,6 +392,7 @@ _BRAND_ARIA = {"en": "Fire breather Nuno, to the homepage", "de": "Feuerspucker 
 _CALL_ARIA = {"en": "Call Nuno on +31 6 200 207 23", "de": "Nuno anrufen unter +31 6 200 207 23",
               "fr": "Appeler Nuno au +31 6 200 207 23"}
 _CALL_NOW = {"en": ">Call now<", "de": ">Jetzt anrufen<", "fr": ">Appeler<"}
+_PRICES_LBL = {"en": "Prices", "de": "Preise", "fr": "Tarifs"}
 
 SITEMAP_IMG = {}   # pad -> [volledige afbeeldings-urls] voor de image-sitemap
 
@@ -418,6 +419,7 @@ def chrome(lang):
            ">Reviews<": f'>{M["reviews"]}<',
            ">Offerte aanvragen<": f'>{L["offerte"]}<',
            ">Bel direct<": _CALL_NOW[lang],
+           ">&#128182; Prijzen<": f'>&#128182; {_PRICES_LBL[lang]}<',
            '<span class="burger__txt">Menu</span>': f'<span class="burger__txt">{L["menu_btn"]}</span>',
            'aria-label="Vuurspuwer Nuno, naar de homepagina"': f'aria-label="{_BRAND_ARIA[lang]}"',
            'aria-label="4,9 van de 5 sterren uit 134 reviews — lees de beoordelingen"': f'aria-label="{L["stars_label"]}"',
@@ -703,6 +705,67 @@ def fotos_schema():
                        "copyrightNotice": "\u00a9 Vuurspuwer Nuno"}
                       for _, thumb, full, _, _, cap, alt in FOTOS]}
 
+# -------------------------------------------- Halloween-thema en prijslinks
+_HW = {
+ "nl": dict(eyeb="Aftellen naar Halloween", d="dagen", h="uren", m="min", s="sec",
+            sub="Oktober loopt elk jaar als eerste vol — zet je datum nu vast",
+            cta="Check je Halloween-datum",
+            live="🎃 Het is zover — laatste kans voor een boeking dit jaar!",
+            cities="Halloween-act boeken per stad",
+            cities_p="Nuno speelt in oktober door heel Nederland en België — van Fright Night tot spooktocht en themafeest. Kies je stad voor lokale informatie:"),
+ "en": dict(eyeb="Countdown to Halloween", d="days", h="hours", m="min", s="sec",
+            sub="October fills up first every year — lock in your date now",
+            cta="Check your Halloween date",
+            live="🎃 It's here — last chance to book this year!",
+            cities="Book a Halloween act by city",
+            cities_p="In October Nuno performs across the Netherlands and Belgium — from fright nights to haunted trails. Pick your city for local details:"),
+ "de": dict(eyeb="Countdown bis Halloween", d="Tage", h="Std", m="Min", s="Sek",
+            sub="Der Oktober ist jedes Jahr zuerst ausgebucht — sichern Sie sich jetzt Ihren Termin",
+            cta="Halloween-Termin prüfen",
+            live="🎃 Es ist so weit — letzte Chance für dieses Jahr!",
+            cities="Halloween-Act nach Stadt buchen",
+            cities_p="Im Oktober tritt Nuno in den ganzen Niederlanden und Belgien auf — von Fright Nights bis Gruseltouren. Wählen Sie Ihre Stadt:"),
+ "fr": dict(eyeb="Compte à rebours d'Halloween", d="jours", h="heures", m="min", s="sec",
+            sub="Octobre se remplit chaque année en premier — bloquez votre date maintenant",
+            cta="Vérifier votre date d'Halloween",
+            live="🎃 C'est le moment — dernière chance de réserver cette année !",
+            cities="Réserver une animation Halloween par ville",
+            cities_p="En octobre, Nuno se produit partout aux Pays-Bas et en Belgique — des fright nights aux parcours hantés. Choisissez votre ville :"),
+}
+
+def hw_top(lang):
+    L = _HW[lang]
+    cells = "".join(f'<span class="hw__cell"><b data-hw="{k}">–</b><i>{L[k]}</i></span>'
+                    for k in ("d", "h", "m", "s"))
+    return f'''<div class="hw" id="hwBox" data-live="{esc(L["live"])}">
+<span class="hw__bat hw__bat--1" aria-hidden="true">🦇</span>
+<span class="hw__bat hw__bat--2" aria-hidden="true">🦇</span>
+<span class="hw__bat hw__bat--3" aria-hidden="true">👻</span>
+<p class="hw__eyebrow">🎃 {esc(L["eyeb"])} <b data-hw="y">{TODAY[:4]}</b></p>
+<div class="hw__timer" role="timer">{cells}</div>
+<p class="hw__sub">{esc(L["sub"])}</p>
+<a class="btn hw__cta" href="{I.url_of(lang, "contact-3")}"><span class="btn__dot"></span>{esc(L["cta"])}</a>
+</div>'''
+
+def hw_cities(lang):
+    L = _HW[lang]
+    links = "".join(f'<li><a href="/halloween-{k}/">🎃 {esc(n)}</a></li>'
+                    for k, (n, _sf, _sp) in MX.CITIES.items())
+    return (f'<section class="wrap bay hwcities"><h2 class="bay__title">{esc(L["cities"])}</h2>'
+            f'<p class="hwcities__p">{esc(L["cities_p"])}</p>'
+            f'<ul class="citylist">{links}</ul></section>')
+
+_PRIJS_STRIP = {
+ "nl": ("Benieuwd naar de kosten?", "Bekijk alle prijzen & pakketten — vanaf €350"),
+ "en": ("Curious about the cost?", "See all prices & packages — from €350"),
+ "de": ("Neugierig auf die Kosten?", "Alle Preise & Pakete ansehen — ab 350 €"),
+ "fr": ("Curieux du prix ?", "Voir tous les prix & forfaits — dès 350 €"),
+}
+def prijs_strip(lang):
+    t, a = _PRIJS_STRIP[lang]
+    return (f'<section class="wrap bay pstrip"><p>💶 <strong>{esc(t)}</strong> '
+            f'<a href="{I.url_of(lang, "wat-kost-een-vuurspuwer")}">{esc(a)}</a></p></section>')
+
 # ------------------------------------------------------------------ bouwen
 if os.path.isdir(OUT): shutil.rmtree(OUT)
 os.makedirs(OUT, exist_ok=True)
@@ -753,10 +816,14 @@ for slug in KEEP_PAGES:
         p = {**p, "title": sp["title"], "seo_title": sp["seo_title"],
              "seo_desc": sp["seo_desc"], "body": sp["body"], "img": sp["img"],
              "eyebrow": sp["eyebrow"]}
-        extra = PC.show_faq_html(sp)
+        if slug == "halloween":
+            p["body"] = hw_top("nl") + '<div class="hwpage">' + p["body"] + "</div>"
+        extra = prijs_strip("nl") + PC.show_faq_html(sp)
         if sp["fotos"]:
             extra += ('<section class="wrap bay"><div class="prose--page" style="max-width:none">'
                       + PC._fotorij(sp["fotos"]) + "</div></section>")
+        if slug == "halloween":
+            extra += hw_cities("nl")
         write(slug, render(p, "page", PC.show_schema(slug, sp), extra, alternates=alts))
         built.append(slug); continue
     if slug == "fotos":
@@ -832,11 +899,13 @@ for slug in KEEP_PAGES:
 
 hp = PC.SHOW_PAGES["halloween"]
 p = {"slug": "halloween", "kind": "page", "title": hp["title"],
-     "date": "2026-08-30", "body": hp["body"],
+     "date": "2026-08-30", "eyebrow": hp.get("eyebrow", "Halloween"),
+     "body": hw_top("nl") + '<div class="hwpage">' + hp["body"] + "</div>",
      "seo_title": hp["seo_title"], "seo_desc": hp["seo_desc"], "img": hp["img"]}
-extra = PC.show_faq_html(hp)
+extra = prijs_strip("nl") + PC.show_faq_html(hp)
 extra += ('<section class="wrap bay"><div class="prose--page" style="max-width:none">'
           + PC._fotorij(hp["fotos"]) + "</div></section>")
+extra += hw_cities("nl")
 write("halloween", render(p, "page", PC.show_schema("halloween", hp), extra,
                           alternates=alternates_for("halloween")))
 built.append("halloween")
@@ -1028,6 +1097,18 @@ def lang_home_body(lang):
             + f'<p><a href="{I.url_of(lang, "beoordelingen")}">{H["reviews_link"]}</a></p>'
             + f'<h2>{H["cta_head"]}</h2><p>{H["cta_text"]}</p>')
 
+# de prijzenpagina: cornerstone zonder WXR-bron, dus synthetisch gebouwd
+PZ = PC.PRIJZEN
+_pz = {"slug": "wat-kost-een-vuurspuwer", "title": PZ["title"],
+       "seo_title": PZ["seo_title"], "seo_desc": PZ["seo_desc"],
+       "img": PZ["img"], "eyebrow": PZ["eyebrow"], "date": TODAY,
+       "body": PZ["body"]}
+write("wat-kost-een-vuurspuwer",
+      render(_pz, "page", PC.show_schema("wat-kost-een-vuurspuwer", PZ),
+             PC.show_faq_html(PZ),
+             alternates=alternates_for("wat-kost-een-vuurspuwer")))
+built.append("wat-kost-een-vuurspuwer")
+
 LANG_ALTS = {}   # pad -> alternates, voor de sitemap
 for slug_nl in I.SLUGS:
     alts = alternates_for(slug_nl)
@@ -1061,9 +1142,15 @@ for lang in I.LANGS:
             extra_ld = extra_ld + PC.reviews_schema()
         else:
             extra_html = lang_faq_html(lang, T.get("faq"))
+            if nl_slug in ("vuurspuwer-inhuren", "fakir-show-inhuren",
+                           "workshop-vuurspuwen", "halloween"):
+                extra_html = prijs_strip(lang) + extra_html
             if T.get("fotos"):
                 extra_html += ('<section class="wrap bay"><div class="prose--page" style="max-width:none">'
                                + lang_fotorij(lang, T["fotos"]) + "</div></section>")
+            if nl_slug == "halloween":
+                p["body"] = hw_top(lang) + '<div class="hwpage">' + p["body"] + "</div>"
+                extra_html += hw_cities(lang)
         write(out, render(p, "page", extra_ld, extra_html,
                           lang=lang, path=path, alternates=alts))
         built.append(out)
@@ -1147,7 +1234,12 @@ open(os.path.join(OUT, "_redirects"), "w").write("\n".join(lines) + "\n")
 print(f"  _redirects: {len(lines)-2} regels ({dropped} stadspagina's naar de hub, {rest} overig)")
 
 # sitemap — met xhtml-alternates voor alle taalversies
+_TOP_PAGES = {"halloween", "wat-kost-een-vuurspuwer",
+              "en/halloween", "de/halloween", "fr/halloween",
+              "en/fire-breather-prices", "de/feuerspucker-kosten",
+              "fr/prix-cracheur-de-feu"}
 def _prio(s):
+    if s in _TOP_PAGES: return "0.9"
     if s in CITIES: return "0.8"
     if s.split("/")[0] in I.LANGS: return "0.7"
     return "0.6"
@@ -1280,7 +1372,8 @@ Boekingen lopen via het aanvraagformulier of WhatsApp; reactie binnen 24 uur. De
 - [Themafeesten]({SITE}/entertainer-huren-voor-bedrijfsfeest/): complete themaproducties van 1001 Nacht tot Caribbean
 
 ## Prijzen en boeken
-- [Contact en offerte]({SITE}/contact-3/): aanvraagformulier, antwoord binnen 24 uur; prijzen €350–€1500 afhankelijk van show en duur
+- [Prijzen en pakketten]({SITE}/wat-kost-een-vuurspuwer/): power-act 10 min vanaf €350, showblok 20 min vanaf €450, volledige show 30 min vanaf €595, festivalpakket tot 5×20 min €950–€1500
+- [Contact en offerte]({SITE}/contact-3/): aanvraagformulier, antwoord binnen 24 uur
 - [Beoordelingen]({SITE}/beoordelingen/): 4,9/5 uit 134 reviews van opdrachtgevers
 - [Over Nuno]({SITE}/over-nuno/): 17 jaar ervaring, tv-optredens bij SBS6, RTL en VTM
 - Telefoon/WhatsApp: +31 6 200 207 23 · E-mail: nuno@vuurspuwer.com · KvK 98164325
@@ -1320,7 +1413,8 @@ def _dist_main(pth):
 
 _FULL = ["vuurspuwer-inhuren", "fakir-show-inhuren", "workshop-vuurspuwen",
          "reptielenhow", "entertainer-huren", "entertainer-huren-voor-bedrijfsfeest",
-         "halloween", "over-nuno", "locaties-vuurshows-nederland-belgie", "contact-3"]
+         "halloween", "wat-kost-een-vuurspuwer", "over-nuno",
+         "locaties-vuurshows-nederland-belgie", "contact-3"]
 parts = ["# Vuurspuwer Nuno — volledige inhoud (vuurspuwer.com)\n",
          "> Automatisch gegenereerd uit de live site. Index: "
          f"{SITE}/llms.txt · Sitemap: {SITE}/sitemap.xml\n"]
