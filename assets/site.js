@@ -976,9 +976,107 @@
      12. Booking form  /* ==============================================================
      12. Booking form
      ============================================================== */
+  /* ==============================================================
+     11b. Offerte-wizard: drie stappen naar een prijsindicatie, met
+     één klik door naar WhatsApp (voor-ingevuld) of het formulier
+     ============================================================== */
+  function initWizard(){
+    const wiz = $("[data-wiz]");
+    if (!wiz) return;
+    const send = (n, p) => { try { if (window.gtag) window.gtag("event", n, p || {}); } catch (e) {} };
+    const steps = $$(".wiz__step", wiz);
+    const dots = $$(".wiz__dots li", wiz);
+    const state = { occ: "", pkg: "", min: 0, max: 0 };
+    const show = (n) => {
+      steps.forEach((s) => { s.hidden = s.dataset.step !== String(n); });
+      dots.forEach((d, i) => d.classList.toggle("is-on", i < n));
+      wiz.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    };
+    $$(".wiz__chip:not(.wiz__chip--pkg)", wiz).forEach((b) =>
+      b.addEventListener("click", () => {
+        state.occ = b.dataset.occ;
+        $$(".wiz__chip:not(.wiz__chip--pkg)", wiz).forEach((x) => x.classList.toggle("is-sel", x === b));
+        send("wizard_step", { step: 1, occasion: state.occ });
+        show(2);
+      }));
+    $$(".wiz__chip--pkg", wiz).forEach((b) =>
+      b.addEventListener("click", () => {
+        state.pkg = b.dataset.pkg;
+        state.min = +b.dataset.min; state.max = +b.dataset.max;
+        $$(".wiz__chip--pkg", wiz).forEach((x) => x.classList.toggle("is-sel", x === b));
+      }));
+    $$("[data-wiz-back]", wiz).forEach((b) =>
+      b.addEventListener("click", () =>
+        show(b.closest(".wiz__step").dataset.step === "3" ? 2 : 1)));
+    const dateEl = $("[data-wiz-date]", wiz), placeEl = $("[data-wiz-place]", wiz);
+    const fmtDate = (v) => {
+      if (!v) return wiz.dataset.noDate;
+      const p = v.split("-");
+      return p[2] + "-" + p[1] + "-" + p[0];
+    };
+    const waBtn = $("[data-wiz-wa]", wiz), formBtn = $("[data-wiz-form]", wiz);
+    $("[data-wiz-go]", wiz).addEventListener("click", () => {
+      if (!state.pkg) ($(".wiz__chip--pop", wiz) || $(".wiz__chip--pkg", wiz)).click();
+      const price = "€" + state.min + " – €" + state.max;
+      const parts = [state.occ, state.pkg, fmtDate(dateEl.value)];
+      const place = placeEl.value.trim();
+      if (place) parts.push(place);
+      $("[data-wiz-pick]", wiz).textContent = parts.join("  ·  ");
+      $("[data-wiz-price]", wiz).textContent = price;
+      const msg = wiz.dataset.waMsg
+        .replace("{pkg}", state.pkg).replace("{occ}", state.occ)
+        .replace("{date}", fmtDate(dateEl.value))
+        .replace("{place}", place || wiz.dataset.noPlace);
+      waBtn.href = "https://wa.me/31620020723?text=" + encodeURIComponent(msg);
+      const fmsg = wiz.dataset.formMsg
+        .replace("{occ}", state.occ).replace("{pkg}", state.pkg).replace("{price}", price);
+      formBtn.dataset.d = dateEl.value || "";
+      formBtn.dataset.pl = place;
+      formBtn.dataset.m = fmsg;
+      formBtn.href = wiz.dataset.contact + "?wiz=1"
+        + "&m=" + encodeURIComponent(fmsg)
+        + (dateEl.value ? "&d=" + encodeURIComponent(dateEl.value) : "")
+        + (place ? "&pl=" + encodeURIComponent(place) : "");
+      send("wizard_quote", { occasion: state.occ, package: state.pkg,
+                             value: state.min, currency: "EUR" });
+      show(3);
+    });
+    waBtn.addEventListener("click", () =>
+      send("wizard_whatsapp", { occasion: state.occ, package: state.pkg }));
+    formBtn.addEventListener("click", (e) => {
+      send("wizard_form", { occasion: state.occ, package: state.pkg });
+      /* staat het boekingsformulier op deze pagina? Dan direct invullen
+         en ernaartoe scrollen in plaats van navigeren */
+      const form = $("#bookForm");
+      if (!form) return;
+      e.preventDefault();
+      if (formBtn.dataset.d && form.datum) form.datum.value = formBtn.dataset.d;
+      if (formBtn.dataset.pl && form.locatie && form.locatie.tagName === "INPUT") {
+        form.locatie.value = formBtn.dataset.pl;
+      }
+      if (formBtn.dataset.m && form.bericht && !form.bericht.value) {
+        form.bericht.value = formBtn.dataset.m;
+      }
+      form.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+  }
+
   function initForm(){
     const form = $("#bookForm"), status = $("#formStatus");
     if (!form || !status) return;
+
+    /* voor-invulling vanuit de offerte-wizard op een andere pagina */
+    try {
+      const q = new URLSearchParams(location.search);
+      if (q.get("wiz")) {
+        if (q.get("d") && form.datum) form.datum.value = q.get("d");
+        if (q.get("pl") && form.locatie && form.locatie.tagName === "INPUT") {
+          form.locatie.value = q.get("pl");
+        }
+        if (q.get("m") && form.bericht && !form.bericht.value) form.bericht.value = q.get("m");
+        setTimeout(() => form.scrollIntoView({ block: "center" }), 150);
+      }
+    } catch (e) {}
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -1083,6 +1181,7 @@
     initGallery();
     initVideo();
     initForm();
+    initWizard();
 
     register();
     if (document.fonts && document.fonts.ready) {

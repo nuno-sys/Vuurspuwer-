@@ -507,21 +507,20 @@ _PRICES_LBL = {"en": "Prices", "de": "Preise", "fr": "Tarifs"}
 SITEMAP_IMG = {}   # pad -> [volledige afbeeldings-urls] voor de image-sitemap
 
 _CHROME_CACHE = {}
-def chrome(lang):
-    """(header, footer) voor een taal; NL is het origineel."""
+def localize_doc(d, lang):
+    """Past alle taalvervangingen (labels, links, WhatsApp) toe op een stuk
+    HTML — gebruikt voor de header/footer-chunks én voor de volledige
+    homepage-klonen per taal."""
     if lang == "nl":
-        return HEADER, FOOTER
-    if lang in _CHROME_CACHE:
-        return _CHROME_CACHE[lang]
+        return d
     L = I.UI[lang]; M = L["menu"]
-    h, f = HEADER, FOOTER
-    # paginalinks naar de vertaalde tegenhangers (header, menu én footer)
+    # ankers die naar de (taal)homepage wijzen, vóór de generieke '/'-regel
+    d = d.replace('href="/#', f'href="/{lang}/#')
+    # paginalinks naar de vertaalde tegenhangers
     for nl_slug in I.SLUGS:
         if nl_slug == "": continue
-        h = h.replace(f'href="/{nl_slug}/"', f'href="{I.url_of(lang, nl_slug)}"')
-        f = f.replace(f'href="/{nl_slug}/"', f'href="{I.url_of(lang, nl_slug)}"')
-    h = h.replace('href="/"', f'href="/{lang}/"')
-    h = h.replace('href="/#top"', f'href="/{lang}/"')
+        d = d.replace(f'href="/{nl_slug}/"', f'href="{I.url_of(lang, nl_slug)}"')
+    d = d.replace('href="/"', f'href="/{lang}/"')
     # zichtbare labels
     lbl = {">Home<": f'>{M["home"]}<', ">Foto's<": f'>{M["fotos"]}<', ">Video's<": f'>{M["videos"]}<',
            ">Vuurshow<": f'>{M["vuurshow"]}<', ">Workshop<": f'>{M["workshop"]}<',
@@ -542,23 +541,25 @@ def chrome(lang):
            'aria-label="Menu openen"': f'aria-label="{L["menu_btn"]}"',
            'data-i18n-open="Menu"': "",
            }
-    for a, b in lbl.items(): h = h.replace(a, b)
-    h = h.replace("Nederland, Belgi&euml; &amp; internationaal",
-                  _FOOTER_LABELS[lang]["Nederland, Belgi&euml; &amp; internationaal"])
+    for a, b in lbl.items(): d = d.replace(a, b)
     # de burger wisselt open/dicht-tekst via data-attributen
-    h = h.replace('<button class="burger"',
+    d = d.replace('<button class="burger"',
                   f'<button class="burger" data-txt-open="{L["close_btn"]}" data-txt-closed="{L["menu_btn"]}"')
-    for a, b in _FOOTER_LABELS[lang].items(): f = f.replace(a, b)
-    f = f.replace(">Vuurshow<", f'>{M["vuurshow"]}<')
-    f = f.replace(">Fakirshow<", f'>{M["fakirshow"]}<')
-    f = f.replace('href="/"', f'href="/{lang}/"')
+    for a, b in _FOOTER_LABELS[lang].items(): d = d.replace(a, b)
     # WhatsApp-knop: taalversie van tekst, label en statuswoorden
-    f = f.replace("Hallo%20Nuno%2C%20ik%20heb%20een%20vraag%20over%20een%20boeking", _WA_TEXT[lang])
-    f = f.replace('aria-label="Chat met Nuno op WhatsApp"', f'aria-label="{_WA_ARIA[lang]}"')
-    f = f.replace('<a class="wa" ', f'<a class="wa" data-online="{L["wa_status_on"]}" data-offline="{L["wa_status_off"]}" ')
-    f = f.replace('>Online</b>', f'>{L["wa_status_on"]}</b>')
-    _CHROME_CACHE[lang] = (h, f)
-    return h, f
+    d = d.replace("Hallo%20Nuno%2C%20ik%20heb%20een%20vraag%20over%20een%20boeking", _WA_TEXT[lang])
+    d = d.replace('aria-label="Chat met Nuno op WhatsApp"', f'aria-label="{_WA_ARIA[lang]}"')
+    d = d.replace('<a class="wa" ', f'<a class="wa" data-online="{L["wa_status_on"]}" data-offline="{L["wa_status_off"]}" ')
+    d = d.replace('>Online</b>', f'>{L["wa_status_on"]}</b>')
+    return d
+
+def chrome(lang):
+    """(header, footer) voor een taal; NL is het origineel."""
+    if lang == "nl":
+        return HEADER, FOOTER
+    if lang not in _CHROME_CACHE:
+        _CHROME_CACHE[lang] = (localize_doc(HEADER, lang), localize_doc(FOOTER, lang))
+    return _CHROME_CACHE[lang]
 
 def alternates_for(nl_slug):
     return {l: I.url_of(l, nl_slug) for l in ("nl", "en", "de", "fr")}
@@ -820,6 +821,142 @@ def _insert_mid(body, snippet, frac=0.25):
         if cum >= total * frac and idx >= 1:
             return "".join(chunks[:idx + 1]) + snippet + "".join(chunks[idx + 1:])
     return body + snippet
+
+# ------------------------------------------------- offerte-wizard
+# Drie stappen naar een indicatieprijs: gelegenheid -> pakket + datum en
+# plaats -> prijsindicatie met één klik naar WhatsApp (voor-ingevuld
+# bericht) of het offerteformulier. Volledig client-side, dus geen
+# milliseconde laadtijd; site.js verzorgt de interactie en GA4-events.
+_WIZ = {
+ "nl": {"eyebrow": "💶 Offerte-wizard", "title": "Weet in <em>30 seconden</em> je prijs",
+        "sub": "Drie klikken en je ziet direct een eerlijke prijsindicatie — en of je datum nog vrij is.",
+        "q1": "Wat vieren jullie?", "q2": "Welke show past erbij?",
+        "date": "Datum (optioneel)", "place": "Plaats", "place_ph": "Bijv. Utrecht of Antwerpen",
+        "back": "‹ Terug", "next": "Bekijk mijn prijs ›",
+        "res_head": "Jouw prijsindicatie", "res_note": "Inclusief professioneel materiaal, verzekering en afstemming met de locatie. Reistijd wordt transparant in de offerte opgenomen.",
+        "res_trust": "★ 4,9/5 uit 134 reviews · Binnen 24 uur een offerte op maat",
+        "wa_btn": "Check datum via WhatsApp", "form_btn": "Vraag offerte aan",
+        "popular": "Meest gekozen", "no_date": "datum in overleg", "no_place": "onze regio",
+        "wa_msg": "Hallo Nuno! Ik zoek een {pkg} voor een {occ} op {date} in {place}. Is die datum nog vrij?",
+        "form_msg": "{occ} — {pkg}. Indicatie uit de prijswizard: {price}.",
+        "occs": [("💍", "Bruiloft"), ("🏢", "Bedrijfsfeest"), ("🎉", "Verjaardag"),
+                 ("🎪", "Festival"), ("🎃", "Halloween"), ("🥂", "Vrijgezellenfeest"),
+                 ("✨", "Iets anders")],
+        "pkgs": [("⚡", "Power-act", "10 minuten vol spektakel", 350, 450, 0),
+                 ("🔥", "Volledige vuurshow", "±20 minuten — de populairste keuze", 450, 750, 1),
+                 ("🎪", "Festival-pakket", "meerdere sets tot 5×20 minuten", 750, 1500, 0),
+                 ("💨", "Workshop vuurspuwen", "zelf leren vuurspuwen met de groep", 350, 650, 0),
+                 ("🧠", "Advies van Nuno", "nog geen idee — denk met me mee", 350, 1500, 0)]},
+ "en": {"eyebrow": "💶 Quote wizard", "title": "Know your price in <em>30 seconds</em>",
+        "sub": "Three clicks and you instantly see an honest price indication — and whether your date is still free.",
+        "q1": "What are you celebrating?", "q2": "Which show fits best?",
+        "date": "Date (optional)", "place": "Town or city", "place_ph": "E.g. Amsterdam or Antwerp",
+        "back": "‹ Back", "next": "Show my price ›",
+        "res_head": "Your price indication", "res_note": "Including professional equipment, insurance and coordination with the venue. Travel time is included transparently in the quote.",
+        "res_trust": "★ 4.9/5 from 134 reviews · Tailored quote within 24 hours",
+        "wa_btn": "Check the date on WhatsApp", "form_btn": "Request a quote",
+        "popular": "Most chosen", "no_date": "date to be agreed", "no_place": "our region",
+        "wa_msg": "Hello Nuno! I'm looking for a {pkg} for a {occ} on {date} in {place}. Is that date still available?",
+        "form_msg": "{occ} — {pkg}. Indication from the price wizard: {price}.",
+        "occs": [("💍", "Wedding"), ("🏢", "Corporate event"), ("🎉", "Birthday"),
+                 ("🎪", "Festival"), ("🎃", "Halloween"), ("🥂", "Bachelor party"),
+                 ("✨", "Something else")],
+        "pkgs": [("⚡", "Power act", "10 minutes of pure spectacle", 350, 450, 0),
+                 ("🔥", "Full fire show", "±20 minutes — the most popular choice", 450, 750, 1),
+                 ("🎪", "Festival package", "multiple sets up to 5×20 minutes", 750, 1500, 0),
+                 ("💨", "Fire-breathing workshop", "learn to breathe fire with your group", 350, 650, 0),
+                 ("🧠", "Nuno's advice", "no idea yet — let's think together", 350, 1500, 0)]},
+ "de": {"eyebrow": "💶 Angebots-Assistent", "title": "In <em>30 Sekunden</em> zum Preis",
+        "sub": "Drei Klicks und Sie sehen sofort eine ehrliche Preisindikation — und ob Ihr Termin noch frei ist.",
+        "q1": "Was feiern Sie?", "q2": "Welche Show passt?",
+        "date": "Datum (optional)", "place": "Ort", "place_ph": "Z. B. Köln oder Aachen",
+        "back": "‹ Zurück", "next": "Preis anzeigen ›",
+        "res_head": "Ihre Preisindikation", "res_note": "Inklusive professionellem Material, Versicherung und Abstimmung mit der Location. Die Anfahrt wird transparent im Angebot ausgewiesen.",
+        "res_trust": "★ 4,9/5 aus 134 Bewertungen · Maßgeschneidertes Angebot in 24 h",
+        "wa_btn": "Termin per WhatsApp prüfen", "form_btn": "Angebot anfordern",
+        "popular": "Am häufigsten gewählt", "no_date": "Termin nach Absprache", "no_place": "unserer Region",
+        "wa_msg": "Hallo Nuno! Ich suche eine {pkg} für eine {occ} am {date} in {place}. Ist der Termin noch frei?",
+        "form_msg": "{occ} — {pkg}. Indikation aus dem Preis-Assistenten: {price}.",
+        "occs": [("💍", "Hochzeit"), ("🏢", "Firmenfeier"), ("🎉", "Geburtstag"),
+                 ("🎪", "Festival"), ("🎃", "Halloween"), ("🥂", "Junggesellenabschied"),
+                 ("✨", "Etwas anderes")],
+        "pkgs": [("⚡", "Power-Act", "10 Minuten volles Spektakel", 350, 450, 0),
+                 ("🔥", "Komplette Feuershow", "±20 Minuten — die beliebteste Wahl", 450, 750, 1),
+                 ("🎪", "Festival-Paket", "mehrere Sets bis 5×20 Minuten", 750, 1500, 0),
+                 ("💨", "Workshop Feuerspucken", "selbst Feuerspucken lernen", 350, 650, 0),
+                 ("🧠", "Nunos Rat", "noch keine Idee — gemeinsam überlegen", 350, 1500, 0)]},
+ "fr": {"eyebrow": "💶 Assistant devis", "title": "Votre prix en <em>30 secondes</em>",
+        "sub": "Trois clics et vous voyez immédiatement une indication de prix honnête — et si votre date est encore libre.",
+        "q1": "Que fêtez-vous ?", "q2": "Quel spectacle convient ?",
+        "date": "Date (facultatif)", "place": "Ville", "place_ph": "P. ex. Bruxelles ou Liège",
+        "back": "‹ Retour", "next": "Voir mon prix ›",
+        "res_head": "Votre indication de prix", "res_note": "Matériel professionnel, assurance et coordination avec le lieu inclus. Le déplacement est indiqué de façon transparente dans le devis.",
+        "res_trust": "★ 4,9/5 sur 134 avis · Devis sur mesure sous 24 h",
+        "wa_btn": "Vérifier la date sur WhatsApp", "form_btn": "Demander un devis",
+        "popular": "Le plus choisi", "no_date": "date à convenir", "no_place": "notre région",
+        "wa_msg": "Bonjour Nuno ! Je cherche un {pkg} pour un {occ} le {date} à {place}. Cette date est-elle encore libre ?",
+        "form_msg": "{occ} — {pkg}. Indication de l'assistant prix : {price}.",
+        "occs": [("💍", "Mariage"), ("🏢", "Fête d'entreprise"), ("🎉", "Anniversaire"),
+                 ("🎪", "Festival"), ("🎃", "Halloween"), ("🥂", "Enterrement de vie de célibataire"),
+                 ("✨", "Autre chose")],
+        "pkgs": [("⚡", "Power-act", "10 minutes de pur spectacle", 350, 450, 0),
+                 ("🔥", "Spectacle de feu complet", "±20 minutes — le choix le plus populaire", 450, 750, 1),
+                 ("🎪", "Formule festival", "plusieurs sets jusqu'à 5×20 minutes", 750, 1500, 0),
+                 ("💨", "Atelier cracheur de feu", "apprenez à cracher le feu en groupe", 350, 650, 0),
+                 ("🧠", "Conseil de Nuno", "pas encore d'idée — réfléchissons ensemble", 350, 1500, 0)]},
+}
+
+def wizard(lang):
+    W = _WIZ[lang]
+    occ_chips = "".join(
+        f'<button type="button" class="wiz__chip" data-occ="{esc(nm)}">{e} {esc(nm)}</button>'
+        for e, nm in W["occs"])
+    pkg_chips = "".join(
+        f'<button type="button" class="wiz__chip wiz__chip--pkg{" wiz__chip--pop" if pop else ""}" '
+        f'data-pkg="{esc(nm)}" data-min="{lo}" data-max="{hi}">'
+        + (f'<span class="wiz__pop">{esc(W["popular"])}</span>' if pop else "")
+        + f'<b>{e} {esc(nm)}</b><small>{esc(sub)}</small>'
+        f'<span class="wiz__range">€{lo}–€{hi}</span></button>'
+        for e, nm, sub, lo, hi, pop in W["pkgs"])
+    return f'''<section class="wrap bay wiz" id="prijswizard" aria-label="{esc(W["res_head"])}">
+    <div class="bay__head"><p class="eyebrow eyebrow--dim rise">{W["eyebrow"]}</p>
+    <h2 class="bay__title rise" data-delay="1">{W["title"]}</h2>
+    <p class="lede rise" data-delay="2">{esc(W["sub"])}</p></div>
+    <div class="wiz__card rise" data-delay="2" data-wiz
+         data-contact="{I.url_of(lang, "contact-3")}"
+         data-wa-msg="{esc(W["wa_msg"])}" data-form-msg="{esc(W["form_msg"])}"
+         data-no-date="{esc(W["no_date"])}" data-no-place="{esc(W["no_place"])}">
+      <ol class="wiz__dots" aria-hidden="true"><li class="is-on"></li><li></li><li></li></ol>
+      <div class="wiz__step" data-step="1">
+        <p class="wiz__q">{esc(W["q1"])}</p>
+        <div class="wiz__chips">{occ_chips}</div>
+      </div>
+      <div class="wiz__step" data-step="2" hidden>
+        <p class="wiz__q">{esc(W["q2"])}</p>
+        <div class="wiz__chips wiz__chips--pkg">{pkg_chips}</div>
+        <div class="wiz__fields">
+          <label class="field"><span>{esc(W["date"])}</span><input type="date" data-wiz-date></label>
+          <label class="field"><span>{esc(W["place"])}</span><input type="text" data-wiz-place placeholder="{esc(W["place_ph"])}"></label>
+        </div>
+        <div class="wiz__nav">
+          <button type="button" class="wiz__back" data-wiz-back>{esc(W["back"])}</button>
+          <button type="button" class="btn" data-wiz-go><span class="btn__dot"></span>{esc(W["next"])}</button>
+        </div>
+      </div>
+      <div class="wiz__step" data-step="3" hidden>
+        <p class="wiz__q">{esc(W["res_head"])}</p>
+        <p class="wiz__pick" data-wiz-pick></p>
+        <p class="wiz__price" data-wiz-price></p>
+        <p class="wiz__note">{esc(W["res_note"])}</p>
+        <p class="wiz__trust">{esc(W["res_trust"])}</p>
+        <div class="wiz__cta">
+          <a class="btn wiz__wa" data-wiz-wa href="https://wa.me/31620020723" rel="noopener">{esc(W["wa_btn"])}</a>
+          <a class="btn btn--ghost" data-wiz-form href="{I.url_of(lang, "contact-3")}">{esc(W["form_btn"])}</a>
+        </div>
+        <div class="wiz__nav"><button type="button" class="wiz__back" data-wiz-back>{esc(W["back"])}</button></div>
+      </div>
+    </div>
+  </section>'''
 
 # ------------------------------------------------- SERP-optimalisatie
 # Elke <title> en meta-beschrijving wordt een klikmagneet: passende emoji
@@ -1638,7 +1775,7 @@ for slug in KEEP_PAGES:
              "eyebrow": sp["eyebrow"]}
         if slug == "halloween":
             p["body"] = hw_top("nl") + '<div class="hwpage">' + p["body"] + "</div>"
-        extra = prijs_strip("nl") + PC.show_faq_html(sp)
+        extra = wizard("nl") + prijs_strip("nl") + PC.show_faq_html(sp)
         if sp["fotos"]:
             extra += ('<section class="wrap bay"><div class="prose--page" style="max-width:none">'
                       + PC._fotorij(sp["fotos"]) + "</div></section>")
@@ -1943,7 +2080,7 @@ _pz = {"slug": "wat-kost-een-vuurspuwer", "title": PZ["title"],
        "body": PZ["body"]}
 write("wat-kost-een-vuurspuwer",
       render(_pz, "page", PC.show_schema("wat-kost-een-vuurspuwer", PZ),
-             PC.show_faq_html(PZ),
+             wizard("nl") + PC.show_faq_html(PZ),
              alternates=alternates_for("wat-kost-een-vuurspuwer")))
 built.append("wat-kost-een-vuurspuwer")
 
@@ -1953,7 +2090,7 @@ for _slug, OC in OCC.NL.items():
     _p = {"slug": _slug, "title": OC["title"], "seo_title": OC["seo_title"],
           "seo_desc": OC["seo_desc"], "img": OC["img"], "eyebrow": OC["eyebrow"],
           "date": TODAY, "body": OC["body"]}
-    _extra = prijs_strip("nl") + PC.show_faq_html(OC)
+    _extra = wizard("nl") + prijs_strip("nl") + PC.show_faq_html(OC)
     if OC.get("fotos"):
         _extra += ('<section class="wrap bay"><div class="prose--page" style="max-width:none">'
                    + PC._fotorij(OC["fotos"]) + "</div></section>")
@@ -1971,6 +2108,10 @@ for slug_nl in I.SLUGS:
 
 for lang in I.LANGS:
     for nl_slug, T in sorted(I.PAGES[lang].items()):
+        # de taal-homepages worden verderop gebouwd als volwaardige klonen
+        # van de echte homepage (zelfde ontwerp, volledig vertaald)
+        if nl_slug == "":
+            continue
         path = I.url_of(lang, nl_slug)
         alts = alternates_for(nl_slug)
         out = path.strip("/")
@@ -1978,10 +2119,7 @@ for lang in I.LANGS:
              "seo_desc": T["seo_desc"], "img": T["img"], "eyebrow": T["eyebrow"],
              "date": TODAY, "body": T.get("body", "")}
         extra_html, extra_ld = "", lang_schema(lang, path, T)
-        if nl_slug == "":
-            p["body"] = lang_home_body(lang)
-            extra_html = lang_faq_html(lang, T.get("faq")) + lang_contact_form(lang)
-        elif nl_slug == "fotos":
+        if nl_slug == "fotos":
             p["body"] = lang_fotos_body(lang)
             p["intro"] = ""
         elif nl_slug == "videos":
@@ -1999,7 +2137,9 @@ for lang in I.LANGS:
             extra_html = lang_faq_html(lang, T.get("faq"))
             if nl_slug in ("vuurspuwer-inhuren", "fakir-show-inhuren",
                            "workshop-vuurspuwen", "halloween") or nl_slug in OCC.SLUGS:
-                extra_html = prijs_strip(lang) + extra_html
+                extra_html = wizard(lang) + prijs_strip(lang) + extra_html
+            elif nl_slug == "wat-kost-een-vuurspuwer":
+                extra_html = wizard(lang) + extra_html
             if T.get("fotos"):
                 extra_html += ('<section class="wrap bay"><div class="prose--page" style="max-width:none">'
                                + lang_fotorij(lang, T["fotos"]) + "</div></section>")
@@ -2056,6 +2196,67 @@ if missing: print("  niet gevonden:", ", ".join(missing))
 json.dump(built, open("/tmp/_built.json", "w"))
 
 # ------------------------------------------- doorverwijzingen en sitemap
+# ------------------------------------------------- de vier homepages
+# De EN/DE/FR-homepages zijn volledige klonen van het NL-ontwerp: zelfde
+# hero, galerij, showreels, reviews en boekingsformulier — volledig
+# vertaald via home_i18n. Alle vier krijgen de offerte-wizard vlak vóór
+# het boekingsblok. Dit gebeurt vóór de sitemap, zodat de lastmod-datums
+# van de homepages meteen kloppen.
+import home_i18n as HI
+_HP_SRC = open("index.html", encoding="utf-8").read()
+home_alts = alternates_for("")
+_HRE_NL = ('<link rel="alternate" hreflang="nl" href="https://vuurspuwer.com/">\n'
+           '<link rel="alternate" hreflang="x-default" href="https://vuurspuwer.com/">')
+_HRE_ALL = "".join(f'<link rel="alternate" hreflang="{l}" href="{SITE}{home_alts[l]}">\n'
+                   for l in ("nl", "en", "de", "fr")) + \
+           '<link rel="alternate" hreflang="x-default" href="https://vuurspuwer.com/">'
+_HP_TITLE = "<title>🔥 Vuurspuwer inhuren? Vuurshow &amp; Fakirshow | Nuno</title>"
+_HP_DESC = '<meta name="description" content="🔥 Dé vuurspuwer van NL &amp; BE, bekend van SBS6, RTL 4 en VTM ★ 4,9/5 (134 reviews) ✓ Vuurshow, fakirshow, mentalisme &amp; workshops ✓ €350–€1500 ✓ Binnen 24 uur offerte.">'
+_HP_KW = '<meta name="keywords" content="vuurspuwer inhuren, vuurspuwer boeken, vuurshow boeken, fakirshow, mentalist boeken, workshop vuurspuwen, entertainment bedrijfsfeest, artiest bruiloft, Nederland, België">'
+_HP_OGT = '<meta property="og:title" content="🔥 Vuurspuwer inhuren? Vuurshow &amp; Fakirshow | Nuno">'
+_HP_OGD = '<meta property="og:description" content="Dé vuurspuwer van NL &amp; BE, bekend van SBS6, RTL 4 en VTM ★ 4,9/5 (134 reviews). Vuurshow, fakirshow, mentalisme &amp; workshops — binnen 24 uur offerte.">'
+_hp_missing = {}
+for _hl in ("nl", "en", "de", "fr"):
+    d = _HP_SRC
+    if _hl != "nl":
+        d = localize_doc(d, _hl)
+        d, _miss = HI.apply(d, _hl)
+        _hp_missing[_hl] = _miss
+        H = HI.HEAD[_hl]
+        d = d.replace('<html lang="nl">', f'<html lang="{I.HTML_LANG[_hl]}">', 1)
+        d = d.replace(_HP_TITLE, f'<title>{H["title"]}</title>', 1)
+        d = d.replace(_HP_DESC, f'<meta name="description" content="{H["desc"]}">', 1)
+        d = d.replace(_HP_KW, f'<meta name="keywords" content="{H["kw"]}">', 1)
+        d = d.replace(_HP_OGT, f'<meta property="og:title" content="{H["title"]}">', 1)
+        d = d.replace(_HP_OGD, f'<meta property="og:description" content="{H["desc"]}">', 1)
+        d = d.replace('<link rel="canonical" href="https://vuurspuwer.com/">',
+                      f'<link rel="canonical" href="{SITE}/{_hl}/">', 1)
+        d = d.replace('<meta property="og:url" content="https://vuurspuwer.com/">',
+                      f'<meta property="og:url" content="{SITE}/{_hl}/">', 1)
+        d = d.replace('content="nl_NL"', f'content="{OG_LOCALE[_hl]}"')
+        d = d.replace('"inLanguage": "nl-NL"', f'"inLanguage": "{I.HTML_LANG[_hl]}"')
+    # de offerte-wizard vlak vóór het boekingsblok
+    d = d.replace('<section class="bay wrap" id="boeken"',
+                  wizard(_hl) + '\n\n  <section class="bay wrap" id="boeken"', 1)
+    for _a in ("assets/site.css", "assets/site.js", "assets/ga.js"):
+        d = d.replace(f'"/{_a}"', f'"/{_a}?v={VER}"')
+    d = d.replace(_HRE_NL, _HRE_ALL, 1)
+    d = d.replace('<div class="foot__bar">', lang_row(_hl, home_alts) + '\n  <div class="foot__bar">')
+    d = d.replace("</head>", spec_rules(_hl) + "\n</head>", 1)
+    d = d.replace("<!--FOOT:SEO-->", foot_seo())
+    d = _avifize(d)
+    _hp_path = "/" if _hl == "nl" else f"/{_hl}/"
+    _lastmod(_hp_path, d)
+    _hp_dir = OUT if _hl == "nl" else os.path.join(OUT, _hl)
+    os.makedirs(_hp_dir, exist_ok=True)
+    open(os.path.join(_hp_dir, "index.html"), "w", encoding="utf-8").write(d)
+    if _hl != "nl":
+        built.append(_hl)
+print("  4 homepages gebouwd (nl/en/de/fr, zelfde ontwerp)")
+for _hl, _miss in _hp_missing.items():
+    if _miss:
+        print(f"  ⚠ home_i18n {_hl}: {len(_miss)} fragmenten niet gevonden")
+
 kept = set(built)
 lines = ["# oude adressen die blijven werken", "",
          # het kanonieke contactadres is /contact-3/ (zo heet het op de
@@ -2139,8 +2340,6 @@ for _p in ("/fotos/", "/en/photos/", "/de/fotos/", "/fr/photos/"):
     SITEMAP_IMG[_p] = list(dict.fromkeys(SITEMAP_IMG.get(_p, []) + _GALLERY))
 
 for pth, pr in urls:
-    # de homepage wordt ná de sitemap geschreven: daarvoor geldt de datum
-    # uit het grootboek van de vorige build (één build vertraging, daarna juist)
     _mod = _LEDGER.get(pth, {}).get("d", TODAY)
     entry = f"  <url><loc>{SITE}{pth}</loc><lastmod>{_mod}</lastmod><priority>{pr}</priority>"
     for l, alt in sorted((LANG_ALTS.get(pth) or {}).items()):
@@ -2329,25 +2528,8 @@ open(os.path.join(OUT, "llms-full.txt"), "w", encoding="utf-8").write(
 print(f"  llms.txt, llms-full.txt ({len(faq_md)} FAQ's, {len(PC.REVIEWS)} reviews) "
       "en IndexNow-sleutel geschreven")
 
-# homepage en assets meenemen; ook daar de versie-stempel op css/js,
-# de volledige hreflang-set en de taalkeuze in de footer
-hp_doc = open("index.html", encoding="utf-8").read()
-for a in ("assets/site.css", "assets/site.js", "assets/ga.js"):
-    hp_doc = hp_doc.replace(f'"/{a}"', f'"/{a}?v={VER}"')
-home_alts = alternates_for("")
-hre = "".join(f'<link rel="alternate" hreflang="{l}" href="{SITE}{home_alts[l]}">\n'
-              for l in ("nl", "en", "de", "fr"))
-hp_doc = hp_doc.replace(
-    '<link rel="alternate" hreflang="nl" href="https://vuurspuwer.com/">\n'
-    '<link rel="alternate" hreflang="x-default" href="https://vuurspuwer.com/">',
-    hre + '<link rel="alternate" hreflang="x-default" href="https://vuurspuwer.com/">')
-hp_doc = hp_doc.replace('<div class="foot__bar">',
-                        lang_row("nl", home_alts) + '\n  <div class="foot__bar">')
-hp_doc = hp_doc.replace("</head>", spec_rules("nl") + "\n</head>", 1)
-hp_doc = hp_doc.replace("<!--FOOT:SEO-->", foot_seo())
-hp_doc = _avifize(hp_doc)
-_lastmod("/", hp_doc)
-open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(hp_doc)
+# de vier homepages zijn hierboven al gebouwd (vóór de sitemap);
+# hier alleen nog de assets meenemen
 shutil.copytree("assets", os.path.join(OUT, "assets"))
 
 # css en js geminificeerd in dist; de bronbestanden blijven leesbaar
