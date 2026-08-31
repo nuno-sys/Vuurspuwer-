@@ -343,7 +343,7 @@ def _augment_rich_results(graph, lang, page_desc=None, page_img=None, page_url=N
 _FOOTER_LABELS = {
  "en": {">Reptielenshow<": ">Reptile show<", ">Workshop vuurspuwen<": ">Fire-breathing workshop<",
         ">Mentalisme<": ">Mentalism<", ">Themafeesten<": ">Theme parties<",
-        ">Over Nuno<": ">About Nuno<", ">Prijzen<": ">Prices<", ">Bruiloften<": ">Weddings<", ">Bedrijfsfeesten<": ">Corporate events<", ">🎄 Kerst &amp; nieuwjaar<": ">🎄 Christmas &amp; New Year<", ">Beoordelingen<": ">Reviews<", ">Locaties<": ">Locations<",
+        ">Over Nuno<": ">About Nuno<", ">Prijzen<": ">Prices<", "💍 Vuurshows per gelegenheid": "💍 Fire shows by occasion", "📍 Vuurspuwer per stad": "📍 Fire breather by city", "🎃 Halloween per stad": "🎃 Halloween by city", "⚔️ Fakirshow per stad": "⚔️ Fakir show by city", "💨 Workshop per stad": "💨 Workshop by city", ">Bruiloften<": ">Weddings<", ">Bedrijfsfeesten<": ">Corporate events<", ">🎄 Kerst &amp; nieuwjaar<": ">🎄 Christmas &amp; New Year<", ">Beoordelingen<": ">Reviews<", ">Locaties<": ">Locations<",
         ">Aanvraagformulier<": ">Request form<", ">Algemene voorwaarden<": ">Terms &amp; conditions<",
         ">Privacybeleid<": ">Privacy policy<", "<h2>Shows</h2>": "<h2>Shows</h2>",
         "<h2>Site</h2>": "<h2>Site</h2>", "<h2>Contact</h2>": "<h2>Contact</h2>",
@@ -360,7 +360,7 @@ _FOOTER_LABELS = {
         "Nederland, Belgi&euml; &amp; internationaal": "Netherlands, Belgium &amp; international"},
  "de": {">Reptielenshow<": ">Reptilienshow<", ">Workshop vuurspuwen<": ">Feuerspucker-Workshop<",
         ">Mentalisme<": ">Mentalismus<", ">Themafeesten<": ">Mottopartys<",
-        ">Over Nuno<": ">Über Nuno<", ">Prijzen<": ">Preise<", ">Bruiloften<": ">Hochzeiten<", ">Bedrijfsfeesten<": ">Firmenfeiern<", ">🎄 Kerst &amp; nieuwjaar<": ">🎄 Weihnachten &amp; Silvester<", ">Beoordelingen<": ">Bewertungen<", ">Locaties<": ">Standorte<",
+        ">Over Nuno<": ">Über Nuno<", ">Prijzen<": ">Preise<", "💍 Vuurshows per gelegenheid": "💍 Feuershows nach Anlass", "📍 Vuurspuwer per stad": "📍 Feuerspucker nach Stadt", "🎃 Halloween per stad": "🎃 Halloween nach Stadt", "⚔️ Fakirshow per stad": "⚔️ Fakirshow nach Stadt", "💨 Workshop per stad": "💨 Workshop nach Stadt", ">Bruiloften<": ">Hochzeiten<", ">Bedrijfsfeesten<": ">Firmenfeiern<", ">🎄 Kerst &amp; nieuwjaar<": ">🎄 Weihnachten &amp; Silvester<", ">Beoordelingen<": ">Bewertungen<", ">Locaties<": ">Standorte<",
         ">Aanvraagformulier<": ">Anfrageformular<", ">Algemene voorwaarden<": ">AGB<",
         ">Privacybeleid<": ">Datenschutz<", "<h2>Shows</h2>": "<h2>Shows</h2>",
         "<h2>Site</h2>": "<h2>Website</h2>", "<h2>Contact</h2>": "<h2>Kontakt</h2>",
@@ -377,7 +377,7 @@ _FOOTER_LABELS = {
         "Nederland, Belgi&euml; &amp; internationaal": "Niederlande, Belgien &amp; international"},
  "fr": {">Reptielenshow<": ">Spectacle de reptiles<", ">Workshop vuurspuwen<": ">Atelier cracheur de feu<",
         ">Mentalisme<": ">Mentalisme<", ">Themafeesten<": ">Fêtes à thème<",
-        ">Over Nuno<": ">À propos de Nuno<", ">Prijzen<": ">Tarifs<", ">Bruiloften<": ">Mariages<", ">Bedrijfsfeesten<": ">Fêtes d'entreprise<", ">🎄 Kerst &amp; nieuwjaar<": ">🎄 Noël &amp; Nouvel An<", ">Beoordelingen<": ">Avis<", ">Locaties<": ">Villes<",
+        ">Over Nuno<": ">À propos de Nuno<", ">Prijzen<": ">Tarifs<", "💍 Vuurshows per gelegenheid": "💍 Spectacles de feu par occasion", "📍 Vuurspuwer per stad": "📍 Cracheur de feu par ville", "🎃 Halloween per stad": "🎃 Halloween par ville", "⚔️ Fakirshow per stad": "⚔️ Spectacle de fakir par ville", "💨 Workshop per stad": "💨 Atelier par ville", ">Bruiloften<": ">Mariages<", ">Bedrijfsfeesten<": ">Fêtes d'entreprise<", ">🎄 Kerst &amp; nieuwjaar<": ">🎄 Noël &amp; Nouvel An<", ">Beoordelingen<": ">Avis<", ">Locaties<": ">Villes<",
         ">Aanvraagformulier<": ">Formulaire de demande<", ">Algemene voorwaarden<": ">Conditions générales<",
         ">Privacybeleid<": ">Confidentialité<", "<h2>Shows</h2>": "<h2>Spectacles</h2>",
         "<h2>Site</h2>": "<h2>Site</h2>", "<h2>Contact</h2>": "<h2>Contact</h2>",
@@ -532,7 +532,8 @@ def spec_rules(lang):
 
 def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alternates=None):
     L = I.UI[lang]
-    p = {**p, "body": _add_toc(p.get("body", ""), lang)}
+    if not p.get("no_toc"):
+        p = {**p, "body": _add_toc(p.get("body", ""), lang)}
     title = p["seo_title"] or f'{p["title"]} | Vuurspuwer Nuno'
     desc  = p["seo_desc"] or text_of(p["body"], 155)
     path  = path or (f'/{p["slug"]}/' if p["slug"] else "/")
@@ -625,6 +626,8 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
                       "timeRequired": f"PT{max(1, round(_wc / 220))}M",
                       **({"image": (SITE + p["img"][0] if p["img"][0].startswith("/") else p["img"][0])} if p.get("img") else {}),
                       "author": {"@type": "Person", "name": "Nuno", "@id": f"{SITE}/#nuno"},
+                      **({"articleSection": p["cat_label"]} if p.get("cat_label") else {}),
+                      **({"keywords": p["keywords"]} if p.get("keywords") else {}),
                       "publisher": {"@id": f"{SITE}/#business"}})
     if extra_schema:
         graph.extend(extra_schema) if isinstance(extra_schema, list) else graph.append(extra_schema)
@@ -873,6 +876,33 @@ def occ_links(lang, skip=None):
     return (f'<section class="wrap bay occlinks"><h2 class="bay__title">{esc(_OCC_HEAD[lang])}</h2>'
             f'<ul class="citylist">{items}</ul></section>')
 
+# ---------------------------------------------- SEO-blok in de voettekst
+# Alle pagina's gegroepeerd als uitklapbare blokken: zoekmachines lezen de
+# inhoud van <details> ook dichtgeklapt, bezoekers klappen open wat ze nodig
+# hebben. Gelegenheden-links worden per taal gelokaliseerd via de slugtabel.
+def foot_seo():
+    def grp(summary, links):
+        lis = "".join(f'<li><a href="{u}">{esc(t)}</a></li>' for t, u in links)
+        return (f'<details class="fseo__g"><summary>{esc(summary)}</summary>'
+                f'<ul>{lis}</ul></details>')
+    gel = [(lbl["nl"], I.url_of("nl", s)) for s, lbl in _OCC_LBL.items()]
+    gel += [("🎃 Halloween-acts", "/halloween/"),
+            ("🎭 Themafeesten", "/entertainer-huren-voor-bedrijfsfeest/"),
+            ("💶 Prijzen & pakketten", "/wat-kost-een-vuurspuwer/")]
+    stad = [(f"Vuurspuwer {n}", f"/{s}/") for s, n in CITY_LABEL.items()]
+    hall = [(f"Halloween {n}", f"/halloween-{k}/") for k, (n, _s, _p) in MX.CITIES.items()]
+    fakir = [(f"Fakirshow {n}", f"/fakirshow-{k}/") for k, (n, _s, _p) in MX.CITIES.items()]
+    work = [(f"Workshop vuurspuwen {n}", f"/workshop-vuurspuwen-{k}/") for k, (n, _s, _p) in MX.CITIES.items()]
+    return ('<nav class="fseo" aria-label="Alle pagina\'s per onderwerp">'
+            + grp("💍 Vuurshows per gelegenheid", gel)
+            + grp("📍 Vuurspuwer per stad", stad)
+            + grp("🎃 Halloween per stad", hall)
+            + grp("⚔️ Fakirshow per stad", fakir)
+            + grp("💨 Workshop per stad", work)
+            + "</nav>")
+
+FOOTER = FOOTER.replace("<!--FOOT:SEO-->", foot_seo())
+
 # ------------------------------------------------------------------ bouwen
 if os.path.isdir(OUT): shutil.rmtree(OUT)
 os.makedirs(OUT, exist_ok=True)
@@ -896,6 +926,26 @@ for slug in CITIES:
     write(slug, render(p, "city", svc, near, alternates=regio_alternates(slug)))
     built.append(slug)
 
+# blogcategorieën: elk artikel krijgt een rubriek (zichtbaar als label,
+# in het schema als articleSection en op de blogpagina als groep)
+_BLOG_CATS = [
+ ("halloween",  "🎃 Halloween", ("halloween", "griezel", "spook", "horror", "fright")),
+ ("bruiloften", "💍 Bruiloften", ("bruiloft", "trouw", "huwelijk")),
+ ("zakelijk",   "🏢 Bedrijfsfeesten & events", ("bedrijfsfeest", "personeelsfeest", "zakelijk", "bedrijfsuitje", "teambuilding", "beurs", "evenement")),
+ ("workshops",  "💨 Workshops", ("workshop", "leren-vuurspuwen", "zelf-vuurspuwen", "cursus")),
+ ("acts",       "⚔️ Fakir, mentalisme & reptielen", ("fakir", "spijkerbed", "glas", "zwaard", "mentalis", "reptiel", "slang", "hypno")),
+ ("feesten",    "🎉 Feesten & verjaardagen", ("verjaardag", "jubileum", "vrijgezell", "themafeest", "kinderfeest", "feestje")),
+ ("veiligheid", "🛡 Veiligheid & vergunningen", ("veilig", "vergunning", "brandweer", "risico", "afstand")),
+ ("prijzen",    "💶 Prijzen & boeken", ("kost", "prijs", "prijzen", "budget", "goedkoop", "offerte", "checklist", "boeken", "inhuren", "huren", "tips")),
+ ("steden",     "📍 Steden & regio's", ("amsterdam", "rotterdam", "den-haag", "utrecht", "eindhoven", "antwerpen", "gent", "brussel", "groningen", "maastricht", "limburg", "brabant", "belgie", "duits", "regio", "locatie")),
+]
+_BLOG_FALLBACK = ("vuurshows", "🔥 Vuurshows & inspiratie")
+def post_cat(bp):
+    s = (bp["slug"] + " " + bp["title"]).lower()
+    for cid, label, keys in _BLOG_CATS:
+        if any(k in s for k in keys): return cid, label
+    return _BLOG_FALLBACK
+
 # elke blogpost eindigt met een boekings-CTA: van informatie naar aanvraag
 _POST_CTA = """
 <div class="postcta">
@@ -914,7 +964,11 @@ for p in posts:
     # workshop-vuurspuwen is in de export een bericht, maar leeft op de
     # site als volwaardige showpagina — die komt uit KEEP_PAGES.
     if p["slug"] in PC.SHOW_PAGES: continue
-    p = {**p, "body": p["body"] + _POST_CTA}
+    _cid, _clabel = post_cat(p)
+    p = {**p, "body": p["body"] + _POST_CTA,
+         "eyebrow": _clabel,
+         "cat_label": _clabel.split(" ", 1)[1],
+         "keywords": f'{_clabel.split(" ", 1)[1]}, vuurshow, vuurspuwer, fakirshow, entertainment boeken'}
     write(p["slug"], render(p, "post")); built.append(p["slug"])
 
 for slug in KEEP_PAGES:
@@ -981,11 +1035,17 @@ for slug in KEEP_PAGES:
         write(slug, render(p, "page", PC.contact_schema(), PC.CONTACT_FORM, alternates=alts))
         built.append(slug); continue
     if slug == "blog":
-        cards = []
-        for bp in sorted(posts, key=lambda x: x["date"], reverse=True):
-            if bp["slug"] in PC.SHOW_PAGES: continue
-            excerpt = text_of(bp["body"], 150)
-            cards.append(
+        blog_posts = [bp for bp in sorted(posts, key=lambda x: x["date"], reverse=True)
+                      if bp["slug"] not in PC.SHOW_PAGES]
+        # artikelen per rubriek, met filterchips bovenaan
+        groups = {}
+        for bp in blog_posts:
+            cid, label = post_cat(bp)
+            groups.setdefault(cid, (label, []))[1].append(bp)
+        cat_order = [c[0] for c in _BLOG_CATS] + [_BLOG_FALLBACK[0]]
+        def _bcard(bp):
+            excerpt = text_of(bp["body"], 140)
+            return (
                 f'<article class="bcard"><a href="/{bp["slug"]}/">'
                 f'<img src="/assets/media/post-cover-480.webp" '
                 f'srcset="/assets/media/post-cover-480.webp 480w, /assets/media/post-cover-900.webp 900w" '
@@ -994,8 +1054,17 @@ for slug in KEEP_PAGES:
                 f'<p>{esc(excerpt)}</p>'
                 f'<p class="bcard__meta"><time datetime="{TODAY}">Bijgewerkt op {TODAY_NL}</time></p>'
                 f'</article>')
-        blog_posts = [bp for bp in sorted(posts, key=lambda x: x["date"], reverse=True)
-                      if bp["slug"] not in PC.SHOW_PAGES]
+        chips, sections = [], []
+        for cid in cat_order:
+            if cid not in groups: continue
+            label, bps = groups[cid]
+            chips.append(f'<a class="bchip" href="#cat-{cid}">{esc(label)} <b>{len(bps)}</b></a>')
+            sections.append(
+                f'<section class="blogcat" id="cat-{cid}">'
+                f'<h2 class="blogcat__t">{esc(label)}</h2>'
+                f'<div class="bloglist">{"".join(_bcard(bp) for bp in bps)}</div></section>')
+        cats_html = ('<nav class="bchips" aria-label="Rubrieken">' + "".join(chips) + "</nav>"
+                     + "".join(sections))
         blog_ld = [{"@context": "https://schema.org", "@type": "Blog",
                     "@id": f"{SITE}/blog/#blog", "url": f"{SITE}/blog/",
                     "name": "Blog van Vuurspuwer Nuno", "dateModified": TODAY,
@@ -1011,8 +1080,10 @@ for slug in KEEP_PAGES:
              "seo_desc": "Gidsen en tips over vuurshows, fakirshows en entertainment boeken: prijzen, veiligheid, Halloween, bruiloften en bedrijfsfeesten. Door vuurspuwer Nuno.",
              "body": ('<p>Gidsen, tips en inspiratie uit de praktijk: wat kost een vuurshow, '
                       'waar let je op qua veiligheid, en hoe maak je van een bedrijfsfeest, '
-                      'bruiloft of Halloween-avond iets onvergetelijks. Alle artikelen zijn '
-                      f'bijgewerkt op {TODAY_NL}.</p><div class="bloglist">' + "".join(cards) + "</div>"),
+                      'bruiloft of Halloween-avond iets onvergetelijks. Kies een rubriek of '
+                      f'blader door alle {len(blog_posts)} artikelen — bijgewerkt op {TODAY_NL}.</p>'
+                      + cats_html),
+             "no_toc": True,
              "eyebrow": "Blog",
              "img": ("/assets/media/post-cover.webp",
                      "Vuurspuwer Nuno met een metershoge vuurbal tegen een zwarte nachtlucht")}
@@ -1626,6 +1697,7 @@ hp_doc = hp_doc.replace(
 hp_doc = hp_doc.replace('<div class="foot__bar">',
                         lang_row("nl", home_alts) + '\n  <div class="foot__bar">')
 hp_doc = hp_doc.replace("</head>", spec_rules("nl") + "\n</head>", 1)
+hp_doc = hp_doc.replace("<!--FOOT:SEO-->", foot_seo())
 open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(hp_doc)
 shutil.copytree("assets", os.path.join(OUT, "assets"))
 

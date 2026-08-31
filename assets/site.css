@@ -3460,3 +3460,88 @@ html[data-theme="light"] .postcta{ background:linear-gradient(180deg,rgba(255,12
 html[data-theme="light"] .postcta__alt:hover{ color:var(--ember); }
 .occlinks .citylist a:hover{ color:var(--core); }
 html[data-theme="light"] .occlinks .citylist a:hover{ color:var(--ember); }
+
+/* ============================================================
+   SEO-voetblok (uitklapbaar) en blogrubrieken
+   ============================================================ */
+.fseo{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+  gap:.7rem clamp(.8rem,2vw,1.4rem);
+  margin:clamp(1.6rem,3.5vw,2.6rem) 0 0;
+}
+.fseo__g{
+  border:1px solid var(--hairline);
+  border-radius:12px;
+  padding:.15rem .9rem;
+  background:rgba(23,16,8,.35);
+}
+html[data-theme="light"] .fseo__g{ background:rgba(255,255,255,.5); }
+.fseo__g summary{
+  font-family:var(--f-mono);
+  font-size:.66rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--ink-dim);
+  padding:.6rem 0;
+  cursor:pointer;
+  list-style:none;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:.6rem;
+}
+.fseo__g summary::-webkit-details-marker{ display:none; }
+.fseo__g summary::after{
+  content:"+";
+  color:var(--flame);
+  font-size:1rem;
+  line-height:1;
+  transition:transform .3s var(--ease);
+}
+.fseo__g[open] summary::after{ transform:rotate(45deg); }
+.fseo__g summary:hover{ color:var(--core); }
+html[data-theme="light"] .fseo__g summary:hover{ color:var(--ember); }
+.fseo__g ul{
+  list-style:none;
+  margin:0 0 .8rem;
+  padding:0;
+  columns:1;
+}
+.fseo__g li{ margin:.28rem 0; }
+.fseo__g a{
+  font-size:.85em;
+  color:var(--smoke);
+  text-decoration:none;
+}
+.fseo__g a:hover{ color:var(--flame); text-decoration:underline; text-underline-offset:3px; }
+
+.bchips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.5rem .6rem;
+  margin:1.4rem 0 2rem;
+}
+.bchip{
+  display:inline-flex;
+  align-items:center;
+  gap:.45rem;
+  padding:.5rem .85rem;
+  border:1px solid var(--hairline);
+  border-radius:999px;
+  font-family:var(--f-mono);
+  font-size:.64rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--ink-dim);
+  transition:color .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease);
+}
+.bchip b{ color:var(--flame); font-weight:600; }
+.bchip:hover{ color:var(--core); border-color:rgba(255,176,32,.5); transform:translateY(-1px); }
+html[data-theme="light"] .bchip:hover{ color:var(--ember); }
+.blogcat{ margin:0 0 2.6rem; }
+.blogcat__t{
+  scroll-margin-top:120px;
+  padding-bottom:.5rem;
+  border-bottom:1px solid var(--hairline);
+}
