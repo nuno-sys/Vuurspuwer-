@@ -3031,3 +3031,28 @@ transition:border-color .4s var(--ease), transform .4s var(--ease);}
 .prose--page .gloss__t{ margin:0 0 .45rem; font-size:1.08rem; }
 .gloss__item p{ margin:0; font-size:var(--t-sm); line-height:1.7; color:var(--ink-dim); }
 html[data-theme="light"] .gloss__item{ background-color:rgba(255,255,255,.6); }
+.rcard--new{ border-color:rgba(255,176,32,.45); }
+.rcard__new{
+display:inline-block;
+margin-left:.6rem;
+vertical-align:middle;
+font-family:var(--f-mono);
+font-size:.58rem;
+letter-spacing:.16em;
+font-weight:700;
+padding:.22rem .6rem;
+border-radius:999px;
+background:var(--flame);
+color:#170800;
+animation:revpulse 2.4s ease-in-out infinite;}
+@keyframes revpulse{
+0%,100%{ box-shadow:0 0 0 0 rgba(255,176,32,.45); }
+50%{ box-shadow:0 0 0 7px rgba(255,176,32,0); }}
+@media (prefers-reduced-motion: reduce){ .rcard__new{ animation:none; } }
+.rcard__ago{
+display:block;
+margin-top:.3rem;
+font-family:var(--f-mono);
+font-size:var(--t-xs);
+letter-spacing:.08em;
+color:var(--flame);}

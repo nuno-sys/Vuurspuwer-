@@ -1,6 +1,7 @@
 """Eigen inhoud voor de video's-pagina, de drie showpagina's en de
 Halloween-pagina. De teksten komen van de live site en zijn opgeschoond
 en licht aangescherpt; de webadressen blijven exact gelijk."""
+import html as _html
 import os, re
 
 SITE = "https://vuurspuwer.com"
@@ -396,9 +397,9 @@ def show_faq_html(page):
 
 # ------------------------------------------------------------- beoordelingen
 # De echte reviews van het Google-profiel, zoals aangeleverd van de
-# live reviewspagina: 4,9 uit 134 beoordelingen, hieronder de 30 uitgelichte.
+# live reviewspagina: 4,9 uit 136 beoordelingen, hieronder de 30 uitgelichte.
 GOOGLE_PROFILE = "https://share.google/2S3Fcj7r3VXT3VtbB"
-RATING = {"value": "4.9", "count": "134"}
+RATING = {"value": "4.9", "count": "136"}
 REVIEWS = [
  ("Silke van Dam", "Amsterdam", "Wat een magisch optreden van Vuurspuwer Nuno in Amsterdam! Het vuurspuwen was professioneel en het publiek was muisstil van spanning. Een onvergetelijke avond."),
  ("Eva Smit", "Amsterdam", "Vuurspuwer Nuno leverde een hypnotiserende performance in Amsterdam. Van gevaarlijke stunts tot de spannende climax — ideaal voor feesten en events."),
@@ -432,8 +433,31 @@ REVIEWS = [
  ("Silke van Dam", "Apeldoorn", "Nuno als Vuurspuwer in Apeldoorn was fantastisch. Professioneel en veilig, ondanks de risico's. Sterk aanbevolen!"),
 ]
 
+# de allernieuwste Google-reviews: prominent bovenaan met een NIEUW-badge
+# en een levende "x geleden"-tijd — site.js rekent die bij elk bezoek
+# opnieuw uit, en laat de badge na 45 dagen vanzelf verdwijnen
+NEW_REVIEWS = [
+ ("EL Mul", "Local Guide", "2026-08-31",
+  "Wil je een spectaculaire show met een flinke dosis humor, liters spanning en een portie &bdquo;drakenadem&rdquo; waar je wenkbrauwen spontaan van gaan krullen? Dan ben je bij Nuno aan het juiste adres! Een absolute knaller! Je gasten praten er dagen later nog over&hellip; met sterren in hun ogen &eacute;n waarschijnlijk een lichte rookgeur in hun kleding. 😂✨"),
+ ("Henk Mulder", "Local Guide", "2026-08-31",
+  "Super leuke ervaring! Nuno neemt zijn hele publiek mee in een geweldige show vol grappen en echte spectaculaire stunts. Nooit verwacht om zelf nog eens vuur te mogen spuwen, heel erg bedankt voor de mooie ervaring!"),
+]
+
+def new_review_cards(badge="NIEUW", ago="augustus 2026", lang_attr=""):
+    out = []
+    for i, (n, meta, d, t) in enumerate(NEW_REVIEWS):
+        delay = f' data-delay="{i}"' if i else ""
+        out.append(
+            f'<article class="rcard rcard--new rise"{delay}{lang_attr}>'
+            f'<p class="rcard__stars" aria-label="5 van de 5 sterren">★★★★★'
+            f'<span class="rcard__new" data-rev-new data-rev-date="{d}">{badge}</span></p>'
+            f'<blockquote><p>&ldquo;{t}&rdquo;</p></blockquote>'
+            f'<footer class="rcard__who">{n} <span>&middot; {meta}</span>'
+            f'<time class="rcard__ago" data-rev-date="{d}" datetime="{d}">{ago}</time></footer></article>')
+    return "".join(out)
+
 def reviews_body():
-    cards = "".join(
+    cards = new_review_cards() + "".join(
         f'<article class="rcard"><p class="rcard__stars" aria-label="5 van de 5 sterren">'
         f'★★★★★</p><blockquote><p>{t}</p></blockquote>'
         f'<footer class="rcard__who">{n} <span>&middot; {c}</span></footer></article>'
@@ -465,11 +489,19 @@ def reviews_schema():
                                  "bestRating": "5", "worstRating": "1"},
              "review": [{"@type": "Review",
                          "author": {"@type": "Person", "name": n},
+                         "datePublished": d,
                          "reviewRating": {"@type": "Rating", "ratingValue": "5",
                                           "bestRating": "5"},
-                         "reviewBody": t,
+                         "reviewBody": _html.unescape(t),
                          "itemReviewed": {"@id": f"{SITE}/#business"}}
-                        for n, _, t in REVIEWS]}]
+                        for n, _m, d, t in NEW_REVIEWS]
+                       + [{"@type": "Review",
+                           "author": {"@type": "Person", "name": n},
+                           "reviewRating": {"@type": "Rating", "ratingValue": "5",
+                                            "bestRating": "5"},
+                           "reviewBody": t,
+                           "itemReviewed": {"@id": f"{SITE}/#business"}}
+                          for n, _, t in REVIEWS]}]
 
 # ------------------------------------------------------------------ contact
 def contact_body():
@@ -615,7 +647,7 @@ PRIJZEN = {
 <p>Twijfel je welk pakket past? Stuur je datum en locatie via het <a href="/contact-3/">aanvraagformulier</a> — binnen 24 uur weet je of de datum vrij is, mét prijsvoorstel. Liever direct contact? Bel of app <a href="https://wa.me/31620020723" rel="noopener">+31 6 200 207 23</a>.</p>
 
 <h2>Waarom opdrachtgevers voor Nuno kiezen</h2>
-<p>Met <a href="/over-nuno/">17 jaar ervaring</a>, tv-optredens bij SBS6, RTL en VTM, de Walibi Fright Nights op zijn naam en <a href="/beoordelingen/">een 4,9 uit 134 beoordelingen</a> weet je precies wat je in huis haalt. Bekijk de <a href="/fotos/">foto's</a> en <a href="/videos/">video's</a> voor een voorproefje.</p>
+<p>Met <a href="/over-nuno/">17 jaar ervaring</a>, tv-optredens bij SBS6, RTL en VTM, de Walibi Fright Nights op zijn naam en <a href="/beoordelingen/">een 4,9 uit 136 beoordelingen</a> weet je precies wat je in huis haalt. Bekijk de <a href="/fotos/">foto's</a> en <a href="/videos/">video's</a> voor een voorproefje.</p>
 """,
  "faq": [
   ("Wat kost een vuurspuwer voor een bruiloft of verjaardag?",

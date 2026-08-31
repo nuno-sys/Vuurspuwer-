@@ -307,7 +307,7 @@ def crumbs(items):
 # Product-knoop (sterren + vanafprijs) en draagt elke pagina het volledige
 # LocalBusiness-blok, zodat beide rich results overal gedetecteerd worden.
 _RATING_LD = {"@type": "AggregateRating", "ratingValue": "4.9",
-              "reviewCount": "134", "bestRating": "5", "worstRating": "1"}
+              "reviewCount": "136", "bestRating": "5", "worstRating": "1"}
 _OFFER_TXT = {
     "nl": "Prijzen van €350 tot €1500, afhankelijk van show en duur. Vrijblijvende offerte op maat.",
     "en": "Prices from €350 to €1500, depending on show and duration. Free tailored quote.",
@@ -450,7 +450,7 @@ _FOOTER_LABELS = {
         "Gecertificeerd vuurspuwer &amp; fakir": "Certified fire breather &amp; fakir",
         "17 jaar podiumervaring": "17 years of stage experience",
         "Vergunningseisen &amp; veiligheidsafstanden geregeld": "Permits &amp; safety distances arranged",
-        "4.9/5 uit 134 reviews": "4.9/5 from 134 reviews",
+        "4.9/5 uit 136 reviews": "4.9/5 from 136 reviews",
         'aria-label="Zekerheden"': 'aria-label="Guarantees"',
         ">Bekend van<": ">As seen on<",
         'aria-label="Bekend van deze zenders en producties"': 'aria-label="Known from these channels and productions"',
@@ -467,7 +467,7 @@ _FOOTER_LABELS = {
         "Gecertificeerd vuurspuwer &amp; fakir": "Zertifizierter Feuerspucker &amp; Fakir",
         "17 jaar podiumervaring": "17 Jahre B&uuml;hnenerfahrung",
         "Vergunningseisen &amp; veiligheidsafstanden geregeld": "Genehmigungen &amp; Sicherheitsabst&auml;nde geregelt",
-        "4.9/5 uit 134 reviews": "4,9/5 aus 134 Bewertungen",
+        "4.9/5 uit 136 reviews": "4,9/5 aus 136 Bewertungen",
         'aria-label="Zekerheden"': 'aria-label="Garantien"',
         ">Bekend van<": ">Bekannt aus<",
         'aria-label="Bekend van deze zenders en producties"': 'aria-label="Bekannt aus diesen Sendern und Produktionen"',
@@ -484,7 +484,7 @@ _FOOTER_LABELS = {
         "Gecertificeerd vuurspuwer &amp; fakir": "Cracheur de feu &amp; fakir certifié",
         "17 jaar podiumervaring": "17 ans d'expérience scénique",
         "Vergunningseisen &amp; veiligheidsafstanden geregeld": "Autorisations &amp; distances de sécurité gérées",
-        "4.9/5 uit 134 reviews": "4,9/5 sur 134 avis",
+        "4.9/5 uit 136 reviews": "4,9/5 sur 136 avis",
         'aria-label="Zekerheden"': 'aria-label="Garanties"',
         ">Bekend van<": ">Vu sur<",
         'aria-label="Bekend van deze zenders en producties"': 'aria-label="Vu sur ces chaînes et productions"',
@@ -533,8 +533,8 @@ def localize_doc(d, lang):
            ">&#128182; Prijzen<": f'>&#128182; {_PRICES_LBL[lang]}<',
            '<span class="burger__txt">Menu</span>': f'<span class="burger__txt">{L["menu_btn"]}</span>',
            'aria-label="Vuurspuwer Nuno, naar de homepagina"': f'aria-label="{_BRAND_ARIA[lang]}"',
-           'aria-label="4,9 van de 5 sterren uit 134 reviews — lees de beoordelingen"': f'aria-label="{L["stars_label"]}"',
-           '4.9 &middot; 134 reviews': L["stars_txt"].replace("·", "&middot;"),
+           'aria-label="4,9 van de 5 sterren uit 136 reviews — lees de beoordelingen"': f'aria-label="{L["stars_label"]}"',
+           '4.9 &middot; 136 reviews': L["stars_txt"].replace("·", "&middot;"),
            'aria-label="Bel Nuno op +31 6 200 207 23"': f'aria-label="{_CALL_ARIA[lang]}"',
            'aria-label="Wissel tussen donkere en lichte weergave"':
            {"en": 'aria-label="Switch between dark and light mode"',
@@ -845,7 +845,7 @@ _WIZ = {
         "date": "Datum (optioneel)", "place": "Plaats", "place_ph": "Bijv. Utrecht of Antwerpen",
         "back": "‹ Terug", "next": "Bekijk mijn prijs ›",
         "res_head": "Jouw prijsindicatie", "res_note": "Inclusief professioneel materiaal, verzekering en afstemming met de locatie. Reistijd wordt transparant in de offerte opgenomen.",
-        "res_trust": "★ 4,9/5 uit 134 reviews · Binnen 24 uur een offerte op maat",
+        "res_trust": "★ 4,9/5 uit 136 reviews · Binnen 24 uur een offerte op maat",
         "wa_btn": "Check datum via WhatsApp", "form_btn": "Vraag offerte aan",
         "popular": "Meest gekozen", "no_date": "datum in overleg", "no_place": "onze regio",
         "wa_msg": "Hallo Nuno! Ik zoek een {pkg} voor een {occ} op {date} in {place}. Is die datum nog vrij?",
@@ -864,7 +864,7 @@ _WIZ = {
         "date": "Date (optional)", "place": "Town or city", "place_ph": "E.g. Amsterdam or Antwerp",
         "back": "‹ Back", "next": "Show my price ›",
         "res_head": "Your price indication", "res_note": "Including professional equipment, insurance and coordination with the venue. Travel time is included transparently in the quote.",
-        "res_trust": "★ 4.9/5 from 134 reviews · Tailored quote within 24 hours",
+        "res_trust": "★ 4.9/5 from 136 reviews · Tailored quote within 24 hours",
         "wa_btn": "Check the date on WhatsApp", "form_btn": "Request a quote",
         "popular": "Most chosen", "no_date": "date to be agreed", "no_place": "our region",
         "wa_msg": "Hello Nuno! I'm looking for a {pkg} for a {occ} on {date} in {place}. Is that date still available?",
@@ -883,7 +883,7 @@ _WIZ = {
         "date": "Datum (optional)", "place": "Ort", "place_ph": "Z. B. Köln oder Aachen",
         "back": "‹ Zurück", "next": "Preis anzeigen ›",
         "res_head": "Ihre Preisindikation", "res_note": "Inklusive professionellem Material, Versicherung und Abstimmung mit der Location. Die Anfahrt wird transparent im Angebot ausgewiesen.",
-        "res_trust": "★ 4,9/5 aus 134 Bewertungen · Maßgeschneidertes Angebot in 24 h",
+        "res_trust": "★ 4,9/5 aus 136 Bewertungen · Maßgeschneidertes Angebot in 24 h",
         "wa_btn": "Termin per WhatsApp prüfen", "form_btn": "Angebot anfordern",
         "popular": "Am häufigsten gewählt", "no_date": "Termin nach Absprache", "no_place": "unserer Region",
         "wa_msg": "Hallo Nuno! Ich suche eine {pkg} für eine {occ} am {date} in {place}. Ist der Termin noch frei?",
@@ -902,7 +902,7 @@ _WIZ = {
         "date": "Date (facultatif)", "place": "Ville", "place_ph": "P. ex. Bruxelles ou Liège",
         "back": "‹ Retour", "next": "Voir mon prix ›",
         "res_head": "Votre indication de prix", "res_note": "Matériel professionnel, assurance et coordination avec le lieu inclus. Le déplacement est indiqué de façon transparente dans le devis.",
-        "res_trust": "★ 4,9/5 sur 134 avis · Devis sur mesure sous 24 h",
+        "res_trust": "★ 4,9/5 sur 136 avis · Devis sur mesure sous 24 h",
         "wa_btn": "Vérifier la date sur WhatsApp", "form_btn": "Demander un devis",
         "popular": "Le plus choisi", "no_date": "date à convenir", "no_place": "notre région",
         "wa_msg": "Bonjour Nuno ! Je cherche un {pkg} pour un {occ} le {date} à {place}. Cette date est-elle encore libre ?",
@@ -1029,8 +1029,8 @@ def _fit_title(t, limit=62):
         t = t[:limit].rsplit(" ", 1)[0].rstrip(" ,.:;–—|-&")
     return t
 
-_RATING_TXT = {"nl": "★ 4,9/5 (134 reviews)", "en": "★ 4.9/5 (134 reviews)",
-               "de": "★ 4,9/5 (134 Bewertungen)", "fr": "★ 4,9/5 (134 avis)"}
+_RATING_TXT = {"nl": "★ 4,9/5 (136 reviews)", "en": "★ 4.9/5 (136 reviews)",
+               "de": "★ 4,9/5 (136 Bewertungen)", "fr": "★ 4,9/5 (136 avis)"}
 _SEEN_TITLES = {}
 
 # meerdere unieke zoekwoorden per pagina (Google negeert de keywords-meta,
@@ -1079,7 +1079,7 @@ def _serp(title, desc, p, kind, lang):
         city = CITY_LABEL[slug]
         title = f"🔥 Vuurspuwer inhuren in {city} | Vuurshow vanaf €350"
         desc = (f"📍 Vuurspuwer Nuno in {city}: vuurshow, fakirshow & workshop "
-                f"vuurspuwen ★ 4,9/5 (134 reviews) ✓ €350–€1500 ✓ Binnen 24 uur "
+                f"vuurspuwen ★ 4,9/5 (136 reviews) ✓ €350–€1500 ✓ Binnen 24 uur "
                 f"een offerte voor jouw feest of event in {city}.")
     else:
         title = _fit_title(title)
@@ -1532,7 +1532,7 @@ def foot_seo():
     kennis = [("📖 Vuur-woordenboek: alle termen uitgelegd", "/vuur-woordenboek/"),
               ("💶 Wat kost een vuurspuwer?", "/wat-kost-een-vuurspuwer/"),
               ("📰 Blog & tips", "/blog/"),
-              ("⭐ 134 beoordelingen", "/beoordelingen/")]
+              ("⭐ 136 beoordelingen", "/beoordelingen/")]
     return ('<nav class="fseo" aria-label="Alle pagina\'s per onderwerp">'
             + grp("💍 Vuurshows per gelegenheid", gel)
             + grp("📍 Vuurspuwer per stad", stad)
@@ -1592,7 +1592,7 @@ def post_cat(bp):
 _POST_CTA = """
 <div class="postcta">
   <p class="postcta__t">🔥 Zelf een vuurshow, fakirshow of workshop boeken?</p>
-  <p>Nuno speelt door heel Nederland en België — 4,9/5 uit 134 beoordelingen,
+  <p>Nuno speelt door heel Nederland en België — 4,9/5 uit 136 beoordelingen,
   prijzen van €350 tot €1500 en binnen 24 uur antwoord op je aanvraag.</p>
   <p class="postcta__row">
     <a class="btn" href="/contact-3/"><span class="btn__dot"></span>Check je datum</a>
@@ -1745,7 +1745,7 @@ _AUTHOR_BOX = """
       veiligheid en entertainment — rechtstreeks uit de praktijk van honderden shows
       in Nederland en België.</p>
       <p class="abio__links"><a rel="author" href="/over-nuno/">Meer over Nuno →</a>
-      <span class="abio__stars">★ 4,9 · 134 reviews</span></p>
+      <span class="abio__stars">★ 4,9 · 136 reviews</span></p>
     </div>
   </div>
 </section>"""
@@ -1811,9 +1811,9 @@ for slug in KEEP_PAGES:
         write(slug, render(p, "page", fotos_schema(), alternates=alts))
         built.append(slug); continue
     if slug == "beoordelingen":
-        p = {**p, "title": "4,9 uit 134 beoordelingen",
-             "seo_title": "⭐ Reviews Vuurspuwer Nuno — 4.9/5 uit 134 beoordelingen",
-             "seo_desc": "Lees beoordelingen van opdrachtgevers uit heel NL & BE over de vuurshows en fakirshows van Nuno. Gemiddeld 4.9/5 uit 134 reviews.",
+        p = {**p, "title": "4,9 uit 136 beoordelingen",
+             "seo_title": "⭐ Reviews Vuurspuwer Nuno — 4.9/5 uit 136 beoordelingen",
+             "seo_desc": "Lees beoordelingen van opdrachtgevers uit heel NL & BE over de vuurshows en fakirshows van Nuno. Gemiddeld 4.9/5 uit 136 reviews.",
              "body": PC.reviews_body(),
              "eyebrow": "Beoordelingen",
              "img": ("/assets/media/festival-1600.webp",
@@ -2015,9 +2015,13 @@ def lang_contact_form(lang):
 </section>
 '''
 
+_REV_BADGE = {"en": "NEW", "de": "NEU", "fr": "NOUVEAU"}
+_REV_AGO = {"en": "August 2026", "de": "August 2026", "fr": "août 2026"}
+
 def lang_reviews_body(lang):
     T = I.PAGES[lang]["beoordelingen"]["texts"]
-    cards = "".join(
+    cards = PC.new_review_cards(badge=_REV_BADGE[lang], ago=_REV_AGO[lang],
+                                lang_attr=' lang="nl"') + "".join(
         f'<article class="rcard" lang="nl"><p class="rcard__stars" aria-label="5/5">★★★★★</p>'
         f'<blockquote><p>{t}</p></blockquote>'
         f'<footer class="rcard__who">{n} <span>&middot; {c}</span></footer></article>'
@@ -2243,10 +2247,10 @@ _HRE_ALL = "".join(f'<link rel="alternate" hreflang="{l}" href="{SITE}{home_alts
                    for l in ("nl", "en", "de", "fr")) + \
            '<link rel="alternate" hreflang="x-default" href="https://vuurspuwer.com/">'
 _HP_TITLE = "<title>🔥 Vuurspuwer inhuren? Vuurshow &amp; Fakirshow | Nuno</title>"
-_HP_DESC = '<meta name="description" content="🔥 Dé vuurspuwer van NL &amp; BE, bekend van SBS6, RTL 4 en VTM ★ 4,9/5 (134 reviews) ✓ Vuurshow, fakirshow, mentalisme &amp; workshops ✓ €350–€1500 ✓ Binnen 24 uur offerte.">'
+_HP_DESC = '<meta name="description" content="🔥 Dé vuurspuwer van NL &amp; BE, bekend van SBS6, RTL 4 en VTM ★ 4,9/5 (136 reviews) ✓ Vuurshow, fakirshow, mentalisme &amp; workshops ✓ €350–€1500 ✓ Binnen 24 uur offerte.">'
 _HP_KW = '<meta name="keywords" content="vuurspuwer inhuren, vuurspuwer boeken, vuurshow boeken, fakirshow, mentalist boeken, workshop vuurspuwen, entertainment bedrijfsfeest, artiest bruiloft, Nederland, België">'
 _HP_OGT = '<meta property="og:title" content="🔥 Vuurspuwer inhuren? Vuurshow &amp; Fakirshow | Nuno">'
-_HP_OGD = '<meta property="og:description" content="Dé vuurspuwer van NL &amp; BE, bekend van SBS6, RTL 4 en VTM ★ 4,9/5 (134 reviews). Vuurshow, fakirshow, mentalisme &amp; workshops — binnen 24 uur offerte.">'
+_HP_OGD = '<meta property="og:description" content="Dé vuurspuwer van NL &amp; BE, bekend van SBS6, RTL 4 en VTM ★ 4,9/5 (136 reviews). Vuurshow, fakirshow, mentalisme &amp; workshops — binnen 24 uur offerte.">'
 _hp_missing = {}
 for _hl in ("nl", "en", "de", "fr"):
     d = _HP_SRC
@@ -2454,7 +2458,7 @@ open(os.path.join(OUT, f"{_inkey}.txt"), "w").write(_inkey)
 # samenvatting en secties met echte markdown-links [titel](url): omschrijving
 open(os.path.join(OUT, "llms.txt"), "w", encoding="utf-8").write(f"""# Vuurspuwer Nuno
 
-> Professionele vuurspuwer, fakir, mentalist en reptielenshow-artiest met 17 jaar ervaring. Optredens in heel Nederland en België (en de Duitse grensregio), vanuit Zeist (NL). Beoordeeld met 4,9/5 uit 134 reviews. Prijzen van €350 tot €1500 per show. Bekend van SBS6, RTL 4, VTM, Uri Geller, Walibi Fright Nights, Julianatoren en Emporium. Volledig gecertificeerd.
+> Professionele vuurspuwer, fakir, mentalist en reptielenshow-artiest met 17 jaar ervaring. Optredens in heel Nederland en België (en de Duitse grensregio), vanuit Zeist (NL). Beoordeeld met 4,9/5 uit 136 reviews. Prijzen van €350 tot €1500 per show. Bekend van SBS6, RTL 4, VTM, Uri Geller, Walibi Fright Nights, Julianatoren en Emporium. Volledig gecertificeerd.
 
 Boekingen lopen via het aanvraagformulier of WhatsApp; reactie binnen 24 uur. De volledige site-inhoud in platte tekst staat in [llms-full.txt]({SITE}/llms-full.txt).
 
@@ -2479,7 +2483,7 @@ Boekingen lopen via het aanvraagformulier of WhatsApp; reactie binnen 24 uur. De
 ## Prijzen en boeken
 - [Prijzen en pakketten]({SITE}/wat-kost-een-vuurspuwer/): power-act 10 min vanaf €350, showblok 20 min vanaf €450, volledige show 30 min vanaf €595, festivalpakket tot 5×20 min €950–€1500
 - [Contact en offerte]({SITE}/contact-3/): aanvraagformulier, antwoord binnen 24 uur
-- [Beoordelingen]({SITE}/beoordelingen/): 4,9/5 uit 134 reviews van opdrachtgevers
+- [Beoordelingen]({SITE}/beoordelingen/): 4,9/5 uit 136 reviews van opdrachtgevers
 - [Over Nuno]({SITE}/over-nuno/): 17 jaar ervaring, tv-optredens bij SBS6, RTL en VTM
 - Telefoon/WhatsApp: +31 6 200 207 23 · E-mail: nuno@vuurspuwer.com · KvK 98164325
 
@@ -2547,7 +2551,7 @@ for f in ["index.html"] + sorted(_glob.glob(os.path.join(OUT, "**", "index.html"
                     faq_md.append(f"**V: {qq}**\nA: {_plain(aa)}\n")
 parts.append("## Veelgestelde vragen (alle pagina's en talen)\n\n" + "\n".join(faq_md))
 
-parts.append("## Reviews van opdrachtgevers (4,9/5 uit 134 beoordelingen)\n\n" +
+parts.append("## Reviews van opdrachtgevers (4,9/5 uit 136 beoordelingen)\n\n" +
              "\n".join(f"- {n}: “{_plain(t)}”" for n, _, t in PC.REVIEWS))
 
 parts.append("## Blogartikelen\n\n" +
@@ -2617,7 +2621,7 @@ _p404 = {"slug": "404", "noindex": True,
 <li>💶 <a href="/wat-kost-een-vuurspuwer/">Prijzen en pakketten</a> — vanaf €350</li>
 <li>🎃 <a href="/halloween/">Halloween-acts</a> voor oktober</li>
 <li>📸 <a href="/fotos/">Foto's</a> en <a href="/videos/">video's</a> van de shows</li>
-<li>⭐ <a href="/beoordelingen/">4,9/5 uit 134 beoordelingen</a></li>
+<li>⭐ <a href="/beoordelingen/">4,9/5 uit 136 beoordelingen</a></li>
 <li>✉️ <a href="/contact-3/">Contact en offerte</a> — of app direct via <a href="https://wa.me/31620020723" rel="noopener">WhatsApp</a></li>
 </ul>"""}
 open(os.path.join(OUT, "404.html"), "w", encoding="utf-8").write(

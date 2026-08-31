@@ -22,7 +22,7 @@ NL = {
 "vuurshow-bruiloft": {
  "title": "Vuurshow op je bruiloft",
  "seo_title": "\U0001F49B Vuurshow Bruiloft | Romantisch Alternatief voor Vuurwerk — vanaf €450",
- "seo_desc": "Vuurshow op je bruiloft? Een romantische show van 20 minuten bij de eerste dans of avondopening — vaak wél toegestaan waar vuurwerk verboden is. 4,9/5 uit 134 reviews. Vanaf €450.",
+ "seo_desc": "Vuurshow op je bruiloft? Een romantische show van 20 minuten bij de eerste dans of avondopening — vaak wél toegestaan waar vuurwerk verboden is. 4,9/5 uit 136 reviews. Vanaf €450.",
  "eyebrow": "Bruiloften",
  "img": ("/assets/media/bruiloft-1080.webp", "Duo-vuuract op een bruiloft: Nuno met een danseres met grote rode vleugels"),
  "body": """
@@ -75,7 +75,7 @@ NL = {
 <p><strong>Een bedrijfsfeest dat het gesprek van de maandagochtend wordt? Een professionele vuurshow als opening of grande finale geeft je personeelsfeest, klantenevent of jubileum precies dat wauw-moment dat blijft hangen — strak, veilig en representatief.</strong></p>
 
 <h2>Waarom eventmanagers voor Nuno kiezen</h2>
-<p>Bij een zakelijk evenement telt niet alleen spektakel, maar ook uitstraling en betrouwbaarheid. Nuno komt met strak kostuum, professionele communicatie vooraf en een show die exact in het programma past — 10, 20 of 30 minuten, op de minuut. Met optredens voor <a href="/over-nuno/">SBS6, RTL, VTM en de Walibi Fright Nights</a> en een <a href="/beoordelingen/">4,9 uit 134 beoordelingen</a> weet je wat je in huis haalt.</p>
+<p>Bij een zakelijk evenement telt niet alleen spektakel, maar ook uitstraling en betrouwbaarheid. Nuno komt met strak kostuum, professionele communicatie vooraf en een show die exact in het programma past — 10, 20 of 30 minuten, op de minuut. Met optredens voor <a href="/over-nuno/">SBS6, RTL, VTM en de Walibi Fright Nights</a> en een <a href="/beoordelingen/">4,9 uit 136 beoordelingen</a> weet je wat je in huis haalt.</p>
 
 <h2>Formats die werken op zakelijke events</h2>
 <ul>
@@ -136,7 +136,7 @@ NL = {
 <p>Een vuurshow komt het mooist uit in de schemering of het donker — in de zomer rond tien uur, in de winter al vanaf vijf uur. Nuno speelt door heel <a href="/locaties-vuurshows-nederland-belgie/">Nederland en België</a>; door de thuisbasis in Zeist zijn de reiskosten in het midden van het land het laagst. Bekijk <a href="/wat-kost-een-vuurspuwer/">alle prijzen</a> of <a href="/contact-3/">check direct je datum</a> — binnen 24 uur antwoord, vaak dezelfde dag.</p>
 
 <h2>Ook leuk om te weten</h2>
-<p>Kinderen kijken op veilige afstand hun ogen uit — en voor wie liever geen vuur wil: de <a href="/reptielenhow/">reptielenshow</a> met echte slangen of een <a href="/entertainer-huren/">mentalisme-act</a> in de woonkamer zijn net zulke sterke verrassingen. Lees de <a href="/beoordelingen/">ervaringen van jarigen en jubilarissen</a>: gemiddeld 4,9 uit 134 beoordelingen.</p>
+<p>Kinderen kijken op veilige afstand hun ogen uit — en voor wie liever geen vuur wil: de <a href="/reptielenhow/">reptielenshow</a> met echte slangen of een <a href="/entertainer-huren/">mentalisme-act</a> in de woonkamer zijn net zulke sterke verrassingen. Lees de <a href="/beoordelingen/">ervaringen van jarigen en jubilarissen</a>: gemiddeld 4,9 uit 136 beoordelingen.</p>
 """,
  "faq": [
   ("Wat kost een vuurshow op een verjaardag?",

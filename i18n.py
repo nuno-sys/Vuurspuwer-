@@ -59,8 +59,8 @@ UI = {
              "halloween": "\U0001F383 Halloween", "fakirshow": "Fakirshow",
              "contact": "Contact", "reviews": "Reviews"},
     "offerte": "Offerte aanvragen",
-    "stars_label": "4,9 van de 5 sterren uit 134 reviews — lees de beoordelingen",
-    "stars_txt": "4.9 · 134 reviews",
+    "stars_label": "4,9 van de 5 sterren uit 136 reviews — lees de beoordelingen",
+    "stars_txt": "4.9 · 136 reviews",
     "menu_btn": "Menu", "close_btn": "Sluit",
     "cta_title": "Check je <em>datum</em>",
     "cta_lede": "Bel of app even, dan weet je binnen een minuut of het kan.",
@@ -75,8 +75,8 @@ UI = {
              "halloween": "\U0001F383 Halloween", "fakirshow": "Fakir show",
              "contact": "Contact", "reviews": "Reviews"},
     "offerte": "Request a quote",
-    "stars_label": "Rated 4.9 out of 5 from 134 reviews — read the reviews",
-    "stars_txt": "4.9 · 134 reviews",
+    "stars_label": "Rated 4.9 out of 5 from 136 reviews — read the reviews",
+    "stars_txt": "4.9 · 136 reviews",
     "menu_btn": "Menu", "close_btn": "Close",
     "cta_title": "Check your <em>date</em>",
     "cta_lede": "Call or send a WhatsApp message — you'll know within a minute.",
@@ -91,8 +91,8 @@ UI = {
              "halloween": "\U0001F383 Halloween", "fakirshow": "Fakirshow",
              "contact": "Kontakt", "reviews": "Bewertungen"},
     "offerte": "Angebot anfordern",
-    "stars_label": "4,9 von 5 Sternen aus 134 Bewertungen — Bewertungen lesen",
-    "stars_txt": "4.9 · 134 Bewertungen",
+    "stars_label": "4,9 von 5 Sternen aus 136 Bewertungen — Bewertungen lesen",
+    "stars_txt": "4.9 · 136 Bewertungen",
     "menu_btn": "Menü", "close_btn": "Zu",
     "cta_title": "Termin <em>prüfen</em>",
     "cta_lede": "Rufen Sie an oder schreiben Sie per WhatsApp — in einer Minute wissen Sie Bescheid.",
@@ -107,8 +107,8 @@ UI = {
              "halloween": "\U0001F383 Halloween", "fakirshow": "Fakir",
              "contact": "Contact", "reviews": "Avis"},
     "offerte": "Demander un devis",
-    "stars_label": "Note de 4,9 sur 5 pour 134 avis — lire les avis",
-    "stars_txt": "4.9 · 134 avis",
+    "stars_label": "Note de 4,9 sur 5 pour 136 avis — lire les avis",
+    "stars_txt": "4.9 · 136 avis",
     "menu_btn": "Menu", "close_btn": "Fermer",
     "cta_title": "Vérifiez votre <em>date</em>",
     "cta_lede": "Appelez ou envoyez un message WhatsApp — réponse en une minute.",
@@ -439,13 +439,13 @@ whether your date is free, with a free tailored quote.</p>
 }
 
 PAGES["en"]["beoordelingen"] = {
- "title": "4.9 out of 134 reviews",
- "seo_title": "⭐ Reviews Fire Breather Nuno — 4.9/5 from 134 reviews",
- "seo_desc": "Read what clients across the Netherlands and Belgium say about Nuno's fire shows and fakir shows. Average 4.9/5 from 134 Google reviews.",
+ "title": "4.9 out of 136 reviews",
+ "seo_title": "⭐ Reviews Fire Breather Nuno — 4.9/5 from 136 reviews",
+ "seo_desc": "Read what clients across the Netherlands and Belgium say about Nuno's fire shows and fakir shows. Average 4.9/5 from 136 Google reviews.",
  "eyebrow": "Reviews",
  "img": ("/assets/media/festival-1600.webp", "Fire breather Nuno blowing a fireball over a festival crowd"),
  "texts": {
-    "based_on": "based on 134 reviews",
+    "based_on": "based on 136 reviews",
     "google_link": "View the Google profile ›",
     "intro": "Clients from all over the Netherlands and Belgium about Nuno's fire shows, fakir shows and workshops — from Amsterdam to Antwerp and from Groningen to Brussels. The reviews below are shown in their original language.",
     "outro_pre": "Want to read all reviews? See the full overview on ",
@@ -466,7 +466,7 @@ PAGES["en"][""] = {
 <p><strong>Seventeen years of fire, on national TV and stages across Europe.</strong> Nuno is one of
 the most experienced fire artists of the Netherlands and Belgium: fire breather, fakir, mentalist
 and reptile-show artist in one. Certified, fully insured, and rated
-<a href="/en/reviews/">4.9 out of 5 from 134 Google reviews</a>.</p>
+<a href="/en/reviews/">4.9 out of 5 from 136 Google reviews</a>.</p>
 <p>From a five-minute explosive opener to a complete evening production: every show is tailor-made
 for your venue and audience — corporate events, weddings, festivals and private parties, indoors
 or outdoors, throughout the Netherlands, Belgium and beyond.</p>
@@ -484,7 +484,7 @@ or outdoors, throughout the Netherlands, Belgium and beyond.</p>
    "why": [
      ("Certified & insured", "Fully certified as a fire breather and fakir, with professional equipment, safe fuels and liability insurance."),
      ("Seen on TV", "SBS6, RTL, VTM, the Uri Geller show and productions in England."),
-     ("4.9/5 from 134 reviews", "Clients across the Netherlands and Belgium rate the shows with top marks."),
+     ("4.9/5 from 136 reviews", "Clients across the Netherlands and Belgium rate the shows with top marks."),
      ("Tailor-made", "Every performance is adapted to your venue, theme and audience — indoors or outdoors."),
    ],
    "reviews_head": "What clients say",
@@ -767,13 +767,13 @@ ist, mit einem kostenlosen Angebot nach Maß.</p>
 }
 
 PAGES["de"]["beoordelingen"] = {
- "title": "4,9 aus 134 Bewertungen",
- "seo_title": "⭐ Bewertungen Feuerspucker Nuno — 4,9/5 aus 134 Bewertungen",
- "seo_desc": "Lesen Sie, was Auftraggeber aus den Niederlanden und Belgien über die Feuershows und Fakirshows von Nuno sagen. Durchschnittlich 4,9/5 aus 134 Google-Bewertungen.",
+ "title": "4,9 aus 136 Bewertungen",
+ "seo_title": "⭐ Bewertungen Feuerspucker Nuno — 4,9/5 aus 136 Bewertungen",
+ "seo_desc": "Lesen Sie, was Auftraggeber aus den Niederlanden und Belgien über die Feuershows und Fakirshows von Nuno sagen. Durchschnittlich 4,9/5 aus 136 Google-Bewertungen.",
  "eyebrow": "Bewertungen",
  "img": ("/assets/media/festival-1600.webp", "Feuerspucker Nuno bläst einen Feuerball über eine Festivalmenge"),
  "texts": {
-    "based_on": "basierend auf 134 Bewertungen",
+    "based_on": "basierend auf 136 Bewertungen",
     "google_link": "Google-Profil ansehen ›",
     "intro": "Auftraggeber aus den gesamten Niederlanden und Belgien über die Feuershows, Fakirshows und Workshops von Nuno — von Amsterdam bis Antwerpen und von Groningen bis Brüssel. Die Bewertungen werden in der Originalsprache angezeigt.",
     "outro_pre": "Alle Bewertungen lesen? Die komplette Übersicht finden Sie im ",
@@ -795,7 +795,7 @@ PAGES["de"][""] = {
 Nuno gehört zu den erfahrensten Feuerkünstlern der Niederlande und Belgiens und tritt regelmäßig
 in der deutschen Grenzregion auf: Feuerspucker, Fakir, Mentalist und Reptilienshow-Künstler in
 einer Person. Zertifiziert, versichert und mit <a href="/de/bewertungen/">4,9 von 5 Sternen aus
-134 Google-Bewertungen</a>.</p>
+136 Google-Bewertungen</a>.</p>
 <p>Vom fünfminütigen explosiven Opener bis zur kompletten Abendproduktion: Jede Show ist Maßarbeit
 für Ihre Location und Ihr Publikum — Firmenfeiern, Hochzeiten, Festivals und private Feste,
 drinnen wie draußen, von Amsterdam bis Aachen.</p>
@@ -813,7 +813,7 @@ drinnen wie draußen, von Amsterdam bis Aachen.</p>
    "why": [
      ("Zertifiziert & versichert", "Vollständig zertifiziert als Feuerspucker und Fakir, mit professionellem Equipment, sicheren Brennstoffen und Haftpflichtversicherung."),
      ("Bekannt aus dem TV", "SBS6, RTL, VTM, die Uri-Geller-Show und Produktionen in England."),
-     ("4,9/5 aus 134 Bewertungen", "Auftraggeber aus den Niederlanden und Belgien bewerten die Shows mit Bestnoten."),
+     ("4,9/5 aus 136 Bewertungen", "Auftraggeber aus den Niederlanden und Belgien bewerten die Shows mit Bestnoten."),
      ("Maßarbeit", "Jeder Auftritt wird an Location, Thema und Publikum angepasst — drinnen wie draußen."),
    ],
    "reviews_head": "Das sagen Auftraggeber",
@@ -1098,13 +1098,13 @@ avec un devis gratuit sur mesure.</p>
 }
 
 PAGES["fr"]["beoordelingen"] = {
- "title": "4,9 sur 134 avis",
- "seo_title": "⭐ Avis Cracheur de Feu Nuno — 4,9/5 sur 134 avis",
- "seo_desc": "Lisez ce que disent les clients de Belgique et des Pays-Bas des spectacles de feu et de fakir de Nuno. Moyenne de 4,9/5 sur 134 avis Google.",
+ "title": "4,9 sur 136 avis",
+ "seo_title": "⭐ Avis Cracheur de Feu Nuno — 4,9/5 sur 136 avis",
+ "seo_desc": "Lisez ce que disent les clients de Belgique et des Pays-Bas des spectacles de feu et de fakir de Nuno. Moyenne de 4,9/5 sur 136 avis Google.",
  "eyebrow": "Avis",
  "img": ("/assets/media/festival-1600.webp", "Le cracheur de feu Nuno soufflant une boule de feu au-dessus d'une foule de festival"),
  "texts": {
-    "based_on": "sur la base de 134 avis",
+    "based_on": "sur la base de 136 avis",
     "google_link": "Voir le profil Google ›",
     "intro": "Des clients de toute la Belgique et des Pays-Bas à propos des spectacles de feu, de fakir et des ateliers de Nuno — d'Amsterdam à Anvers et de Groningue à Bruxelles. Les avis ci-dessous sont affichés dans leur langue d'origine.",
     "outro_pre": "Envie de lire tous les avis ? Consultez l'aperçu complet sur ",
@@ -1126,7 +1126,7 @@ PAGES["fr"][""] = {
 Nuno est l'un des artistes de feu les plus expérimentés des Pays-Bas et de Belgique — il se produit
 régulièrement à Bruxelles, à Liège et dans toute la Wallonie : cracheur de feu, fakir, mentaliste
 et artiste de spectacle de reptiles en une seule personne. Certifié, assuré et noté
-<a href="/fr/avis/">4,9 sur 5 pour 134 avis Google</a>.</p>
+<a href="/fr/avis/">4,9 sur 5 pour 136 avis Google</a>.</p>
 <p>De l'ouverture explosive de cinq minutes à la production complète d'une soirée : chaque
 spectacle est du sur-mesure pour votre lieu et votre public — événements d'entreprise, mariages,
 festivals et fêtes privées, en intérieur comme en extérieur.</p>
@@ -1144,7 +1144,7 @@ festivals et fêtes privées, en intérieur comme en extérieur.</p>
    "why": [
      ("Certifié & assuré", "Entièrement certifié comme cracheur de feu et fakir, avec matériel professionnel, combustibles sûrs et assurance responsabilité civile."),
      ("Vu à la télévision", "SBS6, RTL, VTM, l'émission d'Uri Geller et des productions en Angleterre."),
-     ("4,9/5 sur 134 avis", "Des clients de Belgique et des Pays-Bas notent les spectacles au plus haut niveau."),
+     ("4,9/5 sur 136 avis", "Des clients de Belgique et des Pays-Bas notent les spectacles au plus haut niveau."),
      ("Sur mesure", "Chaque prestation est adaptée à votre lieu, votre thème et votre public — en intérieur comme en extérieur."),
    ],
    "reviews_head": "Ce que disent les clients",
@@ -1174,7 +1174,7 @@ def _de_stad(stad, extra, kenmerk):
 <h2>Eine Feuershow in {stad}, die niemand vergisst</h2>
 <p>{extra} Meterhohe Feuerwolken, Feuerjonglage, Körperfeuer und auf Wunsch Fakir-Elemente wie das Nagelbrett: Nuno stellt für jede Location in {stad} und Umgebung die passende Show zusammen — von der Firmenfeier über die Hochzeit bis zum Stadtfest, drinnen (wo erlaubt) wie draußen.</p>
 <h2>Sicher, zertifiziert und professionell</h2>
-<p>{kenmerk} Nuno arbeitet mit professionellem Equipment und sicheren Brennstoffen, hält alle Sicherheitsabstände ein und stimmt sich im Vorfeld mit Ihnen und ggf. der Location ab. Mit über 17 Jahren Erfahrung, TV-Auftritten (SBS6, RTL, VTM) und 4,9 von 5 Sternen aus 134 Google-Bewertungen buchen Sie Qualität ohne Risiko.</p>
+<p>{kenmerk} Nuno arbeitet mit professionellem Equipment und sicheren Brennstoffen, hält alle Sicherheitsabstände ein und stimmt sich im Vorfeld mit Ihnen und ggf. der Location ab. Mit über 17 Jahren Erfahrung, TV-Auftritten (SBS6, RTL, VTM) und 4,9 von 5 Sternen aus 136 Google-Bewertungen buchen Sie Qualität ohne Risiko.</p>
 <h2>Auch buchbar in {stad}</h2>
 <ul>
 <li><a href="/de/fakirshow/">Fakirshow</a> — Nagelbrett, Glaslaufen und Schwert-Acts</li>
@@ -1237,7 +1237,7 @@ def _fr_stad(stad, extra, kenmerk):
 <h2>Un spectacle de feu à {stad} que personne n'oubliera</h2>
 <p>{extra} Nuages de feu de plusieurs mètres, jonglage enflammé, feu corporel et, sur demande, des éléments de fakir comme le lit de clous : Nuno compose le spectacle adapté à chaque lieu à {stad} et dans les environs — fête d'entreprise, mariage ou fête de quartier, en intérieur (où c'est autorisé) comme en extérieur.</p>
 <h2>Sûr, certifié et professionnel</h2>
-<p>{kenmerk} Nuno travaille avec du matériel professionnel et des combustibles sûrs, respecte toutes les distances de sécurité et se concerte en amont avec vous et le lieu. Avec plus de 17 ans d'expérience, des passages télé (SBS6, RTL, VTM) et 4,9/5 sur 134 avis Google, vous réservez la qualité sans risque.</p>
+<p>{kenmerk} Nuno travaille avec du matériel professionnel et des combustibles sûrs, respecte toutes les distances de sécurité et se concerte en amont avec vous et le lieu. Avec plus de 17 ans d'expérience, des passages télé (SBS6, RTL, VTM) et 4,9/5 sur 136 avis Google, vous réservez la qualité sans risque.</p>
 <h2>Également réservable à {stad}</h2>
 <ul>
 <li><a href="/fr/spectacle-de-fakir/">Spectacle de fakir</a> — lit de clous, marche sur verre et numéros à l'épée</li>
@@ -1378,7 +1378,7 @@ PAGES["en"]["wat-kost-een-vuurspuwer"] = {
 <li><strong>Duo or solo</strong> — performing with a fire dancer makes the show bigger (and the budget slightly larger).</li>
 <li><strong>Date and season</strong> — <a href="/en/halloween/">October (Halloween)</a> and December are peak months: booking early pays off.</li>
 </ul>
-<p>Not sure which package fits? Send your date and location via the <a href="/en/contact/">request form</a> — within 24 hours you will know whether the date is free, with a price proposal. Prefer direct contact? Call or WhatsApp <a href="https://wa.me/31620020723" rel="noopener">+31 6 200 207 23</a>. With <a href="/en/about-nuno/">17 years of experience</a> and <a href="/en/reviews/">4.9/5 from 134 reviews</a>, you know exactly what you are booking.</p>
+<p>Not sure which package fits? Send your date and location via the <a href="/en/contact/">request form</a> — within 24 hours you will know whether the date is free, with a price proposal. Prefer direct contact? Call or WhatsApp <a href="https://wa.me/31620020723" rel="noopener">+31 6 200 207 23</a>. With <a href="/en/about-nuno/">17 years of experience</a> and <a href="/en/reviews/">4.9/5 from 136 reviews</a>, you know exactly what you are booking.</p>
 """,
  "faq": [
   ("How much does a fire breather cost for a wedding or birthday?",
@@ -1435,7 +1435,7 @@ PAGES["de"]["wat-kost-een-vuurspuwer"] = {
 <li><strong>Duo oder solo</strong> — mit Feuertänzerin wird die Show größer.</li>
 <li><strong>Termin und Saison</strong> — <a href="/de/halloween/">Oktober (Halloween)</a> und Dezember sind Spitzenmonate: früh buchen lohnt sich.</li>
 </ul>
-<p>Unsicher, welches Paket passt? Senden Sie Datum und Ort über das <a href="/de/kontakt/">Anfrageformular</a> — innerhalb von 24 Stunden wissen Sie, ob der Termin frei ist, inklusive Preisvorschlag. Mit <a href="/de/ueber-nuno/">17 Jahren Erfahrung</a> und <a href="/de/bewertungen/">4,9/5 aus 134 Bewertungen</a> wissen Sie genau, wen Sie buchen.</p>
+<p>Unsicher, welches Paket passt? Senden Sie Datum und Ort über das <a href="/de/kontakt/">Anfrageformular</a> — innerhalb von 24 Stunden wissen Sie, ob der Termin frei ist, inklusive Preisvorschlag. Mit <a href="/de/ueber-nuno/">17 Jahren Erfahrung</a> und <a href="/de/bewertungen/">4,9/5 aus 136 Bewertungen</a> wissen Sie genau, wen Sie buchen.</p>
 """,
  "faq": [
   ("Was kostet ein Feuerspucker für eine Hochzeit oder einen Geburtstag?",
@@ -1492,7 +1492,7 @@ PAGES["fr"]["wat-kost-een-vuurspuwer"] = {
 <li><strong>Duo ou solo</strong> — avec une danseuse de feu, le spectacle prend de l'ampleur.</li>
 <li><strong>Date et saison</strong> — <a href="/fr/halloween/">octobre (Halloween)</a> et décembre sont les mois de pointe : réservez tôt.</li>
 </ul>
-<p>Vous hésitez sur le forfait ? Envoyez votre date et lieu via le <a href="/fr/contact/">formulaire</a> — sous 24 heures vous saurez si la date est libre, avec une proposition de prix. Avec <a href="/fr/a-propos-de-nuno/">17 ans d'expérience</a> et <a href="/fr/avis/">4,9/5 sur 134 avis</a>, vous savez exactement qui vous réservez.</p>
+<p>Vous hésitez sur le forfait ? Envoyez votre date et lieu via le <a href="/fr/contact/">formulaire</a> — sous 24 heures vous saurez si la date est libre, avec une proposition de prix. Avec <a href="/fr/a-propos-de-nuno/">17 ans d'expérience</a> et <a href="/fr/avis/">4,9/5 sur 136 avis</a>, vous savez exactement qui vous réservez.</p>
 """,
  "faq": [
   ("Combien coûte un cracheur de feu pour un mariage ou un anniversaire ?",

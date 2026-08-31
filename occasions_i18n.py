@@ -10,7 +10,7 @@ EN = {
 "vuurshow-bruiloft": {
  "title": "A fire show at your wedding",
  "seo_title": "\U0001F49B Wedding Fire Show | Romantic Alternative to Fireworks — from €450",
- "seo_desc": "A fire show at your wedding? A romantic 20-minute show at the first dance or evening opening — often allowed where fireworks are banned. 4.9/5 from 134 reviews. From €450.",
+ "seo_desc": "A fire show at your wedding? A romantic 20-minute show at the first dance or evening opening — often allowed where fireworks are banned. 4.9/5 from 136 reviews. From €450.",
  "eyebrow": "Weddings",
  "img": ("/assets/media/bruiloft-1080.webp", "Duo fire act at a wedding: Nuno with a dancer with large red wings"),
  "body": """
@@ -25,7 +25,7 @@ EN = {
 <li><strong>Indoors or bad weather?</strong> — Nuno switches to <a href="/en/fakir-show/">the fakir show</a> or mentalism: just as unforgettable, without open fire.</li>
 </ul>
 <h2>What does it cost?</h2>
-<p>The 20-minute wedding show block starts at <strong>€450</strong>; a 10-minute power act from <strong>€350</strong> — equipment, safe fuels, set-up and venue coordination included. See <a href="/en/fire-breather-prices/">all prices</a> or <a href="/en/contact/">check your wedding date</a> — you'll hear within 24 hours. With <a href="/en/about-nuno/">17 years of experience</a> and <a href="/en/reviews/">4.9/5 from 134 reviews</a>, Nuno performs across the Netherlands and Belgium.</p>
+<p>The 20-minute wedding show block starts at <strong>€450</strong>; a 10-minute power act from <strong>€350</strong> — equipment, safe fuels, set-up and venue coordination included. See <a href="/en/fire-breather-prices/">all prices</a> or <a href="/en/contact/">check your wedding date</a> — you'll hear within 24 hours. With <a href="/en/about-nuno/">17 years of experience</a> and <a href="/en/reviews/">4.9/5 from 136 reviews</a>, Nuno performs across the Netherlands and Belgium.</p>
 """,
  "faq": [
   ("How much does a wedding fire show cost?",
@@ -51,7 +51,7 @@ EN = {
  "body": """
 <p><strong>A company party people still talk about on Monday morning? A professional fire show as opening or grand finale gives your staff party, client event or anniversary exactly that wow moment — polished, safe and representative.</strong></p>
 <h2>Why event managers book Nuno</h2>
-<p>At a corporate event, reliability matters as much as spectacle. Nuno arrives with sharp costumes, clear communication and a show timed to the minute — 10, 20 or 30 minutes. With TV appearances for <a href="/en/about-nuno/">SBS6, RTL and VTM</a> and <a href="/en/reviews/">4.9/5 from 134 reviews</a>, you know what you're booking.</p>
+<p>At a corporate event, reliability matters as much as spectacle. Nuno arrives with sharp costumes, clear communication and a show timed to the minute — 10, 20 or 30 minutes. With TV appearances for <a href="/en/about-nuno/">SBS6, RTL and VTM</a> and <a href="/en/reviews/">4.9/5 from 136 reviews</a>, you know what you're booking.</p>
 <h2>Formats that work</h2>
 <ul>
 <li><strong>The opening</strong> — a 10-minute power act that sets the energy (from €350).</li>
@@ -257,7 +257,7 @@ DE = {
 "vuurshow-bruiloft": {
  "title": "Feuershow auf Ihrer Hochzeit",
  "seo_title": "\U0001F49B Feuershow Hochzeit | Romantische Feuerwerk-Alternative — ab 450 €",
- "seo_desc": "Feuershow auf der Hochzeit? Eine romantische 20-Minuten-Show zum Eröffnungstanz oder Abendauftakt — oft erlaubt, wo Feuerwerk verboten ist. 4,9/5 aus 134 Bewertungen. Ab 450 €.",
+ "seo_desc": "Feuershow auf der Hochzeit? Eine romantische 20-Minuten-Show zum Eröffnungstanz oder Abendauftakt — oft erlaubt, wo Feuerwerk verboten ist. 4,9/5 aus 136 Bewertungen. Ab 450 €.",
  "eyebrow": "Hochzeiten",
  "img": ("/assets/media/bruiloft-1080.webp", "Duo-Feueract auf einer Hochzeit: Nuno mit Tänzerin mit großen roten Flügeln"),
  "body": """
@@ -272,7 +272,7 @@ DE = {
 <li><strong>Drinnen oder schlechtes Wetter?</strong> — dann wechselt Nuno zur <a href="/de/fakirshow/">Fakirshow</a> oder zum Mentalismus.</li>
 </ul>
 <h2>Was kostet das?</h2>
-<p>Der 20-Minuten-Showblock beginnt bei <strong>450 €</strong>, ein 10-Minuten-Power-Act bei <strong>350 €</strong> — Material, sichere Brennstoffe, Auf- und Abbau inklusive. Alle Preise im <a href="/de/feuerspucker-kosten/">Preisüberblick</a>; <a href="/de/kontakt/">prüfen Sie Ihren Hochzeitstermin</a> — Antwort innerhalb von 24 Stunden. Mit <a href="/de/ueber-nuno/">17 Jahren Erfahrung</a> und <a href="/de/bewertungen/">4,9/5 aus 134 Bewertungen</a> spielt Nuno in NRW, der Grenzregion und den ganzen Niederlanden und Belgien.</p>
+<p>Der 20-Minuten-Showblock beginnt bei <strong>450 €</strong>, ein 10-Minuten-Power-Act bei <strong>350 €</strong> — Material, sichere Brennstoffe, Auf- und Abbau inklusive. Alle Preise im <a href="/de/feuerspucker-kosten/">Preisüberblick</a>; <a href="/de/kontakt/">prüfen Sie Ihren Hochzeitstermin</a> — Antwort innerhalb von 24 Stunden. Mit <a href="/de/ueber-nuno/">17 Jahren Erfahrung</a> und <a href="/de/bewertungen/">4,9/5 aus 136 Bewertungen</a> spielt Nuno in NRW, der Grenzregion und den ganzen Niederlanden und Belgien.</p>
 """,
  "faq": [
   ("Was kostet eine Feuershow auf der Hochzeit?",
@@ -298,7 +298,7 @@ DE = {
  "body": """
 <p><strong>Eine Firmenfeier, über die am Montagmorgen noch gesprochen wird? Eine professionelle Feuershow als Eröffnung oder großes Finale gibt Ihrem Betriebsfest, Kundenevent oder Jubiläum genau diesen Wow-Moment — souverän, sicher und repräsentativ.</strong></p>
 <h2>Warum Eventmanager Nuno buchen</h2>
-<p>Bei Firmenevents zählt Verlässlichkeit ebenso wie Spektakel: klare Kommunikation, elegante Kostüme, eine minutengenaue Show von 10, 20 oder 30 Minuten. Mit TV-Auftritten bei <a href="/de/ueber-nuno/">SBS6, RTL und VTM</a> und <a href="/de/bewertungen/">4,9/5 aus 134 Bewertungen</a> wissen Sie, wen Sie buchen.</p>
+<p>Bei Firmenevents zählt Verlässlichkeit ebenso wie Spektakel: klare Kommunikation, elegante Kostüme, eine minutengenaue Show von 10, 20 oder 30 Minuten. Mit TV-Auftritten bei <a href="/de/ueber-nuno/">SBS6, RTL und VTM</a> und <a href="/de/bewertungen/">4,9/5 aus 136 Bewertungen</a> wissen Sie, wen Sie buchen.</p>
 <h2>Formate, die funktionieren</h2>
 <ul>
 <li><strong>Die Eröffnung</strong> — ein 10-Minuten-Power-Act (ab 350 €).</li>
@@ -504,7 +504,7 @@ FR = {
 "vuurshow-bruiloft": {
  "title": "Un spectacle de feu à votre mariage",
  "seo_title": "\U0001F49B Spectacle de Feu Mariage | Alternative Romantique au Feu d'Artifice — dès 450 €",
- "seo_desc": "Un spectacle de feu à votre mariage ? Un show romantique de 20 minutes à la première danse ou en ouverture de soirée — souvent autorisé là où les feux d'artifice sont interdits. 4,9/5 sur 134 avis. Dès 450 €.",
+ "seo_desc": "Un spectacle de feu à votre mariage ? Un show romantique de 20 minutes à la première danse ou en ouverture de soirée — souvent autorisé là où les feux d'artifice sont interdits. 4,9/5 sur 136 avis. Dès 450 €.",
  "eyebrow": "Mariages",
  "img": ("/assets/media/bruiloft-1080.webp", "Duo de feu à un mariage : Nuno avec une danseuse aux grandes ailes rouges"),
  "body": """
@@ -519,7 +519,7 @@ FR = {
 <li><strong>En intérieur ou mauvais temps ?</strong> — Nuno passe au <a href="/fr/spectacle-de-fakir/">spectacle de fakir</a> ou au mentalisme.</li>
 </ul>
 <h2>Quel est le prix ?</h2>
-<p>Le bloc mariage de 20 minutes commence à <strong>450 €</strong> ; un power act de 10 minutes dès <strong>350 €</strong> — matériel, combustibles sûrs, montage et concertation avec le lieu inclus. Voir <a href="/fr/prix-cracheur-de-feu/">tous les prix</a> ou <a href="/fr/contact/">vérifier votre date de mariage</a> — réponse sous 24 heures. Avec <a href="/fr/a-propos-de-nuno/">17 ans d'expérience</a> et <a href="/fr/avis/">4,9/5 sur 134 avis</a>, Nuno se produit dans toute la Belgique et les Pays-Bas.</p>
+<p>Le bloc mariage de 20 minutes commence à <strong>450 €</strong> ; un power act de 10 minutes dès <strong>350 €</strong> — matériel, combustibles sûrs, montage et concertation avec le lieu inclus. Voir <a href="/fr/prix-cracheur-de-feu/">tous les prix</a> ou <a href="/fr/contact/">vérifier votre date de mariage</a> — réponse sous 24 heures. Avec <a href="/fr/a-propos-de-nuno/">17 ans d'expérience</a> et <a href="/fr/avis/">4,9/5 sur 136 avis</a>, Nuno se produit dans toute la Belgique et les Pays-Bas.</p>
 """,
  "faq": [
   ("Combien coûte un spectacle de feu à un mariage ?",
@@ -545,7 +545,7 @@ FR = {
  "body": """
 <p><strong>Une fête d'entreprise dont on parle encore le lundi matin ? Un spectacle de feu professionnel en ouverture ou en grand final donne à votre soirée du personnel, événement client ou jubilé exactement cet effet waouh — soigné, sûr et représentatif.</strong></p>
 <h2>Pourquoi les organisateurs réservent Nuno</h2>
-<p>Dans l'événementiel d'entreprise, la fiabilité compte autant que le spectacle : costumes élégants, communication claire et un show à la minute près — 10, 20 ou 30 minutes. Avec des passages télé chez <a href="/fr/a-propos-de-nuno/">SBS6, RTL et VTM</a> et <a href="/fr/avis/">4,9/5 sur 134 avis</a>, vous savez qui vous réservez.</p>
+<p>Dans l'événementiel d'entreprise, la fiabilité compte autant que le spectacle : costumes élégants, communication claire et un show à la minute près — 10, 20 ou 30 minutes. Avec des passages télé chez <a href="/fr/a-propos-de-nuno/">SBS6, RTL et VTM</a> et <a href="/fr/avis/">4,9/5 sur 136 avis</a>, vous savez qui vous réservez.</p>
 <h2>Des formats qui fonctionnent</h2>
 <ul>
 <li><strong>L'ouverture</strong> — un power act de 10 minutes (dès 350 €).</li>

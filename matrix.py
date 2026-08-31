@@ -37,7 +37,7 @@ SHOWS = {
   "eyebrow": "Fakirshow op locatie",
   "title": "Fakirshow boeken in {stad}",
   "seo_title": "\U0001F525 Fakirshow Boeken in {stad} | Spijkerbed, Glas & Zwaarden — Nuno",
-  "seo_desc": "Fakirshow boeken in {stad}? Nuno trotseert spijkerbed, glas en zwaarden — met het publiek als deel van de act. 4,9/5 uit 134 reviews. Offerte binnen 24 uur!",
+  "seo_desc": "Fakirshow boeken in {stad}? Nuno trotseert spijkerbed, glas en zwaarden — met het publiek als deel van de act. 4,9/5 uit 136 reviews. Offerte binnen 24 uur!",
   "intros": [
    "<p>Een act waar {stad} nog lang over napraat? Boek de <a href=\"{main}\">fakirshow</a> van Nuno: spijkerbed, glaslopen, zwaardkunsten en vuur — uitgevoerd met de precisie van zeventien jaar podiumervaring, en met uw publiek als deel van de show.</p>",
    "<p>Op zoek naar entertainment in {stad} dat verder gaat dan een bandje of dj? De <a href=\"{main}\">fakirshow</a> van Nuno laat gasten huiveren én juichen: spijkerbed, glas, zwaarden en vuur, gebracht met theatrale klasse en absolute veiligheid.</p>",

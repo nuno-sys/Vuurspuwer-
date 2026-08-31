@@ -10,17 +10,17 @@ deelwoorden aan de beurt komen."""
 HEAD = {
  "en": {
   "title": "🔥 Hire a Fire Breather? Fire Show &amp; Fakir Show | Nuno",
-  "desc": "🔥 The Benelux&#x27; top fire breather, seen on SBS6, RTL 4 &amp; VTM ★ 4.9/5 (134 reviews) ✓ Fire shows, fakir shows, mentalism &amp; workshops ✓ €350–€1500 ✓ Quote within 24h.",
+  "desc": "🔥 The Benelux&#x27; top fire breather, seen on SBS6, RTL 4 &amp; VTM ★ 4.9/5 (136 reviews) ✓ Fire shows, fakir shows, mentalism &amp; workshops ✓ €350–€1500 ✓ Quote within 24h.",
   "kw": "hire fire breather, book fire show, fakir show, mentalist, fire breathing workshop, event entertainment, Netherlands, Belgium",
  },
  "de": {
   "title": "🔥 Feuerspucker buchen? Feuershow &amp; Fakirshow | Nuno",
-  "desc": "🔥 Der Top-Feuerspucker der Benelux, bekannt aus SBS6, RTL 4 &amp; VTM ★ 4,9/5 (134 Bewertungen) ✓ Feuershow, Fakirshow, Mentalismus &amp; Workshops ✓ 350–1500 € ✓ Angebot in 24 h.",
+  "desc": "🔥 Der Top-Feuerspucker der Benelux, bekannt aus SBS6, RTL 4 &amp; VTM ★ 4,9/5 (136 Bewertungen) ✓ Feuershow, Fakirshow, Mentalismus &amp; Workshops ✓ 350–1500 € ✓ Angebot in 24 h.",
   "kw": "Feuerspucker buchen, Feuershow buchen, Fakirshow, Mentalist, Workshop Feuerspucken, Event-Entertainment, Niederlande, Belgien",
  },
  "fr": {
   "title": "🔥 Engager un Cracheur de Feu ? Spectacle de Feu | Nuno",
-  "desc": "🔥 Le meilleur cracheur de feu du Benelux, vu sur SBS6, RTL 4 &amp; VTM ★ 4,9/5 (134 avis) ✓ Spectacles de feu, fakir, mentalisme &amp; ateliers ✓ 350–1500 € ✓ Devis sous 24 h.",
+  "desc": "🔥 Le meilleur cracheur de feu du Benelux, vu sur SBS6, RTL 4 &amp; VTM ★ 4,9/5 (136 avis) ✓ Spectacles de feu, fakir, mentalisme &amp; ateliers ✓ 350–1500 € ✓ Devis sous 24 h.",
   "kw": "engager cracheur de feu, réserver spectacle de feu, spectacle fakir, mentaliste, atelier cracheur de feu, animation événement, Pays-Bas, Belgique",
  },
 }
@@ -129,8 +129,16 @@ HOME = {
 
   # --- reviews ---
   ">Beoordelingen<": ">Reviews<",
-  "4,9 uit <em>134 beoordelingen</em>": "4.9 from <em>134 reviews</em>",
-  "134 beoordelingen op Google &middot;": "134 reviews on Google &middot;",
+  "4,9 uit <em>136 beoordelingen</em>": "4.9 from <em>136 reviews</em>",
+  '&ldquo;Wil je een spectaculaire show met een flinke dosis humor, liters spanning en een portie &bdquo;drakenadem&rdquo; waar je wenkbrauwen spontaan van gaan krullen? Dan ben je bij Nuno aan het juiste adres! Een absolute knaller! Je gasten praten er dagen later nog over&hellip; met sterren in hun ogen &eacute;n waarschijnlijk een lichte rookgeur in hun kleding. 😂✨&rdquo;':
+  '&ldquo;Looking for a spectacular show with a hefty dose of humour, litres of suspense and a portion of &ldquo;dragon&rsquo;s breath&rdquo; that will make your eyebrows curl? Then Nuno is the right address! An absolute banger! Your guests will still be talking about it days later&hellip; with stars in their eyes and probably a faint smell of smoke in their clothes. 😂✨&rdquo;',
+  '&ldquo;Super leuke ervaring! Nuno neemt zijn hele publiek mee in een geweldige show vol grappen en echte spectaculaire stunts. Nooit verwacht om zelf nog eens vuur te mogen spuwen, heel erg bedankt voor de mooie ervaring!&rdquo;':
+  '&ldquo;Super fun experience! Nuno takes his whole audience along in a great show full of jokes and truly spectacular stunts. Never expected to breathe fire myself one day — thank you so much for the wonderful experience!&rdquo;',
+  '>NIEUW<':
+  '>NEW<',
+  '>augustus 2026<':
+  '>August 2026<',
+  "136 beoordelingen op Google &middot;": "136 reviews on Google &middot;",
   ">bekijk ze op Google<": ">see them on Google<",
   "Lees alle 30 uitgelichte reviews &rsaquo;": "Read all 30 featured reviews &rsaquo;",
   "&ldquo;Wat een magisch optreden van Vuurspuwer Nuno in Amsterdam! Het vuurspuwen was professioneel en het publiek was muisstil van spanning. Een onvergetelijke avond.&rdquo;":
@@ -141,10 +149,6 @@ HOME = {
   "&ldquo;Fire breather Nuno impressed with his thrilling fakir tricks during the event in Ghent. Everything was perfectly timed and magical. Worth 5 stars!&rdquo;",
   "&ldquo;Nuno als Vuurspuwer in Den Haag was fantastisch. Professioneel en veilig, ondanks de risico's. Sterk aanbevolen!&rdquo;":
   "&ldquo;Nuno as fire breather in The Hague was fantastic. Professional and safe, despite the risks. Highly recommended!&rdquo;",
-  "&ldquo;Incredibel! Nuno's vuurshow in Breda was creatief en vol adrenaline. Zijn beheersing over het vuur is indrukwekkend.&rdquo;":
-  "&ldquo;Incredible! Nuno's fire show in Breda was creative and full of adrenaline. His control over the fire is impressive.&rdquo;",
-  "&ldquo;Wat een talent! Nuno's show in Utrecht met indrukwekkend vuurspuwen en mystieke elementen was puur genot. 10/10!&rdquo;":
-  "&ldquo;What a talent! Nuno's show in Utrecht with impressive fire breathing and mystical elements was pure delight. 10/10!&rdquo;",
   'aria-label="5 van de 5 sterren"': 'aria-label="5 out of 5 stars"',
 
   # --- zekerheid ---
@@ -356,8 +360,16 @@ HOME = {
   ">Chat op WhatsApp<": ">Auf WhatsApp chatten<",
 
   ">Beoordelingen<": ">Bewertungen<",
-  "4,9 uit <em>134 beoordelingen</em>": "4,9 aus <em>134 Bewertungen</em>",
-  "134 beoordelingen op Google &middot;": "134 Bewertungen auf Google &middot;",
+  "4,9 uit <em>136 beoordelingen</em>": "4,9 aus <em>136 Bewertungen</em>",
+  '&ldquo;Wil je een spectaculaire show met een flinke dosis humor, liters spanning en een portie &bdquo;drakenadem&rdquo; waar je wenkbrauwen spontaan van gaan krullen? Dan ben je bij Nuno aan het juiste adres! Een absolute knaller! Je gasten praten er dagen later nog over&hellip; met sterren in hun ogen &eacute;n waarschijnlijk een lichte rookgeur in hun kleding. 😂✨&rdquo;':
+  '&ldquo;Suchst du eine spektakuläre Show mit einer kräftigen Portion Humor, literweise Spannung und einer Prise „Drachenatem“, von der sich deine Augenbrauen spontan kräuseln? Dann bist du bei Nuno an der richtigen Adresse! Ein absoluter Knaller! Deine Gäste reden noch Tage später darüber&hellip; mit Sternen in den Augen und wahrscheinlich einem leichten Rauchgeruch in der Kleidung. 😂✨&rdquo;',
+  '&ldquo;Super leuke ervaring! Nuno neemt zijn hele publiek mee in een geweldige show vol grappen en echte spectaculaire stunts. Nooit verwacht om zelf nog eens vuur te mogen spuwen, heel erg bedankt voor de mooie ervaring!&rdquo;':
+  '&ldquo;Super schöne Erfahrung! Nuno nimmt sein ganzes Publikum mit in eine großartige Show voller Witze und wirklich spektakulärer Stunts. Nie erwartet, selbst einmal Feuer spucken zu dürfen — vielen Dank für dieses schöne Erlebnis!&rdquo;',
+  '>NIEUW<':
+  '>NEU<',
+  '>augustus 2026<':
+  '>August 2026<',
+  "136 beoordelingen op Google &middot;": "136 Bewertungen auf Google &middot;",
   ">bekijk ze op Google<": ">auf Google ansehen<",
   "Lees alle 30 uitgelichte reviews &rsaquo;": "Alle 30 ausgewählten Bewertungen lesen &rsaquo;",
   "&ldquo;Wat een magisch optreden van Vuurspuwer Nuno in Amsterdam! Het vuurspuwen was professioneel en het publiek was muisstil van spanning. Een onvergetelijke avond.&rdquo;":
@@ -368,10 +380,6 @@ HOME = {
   "&ldquo;Feuerspucker Nuno beeindruckte mit seinen aufregenden Fakir-Tricks beim Event in Gent. Alles war perfekt getimt und magisch. 5 Sterne wert!&rdquo;",
   "&ldquo;Nuno als Vuurspuwer in Den Haag was fantastisch. Professioneel en veilig, ondanks de risico's. Sterk aanbevolen!&rdquo;":
   "&ldquo;Nuno als Feuerspucker in Den Haag war fantastisch. Professionell und sicher, trotz der Risiken. Sehr zu empfehlen!&rdquo;",
-  "&ldquo;Incredibel! Nuno's vuurshow in Breda was creatief en vol adrenaline. Zijn beheersing over het vuur is indrukwekkend.&rdquo;":
-  "&ldquo;Unglaublich! Nunos Feuershow in Breda war kreativ und voller Adrenalin. Seine Beherrschung des Feuers ist beeindruckend.&rdquo;",
-  "&ldquo;Wat een talent! Nuno's show in Utrecht met indrukwekkend vuurspuwen en mystieke elementen was puur genot. 10/10!&rdquo;":
-  "&ldquo;Was für ein Talent! Nunos Show in Utrecht mit beeindruckendem Feuerspucken und mystischen Elementen war ein purer Genuss. 10/10!&rdquo;",
   'aria-label="5 van de 5 sterren"': 'aria-label="5 von 5 Sternen"',
 
   ">Zekerheid<": ">Sicherheit &amp; Vertrauen<",
@@ -576,8 +584,16 @@ HOME = {
   ">Chat op WhatsApp<": ">Discuter sur WhatsApp<",
 
   ">Beoordelingen<": ">Avis<",
-  "4,9 uit <em>134 beoordelingen</em>": "4,9 sur <em>134 avis</em>",
-  "134 beoordelingen op Google &middot;": "134 avis sur Google &middot;",
+  "4,9 uit <em>136 beoordelingen</em>": "4,9 sur <em>136 avis</em>",
+  '&ldquo;Wil je een spectaculaire show met een flinke dosis humor, liters spanning en een portie &bdquo;drakenadem&rdquo; waar je wenkbrauwen spontaan van gaan krullen? Dan ben je bij Nuno aan het juiste adres! Een absolute knaller! Je gasten praten er dagen later nog over&hellip; met sterren in hun ogen &eacute;n waarschijnlijk een lichte rookgeur in hun kleding. 😂✨&rdquo;':
+  '&ldquo;Envie d&rsquo;un spectacle spectaculaire avec une bonne dose d&rsquo;humour, des litres de suspense et une portion de « souffle de dragon » à faire friser les sourcils ? Alors Nuno est la bonne adresse ! Un vrai carton ! Vos invités en parleront encore des jours plus tard&hellip; des étoiles dans les yeux et probablement une légère odeur de fumée dans les vêtements. 😂✨&rdquo;',
+  '&ldquo;Super leuke ervaring! Nuno neemt zijn hele publiek mee in een geweldige show vol grappen en echte spectaculaire stunts. Nooit verwacht om zelf nog eens vuur te mogen spuwen, heel erg bedankt voor de mooie ervaring!&rdquo;':
+  '&ldquo;Une expérience super sympa ! Nuno embarque tout son public dans un spectacle génial, plein d&rsquo;humour et de cascades vraiment spectaculaires. Jamais je n&rsquo;aurais pensé cracher du feu moi-même un jour — merci beaucoup pour cette belle expérience !&rdquo;',
+  '>NIEUW<':
+  '>NOUVEAU<',
+  '>augustus 2026<':
+  '>août 2026<',
+  "136 beoordelingen op Google &middot;": "136 avis sur Google &middot;",
   ">bekijk ze op Google<": ">les voir sur Google<",
   "Lees alle 30 uitgelichte reviews &rsaquo;": "Lire les 30 avis sélectionnés &rsaquo;",
   "&ldquo;Wat een magisch optreden van Vuurspuwer Nuno in Amsterdam! Het vuurspuwen was professioneel en het publiek was muisstil van spanning. Een onvergetelijke avond.&rdquo;":
@@ -588,10 +604,6 @@ HOME = {
   "&ldquo;Le cracheur de feu Nuno a impressionné avec ses numéros de fakir palpitants lors de l'événement à Gand. Tout était parfaitement synchronisé et magique. 5 étoiles méritées !&rdquo;",
   "&ldquo;Nuno als Vuurspuwer in Den Haag was fantastisch. Professioneel en veilig, ondanks de risico's. Sterk aanbevolen!&rdquo;":
   "&ldquo;Nuno comme cracheur de feu à La Haye était fantastique. Professionnel et sûr, malgré les risques. Fortement recommandé !&rdquo;",
-  "&ldquo;Incredibel! Nuno's vuurshow in Breda was creatief en vol adrenaline. Zijn beheersing over het vuur is indrukwekkend.&rdquo;":
-  "&ldquo;Incroyable ! Le spectacle de feu de Nuno à Breda était créatif et plein d'adrénaline. Sa maîtrise du feu est impressionnante.&rdquo;",
-  "&ldquo;Wat een talent! Nuno's show in Utrecht met indrukwekkend vuurspuwen en mystieke elementen was puur genot. 10/10!&rdquo;":
-  "&ldquo;Quel talent ! Le spectacle de Nuno à Utrecht, avec un crachage de feu impressionnant et des éléments mystiques, était un pur régal. 10/10 !&rdquo;",
   'aria-label="5 van de 5 sterren"': 'aria-label="5 étoiles sur 5"',
 
   ">Zekerheid<": ">Garanties<",

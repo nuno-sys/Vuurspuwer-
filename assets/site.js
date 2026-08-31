@@ -1545,3 +1545,29 @@ if ("serviceWorker" in navigator) {
     try { if (window.gtag) gtag("event", "theme_toggle", { theme: t }); } catch (e) {}
   });
 })();
+
+/* Verse reviews: de "x geleden"-tijd wordt bij elk bezoek live
+   uitgerekend in de taal van de pagina, en de NIEUW-badge dooft
+   na 45 dagen vanzelf — de sectie blijft dus altijd eerlijk vers. */
+(function () {
+  var els = document.querySelectorAll("[data-rev-date]");
+  if (!els.length) return;
+  var lang = (document.documentElement.lang || "nl").slice(0, 2);
+  var rtf;
+  try { rtf = new Intl.RelativeTimeFormat(lang, { numeric: "auto" }); }
+  catch (e) { return; }
+  els.forEach(function (el) {
+    var days = Math.floor((Date.now() - new Date(el.getAttribute("data-rev-date")).getTime()) / 864e5);
+    if (isNaN(days) || days < 0) days = 0;
+    if (el.hasAttribute("data-rev-new")) {
+      if (days > 45) el.remove();
+      return;
+    }
+    var txt;
+    if (days < 7) txt = rtf.format(-days, "day");
+    else if (days < 30) txt = rtf.format(-Math.round(days / 7), "week");
+    else if (days < 365) txt = rtf.format(-Math.round(days / 30), "month");
+    else txt = rtf.format(-Math.round(days / 365), "year");
+    el.textContent = txt;
+  });
+})();

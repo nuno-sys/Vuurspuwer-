@@ -1,6 +1,6 @@
-const V = "vs-6704570ecd";
+const V = "vs-08e28bd772";
 const CORE = [
-  "/", "/assets/site.css?v=6704570ecd", "/assets/site.js?v=6704570ecd",
+  "/", "/assets/site.css?v=08e28bd772", "/assets/site.js?v=08e28bd772",
   "/assets/fonts/archivo-latin.woff2", "/assets/fonts/instrument-latin.woff2",
   "/assets/fonts/jetbrains-latin.woff2"
 ];
