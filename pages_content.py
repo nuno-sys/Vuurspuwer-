@@ -441,6 +441,8 @@ NEW_REVIEWS = [
   "Wil je een spectaculaire show met een flinke dosis humor, liters spanning en een portie &bdquo;drakenadem&rdquo; waar je wenkbrauwen spontaan van gaan krullen? Dan ben je bij Nuno aan het juiste adres! Een absolute knaller! Je gasten praten er dagen later nog over&hellip; met sterren in hun ogen &eacute;n waarschijnlijk een lichte rookgeur in hun kleding. 😂✨"),
  ("Henk Mulder", "Local Guide", "2026-08-31", "review-henk", (480, 246),
   "Super leuke ervaring! Nuno neemt zijn hele publiek mee in een geweldige show vol grappen en echte spectaculaire stunts. Nooit verwacht om zelf nog eens vuur te mogen spuwen, heel erg bedankt voor de mooie ervaring!"),
+ ("Lisanne", "Google", "2026-08-17", "review-lisanne", (480, 188),
+  "Aardige man, zorgt voor een spectaculaire show! Waar veel mensen naar blijven kijken en steeds meer willen zien! ☄️🔥💥"),
 ]
 
 def new_review_cards(badge="NIEUW", ago="augustus 2026", lang_attr="",
