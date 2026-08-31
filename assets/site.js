@@ -1389,3 +1389,41 @@ if ("serviceWorker" in navigator) {
     }, 600);
   });
 }
+
+/* Core Web Vitals van echte bezoekers naar GA4: LCP, CLS en INP per
+   paginaweergave, verstuurd zodra de bezoeker de pagina verlaat. */
+(function () {
+  if (!("PerformanceObserver" in window)) return;
+  var lcp = 0, cls = 0, inp = 0, sent = false;
+  try {
+    new PerformanceObserver(function (l) {
+      var es = l.getEntries();
+      if (es.length) lcp = es[es.length - 1].startTime;
+    }).observe({ type: "largest-contentful-paint", buffered: true });
+  } catch (e) {}
+  try {
+    new PerformanceObserver(function (l) {
+      l.getEntries().forEach(function (en) {
+        if (!en.hadRecentInput) cls += en.value;
+      });
+    }).observe({ type: "layout-shift", buffered: true });
+  } catch (e) {}
+  try {
+    new PerformanceObserver(function (l) {
+      l.getEntries().forEach(function (en) {
+        if (en.duration > inp) inp = en.duration;
+      });
+    }).observe({ type: "event", durationThreshold: 40, buffered: true });
+  } catch (e) {}
+  addEventListener("visibilitychange", function () {
+    if (document.visibilityState !== "hidden" || sent || !window.gtag) return;
+    sent = true;
+    gtag("event", "web_vitals", {
+      metric_lcp: Math.round(lcp),
+      metric_cls: Math.round(cls * 1000) / 1000,
+      metric_inp: Math.round(inp),
+      page_path: location.pathname,
+      non_interaction: true
+    });
+  });
+})();

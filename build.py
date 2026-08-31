@@ -610,6 +610,14 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
         graph.extend(extra_schema) if isinstance(extra_schema, list) else graph.append(extra_schema)
     _augment_rich_results(graph, lang, page_desc=desc, page_url=url,
         page_img=(SITE + p["img"][0]) if p.get("img") and p["img"][0].startswith("/") else None)
+    ogv = ""
+    if p.get("og_video"):
+        vu, vw, vh = p["og_video"]
+        ogv = (f'<meta property="og:video" content="{SITE}{vu}">\n'
+               f'<meta property="og:video:secure_url" content="{SITE}{vu}">\n'
+               '<meta property="og:video:type" content="video/mp4">\n'
+               f'<meta property="og:video:width" content="{vw}">\n'
+               f'<meta property="og:video:height" content="{vh}">')
     ld = "\n".join(f'<script type="application/ld+json">{json.dumps(g, ensure_ascii=False)}</script>' for g in graph)
 
     return f'''<!doctype html>
@@ -642,6 +650,8 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="{esc(p["img"][1] if p.get("img") else "Vuurspuwer Nuno")}">
 <meta name="twitter:card" content="summary_large_image">
+{ogv}
+<link rel="alternate" type="application/rss+xml" title="Blog — Vuurspuwer Nuno" href="/feed.xml">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
@@ -653,6 +663,7 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
 {spec_rules(lang)}
 </head>
 <body>
+<div class="readbar" aria-hidden="true"></div>
 <a class="skip" href="#top">{L.get("skip", "Naar de inhoud")}</a>
 {IGNITION}{STAGE}{HDR}
 <main class="shell" id="top">
@@ -861,6 +872,7 @@ for slug in KEEP_PAGES:
              "seo_desc": "Bekijk video's van de vuurshows, fakiracts en optredens van Vuurspuwer Nuno. Showreels van festivals, bedrijfsfeesten en evenementen in Nederland en België.",
              "body": PC.videos_body(),
              "eyebrow": "Video's",
+             "og_video": ("/assets/media/showreel.mp4", 540, 540),
              "img": ("/assets/media/reel-1-poster.webp",
                      "Vuurspuwer Nuno tijdens een vuurshow op locatie")}
         write(slug, render(p, "page", PC.videos_schema(), alternates=alts))
@@ -1187,6 +1199,7 @@ for lang in I.LANGS:
         elif nl_slug == "videos":
             p["body"] = lang_videos_body(lang)
             p["intro"] = ""
+            p["og_video"] = ("/assets/media/showreel.mp4", 540, 540)
         elif nl_slug == "contact-3":
             p["intro"] = ""
             extra_html = lang_contact_form(lang)
@@ -1630,6 +1643,33 @@ self.addEventListener("fetch", (e) => {
 });
 """ % (VER, VER, VER))
 print("  sw.js geschreven")
+
+# RSS-feed van de blog: de twintig nieuwste artikelen
+from datetime import datetime as _dt
+def _rfc822(d):
+    return _dt.strptime(d, "%Y-%m-%d").strftime("%a, %d %b %Y 10:00:00 +0000")
+_feed_posts = sorted((bp for bp in posts if bp["slug"] not in PC.SHOW_PAGES),
+                     key=lambda x: x["date"], reverse=True)[:20]
+_items = "".join(f"""
+  <item>
+    <title>{esc(bp["title"])}</title>
+    <link>{SITE}/{bp["slug"]}/</link>
+    <guid isPermaLink="true">{SITE}/{bp["slug"]}/</guid>
+    <pubDate>{_rfc822(bp["date"])}</pubDate>
+    <description>{esc(text_of(bp["body"], 300))}</description>
+  </item>""" for bp in _feed_posts)
+open(os.path.join(OUT, "feed.xml"), "w", encoding="utf-8").write(f"""<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Blog — Vuurspuwer Nuno</title>
+  <link>{SITE}/blog/</link>
+  <description>Artikelen over vuurshows, fakirshows, veiligheid en het boeken van entertainment in Nederland en België.</description>
+  <language>nl</language>
+  <atom:link href="{SITE}/feed.xml" rel="self" type="application/rss+xml"/>{_items}
+</channel>
+</rss>
+""")
+print(f"  feed.xml geschreven ({len(_feed_posts)} artikelen)")
 shutil.copy("favicon.ico", os.path.join(OUT, "favicon.ico"))
 shutil.copy("site.webmanifest", os.path.join(OUT, "site.webmanifest"))
 print("  homepage en assets gekopieerd")
