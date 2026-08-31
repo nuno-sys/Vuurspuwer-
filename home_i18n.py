@@ -136,6 +136,8 @@ HOME = {
   '&ldquo;Super fun experience! Nuno takes his whole audience along in a great show full of jokes and truly spectacular stunts. Never expected to breathe fire myself one day — thank you so much for the wonderful experience!&rdquo;',
   '>NIEUW<':
   '>NEW<',
+  '&ldquo;Geweldige workshop gehad van Nuno. Veiligheid voor alles! Ik heb er ontzettend veel van geleerd. En een hele fijne middag gehad. Iemand zonder kapsones en passie voor zijn vak. Diepe buiging!&rdquo;': '&ldquo;Had a great workshop with Nuno. Safety first, always! I learned an awful lot and had a really lovely afternoon. Someone without any airs and with true passion for his craft. Deep bow!&rdquo;',
+  'alt="Originele Google-review van Anton Fennema"': 'alt="Original Google review by Anton Fennema"',
   '&ldquo;Wij hadden een vuurspuw workshop geboekt voor een vrijgezellenfeest bij Nuno. Nuno weet er echt een feestje van te maken en we hebben dan ook een hele leuke workshop gehad. Aanrader!&rdquo;': '&ldquo;We booked a fire-breathing workshop with Nuno for a bachelor party. Nuno really knows how to turn it into a party, and we had a great workshop indeed. Highly recommended!&rdquo;',
   'alt="Originele Google-review van N. Beek"': 'alt="Original Google review by N. Beek"',
   '&ldquo;Aardige man, zorgt voor een spectaculaire show! Waar veel mensen naar blijven kijken en steeds meer willen zien! ☄️🔥💥&rdquo;': '&ldquo;Nice guy who puts on a spectacular show! One that people keep watching — and want to see more and more of! ☄️🔥💥&rdquo;',
@@ -366,6 +368,8 @@ HOME = {
   '&ldquo;Super schöne Erfahrung! Nuno nimmt sein ganzes Publikum mit in eine großartige Show voller Witze und wirklich spektakulärer Stunts. Nie erwartet, selbst einmal Feuer spucken zu dürfen — vielen Dank für dieses schöne Erlebnis!&rdquo;',
   '>NIEUW<':
   '>NEU<',
+  '&ldquo;Geweldige workshop gehad van Nuno. Veiligheid voor alles! Ik heb er ontzettend veel van geleerd. En een hele fijne middag gehad. Iemand zonder kapsones en passie voor zijn vak. Diepe buiging!&rdquo;': '&ldquo;Großartigen Workshop bei Nuno gehabt. Sicherheit geht vor! Ich habe unheimlich viel gelernt und einen sehr schönen Nachmittag gehabt. Jemand ohne Allüren und mit Leidenschaft für sein Fach. Tiefe Verbeugung!&rdquo;',
+  'alt="Originele Google-review van Anton Fennema"': 'alt="Originale Google-Bewertung von Anton Fennema"',
   '&ldquo;Wij hadden een vuurspuw workshop geboekt voor een vrijgezellenfeest bij Nuno. Nuno weet er echt een feestje van te maken en we hebben dan ook een hele leuke workshop gehad. Aanrader!&rdquo;': '&ldquo;Wir hatten bei Nuno einen Feuerspuck-Workshop für einen Junggesellenabschied gebucht. Nuno weiß daraus wirklich ein Fest zu machen, und wir hatten einen richtig tollen Workshop. Sehr zu empfehlen!&rdquo;',
   'alt="Originele Google-review van N. Beek"': 'alt="Originale Google-Bewertung von N. Beek"',
   '&ldquo;Aardige man, zorgt voor een spectaculaire show! Waar veel mensen naar blijven kijken en steeds meer willen zien! ☄️🔥💥&rdquo;': '&ldquo;Netter Mann, der für eine spektakuläre Show sorgt! Bei der viele Leute dranbleiben — und immer mehr sehen wollen! ☄️🔥💥&rdquo;',
@@ -589,6 +593,8 @@ HOME = {
   '&ldquo;Une expérience super sympa ! Nuno embarque tout son public dans un spectacle génial, plein d&rsquo;humour et de cascades vraiment spectaculaires. Jamais je n&rsquo;aurais pensé cracher du feu moi-même un jour — merci beaucoup pour cette belle expérience !&rdquo;',
   '>NIEUW<':
   '>NOUVEAU<',
+  '&ldquo;Geweldige workshop gehad van Nuno. Veiligheid voor alles! Ik heb er ontzettend veel van geleerd. En een hele fijne middag gehad. Iemand zonder kapsones en passie voor zijn vak. Diepe buiging!&rdquo;': '&ldquo;Superbe atelier avec Nuno. La sécurité avant tout ! J&rsquo;y ai énormément appris et passé un très bel après-midi. Quelqu&rsquo;un sans prétention et passionné par son métier. Chapeau bas !&rdquo;',
+  'alt="Originele Google-review van Anton Fennema"': 'alt="Avis Google original d&rsquo;Anton Fennema"',
   '&ldquo;Wij hadden een vuurspuw workshop geboekt voor een vrijgezellenfeest bij Nuno. Nuno weet er echt een feestje van te maken en we hebben dan ook een hele leuke workshop gehad. Aanrader!&rdquo;': '&ldquo;Nous avions réservé un atelier cracheur de feu chez Nuno pour un enterrement de vie de garçon. Nuno sait vraiment en faire une fête, et nous avons passé un atelier très sympa. À recommander !&rdquo;',
   'alt="Originele Google-review van N. Beek"': 'alt="Avis Google original de N. Beek"',
   '&ldquo;Aardige man, zorgt voor een spectaculaire show! Waar veel mensen naar blijven kijken en steeds meer willen zien! ☄️🔥💥&rdquo;': '&ldquo;Un homme sympathique qui offre un spectacle spectaculaire ! Que beaucoup de gens continuent de regarder — en voulant en voir toujours plus ! ☄️🔥💥&rdquo;',

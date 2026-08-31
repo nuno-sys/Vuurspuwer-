@@ -445,6 +445,8 @@ NEW_REVIEWS = [
   "Aardige man, zorgt voor een spectaculaire show! Waar veel mensen naar blijven kijken en steeds meer willen zien! ☄️🔥💥"),
  ("N. Beek", "Local Guide", "2026-08-17", "review-nbeek", (480, 208),
   "Wij hadden een vuurspuw workshop geboekt voor een vrijgezellenfeest bij Nuno. Nuno weet er echt een feestje van te maken en we hebben dan ook een hele leuke workshop gehad. Aanrader!"),
+ ("Anton Fennema", "Google", "2026-08-10", "review-anton", (480, 197),
+  "Geweldige workshop gehad van Nuno. Veiligheid voor alles! Ik heb er ontzettend veel van geleerd. En een hele fijne middag gehad. Iemand zonder kapsones en passie voor zijn vak. Diepe buiging!"),
 ]
 
 def new_review_cards(badge="NIEUW", ago="augustus 2026", lang_attr="",
