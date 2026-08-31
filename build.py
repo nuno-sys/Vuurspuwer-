@@ -19,6 +19,8 @@ import occasions_i18n as OCCI
 # gelegenheid-pagina's registreren: slugs voor hreflang, vertalingen
 # in de taalbouw (de NL-versies worden verderop apart gebouwd)
 I.SLUGS.update(OCC.SLUGS)
+import glossary as GL
+I.SLUGS.update(GL.SLUGS)
 I.PAGES["en"].update(OCCI.EN)
 I.PAGES["de"].update(OCCI.DE)
 I.PAGES["fr"].update(OCCI.FR)
@@ -775,7 +777,16 @@ def vidgal(lang, page_url):
 def _insert_two(body, first, second):
     """`first` (fotostrip) na ±25% van de tekst, `second` (videostrip) na
     ±62% — met minstens één blok ertussen, zodat de twee stroken nooit
-    direct op elkaar volgen. Geeft (body, is-de-videostrip-geplaatst) terug."""
+    direct op elkaar volgen. Geeft (body, is-de-videostrip-geplaatst) terug.
+
+    Pagina's met een eigen indeling (zoals het vuur-woordenboek) bepalen de
+    plek zelf met <!--STRIP1--> en <!--STRIP2-->-markeringen, zodat de
+    stroken nooit binnen een grid of kaart belanden."""
+    if "<!--STRIP1-->" in body:
+        body = body.replace("<!--STRIP1-->", first, 1)
+        vid = "<!--STRIP2-->" in body and bool(second)
+        body = body.replace("<!--STRIP2-->", second if vid else "", 1)
+        return body, vid
     parts = re.split(r"(</p>|</ul>|</ol>|</table>|</blockquote>)", body)
     chunks = [parts[i] + parts[i + 1] for i in range(0, len(parts) - 1, 2)]
     if len(parts) % 2:
@@ -1518,12 +1529,17 @@ def foot_seo():
     hall = [(f"Halloween {n}", f"/halloween-{k}/") for k, (n, _s, _p) in MX.CITIES.items()]
     fakir = [(f"Fakirshow {n}", f"/fakirshow-{k}/") for k, (n, _s, _p) in MX.CITIES.items()]
     work = [(f"Workshop vuurspuwen {n}", f"/workshop-vuurspuwen-{k}/") for k, (n, _s, _p) in MX.CITIES.items()]
+    kennis = [("📖 Vuur-woordenboek: alle termen uitgelegd", "/vuur-woordenboek/"),
+              ("💶 Wat kost een vuurspuwer?", "/wat-kost-een-vuurspuwer/"),
+              ("📰 Blog & tips", "/blog/"),
+              ("⭐ 134 beoordelingen", "/beoordelingen/")]
     return ('<nav class="fseo" aria-label="Alle pagina\'s per onderwerp">'
             + grp("💍 Vuurshows per gelegenheid", gel)
             + grp("📍 Vuurspuwer per stad", stad)
             + grp("🎃 Halloween per stad", hall)
             + grp("⚔️ Fakirshow per stad", fakir)
             + grp("💨 Workshop per stad", work)
+            + grp("📖 Kennisbank", kennis)
             + "</nav>")
 
 FOOTER = FOOTER.replace("<!--FOOT:SEO-->", foot_seo())
@@ -2100,6 +2116,22 @@ for _slug, OC in OCC.NL.items():
     built.append(_slug)
 print(f"  {len(OCC.NL)} gelegenheid-pagina's (nl) gebouwd")
 
+# het Vuur-woordenboek: kennisbank met DefinedTerm-schema, in vier talen
+for _gl in ("nl", "en", "de", "fr"):
+    GM = GL.META[_gl]
+    _gslug = "vuur-woordenboek" if _gl == "nl" else f'{_gl}/{GL.SLUGS["vuur-woordenboek"][_gl]}'
+    _gpath = f"/{_gslug}/"
+    _gbody, _gld = GL.build(_gl)
+    _gp = {"slug": _gslug, "title": GM["title"], "seo_title": GM["seo_title"],
+           "seo_desc": GM["seo_desc"], "eyebrow": GM["eyebrow"], "date": TODAY,
+           "keywords": GM["kw"], "body": _gbody,
+           "img": ("/assets/media/vuurbal-1333.webp", _MIDGAL_ALT["vuurbal"][_gl])}
+    write(_gslug, render(_gp, "page", [_gld], occ_links(_gl),
+                         lang=_gl, path=_gpath,
+                         alternates=alternates_for("vuur-woordenboek")))
+    built.append(_gslug)
+print("  vuur-woordenboek gebouwd (nl/en/de/fr)")
+
 LANG_ALTS = {}   # pad -> alternates, voor de sitemap
 for slug_nl in I.SLUGS:
     alts = alternates_for(slug_nl)
@@ -2296,7 +2328,9 @@ print(f"  _redirects: {len(lines)-2} regels ({dropped} stadspagina's naar de hub
 _TOP_PAGES = {"halloween", "wat-kost-een-vuurspuwer",
               "en/halloween", "de/halloween", "fr/halloween",
               "en/fire-breather-prices", "de/feuerspucker-kosten",
-              "fr/prix-cracheur-de-feu"}
+              "fr/prix-cracheur-de-feu",
+              "vuur-woordenboek", "en/fire-glossary",
+              "de/feuer-glossar", "fr/glossaire-du-feu"}
 _TOP_PAGES |= set(OCC.SLUGS)
 _TOP_PAGES |= {f"{l}/{OCC.SLUGS[s][l]}" for s in OCC.SLUGS for l in ("en", "de", "fr")}
 def _prio(s):
@@ -2453,6 +2487,7 @@ Boekingen lopen via het aanvraagformulier of WhatsApp; reactie binnen 24 uur. De
 - [Foto's]({SITE}/fotos/): galerij met licenseerbare showfoto's
 - [Video's]({SITE}/videos/): showreels van vuur- en fakiracts
 - [Locaties]({SITE}/locaties-vuurshows-nederland-belgie/): alle steden in Nederland en België
+- [Vuur-woordenboek]({SITE}/vuur-woordenboek/): 19 termen uit de vuur- en fakirwereld uitgelegd, van poi en body fire tot pyrotechniek — ook in het [Engels]({SITE}/en/fire-glossary/), [Duits]({SITE}/de/feuer-glossar/) en [Frans]({SITE}/fr/glossaire-du-feu/)
 
 ## Talen
 - [Nederlands]({SITE}/): hoofdversie
