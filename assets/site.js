@@ -311,7 +311,12 @@
           navMark = $("#navLogo"),
           brand = $(".nav__brand");
 
-    if (!wrap || !flyer) { if (brand) brand.classList.add("is-landed"); start(); return; }
+    /* Eerste bezoek met de cookievraag: de intro houdt zich in en het merk
+       boven in het menu blijft donker. Het brandende logo van de kaart
+       vliegt er straks zelf naartoe (ga.js) — één vlucht, geen twee. */
+    const vraagt = document.documentElement.classList.contains("cookie-vraag");
+
+    if (!wrap || !flyer) { if (brand && !vraagt) brand.classList.add("is-landed"); start(); return; }
 
     /* De volledige vuurshow-intro (logo, teller, vlucht naar het menu)
        hoort bij de homepage en speelt daar bij elk bezoek. Onderliggende
@@ -319,11 +324,11 @@
        gemeten laadtijd daar razendsnel. */
     const full = location.pathname === "/";
 
-    if (!full) {
+    if (!full || vraagt) {
       /* een tik wachten zodat het hele script eerst geladen is;
          daarna direct openen met alleen de korte vuurveeg */
       setTimeout(() => {
-        if (brand) brand.classList.add("is-landed");
+        if (brand && !vraagt) brand.classList.add("is-landed");
         wrap.classList.add("is-open");
         start();
         sweep();

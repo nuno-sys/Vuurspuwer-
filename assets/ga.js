@@ -23,6 +23,26 @@
     try { localStorage.setItem(SLEUTEL, v); } catch (e) {}
   }
 
+  var HTML = document.documentElement;
+  var TRAAG = false;
+  try { TRAAG = matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+
+  /* Staat de vraag nog open, dan houdt de intro zich in: het merk boven
+     in het menu blijft donker tot het logo van de kaart er landt. Dit
+     script staat voor site.js, dus de vlag staat er op tijd. */
+  if (keuze() === null) HTML.classList.add("cookie-vraag");
+
+  function merk() {
+    return document.getElementById("navLogo") ||
+           document.querySelector(".nav__brand .logo");
+  }
+  /* het merk staat op zijn plek: zichtbaar maken en de vlag intrekken */
+  function geland() {
+    var b = document.querySelector(".nav__brand");
+    if (b) { b.classList.remove("is-vliegend"); b.classList.add("is-landed"); }
+    HTML.classList.remove("cookie-vraag");
+  }
+
   /* ---------------------------------------------- Analytics starten */
   var gestart = false, geladen = false;
   function start() {
@@ -53,25 +73,93 @@
   /* ------------------------------------------------- de keuzekaart */
   function kaart() { return document.getElementById("cookie"); }
 
+  var bezig = false;                  /* er vliegt een logo: niet nog eens */
+
   function toon() {
     var k = kaart();
-    if (!k) return;
+    if (!k) { geland(); return; }     /* geen kaart: merk niet in het donker laten */
+    k.classList.remove("is-weg");
     k.hidden = false;
-    document.documentElement.classList.add("cookie-open");
+    HTML.classList.add("cookie-open");
     var ja = document.getElementById("cookieJa");
     if (ja) setTimeout(function () { try { ja.focus(); } catch (e) {} }, 60);
   }
 
   function sluit() {
     var k = kaart();
-    if (k) k.hidden = true;
-    document.documentElement.classList.remove("cookie-open");
+    if (k) { k.hidden = true; k.classList.remove("is-weg"); }
+    HTML.classList.remove("cookie-open");
   }
 
   function antwoord(v) {
+    if (bezig) return;
+    bezig = true;
     bewaar(v);
-    sluit();
     if (v === "ja") start();
+    vlieg();
+  }
+
+  /* Bij een keuze dooft de kaart en maakt hij een kopie van het merk los.
+     Die vliegt op gemiddelde snelheid naar zijn echte plek boven in het
+     menu — op mobiel en desktop naar dezelfde gemeten plek — en koelt
+     onderweg af. Precies daar licht het echte merk op, zodat er geen
+     sprongetje te zien is. Lukt de vlucht niet (geen animatie-API,
+     minder beweging, geen doel), dan landt het merk meteen. */
+  function vlieg() {
+    var k = kaart();
+    var bron = k && k.querySelector(".cookie__vlam");
+    var doel = merk();
+    var brand = document.querySelector(".nav__brand");
+
+    if (!k || k.hidden || !bron || !doel || TRAAG || !bron.animate) {
+      sluit(); geland(); bezig = false; return;
+    }
+
+    if (brand) { brand.classList.remove("is-landed"); brand.classList.add("is-vliegend"); }
+
+    var a = bron.getBoundingClientRect();
+    var b = doel.getBoundingClientRect();
+    if (!a.width || !b.width) { sluit(); geland(); bezig = false; return; }
+
+    var vlieger = bron.cloneNode(true);
+    vlieger.className = bron.className + " cookie__vlieger";
+    vlieger.setAttribute("aria-hidden", "true");
+    vlieger.style.left = a.left + "px";
+    vlieger.style.top = a.top + "px";
+    vlieger.style.width = a.width + "px";
+    vlieger.style.setProperty("--logo-w", a.width + "px");
+    document.body.appendChild(vlieger);
+
+    k.classList.add("is-weg");
+    HTML.classList.remove("cookie-open");
+
+    var dx = (b.left + b.width / 2) - (a.left + a.width / 2);
+    var dy = (b.top + b.height / 2) - (a.top + a.height / 2);
+    var sc = b.width / a.width;
+
+    var vlucht = vlieger.animate([
+      { transform: "translate(0,0) scale(1)",
+        filter: "drop-shadow(0 2px 14px rgba(255,110,20,.9)) drop-shadow(0 -8px 30px rgba(255,60,0,.55))" },
+      { transform: "translate(" + (dx * 0.34).toFixed(1) + "px," + (dy * 0.62).toFixed(1) + "px) scale(" + (sc + (1 - sc) * 0.46).toFixed(3) + ")",
+        filter: "drop-shadow(0 1px 11px rgba(255,120,20,.5))",
+        offset: 0.56 },
+      { transform: "translate(" + dx.toFixed(1) + "px," + dy.toFixed(1) + "px) scale(" + sc.toFixed(3) + ")",
+        filter: "drop-shadow(0 0 2px rgba(255,90,10,0))" }
+    ], { duration: 1050, easing: "cubic-bezier(.58,0,.16,1)", fill: "forwards" });
+
+    function neer() {
+      geland();
+      sluit();
+      vlieger.style.transition = "opacity .4s linear";
+      vlieger.style.opacity = "0";
+      setTimeout(function () {
+        if (vlieger.parentNode) vlieger.parentNode.removeChild(vlieger);
+      }, 460);
+      bezig = false;
+    }
+    if (vlucht.finished) vlucht.finished.then(neer, neer);
+    else vlucht.onfinish = neer;
+    setTimeout(function () { if (bezig) neer(); }, 1600);   /* vangnet */
   }
 
   function koppel() {
@@ -84,7 +172,7 @@
 
     /* Escape geldt als weigeren: geen keuze mag nooit toestemming betekenen */
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && !k.hidden) antwoord("nee");
+      if (e.key === "Escape" && !k.hidden && !bezig) antwoord("nee");
     });
     /* de aandacht binnen de kaart houden zolang hij openstaat */
     k.addEventListener("keydown", function (e) {
@@ -111,6 +199,7 @@
     var v = keuze();
     if (v === "ja") start();
     else if (v !== "nee") toon();     /* nog geen keuze: vragen */
+    else HTML.classList.remove("cookie-vraag");
   }
 
   if (document.readyState === "loading") {

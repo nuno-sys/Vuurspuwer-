@@ -3099,6 +3099,9 @@ inset:0;
 z-index:9999;
 display:grid;
 place-items:center;
+align-items:safe center;
+overflow-y:auto;
+overscroll-behavior:contain;
 padding:clamp(1rem,4vw,2rem);}
 .cookie__doek{
 position:absolute;
@@ -3108,27 +3111,119 @@ radial-gradient(120% 90% at 50% 0%, rgba(255,77,10,.16), transparent 60%),
 rgba(5,3,2,.94);
 backdrop-filter:blur(10px);
 -webkit-backdrop-filter:blur(10px);}
+.cookie__doek::after{
+content:"";
+position:absolute;
+inset:0;
+background:radial-gradient(90% 62% at 50% 104%, rgba(255,77,10,.28), transparent 62%);
+animation:cookiehitte 6s ease-in-out infinite;
+will-change:opacity, transform;}
+@keyframes cookiehitte{
+0%,100%{ opacity:.5; transform:translateY(8px) scale(1); }
+50%    { opacity:1;  transform:translateY(0)   scale(1.05); }}
+@property --vuurhoek{ syntax:"<angle>"; inherits:false; initial-value:0deg; }
 .cookie__kaart{
+--vuurlijn:conic-gradient(from var(--vuurhoek),
+#FF4D0A   0deg, #FFB020  24deg, #FFF3D6  42deg, #FFB020  60deg,
+#C23400  94deg, #6B1A00 124deg, #FF4D0A 156deg, #FFD46B 184deg,
+#FFF3D6 202deg, #FF7A12 230deg, #7A1F00 266deg, #FF4D0A 300deg,
+#FFB020 332deg, #FF4D0A 360deg);
 position:relative;
 width:min(600px,100%);
-max-height:92dvh;
-overflow-y:auto;
+margin:auto;
 text-align:center;
 padding:clamp(1.6rem,5vw,2.8rem) clamp(1.3rem,5vw,2.6rem);
-border:1px solid rgba(255,176,32,.28);
+border:2px solid transparent;
 border-radius:clamp(18px,3vw,28px);
-background:linear-gradient(180deg, #120B06, #0A0705);
+background:
+linear-gradient(180deg, #120B06, #0A0705) padding-box,
+var(--vuurlijn) border-box;
 box-shadow:0 40px 120px -30px rgba(0,0,0,.9),
-0 0 0 1px rgba(255,176,32,.06) inset;
-animation:cookieop .5s var(--ease) both;}
+0 0 70px -14px rgba(255,77,10,.5);
+animation:cookieop .5s var(--ease) both,
+cookievuur 7s linear infinite;}
+.cookie__kaart::before{
+content:"";
+position:absolute;
+inset:-4px;
+border-radius:calc(clamp(18px,3vw,28px) + 4px);
+padding:6px;
+background:var(--vuurlijn);
+-webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+-webkit-mask-composite:xor;
+mask-composite:exclude;
+filter:blur(7px);
+pointer-events:none;
+animation:cookievlam 2.7s ease-in-out infinite;
+will-change:opacity;}
+@keyframes cookievuur{ to{ --vuurhoek:360deg; } }
+@keyframes cookievlam{
+0%,100%{ opacity:.9; }
+30%    { opacity:.6; }
+55%    { opacity:1; }
+78%    { opacity:.72; }}
 @keyframes cookieop{
 from{ opacity:0; transform:translateY(18px) scale(.97); }
 to{ opacity:1; transform:none; }}
-@media (prefers-reduced-motion: reduce){ .cookie__kaart{ animation:none; } }
-.cookie__logo{
---logo-w:132px;
+@media (prefers-reduced-motion: reduce){
+.cookie__kaart{ animation:none; }
+.cookie__kaart::before,
+.cookie__doek::after{ animation:none; opacity:.85; }}
+.cookie__vlam{
+display:block;
+width:max-content;
+max-width:100%;
 margin:0 auto clamp(1rem,3vw,1.5rem);
+animation:cookiefakkel 2.4s ease-in-out infinite;
+will-change:filter;}
+@keyframes cookiefakkel{
+0%,100%{ filter:drop-shadow(0 2px 10px rgba(255,110,20,.85))
+drop-shadow(0 -6px 24px rgba(255,60,0,.5)); }
+34%    { filter:drop-shadow(0 1px 17px rgba(255,165,45,.95))
+drop-shadow(0 -13px 36px rgba(255,80,0,.62)); }
+63%    { filter:drop-shadow(0 3px 8px  rgba(255,100,10,.8))
+drop-shadow(0 -4px 17px rgba(255,60,0,.4)); }}
+.cookie__logo{
+--logo-w:clamp(148px, 40vw, 196px);
+margin:0;
 color:var(--flame);}
+.cookie__logo::before{ animation-duration:3.6s; }
+.cookie__logo::after{
+content:"";
+position:absolute;
+inset:0;
+background:
+radial-gradient(46% 34% at 20% 96%, rgba(255,247,225,.95), rgba(255,150,30,.34) 46%, transparent 72%),
+radial-gradient(38% 30% at 52% 100%, rgba(255,247,225,.85), rgba(255,120,20,.3) 48%, transparent 74%),
+radial-gradient(44% 32% at 84% 94%, rgba(255,247,225,.9),  rgba(255,140,25,.32) 46%, transparent 72%);
+mix-blend-mode:screen;
+pointer-events:none;
+animation:cookielik 1.7s ease-in-out infinite alternate;
+will-change:transform, opacity;}
+@keyframes cookielik{
+from{ transform:translateY(0)    scaleY(1);    opacity:.65; }
+to  { transform:translateY(-7%)  scaleY(1.16); opacity:1; }}
+@media (prefers-reduced-motion: reduce){
+.cookie__vlam{ animation:none; filter:drop-shadow(0 0 14px rgba(255,110,20,.6)); }
+.cookie__logo::after{ animation:none; opacity:.8; }}
+.cookie__vlieger{
+position:fixed;
+z-index:10001;
+margin:0;
+animation:none;
+pointer-events:none;
+will-change:transform, filter;}
+.cookie__vlieger .cookie__logo::after{ animation-duration:.9s; }
+.cookie.is-weg{ pointer-events:none; }
+.cookie.is-weg .cookie__vlam{ visibility:hidden; }
+.cookie.is-weg .cookie__doek{ opacity:0; transition:opacity .55s var(--ease); }
+.cookie.is-weg .cookie__kaart{
+opacity:0;
+transform:scale(.95) translateY(10px);
+animation:none;
+transition:opacity .45s var(--ease), transform .55s var(--ease);}
+.nav__brand.is-vliegend .logo{ opacity:0; transition:none; }
 .cookie__eyebrow{
 font-family:var(--f-mono);
 font-size:var(--t-xs);
@@ -3139,8 +3234,8 @@ margin:0 0 .5rem;}
 .cookie__kop{
 font-family:var(--f-display);
 font-variation-settings:"wdth" 106,"wght" 850;
-font-size:clamp(1.7rem,6vw,2.6rem);
-line-height:1.02;
+font-size:clamp(1.35rem,4.4vw,1.95rem);
+line-height:1.06;
 letter-spacing:-.02em;
 color:#FFF3D6;
 margin:0 0 clamp(.9rem,2.5vw,1.2rem);
