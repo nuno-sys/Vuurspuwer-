@@ -821,12 +821,159 @@ def _insert_mid(body, snippet, frac=0.25):
             return "".join(chunks[:idx + 1]) + snippet + "".join(chunks[idx + 1:])
     return body + snippet
 
+# ------------------------------------------------- SERP-optimalisatie
+# Elke <title> en meta-beschrijving wordt een klikmagneet: passende emoji
+# vooraan, de belangrijkste zoekwoorden binnen de zichtbare lengte
+# (titel ±62 tekens, beschrijving ±158), sterren en vinkjes met de USP's,
+# en gegarandeerd uniek over alle 261 pagina's. De H1 op de pagina zelf
+# behoudt de volledige, lange zoekwoordenrijke titel.
+_SERP_EMOJI = [
+    ("🎬", ("video",)),
+    ("📸", ("foto", "photo")),
+    ("⭐", ("beoordeling", "review", "bewertung", "avis")),
+    ("🎃", ("halloween", "griezel", "spook", "horror", "fright")),
+    ("💍", ("bruiloft", "trouw", "huwelijk", "wedding", "hochzeit", "mariage")),
+    ("🎄", ("kerst", "nieuwjaar", "silvester", "noel", "noël", "christmas", "oud-en-nieuw", "new-year", "neujahr")),
+    ("🎆", ("vuurwerk", "firework", "feuerwerk", "artifice")),
+    ("💨", ("workshop", "leren-vuurspuwen", "atelier", "cursus")),
+    ("⚔️", ("fakir", "spijker", "zwaard", "glasscherven", "nagelbrett", "planche")),
+    ("🧠", ("mentalis", "hypno", "gedachte")),
+    ("🐍", ("reptiel", "slang", "reptile")),
+    ("🛡️", ("veilig", "vergunning", "brandweer", "risico")),
+    ("💶", ("kost", "prijs", "prijzen", "tarief", "budget", "goedkoop", "preis", "prix", "price")),
+    ("🎉", ("verjaardag", "jubileum", "vrijgezell", "birthday", "geburtstag", "anniversaire", "kinderfeest", "themafeest")),
+    ("🏢", ("bedrijfsfeest", "personeelsfeest", "zakelijk", "corporate", "firmen", "entreprise", "teambuilding", "beurs", "bedrijfsuitje")),
+    ("🎩", ("entertainer", "artiest", "act")),
+]
+def _serp_emoji(s):
+    s = s.lower()
+    for e, keys in _SERP_EMOJI:
+        if any(k in s for k in keys):
+            return e
+    return "🔥"
+
+def _has_emoji(s):
+    return any(ord(c) > 0x2300 for c in s)
+
+# terugkerende, niets toevoegende staarten uit de oude WordPress-titels
+_TITLE_JUNK = re.compile(
+    r"\s*[-–—:|]\s*(het complete antwoord( door vuurspuwer nuno)?|"
+    r"de ultieme spectaculaire ervaring|de ultieme gids( voor .*)?|"
+    r"\[jouw bedrijfsnaam\])\s*$", re.I)
+
+def _fit_title(t, limit=62):
+    t = re.sub(r"\s*\|\s*\[jouw bedrijfsnaam\]", "", t, flags=re.I)
+    while True:
+        t2 = _TITLE_JUNK.sub("", t).strip()
+        if t2 == t: break
+        t = t2
+    if len(t) <= limit: return t
+    for tail in (" | Vuurspuwer Nuno", " — Vuurspuwer Nuno", " – Vuurspuwer Nuno",
+                 " | Nuno", " — Nuno", " – Nuno"):
+        if t.endswith(tail) and len(t) - len(tail) >= 28:
+            t = t[:-len(tail)]
+            if len(t) <= limit: return t
+    while len(t) > limit:
+        idx = max(t.rfind(" | "), t.rfind(" — "), t.rfind(" – "))
+        if idx < 25: break
+        t = t[:idx].rstrip()
+    if len(t) > limit:
+        t = t[:limit].rsplit(" ", 1)[0].rstrip(" ,.:;–—|-&")
+    return t
+
+_RATING_TXT = {"nl": "★ 4,9/5 (134 reviews)", "en": "★ 4.9/5 (134 reviews)",
+               "de": "★ 4,9/5 (134 Bewertungen)", "fr": "★ 4,9/5 (134 avis)"}
+_SEEN_TITLES = {}
+
+# meerdere unieke zoekwoorden per pagina (Google negeert de keywords-meta,
+# maar Bing-familie en AI-zoekers lezen hem wél mee)
+_KW_TOPIC = {
+ "🎃": "halloween show boeken, halloween entertainment, griezelact",
+ "💍": "vuurshow bruiloft, entertainment bruiloft, trouwfeest act",
+ "🎄": "kerst entertainment, nieuwjaarsshow, winterevent act",
+ "🎆": "vuurwerk alternatief, vuurshow buiten",
+ "💨": "workshop vuurspuwen, teambuilding activiteit, vrijgezellenfeest workshop",
+ "⚔️": "fakirshow boeken, spijkerbed act, fakir inhuren",
+ "🧠": "mentalist boeken, mentalisme show",
+ "🐍": "reptielenshow, slangenshow boeken",
+ "🛡️": "vuurshow veiligheid, vergunning vuurshow",
+ "💶": "vuurspuwer prijs, vuurshow kosten, offerte vuurshow",
+ "🎉": "feest entertainment, verjaardag artiest, themafeest act",
+ "🏢": "bedrijfsfeest entertainment, personeelsfeest act, zakelijk evenement artiest",
+ "🎬": "vuurshow video, showreel vuurspuwer",
+ "📸": "vuurshow foto's, vuurspuwer afbeeldingen",
+ "⭐": "reviews vuurspuwer, beoordelingen vuurshow",
+ "🎩": "entertainer boeken, artiest inhuren",
+ "🔥": "vuurshow boeken, vuuract, vuurartiest",
+}
+def _serp_kw(p, kind, emo):
+    parts = []
+    if p.get("keywords"): parts.append(p["keywords"])
+    parts.append(_KW_TOPIC.get(emo, _KW_TOPIC["🔥"]))
+    if kind == "city" and p.get("slug") in CITY_LABEL:
+        c = CITY_LABEL[p["slug"]]
+        parts.append(f"vuurspuwer {c}, vuurshow {c}, entertainment {c}")
+    parts.append("vuurspuwer inhuren, vuurspuwer boeken, Nederland, België")
+    seen, out = set(), []
+    for kw in ", ".join(parts).split(", "):
+        k = kw.strip()
+        if k and k.lower() not in seen:
+            seen.add(k.lower()); out.append(k)
+    return ", ".join(out)
+
+def _serp(title, desc, p, kind, lang):
+    slug = p.get("slug", "")
+    topic = f"{slug} {title}"
+    emo = _serp_emoji(topic)
+    # stadspagina's: de oude WordPress-marketingtitels volledig vervangen
+    # door een strak, zoekwoordenrijk formaat per stad
+    if kind == "city" and lang == "nl" and slug in CITY_LABEL:
+        city = CITY_LABEL[slug]
+        title = f"🔥 Vuurspuwer inhuren in {city} | Vuurshow vanaf €350"
+        desc = (f"📍 Vuurspuwer Nuno in {city}: vuurshow, fakirshow & workshop "
+                f"vuurspuwen ★ 4,9/5 (134 reviews) ✓ €350–€1500 ✓ Binnen 24 uur "
+                f"een offerte voor jouw feest of event in {city}.")
+    else:
+        title = _fit_title(title)
+        if not _has_emoji(title):
+            title = f"{emo} {title}"
+        if len(title) <= 48 and "nuno" not in title.lower():
+            title += " | Nuno"
+        # beschrijving: bestaande goede teksten houden maar inkorten en van
+        # sterren voorzien; kale tekstfragmenten worden een echte advertentie
+        crafted = p.get("seo_desc") or ""
+        rating = _RATING_TXT[lang]
+        if not crafted:
+            kern = _fit_title(p.get("title", ""), 64)
+            kern = re.sub(r"^[^\w€]+\s*", "", kern).rstrip("?.!")
+            desc = (f"{emo} {kern}? Tips & antwoorden van vuurspuwer en fakir "
+                    f"Nuno {rating} ✓ Shows van €350 tot €1500 in NL & BE "
+                    f"✓ Binnen 24 uur offerte.")
+        else:
+            desc = crafted
+            if "4,9" not in desc and "4.9" not in desc and len(desc) + len(rating) + 1 <= 156:
+                desc = f"{desc.rstrip()} {rating}"
+            if not _has_emoji(desc) and "★" not in desc and "✓" not in desc:
+                desc = f"{emo} {desc}"
+    if len(desc) > 160:
+        desc = desc[:158].rsplit(" ", 1)[0].rstrip(" ,;:–—-") + "…"
+    # uniek over de hele site: bij een botsing een onderscheidend achtervoegsel
+    key = title.lower()
+    if _SEEN_TITLES.get(key, slug) != slug:
+        for extra in (" | Tips", " | Gids", " | Info", f" | {slug[-12:]}"):
+            cand = _fit_title(f"{title}{extra}", 70)
+            if cand.lower() not in _SEEN_TITLES:
+                title = cand; key = title.lower(); break
+    _SEEN_TITLES.setdefault(key, slug)
+    return title, desc, _serp_kw(p, kind, emo)
+
 def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alternates=None):
     L = I.UI[lang]
     if not p.get("no_toc"):
         p = {**p, "body": _add_toc(p.get("body", ""), lang)}
     title = p["seo_title"] or f'{p["title"]} | Vuurspuwer Nuno'
     desc  = p["seo_desc"] or text_of(p["body"], 155)
+    title, desc, meta_kw = _serp(title, desc, p, kind, lang)
     path  = path or (f'/{p["slug"]}/' if p["slug"] else "/")
     url   = SITE + path
 
@@ -970,6 +1117,7 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
 {GTAG}
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
+<meta name="keywords" content="{esc(meta_kw)}">
 {'<meta name="robots" content="noindex,follow">' if p.get("noindex") else '<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">'}
 <meta name="author" content="Nuno (Vuurspuwer Nuno)">
 <link rel="canonical" href="{url}">
