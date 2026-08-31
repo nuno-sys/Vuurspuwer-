@@ -5,7 +5,7 @@ Leest de export, kiest de 20 stadspagina's, de blogposts en de vaste
 pagina's, en schrijft voor elk een map met een index.html in het ontwerp
 van de homepage. Webadressen blijven exact zoals ze nu zijn.
 """
-import html, json, os, re, shutil, sys, unicodedata
+import hashlib, html, json, os, re, shutil, sys, unicodedata
 import xml.etree.ElementTree as ET
 from datetime import date
 from html.parser import HTMLParser
@@ -970,7 +970,7 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
 {GTAG}
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
-<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+{'<meta name="robots" content="noindex,follow">' if p.get("noindex") else '<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">'}
 <meta name="author" content="Nuno (Vuurspuwer Nuno)">
 <link rel="canonical" href="{url}">
 {hreflang}
@@ -989,6 +989,7 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
 <link rel="alternate" type="application/rss+xml" title="Blog — Vuurspuwer Nuno" href="/feed.xml">
 <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/assets/icon-96.png" type="image/png" sizes="96x96">
 <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
@@ -1027,10 +1028,38 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
 </html>
 '''
 
+# ----------------------------------------------------- eerlijke lastmod
+# Google negeert <lastmod> zodra het onbetrouwbaar blijkt — en tot nu toe
+# stempelde elke build álle pagina's op "vandaag". Daarom een grootboek
+# (lastmod.json, meegecommit): per pagina een vingerafdruk van de inhoud
+# (zonder vluchtige delen zoals ?v=-versies en datums); de datum schuift
+# alleen op wanneer de inhoud écht verandert. Sitemap-lastmod en
+# dateModified van artikelen volgen dit grootboek.
+_LEDGER_F = "lastmod.json"
+try:
+    _LEDGER = json.load(open(_LEDGER_F, encoding="utf-8"))
+except Exception:
+    _LEDGER = {}
+_WRITTEN_PATHS = set()
+_VOLATILE = re.compile(r"\?v=[0-9a-f]+|\d{4}-\d{2}-\d{2}")
+
+def _lastmod(path, doc):
+    _WRITTEN_PATHS.add(path)
+    h = hashlib.sha1(_VOLATILE.sub("", doc).encode("utf-8")).hexdigest()[:16]
+    old = _LEDGER.get(path)
+    if old and old.get("h") == h:
+        return old["d"]
+    _LEDGER[path] = {"h": h, "d": TODAY}
+    return TODAY
+
 def write(slug, doc):
+    doc = _avifize(doc)
+    path = f"/{slug}/" if slug else "/"
+    mod = _lastmod(path, doc)
+    doc = doc.replace(f'"dateModified": "{TODAY}"', f'"dateModified": "{mod}"')
     d = os.path.join(OUT, slug)
     os.makedirs(d, exist_ok=True)
-    open(os.path.join(d, "index.html"), "w", encoding="utf-8").write(_avifize(doc))
+    open(os.path.join(d, "index.html"), "w", encoding="utf-8").write(doc)
 
 
 # ------------------------------------------------- de fotopagina
@@ -1962,7 +1991,10 @@ for _p in ("/fotos/", "/en/photos/", "/de/fotos/", "/fr/photos/"):
     SITEMAP_IMG[_p] = list(dict.fromkeys(SITEMAP_IMG.get(_p, []) + _GALLERY))
 
 for pth, pr in urls:
-    entry = f"  <url><loc>{SITE}{pth}</loc><lastmod>{TODAY}</lastmod><priority>{pr}</priority>"
+    # de homepage wordt ná de sitemap geschreven: daarvoor geldt de datum
+    # uit het grootboek van de vorige build (één build vertraging, daarna juist)
+    _mod = _LEDGER.get(pth, {}).get("d", TODAY)
+    entry = f"  <url><loc>{SITE}{pth}</loc><lastmod>{_mod}</lastmod><priority>{pr}</priority>"
     for l, alt in sorted((LANG_ALTS.get(pth) or {}).items()):
         entry += f'<xhtml:link rel="alternate" hreflang="{l}" href="{SITE}{alt}"/>'
     for iu in SITEMAP_IMG.get(pth, []):
@@ -2165,7 +2197,9 @@ hp_doc = hp_doc.replace('<div class="foot__bar">',
                         lang_row("nl", home_alts) + '\n  <div class="foot__bar">')
 hp_doc = hp_doc.replace("</head>", spec_rules("nl") + "\n</head>", 1)
 hp_doc = hp_doc.replace("<!--FOOT:SEO-->", foot_seo())
-open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(_avifize(hp_doc))
+hp_doc = _avifize(hp_doc)
+_lastmod("/", hp_doc)
+open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(hp_doc)
 shutil.copytree("assets", os.path.join(OUT, "assets"))
 
 # css en js geminificeerd in dist; de bronbestanden blijven leesbaar
@@ -2203,7 +2237,8 @@ _hdrs = _hdrs.replace("/*\n", _early, 1)
 open(os.path.join(OUT, "_headers"), "w", encoding="utf-8").write(_hdrs)
 
 # eigen 404-pagina in huisstijl (Cloudflare Pages pakt 404.html automatisch)
-_p404 = {"slug": "404", "title": "Deze pagina is in rook opgegaan",
+_p404 = {"slug": "404", "noindex": True,
+         "title": "Deze pagina is in rook opgegaan",
          "seo_title": "404 — Pagina niet gevonden | Vuurspuwer Nuno",
          "seo_desc": "Deze pagina bestaat niet (meer). Bekijk de shows, prijzen en foto's van Vuurspuwer Nuno of neem contact op.",
          "eyebrow": "404", "date": TODAY,
@@ -2299,3 +2334,9 @@ print(f"  feed.xml geschreven ({len(_feed_posts)} artikelen)")
 shutil.copy("favicon.ico", os.path.join(OUT, "favicon.ico"))
 shutil.copy("site.webmanifest", os.path.join(OUT, "site.webmanifest"))
 print("  homepage en assets gekopieerd")
+
+# grootboek bijwerken: alleen paden die deze build echt bestaan
+_LEDGER = {p: v for p, v in _LEDGER.items() if p in _WRITTEN_PATHS}
+json.dump(_LEDGER, open(_LEDGER_F, "w", encoding="utf-8"),
+          ensure_ascii=False, indent=0, sort_keys=True)
+print(f"  lastmod.json bijgewerkt ({len(_LEDGER)} pagina's)")
