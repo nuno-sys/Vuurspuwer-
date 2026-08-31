@@ -1378,3 +1378,14 @@
     }).observe(card, { attributes: true, attributeFilter: ["hidden"] });
   }
 })();
+
+/* Service worker: assets en bezochte pagina's uit de lokale cache —
+   vervolgkliks en herhaalbezoek zijn onmiddellijk, offline werkt de
+   site als brochure. Registratie buiten het kritieke pad. */
+if ("serviceWorker" in navigator) {
+  addEventListener("load", function () {
+    setTimeout(function () {
+      navigator.serviceWorker.register("/sw.js").catch(function () {});
+    }, 600);
+  });
+}

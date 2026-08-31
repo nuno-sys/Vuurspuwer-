@@ -496,6 +496,23 @@ def _add_toc(body, lang):
     pos = new.find("<h2")
     return new[:pos] + toc + new[pos:] if pos > -1 else new
 
+# Instant-navigatie: direct na de eerste paginalading worden de vier
+# belangrijkste vervolgpagina's alvast opgehaald, en elke interne link
+# wordt bij hover/touch al gepre-renderd (Speculation Rules, Chrome/Edge).
+def spec_rules(lang):
+    top = [I.url_of(lang, s) for s in
+           ("contact-3", "wat-kost-een-vuurspuwer", "vuurspuwer-inhuren", "halloween")]
+    rules = {
+        "prefetch": [{"urls": top, "eagerness": "immediate"}],
+        "prerender": [{"where": {"and": [
+            {"href_matches": "/*"},
+            {"not": {"href_matches": "/api/*"}},
+            {"not": {"href_matches": "/assets/*"}}]},
+            "eagerness": "moderate"}],
+    }
+    return ('<script type="speculationrules">'
+            + json.dumps(rules, separators=(",", ":")) + "</script>")
+
 def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alternates=None):
     L = I.UI[lang]
     p = {**p, "body": _add_toc(p.get("body", ""), lang)}
@@ -626,6 +643,7 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
 <link rel="stylesheet" href="/assets/site.css?v={VER}">
 {preload}
 {ld}
+{spec_rules(lang)}
 </head>
 <body>
 <a class="skip" href="#top">{L.get("skip", "Naar de inhoud")}</a>
@@ -1500,6 +1518,7 @@ hp_doc = hp_doc.replace(
     hre + '<link rel="alternate" hreflang="x-default" href="https://vuurspuwer.com/">')
 hp_doc = hp_doc.replace('<div class="foot__bar">',
                         lang_row("nl", home_alts) + '\n  <div class="foot__bar">')
+hp_doc = hp_doc.replace("</head>", spec_rules("nl") + "\n</head>", 1)
 open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(hp_doc)
 shutil.copytree("assets", os.path.join(OUT, "assets"))
 
@@ -1558,6 +1577,52 @@ _p404 = {"slug": "404", "title": "Deze pagina is in rook opgegaan",
 open(os.path.join(OUT, "404.html"), "w", encoding="utf-8").write(
     render(_p404, "page", path="/"))
 print("  _headers met Early Hints en 404.html geschreven")
+
+# service worker: assets cache-first (staan toch een jaar vast), pagina's
+# stale-while-revalidate — herhaalbezoek en vervolgkliks zijn daarmee
+# onmiddellijk, en de site werkt zelfs offline als brochure.
+open(os.path.join(OUT, "sw.js"), "w", encoding="utf-8").write("""\
+const V = "vs-%s";
+const CORE = [
+  "/", "/assets/site.css?v=%s", "/assets/site.js?v=%s",
+  "/assets/fonts/archivo-latin.woff2", "/assets/fonts/instrument-latin.woff2",
+  "/assets/fonts/jetbrains-latin.woff2"
+];
+self.addEventListener("install", (e) => {
+  e.waitUntil(caches.open(V).then((c) => c.addAll(CORE)).then(() => self.skipWaiting()));
+});
+self.addEventListener("activate", (e) => {
+  e.waitUntil(caches.keys()
+    .then((ks) => Promise.all(ks.filter((k) => k !== V).map((k) => caches.delete(k))))
+    .then(() => self.clients.claim()));
+});
+self.addEventListener("fetch", (e) => {
+  const url = new URL(e.request.url);
+  if (e.request.method !== "GET" || url.origin !== location.origin) return;
+  if (url.pathname.startsWith("/api/")) return;
+  if (url.pathname.startsWith("/assets/")) {
+    e.respondWith(caches.open(V).then(async (c) => {
+      const hit = await c.match(e.request);
+      if (hit) return hit;
+      const res = await fetch(e.request);
+      if (res.ok) c.put(e.request, res.clone());
+      return res;
+    }));
+    return;
+  }
+  if (e.request.mode === "navigate" || url.pathname.endsWith("/")) {
+    e.respondWith(caches.open(V).then(async (c) => {
+      const hit = await c.match(e.request);
+      const net = fetch(e.request).then((res) => {
+        if (res.ok) c.put(e.request, res.clone());
+        return res;
+      }).catch(() => hit || c.match("/"));
+      return hit || net;
+    }));
+  }
+});
+""" % (VER, VER, VER))
+print("  sw.js geschreven")
 shutil.copy("favicon.ico", os.path.join(OUT, "favicon.ico"))
 shutil.copy("site.webmanifest", os.path.join(OUT, "site.webmanifest"))
 print("  homepage en assets gekopieerd")
