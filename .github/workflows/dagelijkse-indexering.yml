@@ -1,0 +1,49 @@
+# Het masterplan: elke ochtend de tien belangrijkste pagina's van dat moment
+# aanmelden bij elke zoekmachine die dat toestaat, en het dagplan voor
+# Google Search Console klaarzetten. De keuze rouleert automatisch, houdt
+# rekening met het seizoen (Halloween in het najaar, kerst in december,
+# bruiloften in het voorjaar) en dekt in een jaar de hele site.
+name: Dagelijkse indexering
+on:
+  schedule:
+    # 06:20 UTC — ruim voor de ochtendcrawl, elke dag
+    - cron: "20 6 * * *"
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency:
+  group: dagelijkse-indexering
+  cancel-in-progress: false
+jobs:
+  aanmelden:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Dagplan opstellen en aanmelden
+        env:
+          BING_API_KEY: ${{ secrets.BING_API_KEY }}
+        run: python3 tools/dagplan.py
+
+      - name: Dagplan en stand vastleggen
+        run: |
+          git config user.name  "vuurspuwer-indexeerbot"
+          git config user.email "nuno@vuurspuwer.com"
+          git add indexing-state.json dagplan.md
+          if git diff --cached --quiet; then
+            echo "Niets gewijzigd."
+          else
+            git commit -m "Indexeer-dagplan $(date -u +%F) [skip ci]"
+            git push origin HEAD:main
+          fi
+
+      - name: Samenvatting
+        run: |
+          {
+            echo "## Indexering $(date -u +%F)"
+            echo
+            cat dagplan.md
+          } >> "$GITHUB_STEP_SUMMARY"

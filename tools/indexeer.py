@@ -14,8 +14,14 @@ Wat het doet:
      aanneemt.
 
 Gebruik:  python3 tools/indexeer.py
-(Draait ook automatisch: de GitHub Action doet stap 1 bij elke push naar
-main én elke maandagochtend.)
+
+Dit script is de HANDMATIGE, volledige ronde: alles in één keer aanmelden.
+Voor het dagelijkse werk draait tools/dagplan.py — die kiest elke ochtend
+automatisch de tien belangrijkste adressen van dat moment (met seizoens-
+weging en rotatie) en meldt ze aan. Zie .github/workflows/:
+  • dagelijkse-indexering.yml — elke dag 06:20 UTC, tien adressen
+  • indexnow.yml             — bij elke push naar main én elke maandag,
+                                de volledige sitemap
 """
 import json, re, sys, urllib.request
 

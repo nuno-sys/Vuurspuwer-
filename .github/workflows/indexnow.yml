@@ -5,6 +5,11 @@ name: IndexNow ping
 on:
   push:
     branches: [main]
+    # de dagelijkse indexeerbot werkt alleen zijn eigen stand bij; die
+    # commits hoeven niet nog eens de volledige sitemap aan te melden
+    paths-ignore:
+      - "indexing-state.json"
+      - "dagplan.md"
   schedule:
     # elke maandagochtend alles opnieuw aanmelden: houdt Bing, DuckDuckGo,
     # Yandex e.a. (en daarmee ook ChatGPT-search, dat op Bing draait) vers
