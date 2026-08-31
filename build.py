@@ -5,7 +5,7 @@ Leest de export, kiest de 20 stadspagina's, de blogposts en de vaste
 pagina's, en schrijft voor elk een map met een index.html in het ontwerp
 van de homepage. Webadressen blijven exact zoals ze nu zijn.
 """
-import html, json, os, re, shutil, sys
+import html, json, os, re, shutil, sys, unicodedata
 import xml.etree.ElementTree as ET
 from datetime import date
 from html.parser import HTMLParser
@@ -468,8 +468,37 @@ def lang_row(lang, alternates):
             parts.append(f'<a href="{href}" hreflang="{l}" lang="{l}">{name}</a>')
     return ('<div class="foot__langs">\U0001F310 ' + " &middot; ".join(parts) + "</div>")
 
+# Inhoudsopgave met ankers op elke lange pagina: Google kan dan
+# "Ga naar sectie"-springlinks onder het zoekresultaat tonen.
+_TOC_TITLE = {"nl": "Op deze pagina", "en": "On this page",
+              "de": "Auf dieser Seite", "fr": "Sur cette page"}
+def _hid(text, used):
+    t = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode()
+    t = re.sub(r"[^a-z0-9]+", "-", t.lower()).strip("-")[:60] or "sectie"
+    h = t; n = 2
+    while h in used: h = f"{t}-{n}"; n += 1
+    used.add(h)
+    return h
+
+def _add_toc(body, lang):
+    used, heads = set(), []
+    def repl(m):
+        label = m.group(1)
+        text = html.unescape(re.sub(r"<[^>]+>", "", label)).strip()
+        hid = _hid(text, used)
+        heads.append((hid, text))
+        return f'<h2 id="{hid}">{label}</h2>'
+    new = re.sub(r"<h2>(.*?)</h2>", repl, body, flags=re.S)
+    if len(heads) < 3: return body
+    items = "".join(f'<li><a href="#{h}">{esc(t)}</a></li>' for h, t in heads)
+    toc = (f'<nav class="toc" aria-label="{_TOC_TITLE[lang]}">'
+           f'<p class="toc__t">{_TOC_TITLE[lang]}</p><ul>{items}</ul></nav>')
+    pos = new.find("<h2")
+    return new[:pos] + toc + new[pos:] if pos > -1 else new
+
 def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alternates=None):
     L = I.UI[lang]
+    p = {**p, "body": _add_toc(p.get("body", ""), lang)}
     title = p["seo_title"] or f'{p["title"]} | Vuurspuwer Nuno'
     desc  = p["seo_desc"] or text_of(p["body"], 155)
     path  = path or (f'/{p["slug"]}/' if p["slug"] else "/")
@@ -1496,8 +1525,39 @@ try:
         print(f"  {js} geminificeerd: {len(_src)//1024} -> {os.path.getsize(p)//1024} KiB")
 except ImportError:
     print("  rjsmin niet beschikbaar: js ongewijzigd gekopieerd")
-shutil.copy("_headers", os.path.join(OUT, "_headers"))
+# _headers naar dist, met 103 Early Hints (Link-preloads) erin — het
+# Cloudflare-equivalent van de oude LiteSpeed-serveroptimalisaties:
+# de browser krijgt css en fonts al aangereikt vóór de HTML er is.
+_hdrs = open("_headers", encoding="utf-8").read()
+_early = ("/*\n"
+          f"  Link: </assets/site.css?v={VER}>; rel=preload; as=style\n"
+          "  Link: </assets/fonts/archivo-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin\n"
+          "  Link: </assets/fonts/instrument-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin\n"
+          "  Link: </assets/fonts/jetbrains-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin\n")
+_hdrs = _hdrs.replace("/*\n", _early, 1)
+open(os.path.join(OUT, "_headers"), "w", encoding="utf-8").write(_hdrs)
+
+# eigen 404-pagina in huisstijl (Cloudflare Pages pakt 404.html automatisch)
+_p404 = {"slug": "404", "title": "Deze pagina is in rook opgegaan",
+         "seo_title": "404 — Pagina niet gevonden | Vuurspuwer Nuno",
+         "seo_desc": "Deze pagina bestaat niet (meer). Bekijk de shows, prijzen en foto's van Vuurspuwer Nuno of neem contact op.",
+         "eyebrow": "404", "date": TODAY,
+         "img": ("/assets/media/vuurbal-1333.webp",
+                 "Meters hoge vuurbal tegen een zwarte nachtlucht boven de vuurspuwer"),
+         "body": """
+<p><strong>De pagina die je zocht bestaat niet (meer) — maar het vuur brandt gewoon door.</strong> Waarschijnlijk is de pagina verhuisd of klopt het adres net niet.</p>
+<p>Waar wil je heen?</p>
+<ul>
+<li>🔥 <a href="/vuurspuwer-inhuren/">Vuurshow boeken</a> of de <a href="/fakir-show-inhuren/">fakirshow</a> bekijken</li>
+<li>💶 <a href="/wat-kost-een-vuurspuwer/">Prijzen en pakketten</a> — vanaf €350</li>
+<li>🎃 <a href="/halloween/">Halloween-acts</a> voor oktober</li>
+<li>📸 <a href="/fotos/">Foto's</a> en <a href="/videos/">video's</a> van de shows</li>
+<li>⭐ <a href="/beoordelingen/">4,9/5 uit 134 beoordelingen</a></li>
+<li>✉️ <a href="/contact-3/">Contact en offerte</a> — of app direct via <a href="https://wa.me/31620020723" rel="noopener">WhatsApp</a></li>
+</ul>"""}
+open(os.path.join(OUT, "404.html"), "w", encoding="utf-8").write(
+    render(_p404, "page", path="/"))
+print("  _headers met Early Hints en 404.html geschreven")
 shutil.copy("favicon.ico", os.path.join(OUT, "favicon.ico"))
 shutil.copy("site.webmanifest", os.path.join(OUT, "site.webmanifest"))
-shutil.copy("404.html", os.path.join(OUT, "404.html")) if os.path.exists("404.html") else None
 print("  homepage en assets gekopieerd")

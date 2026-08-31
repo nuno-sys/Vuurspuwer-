@@ -19,12 +19,17 @@
     document.head.appendChild(s);
   }
   if (document.readyState === "complete") {
-    setTimeout(load, 800);
+    setTimeout(load, 250);
   } else {
-    addEventListener("load", function () { setTimeout(load, 800); });
+    addEventListener("load", function () { setTimeout(load, 250); });
   }
   /* wie eerder interactie heeft, wordt meteen gemeten */
   ["pointerdown", "keydown", "touchstart", "scroll"].forEach(function (ev) {
     addEventListener(ev, load, { once: true, passive: true });
+  });
+  /* vertrekt de bezoeker vóór het laden, laad dan alsnog direct: de
+     gebufferde dataLayer-events gaan dan via de beacon-transport mee */
+  addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "hidden") load();
   });
 })();

@@ -1339,3 +1339,42 @@
   tick();
   setInterval(tick, 1000);
 })();
+
+/* GA4-conversietracking: elke klik die richting een boeking gaat wordt
+   als event gemeten. gtag buffert in de dataLayer, dus ook kliks vóór
+   het laden van het script gaan niet verloren. */
+(function () {
+  function send(name, params) {
+    try { if (window.gtag) window.gtag("event", name, params || {}); } catch (e) {}
+  }
+  document.addEventListener("click", function (e) {
+    var a = e.target && e.target.closest ? e.target.closest("a,button") : null;
+    if (!a) return;
+    var h = a.href || "";
+    var txt = (a.textContent || "").trim().slice(0, 60);
+    if (h.indexOf("tel:") === 0)            send("phone_call",     { link_url: h, link_text: txt });
+    else if (h.indexOf("wa.me") > -1)       send("whatsapp_click", { link_url: h, link_text: txt });
+    else if (h.indexOf("mailto:") === 0)    send("email_click",    { link_url: h });
+    else if (a.id === "chatCta")            send("chat_cta_click", {});
+    else if (a.id === "shareBtn")           send("share_open",     {});
+    else if (a.closest && a.closest("#sharePanel"))
+                                            send("share", { method: a.dataset.share || "link" });
+    else if (a.closest && a.closest(".pstrip"))
+                                            send("prices_click", { page_path: location.pathname });
+    else if (a.closest && a.closest(".hw")) send("halloween_cta",  {});
+  }, { capture: true, passive: true });
+
+  /* formulier verstuurd = belangrijkste conversie */
+  var form = document.getElementById("bookForm");
+  if (form) form.addEventListener("submit", function () {
+    send("generate_lead", { form_id: "bookForm", page_path: location.pathname });
+  });
+
+  /* mini-chat geopend (één keer per paginaweergave) */
+  var card = document.getElementById("chatCard"), chatSeen = false;
+  if (card && window.MutationObserver) {
+    new MutationObserver(function () {
+      if (!card.hidden && !chatSeen) { chatSeen = true; send("chat_open", {}); }
+    }).observe(card, { attributes: true, attributeFilter: ["hidden"] });
+  }
+})();
