@@ -261,6 +261,24 @@ _BUSINESS_LD = {
     "aggregateRating": _RATING_LD,
 }
 
+# Google Afbeeldingen: elke foto draagt maker, licentie en de pagina waar
+# gebruiksrecht aangevraagd kan worden (Search Console-suggesties).
+_IMG_META = {
+    "creator": {"@type": "Person", "@id": f"{SITE}/#nuno", "name": "Nuno"},
+    "creditText": "Vuurspuwer Nuno",
+    "copyrightNotice": "© Vuurspuwer Nuno",
+    "license": f"{SITE}/disclaimer-voorwaarden/",
+    "acquireLicensePage": f"{SITE}/contact-3/",
+}
+def _license_images(g):
+    if isinstance(g, dict):
+        t = g.get("@type")
+        if "ImageObject" in (t if isinstance(t, list) else [t]):
+            for k, v in _IMG_META.items(): g.setdefault(k, v)
+        for v in g.values(): _license_images(v)
+    elif isinstance(g, list):
+        for v in g: _license_images(v)
+
 def _augment_rich_results(graph, lang, page_desc=None, page_img=None):
     def types(g):
         t = g.get("@type")
@@ -292,6 +310,7 @@ def _augment_rich_results(graph, lang, page_desc=None, page_img=None):
                for g in graph):
         extra.append(_BUSINESS_LD)
     graph.extend(extra)
+    _license_images(graph)
     # het bedrijf en de producten (sterren, prijzen) als eerste blokken in de
     # head, zodat zoekmachines ze zo vroeg mogelijk lezen
     def _prio(g):
@@ -370,6 +389,8 @@ _BRAND_ARIA = {"en": "Fire breather Nuno, to the homepage", "de": "Feuerspucker 
 _CALL_ARIA = {"en": "Call Nuno on +31 6 200 207 23", "de": "Nuno anrufen unter +31 6 200 207 23",
               "fr": "Appeler Nuno au +31 6 200 207 23"}
 _CALL_NOW = {"en": ">Call now<", "de": ">Jetzt anrufen<", "fr": ">Appeler<"}
+
+SITEMAP_IMG = {}   # pad -> [volledige afbeeldings-urls] voor de image-sitemap
 
 _CHROME_CACHE = {}
 def chrome(lang):
@@ -501,6 +522,7 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
     preload = ""
     if p.get("img"):
         iu, ia = p["img"]
+        if iu.startswith("/"): SITEMAP_IMG[path] = [SITE + iu]
         ss = srcset_of(iu)
         ss_attr = f' srcset="{ss}" sizes="100vw"' if ss else ""
         pre_ss = f' imagesrcset="{ss}" imagesizes="100vw"' if ss else ""
@@ -548,6 +570,7 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
 {GTAG}
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 <link rel="canonical" href="{url}">
 {hreflang}
 <meta property="og:type" content="{'article' if kind == 'post' else 'website'}">
@@ -1128,11 +1151,48 @@ def _prio(s):
 urls = [("/", "1.0")] + [(f"/{s}/", _prio(s)) for s in sorted(kept)]
 sm = ['<?xml version="1.0" encoding="UTF-8"?>',
       '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
-      'xmlns:xhtml="http://www.w3.org/1999/xhtml">']
+      'xmlns:xhtml="http://www.w3.org/1999/xhtml" '
+      'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" '
+      'xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">']
+
+# de homepage draagt de volledige galerij en de showreels mee, zodat
+# Google Afbeeldingen en Google Video's alles rechtstreeks vinden
+SITEMAP_IMG["/"] = [SITE + u for u in (
+    "/assets/media/vuurbal-1333.webp", "/assets/media/festival-1600.webp",
+    "/assets/media/vuurshow-850.webp", "/assets/media/themafeest-1080.webp",
+    "/assets/media/fakir-1080.webp", "/assets/media/mentalist-1371.webp",
+    "/assets/media/schemering-640.webp", "/assets/media/avondvuur-1080.webp",
+    "/assets/media/spijkerbed-1242.webp", "/assets/media/bruiloft-1080.webp",
+    "/assets/media/reptiel-960.webp")]
+_VIDEOS = [
+    ("Showreel Vuurspuwer Nuno - vuurshow op locatie",
+     "Beelden van een vuurshow van Vuurspuwer Nuno: vuurspuwen, vuurjongleren en body fire.",
+     "/assets/media/reel-1-poster.webp", "/assets/media/reel-1.mp4", 19),
+    ("Showreel Vuurspuwer Nuno - acts en fakirwerk",
+     "Compilatie van vuur- en fakiracts van Vuurspuwer Nuno op festivals en bedrijfsfeesten.",
+     "/assets/media/reel-2-poster.webp", "/assets/media/reel-2.mp4", 58),
+    ("Showreel Vuurspuwer Nuno",
+     "Korte showreel van vuurspuwer en fakir Nuno.",
+     "/assets/media/reel-poster.jpg", "/assets/media/showreel.mp4", 13),
+    ("Vuurbal in close-up - Vuurspuwer Nuno",
+     "Meters hoge vuurbal van vuurspuwer Nuno, gefilmd van dichtbij.",
+     "/assets/media/vuurbal-900.webp", "/assets/media/hero-portrait.mp4", 5),
+]
 for pth, pr in urls:
     entry = f"  <url><loc>{SITE}{pth}</loc><lastmod>{TODAY}</lastmod><priority>{pr}</priority>"
     for l, alt in sorted((LANG_ALTS.get(pth) or {}).items()):
         entry += f'<xhtml:link rel="alternate" hreflang="{l}" href="{SITE}{alt}"/>'
+    for iu in SITEMAP_IMG.get(pth, []):
+        entry += f"<image:image><image:loc>{iu}</image:loc></image:image>"
+    if pth == "/":
+        for vt, vd, vp, vc, vs in _VIDEOS:
+            entry += ("<video:video>"
+                      f"<video:thumbnail_loc>{SITE}{vp}</video:thumbnail_loc>"
+                      f"<video:title>{esc(vt)}</video:title>"
+                      f"<video:description>{esc(vd)}</video:description>"
+                      f"<video:content_loc>{SITE}{vc}</video:content_loc>"
+                      f"<video:duration>{vs}</video:duration>"
+                      "</video:video>")
     sm.append(entry + "</url>")
 sm.append("</urlset>")
 open(os.path.join(OUT, "sitemap.xml"), "w").write("\n".join(sm) + "\n")
