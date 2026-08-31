@@ -4013,3 +4013,6 @@ html[data-theme="light"] .gloss__item{ background-color:rgba(255,255,255,.6); }
   background:linear-gradient(to top, rgba(5,3,2,.88), transparent);
 }
 @media print{ .rcard__proof{ display:none !important; } }
+
+/* de vier verse reviews als intro: royale 2x2-indeling op desktop */
+.rgrid--feat{ grid-template-columns:repeat(auto-fill,minmax(min(440px,100%),1fr)); }

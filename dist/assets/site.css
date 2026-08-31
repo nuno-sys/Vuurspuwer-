@@ -3084,3 +3084,4 @@ text-transform:uppercase;
 color:#FFE9C4;
 background:linear-gradient(to top, rgba(5,3,2,.88), transparent);}
 @media print{ .rcard__proof{ display:none !important; } }
+.rgrid--feat{ grid-template-columns:repeat(auto-fill,minmax(min(440px,100%),1fr)); }

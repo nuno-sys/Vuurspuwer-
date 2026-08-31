@@ -443,13 +443,15 @@ NEW_REVIEWS = [
   "Super leuke ervaring! Nuno neemt zijn hele publiek mee in een geweldige show vol grappen en echte spectaculaire stunts. Nooit verwacht om zelf nog eens vuur te mogen spuwen, heel erg bedankt voor de mooie ervaring!"),
  ("Lisanne", "Google", "2026-08-17", "review-lisanne", (480, 188),
   "Aardige man, zorgt voor een spectaculaire show! Waar veel mensen naar blijven kijken en steeds meer willen zien! ☄️🔥💥"),
+ ("N. Beek", "Local Guide", "2026-08-17", "review-nbeek", (480, 208),
+  "Wij hadden een vuurspuw workshop geboekt voor een vrijgezellenfeest bij Nuno. Nuno weet er echt een feestje van te maken en we hebben dan ook een hele leuke workshop gehad. Aanrader!"),
 ]
 
 def new_review_cards(badge="NIEUW", ago="augustus 2026", lang_attr="",
                      proof="📸 Origineel van Google", proof_alt="Originele Google-review van"):
     out = []
     for i, (n, meta, d, img, (iw, ih), t) in enumerate(NEW_REVIEWS):
-        delay = f' data-delay="{i}"' if i else ""
+        delay = f' data-delay="{i % 3}"' if i % 3 else ""
         out.append(
             f'<article class="rcard rcard--new rise"{delay}{lang_attr}>'
             f'<p class="rcard__stars" aria-label="5 van de 5 sterren">★★★★★'

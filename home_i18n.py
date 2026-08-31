@@ -136,6 +136,8 @@ HOME = {
   '&ldquo;Super fun experience! Nuno takes his whole audience along in a great show full of jokes and truly spectacular stunts. Never expected to breathe fire myself one day — thank you so much for the wonderful experience!&rdquo;',
   '>NIEUW<':
   '>NEW<',
+  '&ldquo;Wij hadden een vuurspuw workshop geboekt voor een vrijgezellenfeest bij Nuno. Nuno weet er echt een feestje van te maken en we hebben dan ook een hele leuke workshop gehad. Aanrader!&rdquo;': '&ldquo;We booked a fire-breathing workshop with Nuno for a bachelor party. Nuno really knows how to turn it into a party, and we had a great workshop indeed. Highly recommended!&rdquo;',
+  'alt="Originele Google-review van N. Beek"': 'alt="Original Google review by N. Beek"',
   '&ldquo;Aardige man, zorgt voor een spectaculaire show! Waar veel mensen naar blijven kijken en steeds meer willen zien! ☄️🔥💥&rdquo;': '&ldquo;Nice guy who puts on a spectacular show! One that people keep watching — and want to see more and more of! ☄️🔥💥&rdquo;',
   'alt="Originele Google-review van Lisanne"': 'alt="Original Google review by Lisanne"',
   '>📸 Origineel van Google<': '>📸 Original from Google<',
@@ -146,12 +148,6 @@ HOME = {
   "136 beoordelingen op Google &middot;": "136 reviews on Google &middot;",
   ">bekijk ze op Google<": ">see them on Google<",
   "Lees alle 30 uitgelichte reviews &rsaquo;": "Read all 30 featured reviews &rsaquo;",
-  "&ldquo;Wat een magisch optreden van Vuurspuwer Nuno in Amsterdam! Het vuurspuwen was professioneel en het publiek was muisstil van spanning. Een onvergetelijke avond.&rdquo;":
-  "&ldquo;What a magical performance by fire breather Nuno in Amsterdam! The fire breathing was professional and the audience was dead silent with suspense. An unforgettable evening.&rdquo;",
-  "&ldquo;Geweldige fakir- en vuurperformance van Nuno in Antwerpen. Elke stunt werd met precisie uitgevoerd. Topentertainment!&rdquo;":
-  "&ldquo;Great fakir and fire performance by Nuno in Antwerp. Every stunt was executed with precision. Top entertainment!&rdquo;",
-  "&ldquo;Vuurspuwer Nuno maakte indruk met zijn opwindende fakirtrucs tijdens het event in Gent. Alles was perfect getimed en magisch. 5 sterren waard!&rdquo;":
-  "&ldquo;Fire breather Nuno impressed with his thrilling fakir tricks during the event in Ghent. Everything was perfectly timed and magical. Worth 5 stars!&rdquo;",
   'aria-label="5 van de 5 sterren"': 'aria-label="5 out of 5 stars"',
 
   # --- zekerheid ---
@@ -370,6 +366,8 @@ HOME = {
   '&ldquo;Super schöne Erfahrung! Nuno nimmt sein ganzes Publikum mit in eine großartige Show voller Witze und wirklich spektakulärer Stunts. Nie erwartet, selbst einmal Feuer spucken zu dürfen — vielen Dank für dieses schöne Erlebnis!&rdquo;',
   '>NIEUW<':
   '>NEU<',
+  '&ldquo;Wij hadden een vuurspuw workshop geboekt voor een vrijgezellenfeest bij Nuno. Nuno weet er echt een feestje van te maken en we hebben dan ook een hele leuke workshop gehad. Aanrader!&rdquo;': '&ldquo;Wir hatten bei Nuno einen Feuerspuck-Workshop für einen Junggesellenabschied gebucht. Nuno weiß daraus wirklich ein Fest zu machen, und wir hatten einen richtig tollen Workshop. Sehr zu empfehlen!&rdquo;',
+  'alt="Originele Google-review van N. Beek"': 'alt="Originale Google-Bewertung von N. Beek"',
   '&ldquo;Aardige man, zorgt voor een spectaculaire show! Waar veel mensen naar blijven kijken en steeds meer willen zien! ☄️🔥💥&rdquo;': '&ldquo;Netter Mann, der für eine spektakuläre Show sorgt! Bei der viele Leute dranbleiben — und immer mehr sehen wollen! ☄️🔥💥&rdquo;',
   'alt="Originele Google-review van Lisanne"': 'alt="Originale Google-Bewertung von Lisanne"',
   '>📸 Origineel van Google<': '>📸 Original von Google<',
@@ -380,12 +378,6 @@ HOME = {
   "136 beoordelingen op Google &middot;": "136 Bewertungen auf Google &middot;",
   ">bekijk ze op Google<": ">auf Google ansehen<",
   "Lees alle 30 uitgelichte reviews &rsaquo;": "Alle 30 ausgewählten Bewertungen lesen &rsaquo;",
-  "&ldquo;Wat een magisch optreden van Vuurspuwer Nuno in Amsterdam! Het vuurspuwen was professioneel en het publiek was muisstil van spanning. Een onvergetelijke avond.&rdquo;":
-  "&ldquo;Was für ein magischer Auftritt von Feuerspucker Nuno in Amsterdam! Das Feuerspucken war professionell und das Publikum war mucksmäuschenstill vor Spannung. Ein unvergesslicher Abend.&rdquo;",
-  "&ldquo;Geweldige fakir- en vuurperformance van Nuno in Antwerpen. Elke stunt werd met precisie uitgevoerd. Topentertainment!&rdquo;":
-  "&ldquo;Großartige Fakir- und Feuer-Performance von Nuno in Antwerpen. Jeder Stunt wurde mit Präzision ausgeführt. Top-Entertainment!&rdquo;",
-  "&ldquo;Vuurspuwer Nuno maakte indruk met zijn opwindende fakirtrucs tijdens het event in Gent. Alles was perfect getimed en magisch. 5 sterren waard!&rdquo;":
-  "&ldquo;Feuerspucker Nuno beeindruckte mit seinen aufregenden Fakir-Tricks beim Event in Gent. Alles war perfekt getimt und magisch. 5 Sterne wert!&rdquo;",
   'aria-label="5 van de 5 sterren"': 'aria-label="5 von 5 Sternen"',
 
   ">Zekerheid<": ">Sicherheit &amp; Vertrauen<",
@@ -597,6 +589,8 @@ HOME = {
   '&ldquo;Une expérience super sympa ! Nuno embarque tout son public dans un spectacle génial, plein d&rsquo;humour et de cascades vraiment spectaculaires. Jamais je n&rsquo;aurais pensé cracher du feu moi-même un jour — merci beaucoup pour cette belle expérience !&rdquo;',
   '>NIEUW<':
   '>NOUVEAU<',
+  '&ldquo;Wij hadden een vuurspuw workshop geboekt voor een vrijgezellenfeest bij Nuno. Nuno weet er echt een feestje van te maken en we hebben dan ook een hele leuke workshop gehad. Aanrader!&rdquo;': '&ldquo;Nous avions réservé un atelier cracheur de feu chez Nuno pour un enterrement de vie de garçon. Nuno sait vraiment en faire une fête, et nous avons passé un atelier très sympa. À recommander !&rdquo;',
+  'alt="Originele Google-review van N. Beek"': 'alt="Avis Google original de N. Beek"',
   '&ldquo;Aardige man, zorgt voor een spectaculaire show! Waar veel mensen naar blijven kijken en steeds meer willen zien! ☄️🔥💥&rdquo;': '&ldquo;Un homme sympathique qui offre un spectacle spectaculaire ! Que beaucoup de gens continuent de regarder — en voulant en voir toujours plus ! ☄️🔥💥&rdquo;',
   'alt="Originele Google-review van Lisanne"': 'alt="Avis Google original de Lisanne"',
   '>📸 Origineel van Google<': '>📸 Original de Google<',
@@ -607,12 +601,6 @@ HOME = {
   "136 beoordelingen op Google &middot;": "136 avis sur Google &middot;",
   ">bekijk ze op Google<": ">les voir sur Google<",
   "Lees alle 30 uitgelichte reviews &rsaquo;": "Lire les 30 avis sélectionnés &rsaquo;",
-  "&ldquo;Wat een magisch optreden van Vuurspuwer Nuno in Amsterdam! Het vuurspuwen was professioneel en het publiek was muisstil van spanning. Een onvergetelijke avond.&rdquo;":
-  "&ldquo;Quelle prestation magique du cracheur de feu Nuno à Amsterdam ! Le crachage de feu était professionnel et le public retenait son souffle. Une soirée inoubliable.&rdquo;",
-  "&ldquo;Geweldige fakir- en vuurperformance van Nuno in Antwerpen. Elke stunt werd met precisie uitgevoerd. Topentertainment!&rdquo;":
-  "&ldquo;Superbe performance de fakir et de feu de Nuno à Anvers. Chaque cascade était exécutée avec précision. Un divertissement au top !&rdquo;",
-  "&ldquo;Vuurspuwer Nuno maakte indruk met zijn opwindende fakirtrucs tijdens het event in Gent. Alles was perfect getimed en magisch. 5 sterren waard!&rdquo;":
-  "&ldquo;Le cracheur de feu Nuno a impressionné avec ses numéros de fakir palpitants lors de l'événement à Gand. Tout était parfaitement synchronisé et magique. 5 étoiles méritées !&rdquo;",
   'aria-label="5 van de 5 sterren"': 'aria-label="5 étoiles sur 5"',
 
   ">Zekerheid<": ">Garanties<",
