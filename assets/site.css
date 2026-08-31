@@ -3580,3 +3580,24 @@ html[data-theme="light"] .bchip:hover{ color:var(--ember); }
 }
 .midgal .plate a{ display:block; height:100%; }
 .midgal .plate img{ height:100%; width:auto; display:block; }
+
+/* de strip schuift vanzelf mee met het verticale scrollen, net als de
+   galerij op de homepage — scroll-driven, dus volledig op de composer */
+@media (prefers-reduced-motion: no-preference){
+  @supports (animation-timeline: view()){
+    .midgal{ overflow:clip; }
+    .midgal__track{
+      overflow-x:visible;
+      width:max-content;
+      padding-right:var(--gutter);
+      animation:midslide linear both;
+      animation-timeline:view();
+      animation-range:cover 0% cover 100%;
+      will-change:transform;
+    }
+  }
+}
+@keyframes midslide{
+  from{ transform:translateX(0); }
+  to{ transform:translateX(min(0px, calc(100vw - 100%))); }
+}
