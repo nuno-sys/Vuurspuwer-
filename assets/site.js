@@ -147,6 +147,11 @@
     const uLean = gl.getUniformLocation(prog, "uLean");
     const uGain = gl.getUniformLocation(prog, "uGain");
 
+    /* De canvasmaat hoort bij de layout, niet bij de klok. Stond dit
+       in de tekenlus, dan vroeg elk beeldje opnieuw de layout op en
+       dwong het de browser tot een herberekening — zestig keer per
+       seconde, voor een maat die vrijwel nooit verandert. */
+    let gain = 1;
     function resize(){
       const dpr = clamp(window.devicePixelRatio || 1, 1, innerWidth < 700 ? 1.2 : 1.6);
       const w = Math.round(cv.clientWidth  * dpr);
@@ -156,17 +161,22 @@
         gl.viewport(0, 0, w, h);
       }
       gl.uniform2f(uRes, cv.width, cv.height);
+      /* a narrow viewport is all plume and no dark edge — pull it back */
+      gain = innerWidth < 760 ? 0.74 : 1.0;
     }
     resize();
     addEventListener("resize", resize, { passive: true });
+    /* vangt ook de maatveranderingen die geen vensterwijziging zijn:
+       fonts die inladen, de adresbalk die op de telefoon wegschuift */
+    if (typeof ResizeObserver === "function") {
+      try { new ResizeObserver(resize).observe(cv); } catch (e) {}
+    }
 
     return function draw(t){
-      resize();
       gl.uniform1f(uTime, t);
       gl.uniform1f(uHeat, S.heat);
       gl.uniform1f(uLean, (S.mx - 0.5) * 2);
-      /* a narrow viewport is all plume and no dark edge — pull it back */
-      gl.uniform1f(uGain, innerWidth < 760 ? 0.74 : 1.0);
+      gl.uniform1f(uGain, gain);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     };
   }
@@ -178,17 +188,18 @@
     const cv = $("#embers");
     if (!cv || REDUCED) return null;
     const ctx = cv.getContext("2d");
-    let dpr = 1, parts = [];
+    let dpr = 1, parts = [], W = 0, H = 0;
 
     function size(){
       dpr = clamp(window.devicePixelRatio || 1, 1, 2);
-      cv.width  = Math.round(innerWidth  * dpr);
-      cv.height = Math.round(innerHeight * dpr);
+      W = innerWidth; H = innerHeight;
+      cv.width  = Math.round(W * dpr);
+      cv.height = Math.round(H * dpr);
     }
     function spawn(seed){
       return {
-        x: Math.random() * innerWidth,
-        y: seed ? Math.random() * innerHeight : innerHeight + 20,
+        x: Math.random() * W,
+        y: seed ? Math.random() * H : H + 20,
         r: 0.6 + Math.random() * 1.9,
         v: 0.25 + Math.random() * 0.85,
         sway: 0.4 + Math.random() * 1.4,
@@ -200,7 +211,7 @@
     }
     function reset(){
       size();
-      const n = innerWidth < 760 ? 26 : 62;
+      const n = W < 760 ? 26 : 62;
       parts = Array.from({ length: n }, () => spawn(true));
     }
     reset();
@@ -208,7 +219,7 @@
 
     return function draw(t){
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.clearRect(0, 0, innerWidth, innerHeight);
+      ctx.clearRect(0, 0, W, H);
       ctx.globalCompositeOperation = "lighter";
 
       const push = 0.6 + S.heat * 1.5;
@@ -247,37 +258,55 @@
   const burn = $("#burn");
   const stage = $(".stage");
 
+  /* Elk beeldje in twee helften: eerst alles meten, dan pas schrijven.
+     Zolang er nog niets is geschreven staat de layout van de browser
+     nog, en is meten gratis. Eén schrijfactie ertussen en elke meting
+     daarna dwingt een volledige herberekening af — dat is precies wat
+     "forced reflow" is, en het kostte de hoofdthread honderden ms. */
   function frame(now){
     if (!running) return;
     const t = (now - t0) / 1000;
 
-    /* scroll + velocity */
-    const y = window.scrollY || 0;
+    /* ---- meten ---- */
+    const y    = window.scrollY || 0;
+    const vh   = innerHeight;
+    const vw   = innerWidth;
+    const docH = document.documentElement.scrollHeight;
+    const galTop = (gal.rail && gal.max) ? gal.rail.getBoundingClientRect().top : 0;
+
+    /* ---- rekenen ---- */
     rawVel = lerp(rawVel, clamp(Math.abs(y - last) / 42, 0, 1), 0.14);
     S.vel = rawVel;
     last = y;
     S.y = y;
 
     /* the fire is tallest at the top of the page, and flares when you move */
-    const heroFade = 1 - clamp(y / (innerHeight * 0.9), 0, 1);
+    const heroFade = 1 - clamp(y / (vh * 0.9), 0, 1);
     S.heat = lerp(S.heat, Math.min(0.28 + heroFade * 0.52 + S.vel * 0.32, 1.02), 0.08);
 
+    /* ---- schrijven ---- */
     /* on the hero the fire stands tall; past it, it settles into a floor */
-    if (stage) stage.style.setProperty("--sh", (heroFade * (innerWidth < 760 ? 5 : 10)).toFixed(2) + "%");
+    if (stage) stage.style.setProperty("--sh", (heroFade * (vw < 760 ? 5 : 10)).toFixed(2) + "%");
 
     /* de sfeerlagen (vlam + vonken) op 30 fps: visueel gelijk, maar
-       het scheelt de helft van het tekenwerk op de hoofdthread */
+       het scheelt de helft van het tekenwerk op de hoofdthread.
+
+       En zolang de koekjeskaart openstaat helemaal niet: die ligt onder
+       een doek dat 94% dekt en de achtergrond ook nog eens vervaagt.
+       Elke getekende vlam dwingt de browser dan die vervaging over het
+       hele scherm opnieuw te berekenen — voor een vlam die niemand ziet.
+       Het canvas houdt zijn laatste beeld, dus er verdwijnt niets; het
+       staat alleen even stil. */
     S.tick = (S.tick || 0) ^ 1;
-    if (S.tick) {
+    if (S.tick && !document.documentElement.classList.contains("cookie-open")) {
       if (drawFlame)  drawFlame(t);
       if (drawEmbers) drawEmbers(t);
     }
-    burnFrame();
-    galleryFrame();
+    burnFrame(y, vh, docH);
+    galleryFrame(galTop);
 
     if (burn) {
-      const doc = document.documentElement;
-      const max = doc.scrollHeight - innerHeight;
+      const max = docH - vh;
       burn.style.width = (max > 0 ? clamp(y / max, 0, 1) * 100 : 0).toFixed(2) + "%";
     }
 
@@ -527,10 +556,12 @@
     phase = "sweep";
   }
 
-  function burnFrame(){
+  /* scrollstand, vensterhoogte en documenthoogte komen uit de meethelft
+     van het frame: hier wordt alleen nog geschreven */
+  function burnFrame(sy, vh, docH){
     if (phase === "hold" || !burners.length) return;
 
-    const vh = innerHeight, sy = window.scrollY || 0, band = vh * BAND;
+    const band = vh * BAND;
     const climbing = phase === "sweep";
 
     let line = 0;
@@ -543,7 +574,7 @@
     /* At the very bottom nothing can rise any further, so whatever is
        still under the line would sit there for ever. Raise the line
        instead of snapping it, so the footer burns in like the rest. */
-    const atEnd = (sy + vh) >= (document.documentElement.scrollHeight - 4);
+    const atEnd = (sy + vh) >= (docH - 4);
     if (atEnd) { if (!endAt) endAt = performance.now(); } else { endAt = 0; }
     const lift = endAt ? clamp((performance.now() - endAt) / 700, 0, 1) * vh * 0.42 : 0;
     const trigger = vh * REST + lift;
@@ -635,26 +666,25 @@
      enters. When the last one has passed the rail ends and the
      page continues downward on its own.
      ============================================================== */
-  const gal = { rail: null, track: null, bar: null, max: 0, plates: [] };
+  const gal = { rail: null, track: null, bar: null, max: 0, vw: 0, plates: [] };
 
   function sizeGallery(){
     if (!gal.rail) return;
-    const vw = gal.rail.clientWidth;
+    const vw = gal.vw = gal.rail.clientWidth;
     gal.max = Math.max(0, gal.track.scrollWidth - vw);
     /* one viewport to stand in, plus the sideways distance */
     gal.rail.style.height = (innerHeight + gal.max) + "px";
   }
 
-  function galleryFrame(){
+  function galleryFrame(top){
     if (!gal.rail || !gal.max) return;
-    const top = gal.rail.getBoundingClientRect().top;
     const p = clamp(-top / gal.max, 0, 1);
     const x = p * gal.max;
     gal.track.style.transform = "translateX(" + (-x) + "px)";
     if (gal.bar) gal.bar.style.width = (p * 100).toFixed(2) + "%";
 
     /* each plate catches fire as it comes in from the right */
-    const vw = gal.rail.clientWidth;
+    const vw = gal.vw;
     for (const it of gal.plates) {
       if (it.burn >= 1) continue;
       const left = it.left - x;
@@ -723,30 +753,48 @@
       const src = innerWidth >= 980
         ? (HERO_VIDEO.panel || HERO_VIDEO.portrait)
         : HERO_VIDEO.portrait;
-      if (src) {
-        /* mobiel is streng over autoplay: expliciet gedempt en
-           autoplay aan vóór het laden, anders weigert iOS soms */
-        hero.muted = true;
-        hero.defaultMuted = true;
-        hero.autoplay = true;
-        hero.setAttribute("muted", "");
-        hero.src = src;
-        hero.preload = "auto";
-        hero.load();
-        const tryPlay = () => {
-          const p = hero.play();
-          if (p && p.catch) p.catch(() => {});
+      const lijn = navigator.connection || {};
+      const zuinig = !!lijn.saveData || /(^|-)2g$/.test(lijn.effectiveType || "");
+      if (src && !zuinig) {
+        const haalOp = () => {
+          /* mobiel is streng over autoplay: expliciet gedempt en
+             autoplay aan vóór het laden, anders weigert iOS soms */
+          hero.muted = true;
+          hero.defaultMuted = true;
+          hero.autoplay = true;
+          hero.setAttribute("muted", "");
+          hero.src = src;
+          hero.preload = "auto";
+          hero.load();
+          const tryPlay = () => {
+            const p = hero.play();
+            if (p && p.catch) p.catch(() => {});
+          };
+          tryPlay();
+          hero.addEventListener("loadeddata", tryPlay, { once: true });
+          /* energiebesparing/databesparing blokkeert stille autoplay
+             tot de eerste aanraking — dan alsnog starten */
+          const kick = () => { if (hero.paused) tryPlay(); };
+          ["touchstart", "pointerdown", "scroll"].forEach((ev) =>
+            addEventListener(ev, kick, { once: true, passive: true }));
+          document.addEventListener("visibilitychange", () => {
+            if (!document.hidden && hero.paused) tryPlay();
+          });
         };
-        tryPlay();
-        hero.addEventListener("loadeddata", tryPlay, { once: true });
-        /* energiebesparing/databesparing blokkeert stille autoplay
-           tot de eerste aanraking — dan alsnog starten */
-        const kick = () => { if (hero.paused) tryPlay(); };
-        ["touchstart", "pointerdown", "scroll"].forEach((ev) =>
-          addEventListener(ev, kick, { once: true, passive: true }));
-        document.addEventListener("visibilitychange", () => {
-          if (!document.hidden && hero.paused) tryPlay();
-        });
+
+        /* De sfeervideo weegt een megabyte. Startte hij meteen, dan vocht
+           hij op een telefoon vijf seconden lang met de stylesheet, de
+           letters en de eerste foto's om dezelfde smalle lijn — en verloor
+           iedereen. Nu wacht hij tot de pagina zelf binnen is; dan heeft
+           hij de lijn voor zich alleen en staat hij in de praktijk eerder
+           in beeld dan voorheen. Op databesparing of 2G blijft hij weg en
+           draagt de vlam de hero alleen. */
+        const zodraHetRustigIs = () => {
+          if (typeof requestIdleCallback === "function") requestIdleCallback(haalOp, { timeout: 1500 });
+          else setTimeout(haalOp, 200);
+        };
+        if (document.readyState === "complete") zodraHetRustigIs();
+        else addEventListener("load", zodraHetRustigIs, { once: true });
       }
     }
 
@@ -1022,26 +1070,28 @@
      13. Fit the wordmark to the page — measured, not guessed, so
      "VUURSPUWER" spans the full width at every viewport
      ============================================================== */
-  function fitWord(box, measured, cap){
-    if (!box || !measured) return;
-
-    box.style.fontSize = "10px";
-    const avail = box.clientWidth;
-    if (!avail) { box.style.fontSize = ""; return; }
-
-    box.style.fontSize = "200px";
-    const natural = measured.scrollWidth;
-    if (!natural) { box.style.fontSize = ""; return; }
-
-    box.style.fontSize = Math.min(cap, Math.floor(200 * avail / natural)) + "px";
-  }
-
+  /* Beide woordmerken tegelijk: schrijven en meten om beurten, maar
+     voor alle woorden ineens. Dat zijn twee layoutronden in totaal in
+     plaats van twee per woord — en dit gebeurt vóór de eerste verf,
+     dus elke ronde telt dubbel. */
   function fitHero(){
-    const h1 = $(".hero__title");
-    if (h1) fitWord(h1, h1.firstElementChild, 300);
-
+    const h1   = $(".hero__title");
     const foot = $(".foot__word");
-    if (foot) fitWord(foot, foot, 340);
+    const werk = [];
+    if (h1 && h1.firstElementChild) werk.push({ box: h1, meet: h1.firstElementChild, cap: 300 });
+    if (foot) werk.push({ box: foot, meet: foot, cap: 340 });
+    if (!werk.length) return;
+
+    for (const w of werk) w.box.style.fontSize = "10px";
+    for (const w of werk) w.ruimte = w.box.clientWidth;
+    for (const w of werk) w.box.style.fontSize = w.ruimte ? "200px" : "";
+    for (const w of werk) w.eigen = w.ruimte ? w.meet.scrollWidth : 0;
+    for (const w of werk) {
+      if (!w.ruimte) continue;
+      w.box.style.fontSize = w.eigen
+        ? Math.min(w.cap, Math.floor(200 * w.ruimte / w.eigen)) + "px"
+        : "";
+    }
   }
 
   /* ==============================================================
@@ -1382,7 +1432,7 @@ if ("serviceWorker" in navigator) {
          bezoeker anders dagenlang niet. update() forceert de controle;
          dat kost één voorwaardelijk verzoek van een halve KB. */
       navigator.serviceWorker.register("/sw.js")
-        .then(function (r) { if (r && r.update) r.update(); })
+        .then(function (r) { return r && r.update ? r.update() : null; })
         .catch(function () {});
     }, 600);
   });
