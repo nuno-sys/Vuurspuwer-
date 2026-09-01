@@ -2929,7 +2929,43 @@ parts.append("## Stedenpagina's (Nederland en België)\n\n" +
              "\n".join(f"- {SITE}{u}" for u in _city_paths))
 open(os.path.join(OUT, "llms-full.txt"), "w", encoding="utf-8").write(
     "\n".join(parts) + "\n")
-print(f"  llms.txt, llms-full.txt ({len(faq_md)} FAQ's, {len(PC.REVIEWS)} reviews) "
+
+# spelregels.md -> spelregels.js, zodat de mailfunctie ze kan meebundelen.
+# Ze staan bewust NIET in dist: dit zijn interne afspraken (ondergrens, wat
+# Nuno niet doet, betaalvoorwaarden) en die horen niet op het web.
+_sr_md = os.path.join("assistent", "spelregels.md")
+if os.path.exists(_sr_md):
+    _sr = open(_sr_md, encoding="utf-8").read()
+    open(os.path.join("assistent", "spelregels.js"), "w", encoding="utf-8").write(
+        "/* Automatisch gemaakt uit spelregels.md door build.py.\n"
+        "   Bewerk spelregels.md, niet dit bestand. */\n"
+        "export default " + json.dumps(_sr, ensure_ascii=False) + ";\n")
+
+# assistent.txt: de beknopte versie waarmee de boekingsassistent werkt.
+# llms-full.txt is 150 KB — dat elke aanvraag meesturen kost onnodig veel.
+# Hier staat alleen wat je nodig hebt om een boekingsvraag te beantwoorden:
+# de prijzenpagina voluit, elke show in het kort, en alle veelgestelde
+# vragen. Het wordt bij elke build opnieuw gemaakt, dus het kan nooit uit de
+# pas lopen met wat er op de site staat.
+_ass = ["# Wat er op vuurspuwer.com staat \u2014 naslag voor het conceptantwoord\n",
+        "> Automatisch gemaakt uit de live site. Noem nooit een prijs of\n"
+        "> voorwaarde die hier niet in staat.\n"]
+_pt, _pb = _dist_main("/wat-kost-een-vuurspuwer/")
+_ass.append(f"## Prijzen en pakketten (volledig)\n\n{_pb}\n")
+for slug in ("vuurspuwer-inhuren", "fakir-show-inhuren", "workshop-vuurspuwen",
+             "reptielenhow", "entertainer-huren", "halloween",
+             "entertainer-huren-voor-bedrijfsfeest"):
+    _t, _b = _dist_main(f"/{slug}/")
+    _ass.append(f"## {_t}\nURL: {SITE}/{slug}/\n\n{_b[:2200]}\n")
+_al = "\n".join(_ass).lower()
+_extra = [q for q in faq_md
+          if q.split("**")[1][3:40].lower() not in _al][:40]
+_ass.append("## Overige veelgestelde vragen\n\n" + "\n".join(_extra))
+open(os.path.join(OUT, "assistent.txt"), "w", encoding="utf-8").write(
+    "\n".join(_ass) + "\n")
+
+print(f"  llms.txt, llms-full.txt ({len(faq_md)} FAQ's, {len(PC.REVIEWS)} reviews), "
+      f"assistent.txt ({os.path.getsize(os.path.join(OUT, 'assistent.txt'))//1024} KiB) "
       "en IndexNow-sleutel geschreven")
 
 # de vier homepages zijn hierboven al gebouwd (vóór de sitemap);

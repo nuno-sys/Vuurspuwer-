@@ -10,6 +10,8 @@
  * standaardadressen hieronder overschrijven.
  */
 
+import { stuurConcept } from "./_concept.js";
+
 const SITE = "https://vuurspuwer.com";
 const DEFAULT_TO = "nuno@vuurspuwer.com";
 const DEFAULT_FROM = "Vuurspuwer Nuno <boekingen@vuurspuwer.com>";
@@ -238,7 +240,7 @@ async function resend(key, payload, pogingen = 3) {
   throw new Error(laatste || "onbekend");
 }
 
-export async function onRequestPost({ request, env }) {
+export async function onRequestPost({ request, env, waitUntil }) {
   const json = (status, body) => new Response(JSON.stringify(body), {
     status, headers: { "Content-Type": "application/json" },
   });
@@ -326,6 +328,30 @@ export async function onRequestPost({ request, env }) {
         ].join("\n"),
       }, 2);
     } catch { /* dan houdt het op; de aanvraag zelf is wel bezorgd */ }
+  }
+
+  // 3. het conceptantwoord voor Nuno. Dit gebeurt NA het antwoord aan de
+  //    browser, zodat het formulier snel blijft en de aanvraag zelf nooit op
+  //    Claude hoeft te wachten. Gaat het mis, dan is er niets verloren: de
+  //    aanvraag ligt al bij Nuno en de klant heeft zijn bevestiging.
+  if (env.ANTHROPIC_API_KEY && typeof waitUntil === "function") {
+    waitUntil(
+      stuurConcept(env, d, lang, from, to, resend, wacht).catch(async (e) => {
+        try {
+          await wacht(700);
+          await resend(key, {
+            from, to: [to], reply_to: [d.email],
+            subject: `\u{26A0} Geen concept gelukt voor ${d.naam}`,
+            text: [
+              `De aanvraag van ${d.naam} is binnen, maar het conceptantwoord`,
+              `kon niet worden geschreven.`, ``,
+              `Reden: ${String((e && e.message) || e).slice(0, 300)}`, ``,
+              `Beantwoord deze mail om ${d.naam} met de hand te antwoorden.`,
+            ].join("\n"),
+          }, 2);
+        } catch { /* dan houdt het op; de aanvraag zelf is bezorgd */ }
+      })
+    );
   }
 
   return json(200, { ok: true, confirmed, reden });

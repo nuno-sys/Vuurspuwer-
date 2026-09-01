@@ -3,12 +3,9 @@ name: Boekingsassistent uitrollen
 # De assistent draait als aparte Cloudflare Worker (Pages Functions kunnen
 # geen periodieke taken). Deze actie rolt hem uit zodra er iets aan verandert,
 # zodat Nuno nooit zelf wrangler hoeft te draaien.
+# Alleen met de hand starten: de Gmail-assistent is nog niet in gebruik.
+# Zodra het serviceaccount er is, kan de push-trigger er weer bij.
 on:
-  push:
-    branches: [main]
-    paths:
-      - "assistent/**"
-      - ".github/workflows/assistent.yml"
   workflow_dispatch:
 
 jobs:
@@ -19,9 +16,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-      - name: Spelregels omzetten
-        run: node maak-spelregels.mjs
-        working-directory: assistent
       - name: Testen
         run: node test-assistent.mjs && node test-storingen.mjs
         working-directory: assistent

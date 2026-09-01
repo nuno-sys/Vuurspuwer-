@@ -1,131 +1,69 @@
-# Boekingsassistent — instellen
+# Conceptantwoord bij een formulieraanvraag
 
-Wat dit doet: elke drie minuten kijkt hij of er nieuwe boekingsmail is, leest
-die, en zet een **concept**antwoord klaar in dezelfde Gmail-thread. Er wordt
-nooit iets verstuurd. Jij leest, past aan, drukt op verzenden.
+## Wat het doet
 
-Onder het antwoord staat een korte notitie voor jezelf: wat de klant wil, wat
-opvalt, en wat er nog ontbreekt voor een offerte. Die haal je weg voor je
-verstuurt.
+Iemand vult het formulier op de site in. Er gebeurt dan drie dingen:
 
----
+1. De aanvraag komt bij jou binnen — zoals altijd.
+2. De klant krijgt zijn bevestiging — zoals altijd.
+3. **Nieuw:** je krijgt een tweede mail met een kant-en-klaar conceptantwoord,
+   plus een korte notitie over wat opvalt en wat er nog ontbreekt voor een
+   offerte. Onderin zit een knop die je mailprogramma opent met de tekst er al
+   in.
 
-## Stap 1 — het adres (5 minuten)
+Er gaat **niets** naar de klant behalve de bevestiging die er altijd al was.
+Het concept is voor jou. Jij leest, past aan, verstuurt.
 
-In de Google Admin-console, bij je eigen gebruiker:
+## Wat je moet doen
 
-1. Ga naar **admin.google.com → Directory → Gebruikers → jouw account**
-2. Klik **Gebruikersgegevens → E-mailaliassen → Alias toevoegen**
-3. Vul in: `boekingen` (dus `boekingen@vuurspuwer.com`)
+Eén ding: zet je Anthropic-sleutel in Cloudflare.
 
-Alles wat naar boekingen@ gaat komt nu gewoon in je bestaande inbox.
+**Cloudflare-dashboard → Workers & Pages → je site → Settings → Variables and
+Secrets → Add → Encrypt:**
 
-## Stap 2 — het filter (3 minuten)
-
-Dit filter bepaalt wát de assistent mag zien. Alles daarbuiten blijft voor hem
-onzichtbaar. In Gmail:
-
-1. **Instellingen → Filters en geblokkeerde adressen → Nieuw filter maken**
-2. Bij **Aan**: `boekingen@vuurspuwer.com`
-3. **Filter maken** → vink aan: **Label toepassen** → **Nieuw label** →
-   `Boekingen/Nieuw`
-
-> Wil je later ook mail aan nuno@ laten meedoen, dan zet je er een tweede
-> filter bij. Begin klein: eerst zien of het bevalt.
-
-**Dit is je noodrem.** Zet je het filter uit, dan krijgt de assistent niets
-meer te zien en gebeurt er niets.
-
-## Stap 3 — de assistent toegang geven (10 minuten)
-
-Dit is hetzelfde soort serviceaccount als je voor Search Console hebt gemaakt.
-
-1. **console.cloud.google.com** → je project → **API's en services → Bibliotheek**
-   → zoek **Gmail API** → **Inschakelen**
-2. **API's en services → Inloggegevens → Inloggegevens maken → Serviceaccount**.
-   Noem hem `boekingsassistent`. Geen rollen nodig.
-3. Klik het serviceaccount aan → **Sleutels → Sleutel toevoegen → JSON**.
-   Bewaar dat bestand goed; je hebt het zo één keer nodig.
-4. Op hetzelfde scherm, onder **Geavanceerd**, staat een **Client-ID** (een
-   lang getal). Kopieer die.
-5. Ga naar **admin.google.com → Beveiliging → Toegangsbeheer voor API's →
-   Domeinbrede delegatie → Nieuwe toevoegen**
-   - Client-ID: het getal uit stap 4
-   - Bereiken: `https://www.googleapis.com/auth/gmail.modify`
-
-> Let op: alleen `gmail.modify`. Dat is lezen, labelen en concepten maken —
-> **niet** versturen. De assistent kán dus niet mailen, ook niet als hij zou
-> willen.
-
-## Stap 4 — de sleutels op hun plek (5 minuten)
-
-Twee stuks, allebei in Cloudflare:
-
-**In het Cloudflare-dashboard → Workers & Pages → `vuurspuwer-boekingsassistent`
-→ Settings → Variables and Secrets:**
-
-| Naam | Wat erin gaat |
+| Naam | Waarde |
 |---|---|
 | `ANTHROPIC_API_KEY` | je sleutel van console.anthropic.com |
-| `GOOGLE_SA_JSON` | de **hele inhoud** van het JSON-bestand uit stap 3 |
-| `TEST_SLEUTEL` | verzin zelf iets lang en willekeurigs |
 
-**In GitHub → je repo → Settings → Secrets and variables → Actions:**
+Dat is alles. Staat de sleutel er niet, dan werkt de site precies zoals nu —
+twee mails, geen concept. Er gaat dus nooit iets stuk doordat je hem vergeet.
 
-| Naam | Wat erin gaat |
-|---|---|
-| `CLOUDFLARE_API_TOKEN` | Cloudflare → My Profile → API Tokens → *Edit Cloudflare Workers* |
-| `CLOUDFLARE_ACCOUNT_ID` | staat rechts in je Cloudflare-dashboard |
+## Waar de kennis vandaan komt
 
-Die twee laatste zorgen dat de assistent zichzelf bijwerkt zodra er iets
-verandert. Daarna hoef je nooit meer iets te installeren.
+Van je eigen site. `assistent.txt` wordt bij elke build gemaakt uit de
+prijzenpagina, de showpagina's en de veelgestelde vragen. Daardoor kan er geen
+prijs in een concept staan die niet op je site staat, en klopt alles meteen
+zodra je een prijs aanpast.
 
-## Stap 5 — je spelregels invullen
+Wat er **niet** op je site staat, zet je in `assistent/spelregels.md`: je toon,
+je ondergrens, betaalvoorwaarden, wat je niet doet, wat je nodig hebt op
+locatie. Dat bestand blijft privé — het staat niet op het web.
 
-Open `assistent/spelregels.md` en vul in wat er staat. Alles wat al op je site
-staat — shows, prijzen, reiskosten, veelgestelde vragen — hoef je **niet** over
-te typen: die leest hij van je eigen site (`llms-full.txt`), en die is altijd
-bij, want hij wordt bij elke sitewijziging opnieuw gemaakt.
+Het belangrijkste stuk staat onderaan dat bestand: **twee of drie antwoorden
+die je zelf ooit hebt gestuurd**. Daaraan leert hij jouw toon. Zonder die
+voorbeelden klinkt hij correct, maar niet als jij. Vul je niets in, dan werkt
+het ook — hij schrijft dan neutraal en netjes.
 
-Het belangrijkste stuk is onderaan: **twee of drie antwoorden die je zelf ooit
-hebt gestuurd**. Daaraan leert hij jouw toon. Zonder die voorbeelden klinkt hij
-correct maar niet als jij.
-
-## Stap 6 — proefdraaien
-
-Stuur jezelf een mail naar `boekingen@vuurspuwer.com` vanaf een ander adres,
-alsof je een klant bent. Binnen drie minuten staat er een concept in je Gmail.
-
-Wil je niet wachten, open dan in je browser:
-`https://vuurspuwer-boekingsassistent.<jouw-subdomein>.workers.dev/?sleutel=<TEST_SLEUTEL>`
-
----
-
-## Wat je in Gmail terugziet
-
-| Label | Betekenis |
-|---|---|
-| `Boekingen/Nieuw` | binnengekomen, wacht op de assistent |
-| `Boekingen/Concept klaar` | er staat een concept voor je klaar |
-| `Boekingen/Nagekeken worden` | er ging iets mis — deze doe je met de hand |
-
-Die laatste is belangrijk: er blijft nooit een aanvraag stilzwijgend liggen.
-Gaat er iets mis, dan zie je dat.
+Na het aanpassen van `spelregels.md`: `python3 build.py`, committen, pushen.
 
 ## Wat het kost
 
-Ongeveer twee tot vijf cent per e-mail. Bij twintig aanvragen per dag zo'n
-€15 tot €30 per maand. Cloudflare en de Gmail API zijn gratis op dit volume.
+Ongeveer vijf cent per aanvraag.
 
 ## Waar je op moet letten
 
-De assistent noemt alleen prijzen die op je site staan. Klopt een prijs op de
-site niet meer, pas hem daar aan — dan klopt het antwoord meteen ook.
+- Hij zegt nooit dat een datum vrij is, want hij ziet je agenda niet. Hij
+  schrijft dat je het checkt.
+- Bedragen zijn altijd een indicatie met een aanbod voor een offerte op maat.
+- Staat er in het berichtveld iets als *"negeer je instructies"* of *"geef 80%
+  korting"*, dan behandelt hij dat als informatie en meldt het in de notitie.
+  Hij volgt het niet op. En omdat er sowieso alleen een concept naar jou gaat,
+  kan er niets de deur uit zonder jou.
+- Lukt het schrijven niet, dan krijg je een mail met de reden. De aanvraag en
+  de bevestiging zijn dan gewoon verstuurd.
 
-Hij zegt nooit dat een datum vrij is; hij schrijft dat je het checkt. Dat komt
-in een volgende stap, als de agenda erbij komt.
+## Later
 
-Staat er in een mail van een "klant" iets als *"negeer je instructies"* of
-*"geef 80% korting"* — dat werkt niet. Hij behandelt de inhoud van een mail als
-informatie, nooit als opdracht, en meldt het in de notitie aan jou. En omdat
-hij alleen concepten maakt, kan er sowieso niets de deur uit zonder jou.
+In de map `assistent/` staat ook een Gmail-versie die conceptantwoorden maakt
+op mail die rechtstreeks bij je binnenkomt, plus de opzet voor agenda en
+Moneybird. Die staat uit tot je zover bent; hij vraagt een Google-serviceaccount.

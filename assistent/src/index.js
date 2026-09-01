@@ -12,7 +12,7 @@
  */
 
 import { toegangstoken, labelId, zoekBerichten, haalBericht, maakConcept, verplaatsLabel } from "./google.js";
-import SPELREGELS from "./spelregels.js";
+import SPELREGELS from "../spelregels.js";
 
 const SCOPES = ["https://www.googleapis.com/auth/gmail.modify"];
 const LABEL_NIEUW = "Boekingen/Nieuw";
