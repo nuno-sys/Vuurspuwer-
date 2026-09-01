@@ -68,6 +68,68 @@ Ongeveer vijf cent per aanvraag.
 
 ---
 
+# Opvolging — de herinnering na een paar dagen
+
+Het eerste antwoord gaat nu binnen een minuut de deur uit. Maar de meeste
+aanvragen sneuvelen niet daar; ze sneuvelen twee weken later, als iemand jouw
+offerte kreeg, het druk kreeg, en het vergat.
+
+Daarom onthoudt de site elke aanvraag en krijg je een paar dagen later één
+mail: *"Sanne vroeg 4 dagen geleden naar een vuurshow in Gent, 31 oktober.
+Al iets gehoord?"* — met een kort, vriendelijk duwtje eronder en dezelfde
+verstuurknop. Is het al geregeld, dan gooi je hem weg. Je krijgt er nooit
+meer dan één per aanvraag.
+
+**Hoe lang hij wacht hangt af van de datum van het evenement:**
+
+| Evenement is | Duwtje na |
+|---|---|
+| binnen 3 weken | 2 dagen |
+| binnen 2 maanden | 3 dagen |
+| verder weg | 5 dagen |
+| geen datum ingevuld | 4 dagen |
+
+Een bruiloft over twee weken laat je niet vier dagen wachten; een aanvraag
+voor volgend najaar hoeft niet overmorgen al een duwtje.
+
+## Wat je moet instellen (5 minuten, eenmalig)
+
+**1. Een plek om de aanvragen te bewaren.**
+Cloudflare-dashboard → **Storage & Databases → KV → Create namespace**, noem
+hem `vuurspuwer-opvolging`. Ga daarna naar **Workers & Pages → je site →
+Settings → Bindings → Add → KV namespace**:
+
+| Variable name | Namespace |
+|---|---|
+| `OPVOLG` | `vuurspuwer-opvolging` |
+
+**2. Een sleutel zodat niemand anders die opvolging kan starten.**
+Verzin iets lang en willekeurigs. Zet dezelfde waarde op twee plekken:
+
+- Cloudflare → je site → Settings → Variables and Secrets → `OPVOLG_SLEUTEL`
+- GitHub → repo → Settings → Secrets and variables → Actions →
+  `OPVOLG_SLEUTEL`
+
+Dat is alles. De GitHub-actie die elke ochtend om 06:20 al draait voor de
+indexering roept de opvolging er nu bij aan.
+
+Stel je niets in, dan werkt de site precies zoals nu — alleen zonder
+herinneringen. Er kan dus niets stukgaan doordat je het overslaat.
+
+## Wat er bewaard wordt
+
+Naam, e-mailadres, datum, show, locatie en de eerste 600 tekens van het
+bericht. Twee maanden, daarna gooit Cloudflare het vanzelf weg. Zodra het
+duwtje verstuurd is, wordt de aanvraag meteen verwijderd.
+
+## Zelf uitproberen
+
+`https://vuurspuwer.com/api/opvolging?sleutel=<jouw sleutel>` in je browser.
+Je krijgt te zien hoeveel aanvragen er bekeken zijn en hoeveel duwtjes er
+verstuurd zijn.
+
+---
+
 # De Gmail-versie — STAAT UIT
 
 > Voor later. Hij is gebouwd en getest, maar wordt niet uitgerold: de

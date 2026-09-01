@@ -54,6 +54,30 @@ jobs:
             git push origin HEAD:main
           fi
 
+      - name: Opvolging van openstaande aanvragen
+        # Kijkt welke aanvragen lang genoeg stil zijn en zet daar een duwtje
+        # voor klaar in Nuno's postvak. Faalt dit, dan mag de indexering er
+        # niet op stuklopen.
+        continue-on-error: true
+        env:
+          SLEUTEL: ${{ secrets.OPVOLG_SLEUTEL }}
+        run: |
+          if [ -z "$SLEUTEL" ]; then
+            echo "OPVOLG_SLEUTEL niet gezet - opvolging overgeslagen"
+            exit 0
+          fi
+          uit=$(curl -sS --max-time 120 -w "\n%{http_code}" \
+                 -H "x-sleutel: $SLEUTEL" \
+                 https://vuurspuwer.com/api/opvolging || true)
+          code=$(printf '%s' "$uit" | tail -n1)
+          lijf=$(printf '%s' "$uit" | sed '$d')
+          echo "status $code: $lijf"
+          {
+            echo "## Opvolging"
+            echo
+            echo "status $code — $lijf"
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Samenvatting
         run: |
           {

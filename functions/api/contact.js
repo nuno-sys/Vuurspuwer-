@@ -330,7 +330,23 @@ export async function onRequestPost({ request, env, waitUntil }) {
     } catch { /* dan houdt het op; de aanvraag zelf is wel bezorgd */ }
   }
 
-  // 3. het conceptantwoord voor Nuno. Dit gebeurt NA het antwoord aan de
+  // 3. de aanvraag onthouden voor de opvolging over een paar dagen. Zonder
+  //    KV-koppeling gebeurt dit niet en werkt de rest gewoon door.
+  if (env.OPVOLG) {
+    try {
+      await env.OPVOLG.put(
+        `aanvraag:${Date.now()}:${Math.random().toString(36).slice(2, 8)}`,
+        JSON.stringify({
+          naam: d.naam, email: d.email, datum: d.datum, act: d.act,
+          locatie: d.locatie, bericht: (d.bericht || "").slice(0, 600),
+          lang, ontvangen: Date.now(),
+        }),
+        { expirationTtl: 60 * 24 * 3600 }     // na twee maanden vanzelf weg
+      );
+    } catch { /* opvolging is een extraatje; de aanvraag gaat voor */ }
+  }
+
+  // 4. het conceptantwoord voor Nuno. Dit gebeurt NA het antwoord aan de
   //    browser, zodat het formulier snel blijft en de aanvraag zelf nooit op
   //    Claude hoeft te wachten. Gaat het mis, dan is er niets verloren: de
   //    aanvraag ligt al bij Nuno en de klant heeft zijn bevestiging.
