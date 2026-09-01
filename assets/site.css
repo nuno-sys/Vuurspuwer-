@@ -4074,6 +4074,13 @@ html[data-theme="light"] .gloss__item{ background-color:rgba(255,255,255,.6); }
    Beide gebruiken hetzelfde verloop, dus het is één keer geschreven. */
 @property --vuurhoek{ syntax:"<angle>"; inherits:false; initial-value:0deg; }
 
+/* --vuurlijn is een gewone, dus ERFENDE custom property, en hij bevat de
+   geanimeerde --vuurhoek. Zonder deze regel moet elk kind van de kaart bij
+   elk frame opnieuw worden doorgerekend — 40 elementen, 60 keer per seconde,
+   puur voor een rand die ze niet gebruiken. De universele selector raakt geen
+   pseudo-elementen, dus ::before houdt zijn meedraaiende gloedring. */
+.cookie__kaart *{ --vuurlijn:initial; }
+
 .cookie__kaart{
   --vuurlijn:conic-gradient(from var(--vuurhoek),
     #FF4D0A   0deg, #FFB020  24deg, #FFF3D6  42deg, #FFB020  60deg,

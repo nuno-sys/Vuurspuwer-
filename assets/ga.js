@@ -75,6 +75,34 @@
 
   var bezig = false;                  /* er vliegt een logo: niet nog eens */
 
+  /* na de eerstvolgende geverfde frame */
+  function straks(fn) {
+    if (typeof requestAnimationFrame !== "function") { fn(); return; }
+    requestAnimationFrame(function () { requestAnimationFrame(fn); });
+  }
+
+  /* De kaart is beeldvullend met een backdrop-filter en geanimeerde
+     verlopen; hem tonen kost een dure compositie. Valt die vóór het
+     eerste beeld, dan schuift het eerste beeld op — gemeten ~130ms op
+     een trage telefoon. Dus: eerst de pagina laten verschijnen, dan de
+     kaart. De bezoeker ziet hem nog steeds meteen, maar nu ópkomend
+     over een pagina die er al staat in plaats van over een zwart vlak. */
+  function naEersteVerf(fn) {
+    var gedaan = false;
+    function eenmaal() { if (!gedaan) { gedaan = true; straks(fn); } }
+    var vangnet = setTimeout(eenmaal, 2500);
+    try {
+      var po = new PerformanceObserver(function (l) {
+        for (var i = 0; i < l.getEntries().length; i++) {
+          if (l.getEntries()[i].name === "first-contentful-paint") {
+            po.disconnect(); clearTimeout(vangnet); eenmaal(); return;
+          }
+        }
+      });
+      po.observe({ type: "paint", buffered: true });
+    } catch (e) { clearTimeout(vangnet); eenmaal(); }
+  }
+
   function toon() {
     var k = kaart();
     if (!k) { geland(); return; }     /* geen kaart: merk niet in het donker laten */
@@ -198,7 +226,7 @@
     koppel();
     var v = keuze();
     if (v === "ja") start();
-    else if (v !== "nee") toon();     /* nog geen keuze: vragen */
+    else if (v !== "nee") naEersteVerf(toon);   /* nog geen keuze: vragen */
     else HTML.classList.remove("cookie-vraag");
   }
 

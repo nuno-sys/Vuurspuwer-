@@ -207,17 +207,35 @@ function textVersion(d, intro, labels) {
   return lines.join("\n");
 }
 
-async function resend(key, payload) {
-  const r = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: { "Authorization": `Bearer ${key}`, "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
-  if (!r.ok) {
+const wacht = (ms) => new Promise((r) => setTimeout(r, ms));
+
+/* Resend staat twee verzoeken per seconde toe. Twee mails direct achter
+   elkaar (de aanvraag naar Nuno, dan de bevestiging naar de aanvrager)
+   liepen daar tegenaan: de eerste ging door, de tweede kreeg 429 en werd
+   stil weggegooid. Vandaar: opnieuw proberen bij 429 en bij tijdelijke
+   serverfouten, met oplopende pauze. */
+async function resend(key, payload, pogingen = 3) {
+  let laatste = "";
+  for (let i = 0; i < pogingen; i++) {
+    if (i) await wacht(700 * i);
+    let r;
+    try {
+      r = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: { "Authorization": `Bearer ${key}`, "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+    } catch (e) {
+      laatste = `netwerk: ${e && e.message ? e.message : e}`;
+      continue;
+    }
+    if (r.ok) return r.json();
     const detail = await r.text().catch(() => "");
-    throw new Error(`Resend ${r.status}: ${detail.slice(0, 300)}`);
+    laatste = `Resend ${r.status}: ${detail.slice(0, 300)}`;
+    /* 4xx anders dan 429 is een echte afwijzing: opnieuw proberen helpt niet */
+    if (r.status !== 429 && r.status < 500) break;
   }
-  return r.json();
+  throw new Error(laatste || "onbekend");
 }
 
 export async function onRequestPost({ request, env }) {
@@ -271,9 +289,12 @@ export async function onRequestPost({ request, env }) {
     text: textVersion(d, "Nieuwe aanvraag via vuurspuwer.com", T9N.nl.labels),
   });
 
-  // 2. de bevestiging naar de aanvrager; als die faalt is de aanvraag
-  //    zelf al binnen, dus dan geven we alsnog "ok" terug
-  let confirmed = true;
+  // 2. de bevestiging naar de aanvrager. De aanvraag zelf is al binnen, dus
+  //    dit mag de melding aan de bezoeker niet omgooien - maar stil laten
+  //    mislukken mag ook niet: dan denkt de klant dat hij een bevestiging
+  //    krijgt die nooit komt, en weet Nuno van niets.
+  await wacht(600);                       // ruim binnen Resends 2/seconde
+  let confirmed = true, reden = "";
   try {
     await resend(key, {
       from,
@@ -283,9 +304,29 @@ export async function onRequestPost({ request, env }) {
       html: confirmationHtml(d, t),
       text: textVersion(d, `${t.plain(d.naam)} WhatsApp: ${WHATSAPP}`, t.labels),
     });
-  } catch {
+  } catch (e) {
     confirmed = false;
+    reden = String((e && e.message) || e).slice(0, 300);
+    // Nuno moet het weten, anders wacht de klant op een mail die niet komt
+    try {
+      await wacht(600);
+      await resend(key, {
+        from,
+        to: [to],
+        reply_to: [d.email],
+        subject: `\u{26A0} Bevestiging NIET verstuurd aan ${d.naam} <${d.email}>`,
+        text: [
+          `De aanvraag van ${d.naam} is binnengekomen, maar de automatische`,
+          `bevestiging naar ${d.email} is niet verstuurd.`,
+          ``,
+          `Reden van de mailserver:`,
+          reden,
+          ``,
+          `Beantwoord deze mail om ${d.naam} alsnog persoonlijk te bevestigen.`,
+        ].join("\n"),
+      }, 2);
+    } catch { /* dan houdt het op; de aanvraag zelf is wel bezorgd */ }
   }
 
-  return json(200, { ok: true, confirmed });
+  return json(200, { ok: true, confirmed, reden });
 }

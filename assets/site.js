@@ -244,7 +244,6 @@
   let last = S.y = window.scrollY || 0;
   let rawVel = 0, running = true, t0 = performance.now();
 
-  const roHeight = $("#roHeight"), roHeat = $("#roHeat");
   const burn = $("#burn");
   const stage = $(".stage");
 
@@ -281,8 +280,6 @@
       const max = doc.scrollHeight - innerHeight;
       burn.style.width = (max > 0 ? clamp(y / max, 0, 1) * 100 : 0).toFixed(2) + "%";
     }
-    if (roHeight) roHeight.textContent = (2 + S.heat * 4.4).toFixed(1);
-    if (roHeat)   roHeat.textContent   = Math.round(clamp(S.heat, 0, 1.3) / 1.3 * 100);
 
     requestAnimationFrame(frame);
   }
@@ -629,155 +626,6 @@
   }
 
   /* ==============================================================
-     9. Gallery — procedural fire plates, with slots for real photos
-     ============================================================== */
-  /* The two show cards without a real photograph yet get a drawn
-     long-exposure plate, so the grid still reads as finished. The
-     moment Nuno supplies the photos, the canvases go and <img>s
-     take their place in index.html. */
-  const SHOW_PLATES = {
-    reptiel:  { hue: 130, seed: 21, kind: "wave"   },
-    workshop: { hue: 22,  seed: 47, kind: "circle" }
-  };
-
-  function drawShowPlates(){
-    $$("[data-plate]").forEach((cv) => {
-      const cfg = SHOW_PLATES[cv.dataset.plate];
-      if (cfg) plate(cv, cfg);
-    });
-  }
-
-  /* A fire act photographed at night is a light trail: poi draw circles
-     and figure-eights, a staff draws a spiral, a breath draws a burst.
-     Each plate is one of those trails, stroked as a long exposure. */
-  function trailPoints(kind, w, h, rnd){
-    const cx = w * 0.5, cy = h * 0.5;
-    const R = Math.min(w, h) * 0.30;
-    const pts = [];
-    /* one low-frequency wobble, not per-point noise — a burning wick
-       drifts, it does not crackle */
-    const ph = rnd() * 6.28, ph2 = rnd() * 6.28;
-    const wob = (k) => Math.sin(k * 7.3 + ph) * R * 0.020 + Math.sin(k * 17.1 + ph2) * R * 0.008;
-
-    if (kind === "eight") {
-      for (let i = 0; i <= 220; i++) {
-        const t = (i / 220) * Math.PI * 2;
-        const j = wob(i / 220);
-        pts.push([cx + Math.sin(t) * R * 1.15 + j,
-                  cy + Math.sin(t * 2) * R * 0.62 + j * 0.8]);
-      }
-    } else if (kind === "circle") {
-      for (let i = 0; i <= 200; i++) {
-        const t = (i / 200) * Math.PI * 2;
-        const r = R * (1 + Math.sin(t * 3) * 0.04) + wob(i / 200);
-        pts.push([cx + Math.cos(t) * r,
-                  cy + Math.sin(t) * r * 1.05]);
-      }
-    } else if (kind === "spiral") {
-      const turns = 3.2;
-      for (let i = 0; i <= 300; i++) {
-        const k = i / 300;
-        const t = k * Math.PI * 2 * turns;
-        const r = R * (0.14 + k * 0.95) + wob(k);
-        pts.push([cx + Math.cos(t) * r,
-                  cy + Math.sin(t) * r]);
-      }
-    } else {                                   /* wave — a walking act */
-      for (let i = 0; i <= 220; i++) {
-        const k = i / 220;
-        pts.push([-w * 0.1 + k * w * 1.2,
-                  cy + Math.sin(k * Math.PI * 3.2) * R * 0.72 + wob(k)]);
-      }
-    }
-    return pts;
-  }
-
-  function stroke(c, pts, hue, scale, alpha){
-    c.lineJoin = "round";
-    c.lineCap = "round";
-    const passes = [[30, 0.05, 54], [15, 0.10, 62], [7, 0.22, 70], [2.8, 0.52, 80], [1.1, 0.8, 91]];
-    for (const [lw, a, light] of passes) {
-      c.strokeStyle = "hsla(" + hue + ",100%," + light + "%," + (a * alpha).toFixed(3) + ")";
-      c.lineWidth = lw * scale;
-      c.beginPath();
-      for (let i = 0; i < pts.length; i++) {
-        if (i) c.lineTo(pts[i][0], pts[i][1]);
-        else c.moveTo(pts[i][0], pts[i][1]);
-      }
-      c.stroke();
-    }
-  }
-
-  function plate(cv, cfg){
-    const dpr = clamp(window.devicePixelRatio || 1, 1, 2);
-    const w = cv.clientWidth || 300, h = cv.clientHeight || 400;
-    cv.width = Math.round(w * dpr);
-    cv.height = Math.round(h * dpr);
-    const c = cv.getContext("2d");
-    c.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-    /* deterministic per-plate randomness, so redraws are identical */
-    let s = cfg.seed * 9301 + 49297;
-    const rnd = () => { s = (s * 9301 + 49297) % 233280; return s / 233280; };
-
-    /* night ground */
-    const bg = c.createLinearGradient(0, 0, 0, h);
-    bg.addColorStop(0,    "#0B1522");
-    bg.addColorStop(0.45, "#080604");
-    bg.addColorStop(1,    "#040201");
-    c.fillStyle = bg;
-    c.fillRect(0, 0, w, h);
-
-    c.globalCompositeOperation = "lighter";
-
-    /* stage wash along the floor */
-    const wash = c.createRadialGradient(w * 0.5, h * 1.02, 0, w * 0.5, h * 1.02, h * 0.62);
-    wash.addColorStop(0,   "hsla(" + cfg.hue + ",100%,58%,.38)");
-    wash.addColorStop(0.4, "hsla(" + cfg.hue + ",96%,48%,.12)");
-    wash.addColorStop(1,   "hsla(" + cfg.hue + ",90%,45%,0)");
-    c.fillStyle = wash;
-    c.fillRect(0, 0, w, h);
-
-    /* the trail itself — a faint earlier revolution, then the bright one */
-    const scale = Math.min(w, h) / 340;
-    c.save();
-    c.translate(w * 0.5, h * 0.46);
-    c.rotate((rnd() - 0.5) * 0.5);
-    c.translate(-w * 0.5, -h * 0.46);
-    stroke(c, trailPoints(cfg.kind, w, h * 0.92, rnd), cfg.hue + 6, scale * 1.25, 0.28);
-    stroke(c, trailPoints(cfg.kind, w, h * 0.92, rnd), cfg.hue, scale, 1);
-    c.restore();
-
-    /* sparks thrown off the trail */
-    for (let i = 0; i < 70; i++) {
-      const t = rnd();
-      const x = w * (0.12 + rnd() * 0.76);
-      const y = h - t * h * 0.9;
-      const r = rnd() * 1.2 + 0.3;
-      c.fillStyle = "hsla(" + (cfg.hue + rnd() * 18) + ",100%," + (70 + rnd() * 26).toFixed(0) + "%," + (0.1 + (1 - t) * 0.45).toFixed(2) + ")";
-      c.beginPath();
-      c.arc(x, y, r, 0, Math.PI * 2);
-      c.fill();
-    }
-
-    c.globalCompositeOperation = "source-over";
-
-    /* vignette, weighted so the caption has a ground to sit on */
-    const v = c.createLinearGradient(0, 0, 0, h);
-    v.addColorStop(0,    "rgba(4,2,1,.62)");
-    v.addColorStop(0.38, "rgba(4,2,1,0)");
-    v.addColorStop(1,    "rgba(4,2,1,.62)");
-    c.fillStyle = v;
-    c.fillRect(0, 0, w, h);
-
-    /* grain, so the gradients do not band */
-    for (let i = 0; i < (w * h) / 900; i++) {
-      c.fillStyle = "rgba(255,243,214," + (rnd() * 0.05).toFixed(3) + ")";
-      c.fillRect(rnd() * w, rnd() * h, 1, 1);
-    }
-  }
-
-  /* ==============================================================
      9b. Gallery — vertical scroll drives the strip sideways
 
      The rail around the sticky viewport gets extra height equal to
@@ -953,6 +801,22 @@
                            String(sec % 60).padStart(2, "0");
       });
 
+      /* De posterframe staat in data-poster in plaats van poster, want een
+         poster= wordt door de preload-scanner meteen opgehaald — ook met
+         preload="none", ook ver onder de vouw, en juist in het venster
+         waarin de stylesheet om bandbreedte vecht. Anderhalf scherm
+         voorsprong is ruim genoeg: de zwaarste poster is 37 KB en dus
+         binnen voordat de reel in beeld komt. Tot dan staat er hetzelfde
+         asgrijs als nu tijdens het laden. */
+      if (vid.dataset.poster) {
+        const posterWacht = new IntersectionObserver((es) => {
+          if (!es.some((e) => e.isIntersecting)) return;
+          vid.poster = vid.dataset.poster;
+          posterWacht.disconnect();
+        }, { rootMargin: "800px 0px", threshold: 0 });
+        posterWacht.observe(fig);
+      }
+
       new IntersectionObserver((es) => {
         for (const e of es) {
           fig.classList.toggle("in-view", e.isIntersecting);
@@ -1114,9 +978,15 @@
         const uit = await r.json().catch(() => ({}));
         if (!r.ok || !uit.ok) throw new Error("send");
 
-        status.innerHTML = form.dataset.msgOk ||
-          ("\u{1F525} Gelukt &mdash; je aanvraag is verstuurd! Je ontvangt direct " +
-           "een bevestiging per e-mail en ik reageer <b>binnen 24 uur</b>.");
+        /* Alleen een bevestigingsmail beloven als hij ook echt verstuurd
+           is. Ging dat mis, dan is de aanvraag wel binnen (en krijgt Nuno
+           daar apart bericht van), maar dan zeggen we niets wat niet klopt. */
+        status.innerHTML = uit.confirmed === false
+          ? (form.dataset.msgOkNc ||
+             "\u{1F525} Gelukt &mdash; je aanvraag is verstuurd! Ik reageer persoonlijk <b>binnen 24 uur</b>.")
+          : (form.dataset.msgOk ||
+             ("\u{1F525} Gelukt &mdash; je aanvraag is verstuurd! Je ontvangt direct " +
+              "een bevestiging per e-mail en ik reageer <b>binnen 24 uur</b>."));
         form.reset();
       } catch {
         /* vangnet: lukt het versturen niet (offline, of de mailfunctie is
@@ -1180,18 +1050,39 @@
   function start(){
     if (start.done) return;
     start.done = true;
+
+    /* Wat hier boven staat bepaalt hoe de eerste verf eruitziet en moet
+       dus vóór die verf klaar zijn: splitManifesto en fitHero zetten de
+       koppen goed, initGallery geeft de rail zijn hoogte, en register()
+       zet alle brandbare elementen op zwart. Zou register() later komen,
+       dan flitst de tekst eerst zichtbaar voordat hij dooft. */
     splitManifesto();
     fitHero();
-    drawShowPlates();
     initGallery();
-    initVideo();
-    initForm();
-    initWizard();
-
     register();
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(() => { fitHero(); measure(); });
     }
+
+    /* De rest is bedrading: videospelers, formulier, wizard, lichtbak,
+       de WhatsApp-knop en het jaartal. Niets daarvan bepaalt hoe het
+       eerste beeld eruitziet, dus laten we de browser eerst verven en
+       doen we dit een frame later. Sinds de stylesheet en de fonts
+       eerder binnen zijn, viel deze taak precies over het verfmoment
+       heen en schoof de eerste verf een kwart seconde op. */
+    if (typeof requestAnimationFrame === "function") {
+      requestAnimationFrame(() => setTimeout(bedrading, 0));
+    } else {
+      bedrading();
+    }
+  }
+
+  function bedrading(){
+    if (bedrading.done) return;
+    bedrading.done = true;
+    initVideo();
+    initForm();
+    initWizard();
 
     const yr = $("#year");
     if (yr) yr.textContent = String(new Date().getFullYear());
@@ -1271,14 +1162,11 @@
       });
     });
 
-    /* redraw the generated plates when the layout changes shape */
-    let rt;
+    /* de hero en de galerij opnieuw opmeten als het venster van vorm verandert */
     addEventListener("resize", () => {
-      clearTimeout(rt);
       fitHero();
       measure();
       resizeGallery();
-      rt = setTimeout(drawShowPlates, 220);
     }, { passive: true });
   }
 
@@ -1489,7 +1377,13 @@
 if ("serviceWorker" in navigator) {
   addEventListener("load", function () {
     setTimeout(function () {
-      navigator.serviceWorker.register("/sw.js").catch(function () {});
+      /* register() slaat de update-controle over als er binnen 24 uur al
+         een is geweest, dus een nieuwe versie bereikt een terugkerende
+         bezoeker anders dagenlang niet. update() forceert de controle;
+         dat kost één voorwaardelijk verzoek van een halve KB. */
+      navigator.serviceWorker.register("/sw.js")
+        .then(function (r) { if (r && r.update) r.update(); })
+        .catch(function () {});
     }, 600);
   });
 }

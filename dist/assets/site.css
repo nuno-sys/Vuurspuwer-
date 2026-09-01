@@ -3122,6 +3122,7 @@ will-change:opacity, transform;}
 0%,100%{ opacity:.5; transform:translateY(8px) scale(1); }
 50%    { opacity:1;  transform:translateY(0)   scale(1.05); }}
 @property --vuurhoek{ syntax:"<angle>"; inherits:false; initial-value:0deg; }
+.cookie__kaart *{ --vuurlijn:initial; }
 .cookie__kaart{
 --vuurlijn:conic-gradient(from var(--vuurhoek),
 #FF4D0A   0deg, #FFB020  24deg, #FFF3D6  42deg, #FFB020  60deg,

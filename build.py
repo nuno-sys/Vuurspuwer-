@@ -5,7 +5,7 @@ Leest de export, kiest de 20 stadspagina's, de blogposts en de vaste
 pagina's, en schrijft voor elk een map met een index.html in het ontwerp
 van de homepage. Webadressen blijven exact zoals ze nu zijn.
 """
-import hashlib, html, json, os, re, shutil, sys, unicodedata
+import base64, hashlib, html, json, os, re, shutil, sys, unicodedata
 import xml.etree.ElementTree as ET
 from datetime import date
 from html.parser import HTMLParser
@@ -688,19 +688,40 @@ def _add_toc(body, lang):
 # Instant-navigatie: direct na de eerste paginalading worden de vier
 # belangrijkste vervolgpagina's alvast opgehaald, en elke interne link
 # wordt bij hover/touch al gepre-renderd (Speculation Rules, Chrome/Edge).
-def spec_rules(lang):
-    top = [I.url_of(lang, s) for s in
-           ("contact-3", "wat-kost-een-vuurspuwer", "vuurspuwer-inhuren", "halloween")]
-    rules = {
-        "prefetch": [{"urls": top, "eagerness": "immediate"}],
-        "prerender": [{"where": {"and": [
-            {"href_matches": "/*"},
-            {"not": {"href_matches": "/api/*"}},
-            {"not": {"href_matches": "/assets/*"}}]},
-            "eagerness": "moderate"}],
-    }
+# De speculatieregels stonden per pagina met eigen URL's in de HTML, maar het
+# Content-Security-Policy van de site blokkeerde ze stilzwijgend ("Refused to
+# apply inline speculation rules") - ze hebben dus nooit gewerkt. Nu zijn ze op
+# elke pagina identiek, zodat er precies EEN hash is; die zetten we hieronder in
+# de CSP. Daarmee werken ze wel, zonder de policy op te rekken.
+_OK_NC = ("\U0001F525 Gelukt \u2014 je aanvraag is verstuurd! "
+          "Ik reageer persoonlijk <b>binnen 24 uur</b>.")
+
+
+def spec_rules(lang=None, zelf=None):
     return ('<script type="speculationrules">'
-            + json.dumps(rules, separators=(",", ":")) + "</script>")
+            + json.dumps(spec_regels_json(), separators=(",", ":")) + "</script>")
+
+
+def spec_regels_json():
+    intern = [{"href_matches": "/*"},
+              {"not": {"href_matches": "/api/*"}},
+              {"not": {"href_matches": "/assets/*"}}]
+    return {
+        # alles wat de bezoeker aanwijst wordt alvast opgehaald - niets
+        # wordt blind vooruit geladen, dus geen concurrentie met de pagina
+        # die hij nu aan het lezen is
+        "prefetch": [{"where": {"and": intern}, "eagerness": "moderate"}],
+        # prerender voert de hele pagina uit, inclusief scripts en beelden.
+        # Dat mag voor de navigatie en de boekknoppen bij hover, maar niet
+        # voor de 102 stedenlinks in de voettekst - daar wacht
+        # "conservative" tot de bezoeker de muisknop indrukt.
+        "prerender": [
+            {"where": {"and": [{"selector_matches": ".nav a, .menu a, .btn"}] + intern[1:]},
+             "eagerness": "moderate"},
+            {"where": {"and": intern}, "eagerness": "conservative"},
+        ],
+    }
+
 
 # ---------------------------------------------- foto-strip halverwege
 # Dezelfde galerijplaten als op de homepage, als horizontale scroll-strip
@@ -894,7 +915,7 @@ def vidgal(lang, page_url):
         name, desc = t["names"][i], t["descs"][i]
         ratio = "" if cls else ' data-ratio="4/3"'
         tiles.append(f'''<figure class="reel{cls}"{ratio}>
-        <video muted loop playsinline preload="none" poster="/assets/media/{small}"
+        <video muted loop playsinline preload="none" data-poster="/assets/media/{small}"
                data-src="/assets/media/{src}" aria-label="{esc(desc)}"><track kind="captions" src="/assets/media/stil.vtt" srclang="nl" label="{esc(t["cc"])}"></video>
         <button class="reel__play" type="button" aria-label="{esc(t["play"])}: {esc(name)}">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
@@ -1508,7 +1529,15 @@ _WRITTEN_PATHS = set()
 # te kunnen zien hoeveel er daadwerkelijk verschoven
 _LEDGER_VOOR = {p: v.get("d") for p, v in _LEDGER.items()}
 _NL_DATUM = r"\d{1,2} (?:" + "|".join(MONTHS_NL[1:]) + r") \d{4}"
-_VOLATILE = re.compile(r"\?v=[0-9a-f]+|\d{4}-\d{2}-\d{2}|" + _NL_DATUM)
+# Wat hier uit gefilterd wordt telt niet als inhoudswijziging. Naast de
+# assethash en datums hoort daar ook de laadplumbing bij: speculatieregels
+# en het poster-attribuut van een video zeggen niets over wat er op de
+# pagina staat, en een lastmod die daarop verspringt is een leugen tegen
+# Google — die vertrouwt lastmod sitebreed of helemaal niet.
+_VOLATILE = re.compile(
+    r"<script type=\"speculationrules\">.*?</script>"
+    r"|\bdata-poster=\"[^\"]*\"|\bposter=\"[^\"]*\""
+    r"|\?v=[0-9a-f]+|\d{4}-\d{2}-\d{2}|" + _NL_DATUM, re.S)
 
 def _lastmod(path, doc):
     _WRITTEN_PATHS.add(path)
@@ -2301,7 +2330,8 @@ def lang_contact_form(lang):
     </div>
     <form class="form rise" data-delay="1" id="bookForm" novalidate
           data-msg-busy="{esc(F["msg_busy"])}" data-msg-ok="{esc(F["msg_ok"])}"
-          data-msg-fail="{esc(F["msg_fail"])}" data-msg-invalid="{esc(F["msg_invalid"])}">
+          data-msg-fail="{esc(F["msg_fail"])}" data-msg-invalid="{esc(F["msg_invalid"])}"
+          data-msg-ok-nc="{esc(F.get("msg_ok_nc", _OK_NC))}">
       <input type="hidden" name="lang" value="{lang}">
       <div class="form__row">
         <label class="field"><span>{F["naam"]}</span><input type="text" name="naam" autocomplete="name" required></label>
@@ -2375,7 +2405,7 @@ def lang_videos_body(lang):
     for (src, poster, _, _, _), (cap, alt) in zip(PC.VIDEOS, T["vid_caps"]):
         ratio = ' data-ratio="9/16"' if "portrait" in src else ""
         tiles.append(f'''<figure class="reel rise"{ratio}>
-        <video muted loop playsinline preload="none" poster="/assets/media/{PC._poster(poster)}"
+        <video muted loop playsinline preload="none" data-poster="/assets/media/{PC._poster(poster)}"
                data-src="/assets/media/{src}" aria-label="{esc(alt)}"><track kind="captions" src="/assets/media/stil.vtt" srclang="nl" label="—"></video>
         <button class="reel__play" type="button" aria-label="{esc(cap)}">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
@@ -2938,6 +2968,14 @@ _early = ("/*\n"
           "  Link: </assets/fonts/instrument-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin\n"
           "  Link: </assets/fonts/jetbrains-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin\n")
 _hdrs = _hdrs.replace("/*\n", _early, 1)
+# De hash van het speculatieregel-blok in de CSP zetten, berekend uit de
+# inhoud die we net gegenereerd hebben - zo kan hij nooit verlopen als de
+# regels veranderen. 'inline-speculation-rules' alleen blijkt niet genoeg:
+# Chrome eist alsnog een hash zodra de policy hashes bevat.
+_spec_hash = "sha256-" + base64.b64encode(hashlib.sha256(
+    (json.dumps(spec_regels_json(), separators=(",", ":"))).encode()).digest()).decode()
+_hdrs = _hdrs.replace("'inline-speculation-rules'",
+                      f"'inline-speculation-rules' '{_spec_hash}'", 1)
 open(os.path.join(OUT, "_headers"), "w", encoding="utf-8").write(_hdrs)
 
 # eigen 404-pagina in huisstijl (Cloudflare Pages pakt 404.html automatisch)
@@ -2961,49 +2999,120 @@ _p404 = {"slug": "404", "noindex": True,
 </ul>"""}
 open(os.path.join(OUT, "404.html"), "w", encoding="utf-8").write(
     _avifize(render(_p404, "page", path="/")))
-print("  _headers met Early Hints en 404.html geschreven")
+
+# offlinepagina: de service worker viel tot nu toe terug op de homepage
+# onder het adres van de pagina die je zocht — verwarrend, en met "/" uit
+# de precache ook niet meer beschikbaar. Nu een eigen pagina die eerlijk
+# zegt wat er aan de hand is, met het telefoonnummer dat wél werkt.
+_poff = {"slug": "offline", "noindex": True,
+         "title": "Even geen verbinding",
+         "seo_title": "Offline — Vuurspuwer Nuno",
+         "seo_desc": "Je bent even offline. Zodra je weer verbinding hebt werkt de site gewoon door.",
+         "eyebrow": "Offline", "date": TODAY,
+         "img": ("/assets/media/vuurbal-1333.webp",
+                 "Meters hoge vuurbal tegen een zwarte nachtlucht boven de vuurspuwer"),
+         "body": """
+<p><strong>Je hebt even geen verbinding.</strong> De pagina's die je al bezocht hebt staan nog in je telefoon en werken gewoon; de rest komt terug zodra je weer online bent.</p>
+<p>Haast? Nuno is direct bereikbaar:</p>
+<ul>
+<li>📞 <a href="tel:+31620020723">06 20 02 07 23</a></li>
+<li>💬 <a href="https://wa.me/31620020723" rel="noopener">WhatsApp</a></li>
+<li>✉️ <a href="mailto:nuno@vuurspuwer.com">nuno@vuurspuwer.com</a></li>
+</ul>"""}
+os.makedirs(os.path.join(OUT, "offline"), exist_ok=True)
+open(os.path.join(OUT, "offline", "index.html"), "w", encoding="utf-8").write(
+    _avifize(render(_poff, "page", path="/")))
+print("  _headers met Early Hints, 404.html en offlinepagina geschreven")
 
 # service worker: assets cache-first (staan toch een jaar vast), pagina's
-# stale-while-revalidate — herhaalbezoek en vervolgkliks zijn daarmee
-# onmiddellijk, en de site werkt zelfs offline als brochure.
+# stale-while-revalidate met een versheidsgrens — herhaalbezoek en
+# vervolgkliks zijn onmiddellijk, maar niemand krijgt ooit prijzen of
+# teksten van meer dan tien minuten oud te zien. Googlebot voert geen
+# service worker uit, dus dit raakt indexering op geen enkele manier.
 open(os.path.join(OUT, "sw.js"), "w", encoding="utf-8").write("""\
 const V = "vs-%s";
+/* "/" staat hier bewust NIET in: die haalde de homepage op bij het eerste
+   bezoek aan elke willekeurige pagina, ook als de bezoeker er nooit heen
+   ging. Hij komt vanzelf in de cache zodra iemand hem opvraagt. */
 const CORE = [
-  "/", "/assets/site.css?v=%s", "/assets/site.js?v=%s",
+  "/assets/site.css?v=%s", "/assets/site.js?v=%s",
   "/assets/fonts/archivo-latin.woff2", "/assets/fonts/instrument-latin.woff2",
   "/assets/fonts/jetbrains-latin.woff2"
 ];
+const OFFLINE = "/offline/";
+const VERS = 600000;              /* 10 minuten; daarna eerst het netwerk */
+const STEMPEL = "x-sw-at";
+
 self.addEventListener("install", (e) => {
-  e.waitUntil(caches.open(V).then((c) => c.addAll(CORE)).then(() => self.skipWaiting()));
+  e.waitUntil(caches.open(V)
+    .then((c) => Promise.all(CORE.map((u) => c.add(u).catch(() => {}))))
+    .then(() => caches.open(V).then((c) => c.add(OFFLINE).catch(() => {})))
+    .then(() => self.skipWaiting()));
 });
+
 self.addEventListener("activate", (e) => {
-  e.waitUntil(caches.keys()
-    .then((ks) => Promise.all(ks.filter((k) => k !== V).map((k) => caches.delete(k))))
-    .then(() => self.clients.claim()));
+  e.waitUntil((async () => {
+    /* zonder navigationPreload staat de netwerkfetch bij elke navigatie te
+       wachten tot de worker is opgestart - op een koude telefoon 50-250ms */
+    if (self.registration.navigationPreload) {
+      try { await self.registration.navigationPreload.enable(); } catch (x) {}
+    }
+    const ks = await caches.keys();
+    await Promise.all(ks.filter((k) => k !== V).map((k) => caches.delete(k)));
+    await self.clients.claim();
+  })());
 });
+
+/* een gecachede kopie krijgt een tijdstempel mee, zodat we later weten
+   of hij nog vers genoeg is om zonder netwerk te serveren */
+function metStempel(res) {
+  const h = new Headers(res.headers);
+  h.set(STEMPEL, String(Date.now()));
+  return new Response(res.body, { status: res.status, statusText: res.statusText, headers: h });
+}
+function vers(res) {
+  const t = res && res.headers.get(STEMPEL);
+  return !!t && (Date.now() - Number(t)) < VERS;
+}
+
 self.addEventListener("fetch", (e) => {
   const url = new URL(e.request.url);
   if (e.request.method !== "GET" || url.origin !== location.origin) return;
   if (url.pathname.startsWith("/api/")) return;
+  /* video's laten we volledig met rust: de browser vraagt ze met Range op,
+     krijgt 206 terug, en de Cache API weigert 206 - dat leverde bij elke
+     mediarequest een stille afwijzing op, plus een omweg om niets */
+  if (/\.(mp4|webm|mov|m4v)$/.test(url.pathname)) return;
+
   if (url.pathname.startsWith("/assets/")) {
     e.respondWith(caches.open(V).then(async (c) => {
       const hit = await c.match(e.request);
       if (hit) return hit;
       const res = await fetch(e.request);
-      if (res.ok) c.put(e.request, res.clone());
+      if (res.status === 200) { try { await c.put(e.request, res.clone()); } catch (x) {} }
       return res;
     }));
     return;
   }
+
   if (e.request.mode === "navigate" || url.pathname.endsWith("/")) {
-    e.respondWith(caches.open(V).then(async (c) => {
+    e.respondWith((async () => {
+      const c = await caches.open(V);
       const hit = await c.match(e.request);
-      const net = fetch(e.request).then((res) => {
-        if (res.ok) c.put(e.request, res.clone());
+      /* de browser is al begonnen met ophalen (navigationPreload); dat
+         antwoord gebruiken scheelt een tweede verzoek om hetzelfde */
+      const haal = (async () => {
+        let res = null;
+        try { res = await e.preloadResponse; } catch (x) {}
+        if (!res) res = await fetch(e.request);
+        if (res && res.status === 200) {
+          try { await c.put(e.request, metStempel(res.clone())); } catch (x) {}
+        }
         return res;
-      }).catch(() => hit || c.match("/"));
-      return hit || net;
-    }));
+      })();
+      if (hit && vers(hit)) { haal.catch(() => {}); return hit; }
+      try { return await haal; } catch (x) { return hit || (await c.match(OFFLINE)) || Response.error(); }
+    })());
   }
 });
 """ % (VER, VER, VER))

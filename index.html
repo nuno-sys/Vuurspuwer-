@@ -55,7 +55,6 @@
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/instrument-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/jetbrains-latin.woff2" crossorigin>
-<link rel="preload" as="image" href="/assets/media/vuurbal-640.webp" fetchpriority="high">
 <!--A:HEAD-->
 <script type="application/ld+json">
 {
@@ -860,8 +859,7 @@
   <section class="hero hero--film wrap">
     <!-- The clip is the hero: full-bleed behind everything, barely dimmed. -->
     <figure class="hero__film" aria-hidden="true">
-      <video id="heroVideo" muted autoplay loop playsinline preload="none"
-             poster="/assets/media/vuurbal-640.webp"><track kind="captions" src="/assets/media/stil.vtt" srclang="nl" label="Geen gesproken tekst"></video>
+      <video id="heroVideo" muted autoplay loop playsinline preload="none"><track kind="captions" src="/assets/media/stil.vtt" srclang="nl" label="Geen gesproken tekst"></video>
     </figure>
 
     <div class="hero__body">
@@ -1004,7 +1002,7 @@
 
     <div class="reels">
       <figure class="reel rise" data-ratio="4/3">
-        <video muted loop playsinline preload="none" poster="/assets/media/reel-1-poster-640.webp"
+        <video muted loop playsinline preload="none" data-poster="/assets/media/reel-1-poster-640.webp"
                data-src="/assets/media/reel-1.mp4" aria-label="Showreel: vuurshow op locatie"><track kind="captions" src="/assets/media/stil.vtt" srclang="nl" label="Geen gesproken tekst"></video>
         <button class="reel__play" type="button" aria-label="Showreel vuurshow afspelen">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
@@ -1013,7 +1011,7 @@
       </figure>
 
       <figure class="reel rise" data-delay="1" data-ratio="16/9">
-        <video muted loop playsinline preload="none" poster="/assets/media/reel-2-poster-640.webp"
+        <video muted loop playsinline preload="none" data-poster="/assets/media/reel-2-poster-640.webp"
                data-src="/assets/media/reel-2.mp4" aria-label="Showreel: acts en fakirwerk"><track kind="captions" src="/assets/media/stil.vtt" srclang="nl" label="Geen gesproken tekst"></video>
         <button class="reel__play" type="button" aria-label="Showreel acts afspelen">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
@@ -1022,7 +1020,7 @@
       </figure>
 
       <figure class="reel rise" data-delay="2">
-        <video muted loop playsinline preload="none" poster="/assets/media/reel-poster.jpg"
+        <video muted loop playsinline preload="none" data-poster="/assets/media/reel-poster.jpg"
                data-src="/assets/media/showreel.mp4" aria-label="Showreel van vuurspuwer Nuno"><track kind="captions" src="/assets/media/stil.vtt" srclang="nl" label="Geen gesproken tekst"></video>
         <button class="reel__play" type="button" aria-label="Showreel afspelen">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
@@ -1031,7 +1029,7 @@
       </figure>
 
       <figure class="reel rise" data-delay="3">
-        <video muted loop playsinline preload="none" poster="/assets/media/vuurbal-640.webp"
+        <video muted loop playsinline preload="none" data-poster="/assets/media/vuurbal-640.webp"
                data-src="/assets/media/hero-portrait.mp4" aria-label="Vuurbal in close-up"><track kind="captions" src="/assets/media/stil.vtt" srclang="nl" label="Geen gesproken tekst"></video>
         <button class="reel__play" type="button" aria-label="Vuurbal-video afspelen">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>
