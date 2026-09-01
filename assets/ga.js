@@ -124,6 +124,16 @@
     bezig = true;
     bewaar(v);
     if (v === "ja") start();
+    /* Het sein voor site.js: nu pas vat de pagina vlam. Zolang de kaart
+       er lag had inbranden geen zin — er lag een doek van 94% overheen. */
+    try { document.dispatchEvent(new CustomEvent("vuur:keuze", { detail: v })); }
+    catch (e) {
+      try {
+        var ev = document.createEvent("Event");
+        ev.initEvent("vuur:keuze", true, false);
+        document.dispatchEvent(ev);
+      } catch (e2) {}
+    }
     vlieg();
   }
 

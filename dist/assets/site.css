@@ -1403,7 +1403,7 @@ rgba(255,150,36,.7) 42%,
 rgba(255,244,214,.92) 62%,
 rgba(255,110,20,0) 100%);}
 .b-f{
-opacity:calc(.03 + var(--burn, 0) * .97);
+opacity:var(--burn, 0);
 filter:brightness(calc(.12 + var(--burn, 0) * .88));}
 .b-f.burning{
 filter:brightness(calc(.12 + var(--burn, 0) * .88))

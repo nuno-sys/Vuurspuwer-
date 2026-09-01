@@ -1855,7 +1855,10 @@ body.is-locked .nav__call{ opacity:0; pointer-events:none; transition:opacity .3
 }
 
 .b-f{
-  opacity:calc(.03 + var(--burn, 0) * .97);
+  /* volledig doorzichtig in rust, niet 3%: op een donkere ondergrond is
+     dat hetzelfde beeld, maar contrastcontroles (en voorleessoftware)
+     zien nu dat er nog niets staat in plaats van iets onleesbaars */
+  opacity:var(--burn, 0);
   filter:brightness(calc(.12 + var(--burn, 0) * .88));
 }
 .b-f.burning{

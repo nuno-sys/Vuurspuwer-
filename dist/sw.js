@@ -1,9 +1,9 @@
-const V = "vs-53ea05e66a";
+const V = "vs-32bdf2190a";
 /* "/" staat hier bewust NIET in: die haalde de homepage op bij het eerste
    bezoek aan elke willekeurige pagina, ook als de bezoeker er nooit heen
    ging. Hij komt vanzelf in de cache zodra iemand hem opvraagt. */
 const CORE = [
-  "/assets/site.css?v=53ea05e66a", "/assets/site.js?v=53ea05e66a",
+  "/assets/site.css?v=32bdf2190a", "/assets/site.js?v=32bdf2190a",
   "/assets/fonts/archivo-latin.woff2", "/assets/fonts/instrument-latin.woff2",
   "/assets/fonts/jetbrains-latin.woff2"
 ];

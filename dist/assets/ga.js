@@ -16,7 +16,9 @@ function toon(){var k=kaart();if(!k){geland();return;}
 k.classList.remove("is-weg");k.hidden=false;HTML.classList.add("cookie-open");var ja=document.getElementById("cookieJa");if(ja)setTimeout(function(){try{ja.focus();}catch(e){}},60);}
 function sluit(){var k=kaart();if(k){k.hidden=true;k.classList.remove("is-weg");}
 HTML.classList.remove("cookie-open");}
-function antwoord(v){if(bezig)return;bezig=true;bewaar(v);if(v==="ja")start();vlieg();}
+function antwoord(v){if(bezig)return;bezig=true;bewaar(v);if(v==="ja")start();try{document.dispatchEvent(new CustomEvent("vuur:keuze",{detail:v}));}
+catch(e){try{var ev=document.createEvent("Event");ev.initEvent("vuur:keuze",true,false);document.dispatchEvent(ev);}catch(e2){}}
+vlieg();}
 function vlieg(){var k=kaart();var bron=k&&k.querySelector(".cookie__vlam");var doel=merk();var brand=document.querySelector(".nav__brand");if(!k||k.hidden||!bron||!doel||TRAAG||!bron.animate){sluit();geland();bezig=false;return;}
 if(brand){brand.classList.remove("is-landed");brand.classList.add("is-vliegend");}
 var a=bron.getBoundingClientRect();var b=doel.getBoundingClientRect();if(!a.width||!b.width){sluit();geland();bezig=false;return;}

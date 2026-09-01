@@ -366,7 +366,7 @@
         if (brand && !vraagt) brand.classList.add("is-landed");
         wrap.classList.add("is-open");
         start();
-        sweep();
+        if (vraagt) wachtOpKeuze(); else sweep();
         wrap.classList.add("is-out");
         setTimeout(() => wrap.remove(), 620);
       }, 0);
@@ -557,6 +557,44 @@
      After that the line is parked low in the viewport and the page
      moves instead: anything scrolling up through it catches on the way.
      Either way the light comes from below. */
+  /* Op een eerste bezoek ligt de koekjeskaart over de pagina: een doek
+     dat 94% dekt en de achtergrond ook nog eens vervaagt. De pagina
+     daarachter laten inbranden is werk dat niemand ziet — en het is
+     zonde van het moment. De veeg wacht daarom op de keuze: het merk
+     vliegt naar het menu en tegelijk vat de pagina eronder vlam.
+
+     Drie wegen naar hetzelfde sein, want de pagina mag nooit zwart
+     blijven: het sein uit ga.js, het verdwijnen van de klasse, en een
+     vangnet voor het geval de kaart er nooit komt. */
+  function wachtOpKeuze(){
+    const el = document.documentElement;
+    let gedaan = false, gezien = el.classList.contains("cookie-open");
+    let kijker = null, vangnet = 0;
+
+    const ontsteek = () => {
+      if (gedaan) return;
+      gedaan = true;
+      clearTimeout(vangnet);
+      if (kijker) kijker.disconnect();
+      document.removeEventListener("vuur:keuze", ontsteek);
+      sweep();
+    };
+
+    document.addEventListener("vuur:keuze", ontsteek);
+
+    if (window.MutationObserver) {
+      kijker = new MutationObserver(() => {
+        if (el.classList.contains("cookie-open")) { gezien = true; clearTimeout(vangnet); }
+        else if (gezien) ontsteek();
+      });
+      kijker.observe(el, { attributes: true, attributeFilter: ["class"] });
+    }
+
+    /* komt de kaart binnen drie tellen niet in beeld, dan komt hij niet
+       meer — dan brandt de pagina alsnog gewoon in */
+    if (!gezien) vangnet = setTimeout(ontsteek, 3000);
+  }
+
   const REST = 0.86, BAND = 0.24;
   let sweepFrom = 0, endAt = 0, phase = "hold";
 
@@ -575,7 +613,7 @@
 
     let line = 0;
     if (climbing) {
-      const k = clamp((performance.now() - sweepFrom) / 1500, 0, 1);
+      const k = clamp((performance.now() - sweepFrom) / 1100, 0, 1);
       const eased = k * k * (3 - 2 * k);          /* even, readable climb */
       line = vh * (1.06 - eased * 1.5);
       if (k >= 1) phase = "scroll";
