@@ -3123,14 +3123,11 @@ will-change:opacity, transform;}
 @keyframes cookiehitte{
 0%,100%{ opacity:.5; transform:translateY(8px) scale(1); }
 50%    { opacity:1;  transform:translateY(0)   scale(1.05); }}
-@property --vuurhoek{ syntax:"<angle>"; inherits:false; initial-value:0deg; }
 .cookie__kaart *{ --vuurlijn:initial; }
 .cookie__kaart{
---vuurlijn:conic-gradient(from var(--vuurhoek),
-#FF4D0A   0deg, #FFB020  24deg, #FFF3D6  42deg, #FFB020  60deg,
-#C23400  94deg, #6B1A00 124deg, #FF4D0A 156deg, #FFD46B 184deg,
-#FFF3D6 202deg, #FF7A12 230deg, #7A1F00 266deg, #FF4D0A 300deg,
-#FFB020 332deg, #FF4D0A 360deg);
+--vuurlijn:linear-gradient(96deg,
+var(--ember)  0%, var(--flame) 24%, var(--core) 46%,
+var(--flame) 68%, var(--ember) 100%);
 position:relative;
 width:min(600px,100%);
 margin:auto;
@@ -3143,8 +3140,7 @@ linear-gradient(180deg, #120B06, #0A0705) padding-box,
 var(--vuurlijn) border-box;
 box-shadow:0 40px 120px -30px rgba(0,0,0,.9),
 0 0 70px -14px rgba(255,77,10,.5);
-animation:cookieop .5s var(--ease) both,
-cookievuur 7s linear infinite;}
+animation:cookieop .5s var(--ease) both;}
 .cookie__kaart::before{
 content:"";
 position:absolute;
@@ -3156,22 +3152,14 @@ background:var(--vuurlijn);
 mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
 -webkit-mask-composite:xor;
 mask-composite:exclude;
-filter:blur(7px);
-pointer-events:none;
-animation:cookievlam 2.7s ease-in-out infinite;
-will-change:opacity;}
-@keyframes cookievuur{ to{ --vuurhoek:360deg; } }
-@keyframes cookievlam{
-0%,100%{ opacity:.9; }
-30%    { opacity:.6; }
-55%    { opacity:1; }
-78%    { opacity:.72; }}
+filter:blur(9px);
+opacity:.6;
+pointer-events:none;}
 @keyframes cookieop{
 from{ opacity:0; transform:translateY(18px) scale(.97); }
 to{ opacity:1; transform:none; }}
 @media (prefers-reduced-motion: reduce){
 .cookie__kaart{ animation:none; }
-.cookie__kaart::before,
 .cookie__doek::after{ animation:none; opacity:.85; }}
 .cookie__vlam{
 display:block;

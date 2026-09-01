@@ -4077,24 +4077,24 @@ html[data-theme="light"] .gloss__item{ background-color:rgba(255,255,255,.6); }
   50%    { opacity:1;  transform:translateY(0)   scale(1.05); }
 }
 
-/* De rand is een echte vuurlijn: een draaiende conische verloop als
-   rand (border-box) met daaromheen dezelfde lijn, vervaagd, als gloed.
-   Beide gebruiken hetzelfde verloop, dus het is één keer geschreven. */
-@property --vuurhoek{ syntax:"<angle>"; inherits:false; initial-value:0deg; }
+/* De rand draagt de kleuren van het merk zelf: één stil verloop van
+   ember via de kern terug naar ember — precies het verloop dat ook door
+   de letters van NUNO loopt, en onder dezelfde hoek. Eén keer tekenen in
+   plaats van zestig keer per seconde een draaiend conisch verloop plus
+   een vervaagde ring eromheen. Dat draaien kostte de telefoon per beeldje
+   een hertekening van de hele kaart, terwijl er een doek van 94% overheen
+   lag. Wat er staat is nu een accent, geen vuurwerk — en het staat er
+   meteen. */
 
-/* --vuurlijn is een gewone, dus ERFENDE custom property, en hij bevat de
-   geanimeerde --vuurhoek. Zonder deze regel moet elk kind van de kaart bij
-   elk frame opnieuw worden doorgerekend — 40 elementen, 60 keer per seconde,
-   puur voor een rand die ze niet gebruiken. De universele selector raakt geen
-   pseudo-elementen, dus ::before houdt zijn meedraaiende gloedring. */
+/* --vuurlijn erft; de kinderen van de kaart hebben hem niet nodig en
+   dragen hem zo ook niet mee. De universele selector raakt geen
+   pseudo-elementen, dus ::before houdt zijn gloedring. */
 .cookie__kaart *{ --vuurlijn:initial; }
 
 .cookie__kaart{
-  --vuurlijn:conic-gradient(from var(--vuurhoek),
-    #FF4D0A   0deg, #FFB020  24deg, #FFF3D6  42deg, #FFB020  60deg,
-    #C23400  94deg, #6B1A00 124deg, #FF4D0A 156deg, #FFD46B 184deg,
-    #FFF3D6 202deg, #FF7A12 230deg, #7A1F00 266deg, #FF4D0A 300deg,
-    #FFB020 332deg, #FF4D0A 360deg);
+  --vuurlijn:linear-gradient(96deg,
+    var(--ember)  0%, var(--flame) 24%, var(--core) 46%,
+    var(--flame) 68%, var(--ember) 100%);
   position:relative;
   width:min(600px,100%);
   margin:auto;
@@ -4107,10 +4107,9 @@ html[data-theme="light"] .gloss__item{ background-color:rgba(255,255,255,.6); }
     var(--vuurlijn) border-box;
   box-shadow:0 40px 120px -30px rgba(0,0,0,.9),
              0 0 70px -14px rgba(255,77,10,.5);
-  animation:cookieop .5s var(--ease) both,
-            cookievuur 7s linear infinite;
+  animation:cookieop .5s var(--ease) both;
 }
-/* de gloed om de vuurlijn heen — alleen de ring, de binnenkant is
+/* de gloed om de rand heen — alleen de ring, de binnenkant is
    weggemaskeerd zodat de kaart zelf leesbaar blijft */
 .cookie__kaart::before{
   content:"";
@@ -4123,17 +4122,9 @@ html[data-theme="light"] .gloss__item{ background-color:rgba(255,255,255,.6); }
           mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite:xor;
           mask-composite:exclude;
-  filter:blur(7px);
+  filter:blur(9px);
+  opacity:.6;
   pointer-events:none;
-  animation:cookievlam 2.7s ease-in-out infinite;
-  will-change:opacity;
-}
-@keyframes cookievuur{ to{ --vuurhoek:360deg; } }
-@keyframes cookievlam{
-  0%,100%{ opacity:.9; }
-  30%    { opacity:.6; }
-  55%    { opacity:1; }
-  78%    { opacity:.72; }
 }
 @keyframes cookieop{
   from{ opacity:0; transform:translateY(18px) scale(.97); }
@@ -4141,7 +4132,6 @@ html[data-theme="light"] .gloss__item{ background-color:rgba(255,255,255,.6); }
 }
 @media (prefers-reduced-motion: reduce){
   .cookie__kaart{ animation:none; }
-  .cookie__kaart::before,
   .cookie__doek::after{ animation:none; opacity:.85; }
 }
 
