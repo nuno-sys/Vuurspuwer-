@@ -8,3 +8,4 @@ __pycache__/
 *.iam.gserviceaccount.com.json
 service-account*.json
 google-sa*.json
+assistent/src/spelregels.js

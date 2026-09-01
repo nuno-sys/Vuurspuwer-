@@ -1,0 +1,22 @@
+name = "vuurspuwer-boekingsassistent"
+main = "src/index.js"
+compatibility_date = "2026-06-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Elke drie minuten kijken of er nieuwe boekingsmail is. Dat is ruim binnen
+# de gratis grens van Cloudflare en snel genoeg: het concept staat klaar
+# voordat Nuno zijn inbox opent.
+[triggers]
+crons = ["*/3 * * * *"]
+
+[vars]
+MAILBOX = "nuno@vuurspuwer.com"
+
+# src/spelregels.js wordt vlak voor het uitrollen uit spelregels.md gemaakt
+# (zie maak-spelregels.mjs). Zo bewerk jij gewoon markdown en hoeft er niets
+# dubbel te bestaan.
+
+# Geheimen staan NIET hier. Zet ze met:
+#   npx wrangler secret put ANTHROPIC_API_KEY
+#   npx wrangler secret put GOOGLE_SA_JSON
+#   npx wrangler secret put TEST_SLEUTEL
