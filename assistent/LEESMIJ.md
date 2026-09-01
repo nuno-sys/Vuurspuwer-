@@ -1,5 +1,9 @@
 # Conceptantwoord bij een formulieraanvraag
 
+> **Dit is wat er nu aan staat.** Verderop staat een Gmail-versie beschreven
+> die ook je gewone inbox meeleest; die is gebouwd maar staat uit en vraagt
+> een Google-serviceaccount. Je hoeft daar nu niets mee.
+
 ## Wat het doet
 
 Iemand vult het formulier op de site in. Er gebeurt dan drie dingen:
@@ -64,7 +68,11 @@ Ongeveer vijf cent per aanvraag.
 
 ---
 
-# De Gmail-versie (staat klaar, nog niet aan)
+# De Gmail-versie — STAAT UIT
+
+> Voor later. Hij is gebouwd en getest, maar wordt niet uitgerold: de
+> GitHub-actie start alleen met de hand en er staat geen serviceaccount.
+> Je hoeft hier niets voor te doen.
 
 Hierboven ging over het formulier. Er staat ook een versie klaar die je
 gewone **inbox** meeleest, zodat je ook niets mist als iemand rechtstreeks

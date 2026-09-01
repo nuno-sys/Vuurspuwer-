@@ -1,4 +1,4 @@
-import { onRequestPost } from "./contact.js";
+import { onRequestPost } from "../functions/api/contact.js";
 const uitslag = []; const t = (n, ok, d = "") => uitslag.push([ok, n, d]);
 
 const BASIS = { naam: "Sanne de Vries", email: "sanne@voorbeeld.nl", telefoon: "0612345678",

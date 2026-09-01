@@ -10,7 +10,7 @@
  * standaardadressen hieronder overschrijven.
  */
 
-import { stuurConcept } from "./_concept.js";
+import { stuurConcept } from "../../assistent/concept.js";
 
 const SITE = "https://vuurspuwer.com";
 const DEFAULT_TO = "nuno@vuurspuwer.com";

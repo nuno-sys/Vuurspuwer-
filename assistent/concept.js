@@ -7,7 +7,7 @@
  * Er wordt niets naar de klant gestuurd. Het concept gaat naar Nuno, hij
  * leest het, past aan en verstuurt zelf. */
 
-import SPELREGELS from "../../assistent/spelregels.js";
+import SPELREGELS from "./spelregels.js";
 
 const MODEL = "claude-opus-5";
 const KENNIS = "https://vuurspuwer.com/assistent.txt";
