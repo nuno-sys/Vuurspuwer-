@@ -1530,12 +1530,14 @@ _WRITTEN_PATHS = set()
 _LEDGER_VOOR = {p: v.get("d") for p, v in _LEDGER.items()}
 _NL_DATUM = r"\d{1,2} (?:" + "|".join(MONTHS_NL[1:]) + r") \d{4}"
 # Wat hier uit gefilterd wordt telt niet als inhoudswijziging. Naast de
-# assethash en datums hoort daar ook de laadplumbing bij: speculatieregels
-# en het poster-attribuut van een video zeggen niets over wat er op de
-# pagina staat, en een lastmod die daarop verspringt is een leugen tegen
-# Google — die vertrouwt lastmod sitebreed of helemaal niet.
+# assethash en datums hoort daar ook de laadplumbing bij: speculatieregels,
+# het poster-attribuut van een video en het sitebrede linkblok in de
+# voettekst zeggen niets over wat er op de pagina zelf staat. Een lastmod
+# die daarop verspringt is een leugen tegen Google — en die vertrouwt
+# lastmod sitebreed of helemaal niet.
 _VOLATILE = re.compile(
     r"<script type=\"speculationrules\">.*?</script>"
+    r"|<nav class=\"fseo\".*?</nav>"
     r"|\bdata-poster=\"[^\"]*\"|\bposter=\"[^\"]*\""
     r"|\?v=[0-9a-f]+|\d{4}-\d{2}-\d{2}|" + _NL_DATUM, re.S)
 
@@ -1775,7 +1777,7 @@ def hw_top(lang):
 
 def hw_cities(lang):
     L = _HW[lang]
-    links = "".join(f'<li><a href="/halloween-{k}/">🎃 {esc(n)}</a></li>'
+    links = "".join(f'<li><a href="/{_sp}/">🎃 {esc(n)}</a></li>'
                     for k, (n, _sf, _sp) in MX.CITIES.items())
     return (f'<section class="wrap bay hwcities"><h2 class="bay__title">{esc(L["cities"])}</h2>'
             f'<p class="hwcities__p">{esc(L["cities_p"])}</p>'
@@ -1860,10 +1862,10 @@ def foot_seo():
     gel += [("🎃 Halloween-acts", "/halloween/"),
             ("🎭 Themafeesten", "/entertainer-huren-voor-bedrijfsfeest/"),
             ("💶 Prijzen & pakketten", "/wat-kost-een-vuurspuwer/")]
+    # De drie lijsten "Halloween/Fakirshow/Workshop per stad" stonden hier
+    # ook. Die pagina's zijn opgeheven; de stadspagina's dekken alle drie de
+    # shows, dus één stadslijst is genoeg en de voettekst wordt er korter van.
     stad = [(f"Vuurspuwer {n}", f"/{s}/") for s, n in CITY_LABEL.items()]
-    hall = [(f"Halloween {n}", f"/halloween-{k}/") for k, (n, _s, _p) in MX.CITIES.items()]
-    fakir = [(f"Fakirshow {n}", f"/fakirshow-{k}/") for k, (n, _s, _p) in MX.CITIES.items()]
-    work = [(f"Workshop vuurspuwen {n}", f"/workshop-vuurspuwen-{k}/") for k, (n, _s, _p) in MX.CITIES.items()]
     kennis = [("📖 Vuur-woordenboek: alle termen uitgelegd", "/vuur-woordenboek/"),
               ("💶 Wat kost een vuurspuwer?", "/wat-kost-een-vuurspuwer/"),
               ("📰 Blog & tips", "/blog/"),
@@ -1871,9 +1873,6 @@ def foot_seo():
     return ('<nav class="fseo" aria-label="Alle pagina\'s per onderwerp">'
             + grp("💍 Vuurshows per gelegenheid", gel)
             + grp("📍 Vuurspuwer per stad", stad)
-            + grp("🎃 Halloween per stad", hall)
-            + grp("⚔️ Fakirshow per stad", fakir)
-            + grp("💨 Workshop per stad", work)
             + grp("📖 Kennisbank", kennis)
             + "</nav>")
 
@@ -1890,8 +1889,7 @@ for slug in CITIES:
     if not p: missing.append(slug); continue
     city = CITY_LABEL[slug]
     others = [(CITY_LABEL[s], s) for s in CITIES if s != slug][:8]
-    near = (MX.stad_dwarslinks(slug)
-            + '<section class="wrap bay"><h2 class="bay__title">Ook in de <em>buurt</em></h2>'
+    near = ('<section class="wrap bay"><h2 class="bay__title">Ook in de <em>buurt</em></h2>'
             '<ul class="citylist">' +
             "".join(f'<li><a href="/{s}/">Vuurspuwer in {n}</a></li>' for n, s in others) +
             "</ul></section>")
@@ -2241,13 +2239,22 @@ write("halloween", render(p, "page", PC.show_schema("halloween", hp), extra,
                           alternates=alternates_for("halloween")))
 built.append("halloween")
 
-# ------------------------------------- de stad x show-matrix (Nederlands)
-for show_key in MX.SHOWS:
-    for city_key in MX.CITIES:
-        p, extra_html, schema = MX.build_page(show_key, city_key)
-        write(p["slug"], render(p, "city", schema, extra_html))
-        built.append(p["slug"])
-print(f"  matrix: {len(MX.SHOWS) * len(MX.CITIES)} stad x show-pagina's")
+# ------------------------------------- de stad x show-matrix: opgeheven
+# Deze 45 pagina's (15 steden x 3 shows) waren voor de helft letterlijk
+# hetzelfde: gemeten 50 tot 54 procent identieke zinnen op zo'n 400 woorden.
+# Dat is het patroon dat Google doorway pages noemt, en het oordeel daarover
+# raakt niet alleen die pagina's maar de hele site.
+#
+# De vijftien echte stadspagina's blijven; die zijn uniek (3 procent overlap)
+# en noemen fakirshow, workshop en Halloween allemaal. Elke matrixpagina
+# leidt daarom naar de stadspagina van diezelfde stad: dat is het naaste
+# equivalent, het houdt de bezoeker in zijn eigen stad, en het bundelt de
+# waarde in de pagina die we willen laten winnen.
+_MATRIX_OM = {}
+for _sk in MX.SHOWS:
+    for _ck, (_n, _sf, _stadpagina) in MX.CITIES.items():
+        _MATRIX_OM[MX.page_slug(_sk, _ck)] = _stadpagina
+print(f"  matrix opgeheven: {len(_MATRIX_OM)} dunne pagina's naar hun stadspagina")
 
 # ------------------------------------------------- vertaalde pagina's
 # Engels, Duits en Frans: alles wat in het menu staat, plus de Duitse
@@ -2674,6 +2681,11 @@ for slug, p in pages.items():
         lines.append(f"/{slug}/  {HUB}  301")
         dropped += 1
 
+# 2b. de opgeheven matrixpagina's naar de stadspagina van dezelfde stad
+for _van, _naar in _MATRIX_OM.items():
+    lines.append(f"/{_van}/  /{_naar}/  301")
+    _OMGELEID.add(_van)
+
 # 3. alles wat verder wegvalt naar de homepage, zodat niets een 404 wordt
 rest = 0
 for slug in pages:
@@ -2684,7 +2696,8 @@ for slug in pages:
     rest += 1
 
 open(os.path.join(OUT, "_redirects"), "w").write("\n".join(lines) + "\n")
-print(f"  _redirects: {len(lines)-2} regels ({dropped} stadspagina's naar de hub, {rest} overig)")
+print(f"  _redirects: {len(lines)-2} regels ({dropped} stadspagina's naar de hub, "
+      f"{len(_MATRIX_OM)} matrixpagina's naar hun stad, {rest} overig)")
 
 # sitemap — met xhtml-alternates voor alle taalversies
 _TOP_PAGES = {"halloween", "wat-kost-een-vuurspuwer",

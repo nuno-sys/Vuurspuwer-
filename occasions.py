@@ -221,7 +221,7 @@ NL = {
 <ul>
 <li><strong>Origineler bestaat niet</strong> — niemand in de vriendengroep heeft dit al gedaan.</li>
 <li><strong>Voor elke groep</strong> — van 4 tot 20 personen, mannen én vrouwen; wie niet durft, fotografeert.</li>
-<li><strong>Overal in NL & BE</strong> — Nuno komt met alle materialen naar jullie stad of feestlocatie; alleen wat vrije buitenruimte is nodig. Bekijk bijvoorbeeld de workshops in <a href="/workshop-vuurspuwen-amsterdam/">Amsterdam</a>, <a href="/workshop-vuurspuwen-rotterdam/">Rotterdam</a> of <a href="/workshop-vuurspuwen-antwerpen/">Antwerpen</a>.</li>
+<li><strong>Overal in NL & BE</strong> — Nuno komt met alle materialen naar jullie stad of feestlocatie; alleen wat vrije buitenruimte is nodig. Bekijk bijvoorbeeld wat er mogelijk is in <a href="/vuurspuwer-boeken-in-amsterdam/">Amsterdam</a>, <a href="/vuurspuwer-boeken-in-rotterdam/">Rotterdam</a> of <a href="/vuurspuwer-boeken-in-antwerpen/">Antwerpen</a>.</li>
 <li><strong>Combineer met een show</strong> — eerst kijken hoe het écht moet (<a href="/vuurspuwer-inhuren/">mini-vuurshow</a>), daarna zelf proberen.</li>
 </ul>
 
