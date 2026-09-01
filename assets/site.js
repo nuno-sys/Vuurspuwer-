@@ -257,6 +257,7 @@
 
   const burn = $("#burn");
   const stage = $(".stage");
+  let laatsteSh = "", laatsteBalk = "";
 
   /* Elk beeldje in twee helften: eerst alles meten, dan pas schrijven.
      Zolang er nog niets is geschreven staat de layout van de browser
@@ -285,8 +286,15 @@
     S.heat = lerp(S.heat, Math.min(0.28 + heroFade * 0.52 + S.vel * 0.32, 1.02), 0.08);
 
     /* ---- schrijven ---- */
-    /* on the hero the fire stands tall; past it, it settles into a floor */
-    if (stage) stage.style.setProperty("--sh", (heroFade * (vw < 760 ? 5 : 10)).toFixed(2) + "%");
+    /* on the hero the fire stands tall; past it, it settles into a floor.
+       Alleen als de waarde echt verandert: --sh zit in het verloop van
+       het schermvullende scrim, dus elke schrijfactie kost een
+       hertekening van het hele scherm. Staat de bezoeker stil — en dat
+       doet hij het grootste deel van de tijd — dan verandert er niets. */
+    if (stage) {
+      const sh = (heroFade * (vw < 760 ? 5 : 10)).toFixed(2) + "%";
+      if (sh !== laatsteSh) { stage.style.setProperty("--sh", sh); laatsteSh = sh; }
+    }
 
     /* de sfeerlagen (vlam + vonken) op 30 fps: visueel gelijk, maar
        het scheelt de helft van het tekenwerk op de hoofdthread.
@@ -307,7 +315,8 @@
 
     if (burn) {
       const max = docH - vh;
-      burn.style.width = (max > 0 ? clamp(y / max, 0, 1) * 100 : 0).toFixed(2) + "%";
+      const br = (max > 0 ? clamp(y / max, 0, 1) * 100 : 0).toFixed(2) + "%";
+      if (br !== laatsteBalk) { burn.style.width = br; laatsteBalk = br; }
     }
 
     requestAnimationFrame(frame);
