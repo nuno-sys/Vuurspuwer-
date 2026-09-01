@@ -78,11 +78,23 @@ export async function labelId(token, naam) {
   return nieuw.id;
 }
 
-export async function zoekBerichten(token, labelIds, max = 10) {
-  const q = new URLSearchParams({ maxResults: String(max) });
-  for (const id of labelIds) q.append("labelIds", id);
+export async function zoekBerichten(token, vraag, max = 10) {
+  const q = new URLSearchParams({ maxResults: String(max), q: vraag });
   const uit = await gmail(token, `/messages?${q}`);
   return uit.messages || [];
+}
+
+/* Een label dat Nuno nooit ziet: niet in de labellijst, niet op het bericht.
+   We gebruiken het alleen om te onthouden wat we al bekeken hebben. */
+export async function stilLabel(token, naam) {
+  const { labels } = await gmail(token, "/labels");
+  const bestaat = labels.find((l) => l.name === naam);
+  if (bestaat) return bestaat.id;
+  const nieuw = await gmail(token, "/labels", {
+    method: "POST",
+    body: JSON.stringify({ name: naam, labelListVisibility: "labelHide", messageListVisibility: "hide" }),
+  });
+  return nieuw.id;
 }
 
 /* Losse tekst uit een Gmail-bericht halen: het formaat is een boom van
@@ -139,6 +151,9 @@ export async function haalBericht(token, id) {
     messageId: kop["message-id"] || "",
     references: kop.references || "",
     datum: kop.date || "",
+    lijstpost: !!(kop["list-unsubscribe"] || kop["list-id"] || kop.precedence),
+    auto: /auto-(generated|replied)|no-reply|noreply/i.test(
+      (kop["auto-submitted"] || "") + " " + (kop.from || "")),
     tekst: (tekstUit(m.payload) || m.snippet || "").slice(0, 20000),
   };
 }

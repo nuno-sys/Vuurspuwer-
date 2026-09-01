@@ -62,8 +62,87 @@ Ongeveer vijf cent per aanvraag.
 - Lukt het schrijven niet, dan krijg je een mail met de reden. De aanvraag en
   de bevestiging zijn dan gewoon verstuurd.
 
-## Later
+---
 
-In de map `assistent/` staat ook een Gmail-versie die conceptantwoorden maakt
-op mail die rechtstreeks bij je binnenkomt, plus de opzet voor agenda en
-Moneybird. Die staat uit tot je zover bent; hij vraagt een Google-serviceaccount.
+# De Gmail-versie (staat klaar, nog niet aan)
+
+Hierboven ging over het formulier. Er staat ook een versie klaar die je
+gewone **inbox** meeleest, zodat je ook niets mist als iemand rechtstreeks
+naar nuno@ mailt in plaats van het formulier in te vullen.
+
+## Hoe hij te werk gaat
+
+Elke drie minuten kijkt hij naar je primaire inbox van de afgelopen week.
+Per mail:
+
+1. **Gratis overslaan.** Nieuwsbrieven (te herkennen aan de uitschrijflink),
+   no-reply-afzenders en je eigen verzonden post gaan er meteen uit. Reclame,
+   sociale post en meldingen sorteert Gmail zelf al weg en komen niet eens
+   langs. Hier wordt Claude niet eens voor gevraagd.
+2. **Sorteren.** Eén korte vraag: is dit iemand die mogelijk wil boeken?
+   Bij nee gebeurt er niets — geen concept, geen zichtbaar label, niets. Je
+   boekhouder en je verzekering blijven met rust.
+3. **Schrijven.** Alleen bij ja komt er een concept in dezelfde thread.
+
+Mail die hij bekeken heeft krijgt een onzichtbaar merkteken (`vs-gezien`),
+zodat hij niet twee keer naar hetzelfde kijkt. Dat label zie je niet: het
+staat niet in je labellijst en niet op je berichten.
+
+## Hij leert je toon uit je eigen mail
+
+Hij zoekt in je **verzonden items** op boekingswoorden — vuurshow, offerte,
+optreden, workshop — en gebruikt je laatste antwoorden als voorbeeld van hoe
+jij schrijft. Geciteerde tekst knipt hij eruit, dus alleen jouw eigen woorden
+tellen mee. Privémail en post aan de boekhouder komen daar niet in voor.
+
+Je hoeft dus zelf geen voorbeelden meer in `spelregels.md` te zetten. En hij
+blijft meeleren: verandert jouw manier van schrijven, dan verandert hij mee.
+De voorbeelden worden een dag bewaard, dus dit kost bijna niets.
+
+## Wat je moet doen om hem aan te zetten
+
+1. **Gmail API aanzetten** — console.cloud.google.com → je project →
+   API's en services → Bibliotheek → *Gmail API* → Inschakelen
+2. **Serviceaccount maken** — API's en services → Inloggegevens →
+   Inloggegevens maken → Serviceaccount. Noem hem `boekingsassistent`,
+   geen rollen nodig. Klik hem daarna aan → Sleutels → Sleutel toevoegen →
+   JSON. Bewaar dat bestand.
+3. **Client-ID kopiëren** — staat op datzelfde scherm onder Geavanceerd,
+   een lang getal.
+4. **Delegatie instellen** — admin.google.com → Beveiliging → Toegangsbeheer
+   voor API's → Domeinbrede delegatie → Nieuwe toevoegen. Client-ID uit
+   stap 3, en als bereik precies dit:
+   `https://www.googleapis.com/auth/gmail.modify`
+
+   > Alleen `gmail.modify`: lezen, labelen en concepten maken. **Geen
+   > verzendrecht.** Hij kán niet mailen, ook niet als hij zou willen.
+
+5. **Sleutels zetten.** In Cloudflare bij de Worker
+   `vuurspuwer-boekingsassistent` → Settings → Variables and Secrets:
+   `ANTHROPIC_API_KEY`, `GOOGLE_SA_JSON` (de hele inhoud van het
+   JSON-bestand) en `TEST_SLEUTEL` (verzin zelf iets lang).
+   In GitHub → Settings → Secrets → Actions: `CLOUDFLARE_API_TOKEN` en
+   `CLOUDFLARE_ACCOUNT_ID`.
+6. **Uitrollen.** GitHub → Actions → *Boekingsassistent uitrollen* → Run
+   workflow. Daarna gaat het vanzelf bij elke wijziging.
+
+## Wat je in Gmail terugziet
+
+| Label | Betekenis |
+|---|---|
+| `Boekingen/Concept klaar` | er staat een concept voor je klaar |
+| `Boekingen/Nagekeken worden` | er ging iets mis — deze doe je met de hand |
+
+Meer niet. Alle andere post blijft onaangeroerd.
+
+## Wat het kost
+
+Sorteren kost een fractie van een cent per mail; alleen bij een echte
+boekingsvraag komt er een antwoord van een paar cent achteraan. Bij dertig
+mails per dag waarvan er vijf over boekingen gaan: ongeveer €10 per maand.
+
+## De noodrem
+
+Zet de Worker op pauze in het Cloudflare-dashboard, of verwijder de secret
+`GOOGLE_SA_JSON`. Dan stopt hij onmiddellijk en blijft de rest van je site
+gewoon werken.

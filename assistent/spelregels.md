@@ -60,20 +60,14 @@ VUL IN
 
 ## Zo beantwoord ik zelf een aanvraag
 
-<!-- Plak hier twee of drie echte antwoorden die je zelf hebt gestuurd, met
-     de vraag erboven. Dit is het belangrijkste stuk van dit bestand: hieraan
-     leert de assistent jouw toon. Haal namen en adressen van klanten eruit. -->
+<!-- Hoef je niet meer in te vullen: de Gmail-versie leert je toon uit je
+     eigen verzonden mail. Gebruik je alleen het formulier, plak hier dan
+     twee antwoorden die je zelf hebt gestuurd, met de vraag erboven.
+     Haal namen en adressen van klanten eruit. -->
 
 ### Voorbeeld 1
 Vraag van de klant:
-VUL IN
+VUL IN (of laat staan)
 
 Mijn antwoord:
-VUL IN
-
-### Voorbeeld 2
-Vraag van de klant:
-VUL IN
-
-Mijn antwoord:
-VUL IN
+VUL IN (of laat staan)
