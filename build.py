@@ -366,7 +366,8 @@ _BUSINESS_LD = {
                    {"@type": "Country", "name": "België"}],
     "sameAs": ["https://www.facebook.com/show.nuno",
                "https://www.instagram.com/officialnuno",
-               "https://x.com/mentalist_nuno"],
+               "https://x.com/mentalist_nuno",
+               "https://entertainershow.com/artiest/vuurspuwer-nuno/"],
     "aggregateRating": _RATING_LD,
 }
 
@@ -388,7 +389,8 @@ _PERSON_LD = {
     "url": f"{SITE}/over-nuno/",
     "sameAs": ["https://www.facebook.com/show.nuno",
                "https://www.instagram.com/officialnuno",
-               "https://x.com/mentalist_nuno"],
+               "https://x.com/mentalist_nuno",
+               "https://entertainershow.com/artiest/vuurspuwer-nuno/"],
     "worksFor": {"@id": f"{SITE}/#business"},
     "knowsAbout": ["Vuurspuwen", "Fakirshow", "Mentalisme",
                    "Reptielenshow", "Workshop vuurspuwen",
@@ -485,6 +487,10 @@ _FOOTER_LABELS = {
         'aria-label="Bekend van deze zenders en producties"': 'aria-label="Known from these channels and productions"',
         'alt="Duo-act van vuurspuwer Nuno: geknield spuwt hij een vuurbal terwijl een danseres met grote rode vleugels achter hem staat"':
         'alt="Duo act by fire breather Nuno: kneeling, he breathes a fireball while a dancer with large red wings stands behind him"',
+        '&#128293; Vuurspuwer &middot; Vuurspuwer Nuno boeken via EntertainerShow.com': '&#128293; Fire breather &middot; Book Vuurspuwer Nuno via EntertainerShow.com',
+        '>Boek nu &rarr;<': '>Book now &rarr;<',
+        'Het Europese entertainmentnetwerk &middot; rechtstreeks boeken, zonder commissie': 'The European entertainment network &middot; book direct, no commission',
+        'aria-label="Bekijk het profiel van Vuurspuwer Nuno op EntertainerShow.com (opent in een nieuw tabblad)"': 'aria-label="View the profile of Vuurspuwer Nuno on EntertainerShow.com (opens in a new tab)"',
         "Nederland, Belgi&euml; &amp; internationaal": "Netherlands, Belgium &amp; international"},
  "de": {">Reptielenshow<": ">Reptilienshow<", ">Workshop vuurspuwen<": ">Feuerspucker-Workshop<",
         ">Mentalisme<": ">Mentalismus<", ">Themafeesten<": ">Mottopartys<",
@@ -502,6 +508,10 @@ _FOOTER_LABELS = {
         'aria-label="Bekend van deze zenders en producties"': 'aria-label="Bekannt aus diesen Sendern und Produktionen"',
         'alt="Duo-act van vuurspuwer Nuno: geknield spuwt hij een vuurbal terwijl een danseres met grote rode vleugels achter hem staat"':
         'alt="Duo-Act von Feuerspucker Nuno: kniend spuckt er einen Feuerball, w&auml;hrend eine T&auml;nzerin mit gro&szlig;en roten Fl&uuml;geln hinter ihm steht"',
+        '&#128293; Vuurspuwer &middot; Vuurspuwer Nuno boeken via EntertainerShow.com': '&#128293; Feuerspucker &middot; Vuurspuwer Nuno buchen &uuml;ber EntertainerShow.com',
+        '>Boek nu &rarr;<': '>Jetzt buchen &rarr;<',
+        'Het Europese entertainmentnetwerk &middot; rechtstreeks boeken, zonder commissie': 'Das europ&auml;ische Entertainment-Netzwerk &middot; direkt buchen, ohne Provision',
+        'aria-label="Bekijk het profiel van Vuurspuwer Nuno op EntertainerShow.com (opent in een nieuw tabblad)"': 'aria-label="Profil von Vuurspuwer Nuno auf EntertainerShow.com ansehen (&ouml;ffnet in neuem Tab)"',
         "Nederland, Belgi&euml; &amp; internationaal": "Niederlande, Belgien &amp; international"},
  "fr": {">Reptielenshow<": ">Spectacle de reptiles<", ">Workshop vuurspuwen<": ">Atelier cracheur de feu<",
         ">Mentalisme<": ">Mentalisme<", ">Themafeesten<": ">Fêtes à thème<",
@@ -519,6 +529,10 @@ _FOOTER_LABELS = {
         'aria-label="Bekend van deze zenders en producties"': 'aria-label="Vu sur ces chaînes et productions"',
         'alt="Duo-act van vuurspuwer Nuno: geknield spuwt hij een vuurbal terwijl een danseres met grote rode vleugels achter hem staat"':
         'alt="Duo du cracheur de feu Nuno : à genoux, il crache une boule de feu tandis qu\'une danseuse aux grandes ailes rouges se tient derrière lui"',
+        '&#128293; Vuurspuwer &middot; Vuurspuwer Nuno boeken via EntertainerShow.com': '&#128293; Cracheur de feu &middot; R&eacute;server Vuurspuwer Nuno via EntertainerShow.com',
+        '>Boek nu &rarr;<': '>R&eacute;server &rarr;<',
+        'Het Europese entertainmentnetwerk &middot; rechtstreeks boeken, zonder commissie': 'Le r&eacute;seau europ&eacute;en du divertissement &middot; r&eacute;servation directe, sans commission',
+        'aria-label="Bekijk het profiel van Vuurspuwer Nuno op EntertainerShow.com (opent in een nieuw tabblad)"': 'aria-label="Voir le profil de Vuurspuwer Nuno sur EntertainerShow.com (ouvre dans un nouvel onglet)"',
         "Nederland, Belgi&euml; &amp; internationaal": "Pays-Bas, Belgique &amp; international"},
 }
 _WA_TEXT = {
@@ -1531,13 +1545,16 @@ _LEDGER_VOOR = {p: v.get("d") for p, v in _LEDGER.items()}
 _NL_DATUM = r"\d{1,2} (?:" + "|".join(MONTHS_NL[1:]) + r") \d{4}"
 # Wat hier uit gefilterd wordt telt niet als inhoudswijziging. Naast de
 # assethash en datums hoort daar ook de laadplumbing bij: speculatieregels,
-# het poster-attribuut van een video en het sitebrede linkblok in de
-# voettekst zeggen niets over wat er op de pagina zelf staat. Een lastmod
+# het poster-attribuut van een video en de sitebrede blokken in de
+# voettekst (het linkoverzicht, de partnerkaart) en de sameAs-lijst met
+# profielen zeggen niets over wat er op de pagina zelf staat. Een lastmod
 # die daarop verspringt is een leugen tegen Google — en die vertrouwt
 # lastmod sitebreed of helemaal niet.
 _VOLATILE = re.compile(
     r"<script type=\"speculationrules\">.*?</script>"
     r"|<nav class=\"fseo\".*?</nav>"
+    r"|<!--PARTNER-->.*?</a>\n\n  "
+    r"|\"sameAs\": \[[^\]]*\]"
     r"|\bdata-poster=\"[^\"]*\"|\bposter=\"[^\"]*\""
     r"|\?v=[0-9a-f]+|\d{4}-\d{2}-\d{2}|" + _NL_DATUM, re.S)
 

@@ -4300,3 +4300,72 @@ html.cookie-open, html.cookie-open body{ overflow:hidden; }
 }
 .cookie-herzie:hover{ color:var(--flame); }
 @media print{ .cookie{ display:none !important; } }
+
+/* ============================================================
+   Partnerkaart EntertainerShow — het eigen profiel op het
+   netwerk. Eigen huisstijl (paars/goud), zodat het als badge van
+   dat netwerk leest en niet als knop van deze site. De opmaak
+   staat hier en niet in de pagina zelf: dezelfde kaart staat op
+   220 pagina's, en zo staat hij één keer in de stylesheet die
+   toch al in de cache zit.
+   ============================================================ */
+.espart{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  width:340px;
+  max-width:100%;
+  margin:clamp(1.4rem,4vw,2.2rem) auto 0;
+  padding:16px;
+  background:#0b0a12;
+  border:1.5px solid #f5c542;
+  border-radius:14px;
+  font-family:Montserrat, var(--f-body), system-ui, sans-serif;
+  color:#fff;
+  text-decoration:none;
+  transition:transform .25s var(--ease), box-shadow .25s var(--ease);
+}
+.espart:hover{
+  transform:translateY(-2px);
+  box-shadow:0 14px 34px -14px rgba(245,197,66,.55);
+}
+.espart:focus-visible{ outline:2px solid #f5c542; outline-offset:3px; }
+.espart__pic{
+  flex:0 0 auto;
+  width:64px; height:64px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid #f5c542;
+}
+.espart__body{ display:block; min-width:0; }
+.espart__merk{
+  display:block;
+  font-size:10px; font-weight:700; letter-spacing:2px; color:#f5c542;
+}
+.espart__naam{
+  display:block;
+  font-size:18px; font-weight:800; color:#fff;
+  margin:5px 0 2px;
+}
+.espart__wat{
+  display:block;
+  font-size:12px; line-height:1.35; color:#c9c4dc;
+  margin-bottom:10px;
+}
+.espart__cta{
+  display:inline-block;
+  padding:6px 14px;
+  border-radius:999px;
+  background:#f5c542;
+  color:#1a1400;
+  font-size:11px; font-weight:800;
+}
+.espart__net{
+  display:block;
+  font-size:9px; line-height:1.4; color:#7d7896;
+  margin-top:10px;
+}
+@media (prefers-reduced-motion: reduce){
+  .espart{ transition:none; }
+  .espart:hover{ transform:none; }
+}
