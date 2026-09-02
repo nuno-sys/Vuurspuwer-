@@ -366,6 +366,42 @@ _OFFER_TXT = {
     "de": "Preise von 350 € bis 1500 €, je nach Show und Dauer. Kostenloses Angebot nach Maß.",
     "fr": "Prix de 350 € à 1500 €, selon le spectacle et la durée. Devis gratuit sur mesure.",
 }
+# De entiteitsblokken (bedrijf, persoon) staan op élke pagina, dus ook op
+# de Engelse, Duitse en Franse. Tot nu toe stonden ze daar in het
+# Nederlands: "Vuurspuwer, fakir en mentalist voor bedrijfsfeesten" in de
+# structured data van een Engelse pagina. Zoekmachines lezen dat mee, en
+# een pagina die zegt Engels te zijn hoort ook Engelse structured data te
+# dragen. De namen, adressen en id's blijven gelijk; alleen de
+# beschrijvende velden volgen de taal van de pagina.
+_LD_I18N = {
+ "nl": {"biz": "Vuurspuwer, fakir en mentalist voor bedrijfsfeesten, festivals, bruiloften en themafeesten in Nederland en België.",
+        "nl": "Nederland", "be": "België", "de": "Deutschland",
+        "job": "Vuurspuwer, fakir, mentalist en reptielenshow-artiest",
+        "pers": "Professioneel vuurspuwer en fakir met 17 jaar ervaring, bekend van SBS6, RTL, VTM en optredens voor o.a. Walibi, Julianatoren en IKEA.",
+        "cap": "Portret van vuurspuwer Nuno",
+        "kent": ["Vuurspuwen", "Fakirshow", "Mentalisme", "Reptielenshow", "Workshop vuurspuwen", "Veiligheid bij vuurshows"]},
+ "en": {"biz": "Fire breather, fakir and mentalist for corporate events, festivals, weddings and theme parties in the Netherlands and Belgium.",
+        "nl": "Netherlands", "be": "Belgium", "de": "Germany",
+        "job": "Fire breather, fakir, mentalist and reptile show artist",
+        "pers": "Professional fire breather and fakir with 17 years of experience, known from SBS6, RTL, VTM and performances for Walibi, Julianatoren and IKEA, among others.",
+        "cap": "Portrait of fire breather Nuno",
+        "kent": ["Fire breathing", "Fakir show", "Mentalism", "Reptile show", "Fire-breathing workshop", "Fire show safety"]},
+ "de": {"biz": "Feuerspucker, Fakir und Mentalist für Firmenfeiern, Festivals, Hochzeiten und Mottopartys in den Niederlanden und Belgien.",
+        "nl": "Niederlande", "be": "Belgien", "de": "Deutschland",
+        "job": "Feuerspucker, Fakir, Mentalist und Reptilienshow-Künstler",
+        "pers": "Professioneller Feuerspucker und Fakir mit 17 Jahren Erfahrung, bekannt aus SBS6, RTL, VTM und Auftritten u. a. für Walibi, Julianatoren und IKEA.",
+        "cap": "Porträt von Feuerspucker Nuno",
+        "kent": ["Feuerspucken", "Fakirshow", "Mentalismus", "Reptilienshow", "Feuerspucker-Workshop", "Sicherheit bei Feuershows"]},
+ "fr": {"biz": "Cracheur de feu, fakir et mentaliste pour fêtes d'entreprise, festivals, mariages et fêtes à thème aux Pays-Bas et en Belgique.",
+        "nl": "Pays-Bas", "be": "Belgique", "de": "Allemagne",
+        "job": "Cracheur de feu, fakir, mentaliste et artiste de spectacle de reptiles",
+        "pers": "Cracheur de feu et fakir professionnel avec 17 ans d'expérience, connu de SBS6, RTL, VTM et de prestations pour Walibi, Julianatoren et IKEA, entre autres.",
+        "cap": "Portrait du cracheur de feu Nuno",
+        "kent": ["Cracher du feu", "Spectacle de fakir", "Mentalisme", "Spectacle de reptiles", "Atelier cracheur de feu", "Sécurité des spectacles de feu"]},
+}
+def _land(lang, code):
+    return {"@type": "Country", "name": _LD_I18N[lang][code]}
+
 _BUSINESS_LD = {
     "@context": "https://schema.org",
     "@type": ["LocalBusiness", "EntertainmentBusiness"],
@@ -394,6 +430,11 @@ _BUSINESS_LD = {
     "aggregateRating": _RATING_LD,
 }
 
+def business_ld(lang="nl"):
+    T = _LD_I18N[lang]
+    return {**_BUSINESS_LD, "description": T["biz"],
+            "areaServed": [_land(lang, "nl"), _land(lang, "be")]}
+
 # De auteur/artiest als volwaardige entiteit op élke pagina (E-E-A-T):
 # zoekmachines koppelen zo alle artikelen en shows aan één herkenbaar
 # persoon met gezicht, ervaring en socials.
@@ -420,6 +461,13 @@ _PERSON_LD = {
                    "Veiligheid bij vuurshows"],
     "knowsLanguage": ["nl", "en"],
 }
+
+def person_ld(lang="nl"):
+    T = _LD_I18N[lang]
+    return {**_PERSON_LD, "jobTitle": T["job"], "description": T["pers"],
+            "image": {**_PERSON_LD["image"], "caption": T["cap"]},
+            "url": SITE + I.url_of(lang, "over-nuno"),
+            "knowsAbout": T["kent"]}
 
 # Google Afbeeldingen: elke foto draagt maker, licentie en de pagina waar
 # gebruiksrecht aangevraagd kan worden (Search Console-suggesties).
@@ -475,9 +523,9 @@ def _augment_rich_results(graph, lang, page_desc=None, page_img=None, page_url=N
     if not any(isinstance(g, dict) and
                ("LocalBusiness" in types(g) or "EntertainmentBusiness" in types(g))
                for g in graph):
-        extra.append(_BUSINESS_LD)
+        extra.append(business_ld(lang))
     if not any(isinstance(g, dict) and "Person" in types(g) for g in graph):
-        extra.append(_PERSON_LD)
+        extra.append(person_ld(lang))
     graph.extend(extra)
     _license_images(graph)
     # het bedrijf en de producten (sterren, prijzen) als eerste blokken in de
@@ -1264,9 +1312,24 @@ _KW_TOPIC = {
  "🎩": "entertainer boeken, artiest inhuren",
  "🔥": "vuurshow boeken, vuuract, vuurartiest",
 }
-def _serp_kw(p, kind, emo):
+_KW_GENERIC = {
+ "en": "hire fire breather, book fire show, fakir show, event entertainment, Netherlands, Belgium",
+ "de": "Feuerspucker buchen, Feuershow buchen, Fakirshow, Event-Entertainment, Niederlande, Belgien",
+ "fr": "engager cracheur de feu, spectacle de feu, spectacle fakir, animation événement, Pays-Bas, Belgique",
+}
+def _serp_kw(p, kind, emo, lang="nl"):
     parts = []
     if p.get("keywords"): parts.append(p["keywords"])
+    if lang != "nl":
+        # de onderwerpstabel hieronder is Nederlands; een anderstalige pagina
+        # krijgt zijn eigen zoekwoorden of anders de algemene set in zijn taal
+        parts.append(_KW_GENERIC[lang])
+        seen, out = set(), []
+        for part in parts:
+            for kw in [k.strip() for k in part.split(",")]:
+                if kw and kw.lower() not in seen:
+                    seen.add(kw.lower()); out.append(kw)
+        return ", ".join(out)
     parts.append(_KW_TOPIC.get(emo, _KW_TOPIC["🔥"]))
     if kind == "city" and p.get("slug") in CITY_LABEL:
         c = CITY_LABEL[p["slug"]]
@@ -1323,7 +1386,7 @@ def _serp(title, desc, p, kind, lang):
             if cand.lower() not in _SEEN_TITLES:
                 title = cand; key = title.lower(); break
     _SEEN_TITLES.setdefault(key, slug)
-    return title, desc, _serp_kw(p, kind, emo)
+    return title, desc, _serp_kw(p, kind, emo, lang)
 
 def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alternates=None):
     L = I.UI[lang]
@@ -1483,7 +1546,7 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
                f'<meta property="og:video:height" content="{vh}">')
     ld = "\n".join(f'<script type="application/ld+json">{json.dumps(g, ensure_ascii=False)}</script>' for g in graph)
 
-    return f'''<!doctype html>
+    doc = f'''<!doctype html>
 <html lang="{I.HTML_LANG[lang]}">
 <head>
 <meta charset="utf-8">
@@ -1558,6 +1621,10 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
 </body>
 </html>
 '''
+    if lang != "nl":
+        for _a, _b in _CHROME_LANG[lang].items():
+            doc = doc.replace(_a, _b)
+    return doc
 
 # ----------------------------------------------------- eerlijke lastmod
 # Google negeert <lastmod> zodra het onbetrouwbaar blijkt — en tot nu toe
@@ -1611,7 +1678,11 @@ _MAIN   = re.compile(r"<main\b.*?</main>", re.S)
 _DECOR  = re.compile(r"<aside\b.*?</aside>"
                      r"|<section class=\"wrap bay relposts\"[^>]*>.*?</section>"
                      r"|<nav class=\"crumbs\".*?</nav>"
-                     r"|\bhref=\"[^\"]*\"", re.S)
+                     r"|\bhref=\"[^\"]*\""
+                     # toegankelijkheidslabels, ondertitelingstaal en verborgen
+                     # formuliervelden: geen inhoud, wel tekst die per taal wisselt
+                     r"|\b(?:aria-label|srclang|label)=\"[^\"]*\""
+                     r"|<input type=\"hidden\"[^>]*>", re.S)
 def _basis(doc):
     m = _MAIN.search(doc)
     kern = m.group(0) if m else doc
@@ -1985,6 +2056,83 @@ def occ_links(lang, skip=None):
 # Alle pagina's gegroepeerd als uitklapbare blokken: zoekmachines lezen de
 # inhoud van <details> ook dichtgeklapt, bezoekers klappen open wat ze nodig
 # hebben. Gelegenheden-links worden per taal gelokaliseerd via de slugtabel.
+# Het linkoverzicht onder in de voettekst (gelegenheden, steden,
+# kennisbank) stond in alle talen in het Nederlands. De labels volgen nu
+# de taal; de stadslinks wijzen nog naar de Nederlandse stadspagina's,
+# want die bestaan alleen in het Nederlands.
+_VUURSPUWER = {"en": "Fire breather", "de": "Feuerspucker", "fr": "Cracheur de feu"}
+_STAD_I18N = {
+ "Den Haag": {"en": "The Hague", "de": "Den Haag", "fr": "La Haye"},
+ "Antwerpen": {"en": "Antwerp", "de": "Antwerpen", "fr": "Anvers"},
+ "Gent": {"en": "Ghent", "de": "Gent", "fr": "Gand"},
+ "Brussel": {"en": "Brussels", "de": "Brüssel", "fr": "Bruxelles"},
+ "Brugge": {"en": "Bruges", "de": "Brügge", "fr": "Bruges"},
+ "Leuven": {"en": "Leuven", "de": "Löwen", "fr": "Louvain"},
+ "Luik": {"en": "Liège", "de": "Lüttich", "fr": "Liège"},
+ "Mechelen": {"en": "Mechelen", "de": "Mecheln", "fr": "Malines"},
+}
+_FSEO_I18N = {
+ "🎃 Halloween-acts": {"en": "🎃 Halloween acts", "de": "🎃 Halloween-Acts", "fr": "🎃 Spectacles d'Halloween"},
+ "🎭 Themafeesten": {"en": "🎭 Theme parties", "de": "🎭 Mottopartys", "fr": "🎭 Fêtes à thème"},
+ "💶 Prijzen & pakketten": {"en": "💶 Prices & packages", "de": "💶 Preise & Pakete", "fr": "💶 Tarifs & forfaits"},
+ "📖 Vuur-woordenboek: alle termen uitgelegd": {"en": "📖 Fire glossary: every term explained", "de": "📖 Feuer-Glossar: alle Begriffe erklärt", "fr": "📖 Glossaire du feu : tous les termes expliqués"},
+ "💶 Wat kost een vuurspuwer?": {"en": "💶 What does a fire breather cost?", "de": "💶 Was kostet ein Feuerspucker?", "fr": "💶 Combien coûte un cracheur de feu ?"},
+ "📰 Blog & tips": {"en": "📰 Blog & tips", "de": "📰 Blog & Tipps", "fr": "📰 Blog & conseils"},
+ "⭐ 136 beoordelingen": {"en": "⭐ 136 reviews", "de": "⭐ 136 Bewertungen", "fr": "⭐ 136 avis"},
+ "📖 Kennisbank": {"en": "📖 Knowledge base", "de": "📖 Wissen", "fr": "📖 Base de connaissances"},
+}
+_CHROME_I18N = {
+ 'aria-label="Site wordt geladen"': {"en": "Site is loading", "de": "Seite wird geladen", "fr": "Chargement du site"},
+ 'aria-label="Hoofdmenu"': {"en": "Main menu", "de": "Hauptmenü", "fr": "Menu principal"},
+ 'aria-label="Mobiel menu"': {"en": "Mobile menu", "de": "Mobiles Menü", "fr": "Menu mobile"},
+ 'aria-label="Contact en voorwaarden"': {"en": "Contact and terms", "de": "Kontakt und Bedingungen", "fr": "Contact et conditions"},
+ 'aria-label="Deel deze pagina"': {"en": "Share this page", "de": "Diese Seite teilen", "fr": "Partager cette page"},
+ 'aria-label="Kruimelpad"': {"en": "Breadcrumb", "de": "Brotkrumen-Navigation", "fr": "Fil d'Ariane"},
+ 'aria-label="5 van de 5 sterren"': {"en": "5 out of 5 stars", "de": "5 von 5 Sternen", "fr": "5 étoiles sur 5"},
+ 'aria-label="Alle pagina\'s per onderwerp"': {"en": "All pages by topic", "de": "Alle Seiten nach Thema", "fr": "Toutes les pages par thème"},
+}
+_KVK = {"en": "Chamber of Commerce 98164325 &middot; VAT NL002416954B13",
+        "de": "Handelsregister (KvK) 98164325 &middot; USt-IdNr. NL002416954B13",
+        "fr": "Registre du commerce (KvK) 98164325 &middot; TVA NL002416954B13"}
+_DELEN = {"en": "Share&hellip;", "de": "Teilen&hellip;", "fr": "Partager&hellip;"}
+# Dezelfde labels zijn ook nodig ín de gegenereerde pagina's (broodkruimels,
+# de laadmelding, videotracks, sterren): die staan niet in het footer-fragment
+# maar worden per pagina opgebouwd. render() past deze tabel toe.
+_CHROME_LANG = {"en": {}, "de": {}, "fr": {}}
+for _l in ("en", "de", "fr"):
+    _F = _FOOTER_LABELS[_l]
+    _C = _CHROME_LANG[_l]
+    for _k, _tr in _CHROME_I18N.items():
+        _C[_k] = _k.split("=")[0] + f'="{_tr[_l]}"'
+    _C['srclang="nl"'] = f'srclang="{_l}"'
+    _C['<span id="chatStatus">Online</span>'] = f'<span id="chatStatus">{I.UI[_l]["wa_status_on"]}</span>'
+    _C["KvK 98164325 &middot; btw NL002416954B13"] = _KVK[_l]
+    _C["<span>Delen&hellip;</span>"] = f"<span>{_DELEN[_l]}</span>"
+    for _nl, _tr in _FSEO_I18N.items():
+        _C[f'>{esc(_nl)}<'] = f'>{esc(_tr[_l])}<'
+    for _s, _lbl in _OCC_LBL.items():
+        _F[f'>{esc(_lbl["nl"])}<'] = f'>{esc(_lbl[_l])}<'
+    for _nl, _tr in _FSEO_I18N.items():
+        _F[f'>{esc(_nl)}<'] = f'>{esc(_tr[_l])}<'
+    for _n in CITY_LABEL.values():
+        _F[f'>Vuurspuwer {esc(_n)}<'] = f'>{_VUURSPUWER[_l]} {esc(_STAD_I18N.get(_n, {}).get(_l, _n))}<'
+    for _k, _tr in _CHROME_I18N.items():
+        _F[_k] = _k.split("=")[0] + f'="{_tr[_l]}"'
+    _F["KvK 98164325 &middot; btw NL002416954B13"] = _KVK[_l]
+    _F["<span>Delen&hellip;</span>"] = f"<span>{_DELEN[_l]}</span>"
+    _F['<span id="chatStatus">Online</span>'] = f'<span id="chatStatus">{I.UI[_l]["wa_status_on"]}</span>'
+    _F['srclang="nl"'] = f'srclang="{_l}"'
+_FOOTER_LABELS["fr"]['aria-label="Shows"'] = 'aria-label="Spectacles"'
+_FOOTER_LABELS["de"]['aria-label="Site"'] = 'aria-label="Website"'
+_FOOTER_LABELS["de"]['<span>E-mail</span>'] = '<span>E-Mail</span>'
+_FOOTER_LABELS["de"]['>E-mail<'] = '>E-Mail<'
+_FOOTER_LABELS["en"]['class="rating__num">4,9<'] = 'class="rating__num">4.9<'
+_FOOTER_LABELS["en"]['class="rkop__cijfer">4,9<'] = 'class="rkop__cijfer">4.9<'
+_CHROME_LANG["en"]['class="rating__num">4,9<'] = 'class="rating__num">4.9<'
+_CHROME_LANG["en"]['class="rkop__cijfer">4,9<'] = 'class="rkop__cijfer">4.9<'
+_CHROME_LANG["fr"]['aria-label="Shows"'] = 'aria-label="Spectacles"'
+_CHROME_LANG["de"]['aria-label="Site"'] = 'aria-label="Website"'
+
 def foot_seo():
     def grp(summary, links):
         lis = "".join(f'<li><a href="{u}">{esc(t)}</a></li>' for t, u in links)
@@ -2472,9 +2620,7 @@ def lang_schema(lang, path, T, kind="page"):
                     "url": url, "inLanguage": I.HTML_LANG[lang],
                     "image": SITE + T["img"][0],
                     "provider": {"@id": f"{SITE}/#business"},
-                    "areaServed": [{"@type": "Country", "name": "Nederland"},
-                                   {"@type": "Country", "name": "België"},
-                                   {"@type": "Country", "name": "Deutschland"}],
+                    "areaServed": [_land(lang, "nl"), _land(lang, "be"), _land(lang, "de")],
                     **({"offers": svc["offers"]} if "offers" in svc else {})})
     if T.get("faq"):
         out.append({"@context": "https://schema.org", "@type": "FAQPage",
@@ -2784,6 +2930,10 @@ _hp_missing = {}
 for _hl in ("nl", "en", "de", "fr"):
     d = _HP_SRC
     if _hl != "nl":
+        d = d.replace("<!--FOOT:SEO-->", foot_seo())
+        # het verborgen taalveld van het formulier: anders krijgt een Engelse
+        # aanvrager vanaf de Engelse homepage een Nederlandse bevestiging
+        d = d.replace('name="lang" value="nl"', f'name="lang" value="{_hl}"')
         d = localize_doc(d, _hl)
         d, _miss = HI.apply(d, _hl)
         _hp_missing[_hl] = _miss
