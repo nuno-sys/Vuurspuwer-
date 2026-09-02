@@ -1567,7 +1567,63 @@ def _lastmod(path, doc):
     _LEDGER[path] = {"h": h, "d": TODAY}
     return TODAY
 
+# ------------------------------------------- contextuele links naar buiten
+# Het eigen artiestenprofiel op EntertainerShow staat als kaart in de
+# voettekst, maar een link telt pas echt mee als hij ergens in een zin
+# hoort. Daarom drie stuks, met de hand geplaatst, elk op de plek waar de
+# lezer er iets aan heeft: wie is Nuno, wat kost een artiest, en hoe boek
+# je er een. Meer zou een patroon worden in plaats van een aanbeveling.
+#
+# De ankerzin staat maar op één pagina op de hele site. Verandert die tekst
+# ooit, dan valt de bouw om in plaats van dat de link stilletjes verdwijnt.
+_ES_URL = "https://entertainershow.com/artiest/vuurspuwer-nuno/"
+
+def _es(tekst):
+    return f'<a href="{_ES_URL}" target="_blank" rel="noopener">{tekst}</a>'
+
+_ES_LINKS = {
+ # Over Nuno: wie hij is en waar hij nog meer te vinden is.
+ "over-nuno": (
+   "ik breng een niveau van professionaliteit en spektakel dat wordt erkend.",
+   "ik breng een niveau van professionaliteit en spektakel dat wordt erkend. "
+   "Ook buiten deze site ben ik te vinden: op "
+   + _es("mijn profiel als vuurspuwer op EntertainerShow")
+   + ", het Europese entertainmentnetwerk, ziet u wat ik speel en boekt u "
+     "rechtstreeks bij mij."),
+ # Gids over artiesten boeken: precies het onderwerp van de link.
+ "artiesten-boeken-tips": (
+   "De kosten kunnen variëren afhankelijk van de populariteit, de reisafstand "
+   "en de duur van het optreden.",
+   "De kosten kunnen variëren afhankelijk van de populariteit, de reisafstand "
+   "en de duur van het optreden. Let ook op de route waarlangs je boekt: via een "
+   "bemiddelingsbureau komt er meestal een commissie bovenop de gage, terwijl je "
+   "op een netwerk als "
+   + _es("EntertainerShow, waar je artiesten rechtstreeks boekt")
+   + ", met de artiest zelf schakelt en die opslag wegvalt."),
+ # Prijzenpagina: wie prijzen vergelijkt, wil weten wat er bovenop komt.
+ "wat-kost-een-vuurspuwer": (
+   "van een enkele fakkel tot complete producties.",
+   "van een enkele fakkel tot complete producties. Bij een bemiddelingsbureau "
+   "komt daar vaak nog een commissie bovenop; via deze site of via "
+   + _es("het artiestenprofiel van Nuno op EntertainerShow")
+   + " boek je rechtstreeks en betaal je die opslag niet."),
+}
+
+def _contextlinks(slug, doc):
+    """De met de hand gekozen link in de lopende tekst van één pagina."""
+    paar = _ES_LINKS.get(slug)
+    if not paar:
+        return doc
+    anker, met = paar
+    n = doc.count(anker)
+    if n != 1:
+        raise SystemExit(
+            f"  ✖ contextlink {slug}: ankerzin {n}x gevonden, verwacht 1x.\n"
+            "    De tekst van die pagina is gewijzigd; werk de zin bij in _ES_LINKS.")
+    return doc.replace(anker, met, 1)
+
 def write(slug, doc):
+    doc = _contextlinks(slug, doc)
     doc = _avifize(doc)
     path = f"/{slug}/" if slug else "/"
     mod = _lastmod(path, doc)
