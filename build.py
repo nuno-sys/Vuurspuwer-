@@ -240,7 +240,7 @@ FOOTER   = chunk('<footer class="foot shell wrap">', '<script src="/assets/site.
 # cache, dus elke wijziging krijgt een nieuw adres via ?v=…
 import hashlib
 VER = hashlib.md5(b"".join(open(f"assets/{f}", "rb").read()
-                           for f in ("site.css", "site.js", "ga.js"))).hexdigest()[:10]
+                           for f in ("site.css", "site.js", "ga.js", "zoek.js"))).hexdigest()[:10]
 
 GTAG = f'<script src="/assets/ga.js?v={VER}" defer></script>'
 # zelf gehoste fonts: alleen de twee gezichten die boven de vouw staan
@@ -685,6 +685,49 @@ _COOKIE_LBL = {
 }
 
 _CHROME_CACHE = {}
+# ------------------------------------------------------------------ zoeken
+# Een echte client-side zoekmachine: /zoekindex.json wordt tijdens de build
+# per taal gevuld, /assets/zoek.js filtert en rangschikt. De voettekst-
+# zoekbalk stuurt via GET naar de zoekpagina; die pagina zelf zoekt live.
+_ZOEK = {
+ "nl": {"url": "/zoeken/", "h1": "Zoeken",
+        "seo_title": "Zoeken \u2014 Vuurspuwer Nuno",
+        "seo_desc": "Zoek snel op vuurspuwer.com: shows, steden, prijzen, blog en veelgestelde vragen.",
+        "eyebrow": "Zoeken", "aria": "Zoeken op de site", "ph": "Zoek op de site\u2026",
+        "btn": "Zoeken",
+        "intro": "Waar ben je naar op zoek? Typ een woord \u2014 bijvoorbeeld een stad, een showtype of \u2018prijzen\u2019.",
+        "typ": "Typ hierboven een zoekterm om te beginnen.",
+        "none": "Niets gevonden voor", "count": "resultaten voor",
+        "one": "resultaat voor", "loading": "Zoeken\u2026"},
+ "en": {"url": "/en/search/", "h1": "Search",
+        "seo_title": "Search \u2014 Fire Breather Nuno",
+        "seo_desc": "Search fire-breather Nuno\u2019s site: shows, cities, prices, blog and frequently asked questions.",
+        "eyebrow": "Search", "aria": "Search the site", "ph": "Search the site\u2026",
+        "btn": "Search",
+        "intro": "What are you looking for? Type a word \u2014 a city, a show type, or \u2018prices\u2019.",
+        "typ": "Type a search term above to begin.",
+        "none": "No results for", "count": "results for",
+        "one": "result for", "loading": "Searching\u2026"},
+ "de": {"url": "/de/suche/", "h1": "Suche",
+        "seo_title": "Suche \u2014 Feuerspucker Nuno",
+        "seo_desc": "Durchsuchen Sie die Website von Feuerspucker Nuno: Shows, St\u00e4dte, Preise, Blog und h\u00e4ufige Fragen.",
+        "eyebrow": "Suche", "aria": "Website durchsuchen", "ph": "Website durchsuchen\u2026",
+        "btn": "Suchen",
+        "intro": "Wonach suchen Sie? Geben Sie ein Wort ein \u2014 eine Stadt, eine Showart oder \u201ePreise\u201c.",
+        "typ": "Geben Sie oben einen Suchbegriff ein.",
+        "none": "Nichts gefunden f\u00fcr", "count": "Ergebnisse f\u00fcr",
+        "one": "Ergebnis f\u00fcr", "loading": "Suchen\u2026"},
+ "fr": {"url": "/fr/recherche/", "h1": "Recherche",
+        "seo_title": "Recherche \u2014 Cracheur de feu Nuno",
+        "seo_desc": "Recherchez sur le site du cracheur de feu Nuno\u00a0: spectacles, villes, tarifs, blog et questions fr\u00e9quentes.",
+        "eyebrow": "Recherche", "aria": "Rechercher sur le site", "ph": "Rechercher sur le site\u2026",
+        "btn": "Rechercher",
+        "intro": "Que cherchez-vous\u00a0? Tapez un mot \u2014 une ville, un type de spectacle ou \u00ab\u00a0tarifs\u00a0\u00bb.",
+        "typ": "Saisissez un terme de recherche ci-dessus.",
+        "none": "Aucun r\u00e9sultat pour", "count": "r\u00e9sultats pour",
+        "one": "r\u00e9sultat pour", "loading": "Recherche\u2026"},
+}
+
 def localize_doc(d, lang):
     """Past alle taalvervangingen (labels, links, WhatsApp) toe op een stuk
     HTML — gebruikt voor de header/footer-chunks én voor de volledige
@@ -734,6 +777,16 @@ def localize_doc(d, lang):
     d = d.replace('aria-label="Chat met Nuno op WhatsApp"', f'aria-label="{_WA_ARIA[lang]}"')
     d = d.replace('<a class="wa" ', f'<a class="wa" data-online="{L["wa_status_on"]}" data-offline="{L["wa_status_off"]}" ')
     d = d.replace('>Online</b>', f'>{L["wa_status_on"]}</b>')
+    # voettekst-zoekbalk in de taal van de pagina
+    Z = _ZOEK[lang]
+    d = d.replace('>Zoeken op de site<', f'>{esc(Z["aria"])}<')
+    d = d.replace('aria-label="Zoeken op de site"', f'aria-label="{esc(Z["aria"])}"')
+    d = d.replace('placeholder="Zoek op de site&hellip;"', f'placeholder="{esc(Z["ph"])}"')
+    d = d.replace('>Zoeken</button>', f'>{esc(Z["btn"])}</button>')
+    d = d.replace('action="/zoeken/"', f'action="{Z["url"]}"')
+    # sitelinks-zoekvak (SearchAction) naar de taalversie van de zoekpagina
+    d = d.replace("https://vuurspuwer.com/zoeken/?q=",
+                  f"https://vuurspuwer.com{Z['url']}?q=")
     return d
 
 def chrome(lang):
@@ -3031,6 +3084,70 @@ for _hl, _miss in _hp_missing.items():
         for _m in _miss:
             print(f"      · {_m[:110]!r}")
 
+# ------------------------------------------------- de vier zoekpagina's
+# Volwaardige pagina's met het site-ontwerp; noindex (zoekresultaten horen
+# niet in de index) maar wel bruikbaar en gekoppeld via de SearchAction.
+def _zoek_pagina(lang):
+    Z = _ZOEK[lang]
+    url = Z["url"]
+    out = url.strip("/")
+    ui = (f'<section class="wrap bay zoekpg">'
+          f'<form class="zoek__form" id="zoekForm" role="search" action="{url}" method="get">'
+          f'<label class="vh" for="zoekIn">{esc(Z["aria"])}</label>'
+          f'<input class="zoek__in" id="zoekIn" type="search" name="q" '
+          f'placeholder="{esc(Z["ph"])}" autocomplete="off" enterkeyhint="search" '
+          f'maxlength="80" autofocus>'
+          f'<button type="submit">{esc(Z["btn"])}</button></form>'
+          f'<p class="zoek__status" id="zoekStatus" role="status" aria-live="polite"></p>'
+          f'<ul class="zoek__resultaten" id="zoekResultaten"></ul>'
+          f'<span id="zoekData" hidden data-index="/zoekindex.json" '
+          f'data-lang="{lang}" data-url="{url}" '
+          f'data-msg-typ="{esc(Z["typ"])}" data-msg-none="{esc(Z["none"])}" '
+          f'data-msg-count="{esc(Z["count"])}" data-msg-one="{esc(Z["one"])}" '
+          f'data-msg-loading="{esc(Z["loading"])}"></span>'
+          f'</section>'
+          f'<script src="/assets/zoek.js?v={VER}" defer></script>')
+    p = {"slug": out, "title": Z["h1"], "seo_title": Z["seo_title"],
+         "seo_desc": Z["seo_desc"], "eyebrow": Z["eyebrow"], "date": TODAY,
+         "body": f'<p>{Z["intro"]}</p>', "intro": "", "no_toc": True,
+         "noindex": True,
+         "img": ("/assets/media/schemering-640.webp",
+                 "Vuurspuwer Nuno bij schemering")}
+    write(out, render(p, "page", "", ui, lang=lang, path=url, alternates=None))
+
+for _zl in ("nl", "en", "de", "fr"):
+    _zoek_pagina(_zl)
+print("  zoekpagina's gebouwd (nl/en/de/fr, noindex)")
+
+# de zoekindex: elke geindexeerde pagina met titel, beschrijving en adres,
+# gegroepeerd per taal, gelezen door /assets/zoek.js
+import html as _html
+_ZIDX = {"nl": [], "en": [], "de": [], "fr": []}
+_ZTITEL = re.compile(r"<title>(.*?)</title>", re.S)
+_ZDESC  = re.compile(r'<meta name="description" content="(.*?)"')
+_ZLANG  = re.compile(r'<html lang="([a-z]{2})"')
+for _root, _, _fs in os.walk(OUT):
+    if "index.html" not in _fs: continue
+    _doc = open(os.path.join(_root, "index.html"), encoding="utf-8").read()
+    if "noindex" in _doc[:_doc.find("</head>")]: continue
+    _lm = _ZLANG.search(_doc); _tl = (_lm.group(1) if _lm else "nl")
+    if _tl not in _ZIDX: continue
+    _rel = os.path.relpath(_root, OUT).replace(os.sep, "/")
+    _u = "/" if _rel == "." else f"/{_rel}/"
+    _tm = _ZTITEL.search(_doc); _dm = _ZDESC.search(_doc)
+    if not _tm: continue
+    _t = _html.unescape(_tm.group(1)).strip()
+    for _suf in (" | Vuurspuwer Nuno", " | Nuno", " \u2014 Vuurspuwer Nuno"):
+        if _t.endswith(_suf): _t = _t[: -len(_suf)]
+    _d = _html.unescape(_dm.group(1)).strip() if _dm else ""
+    _ZIDX[_tl].append({"u": _u, "t": _t, "d": _d})
+for _tl in _ZIDX:
+    _ZIDX[_tl].sort(key=lambda e: e["u"])
+json.dump(_ZIDX, open(os.path.join(OUT, "zoekindex.json"), "w", encoding="utf-8"),
+          ensure_ascii=False, separators=(",", ":"))
+print(f"  zoekindex.json: {sum(len(v) for v in _ZIDX.values())} pagina's "
+      f"(nl {len(_ZIDX['nl'])}, en {len(_ZIDX['en'])}, de {len(_ZIDX['de'])}, fr {len(_ZIDX['fr'])})")
+
 kept = set(built)
 lines = ["# oude adressen die blijven werken", "",
          # het kanonieke contactadres is /contact-3/ (zo heet het op de
@@ -3463,7 +3580,7 @@ print(f"  site.css geminificeerd: {len(_src)//1024} -> {os.path.getsize(p)//1024
 
 try:
     import rjsmin
-    for js in ("site.js", "ga.js"):
+    for js in ("site.js", "ga.js", "zoek.js"):
         p = os.path.join(OUT, "assets", js)
         _src = open(p).read()
         open(p, "w").write(rjsmin.jsmin(_src))

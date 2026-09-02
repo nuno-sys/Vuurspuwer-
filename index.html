@@ -316,6 +316,14 @@
    "inLanguage": "nl-NL",
    "publisher": {
     "@id": "https://vuurspuwer.com/#business"
+   },
+   "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+     "@type": "EntryPoint",
+     "urlTemplate": "https://vuurspuwer.com/zoeken/?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
    }
   },
   {
@@ -1554,6 +1562,12 @@
       </ul>
     </nav>
   </div>
+
+  <form class="foot__search" role="search" action="/zoeken/" method="get" aria-label="Zoeken op de site">
+    <label class="vh" for="footZoek">Zoeken op de site</label>
+    <input id="footZoek" type="search" name="q" placeholder="Zoek op de site&hellip;" autocomplete="off" enterkeyhint="search" maxlength="80">
+    <button type="submit">Zoeken</button>
+  </form>
 
   <!--FOOT:SEO-->
 
