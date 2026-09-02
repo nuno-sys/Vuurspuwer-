@@ -213,6 +213,16 @@ for _oud, _nieuw in _HERNOEMD.items():
     if _oud in pages:
         pages[_nieuw] = {**pages.pop(_oud), "slug": _nieuw}
 
+# In 21 artikelen stonden nog oude adressen (een hotmail-adres en twee
+# adressen van vroegere sites) als contactadres. Het enige adres dat
+# gelezen wordt is nuno@vuurspuwer.com — daar komen de aanvragen binnen
+# en van daaruit gaan de bevestigingen. Overal hetzelfde adres dus.
+_OUDE_MAIL = ("nuno@hotmail.nl", "contact@mentalistnuno.nl", "contact@fakir-show.nl")
+for _pg in pages.values():
+    for _m in _OUDE_MAIL:
+        if _m in _pg["body"]:
+            _pg["body"] = _pg["body"].replace(_m, "nuno@vuurspuwer.com")
+
 # ------------------------------------------------------- gedeelde onderdelen
 src = open("index.html", encoding="utf-8").read()
 def chunk(a, b):
@@ -1678,6 +1688,9 @@ _MAIN   = re.compile(r"<main\b.*?</main>", re.S)
 _DECOR  = re.compile(r"<aside\b.*?</aside>"
                      r"|<section class=\"wrap bay relposts\"[^>]*>.*?</section>"
                      r"|<nav class=\"crumbs\".*?</nav>"
+                     # het gedeelde FAQ-blok onder artikelen: per rubriek hetzelfde,
+                     # dus geen inhoud van de pagina zelf
+                     r"|<section class=\"wrap bay\" aria-label=\"Veelgestelde vragen\">.*?</section>"
                      r"|\bhref=\"[^\"]*\""
                      # toegankelijkheidslabels, ondertitelingstaal en verborgen
                      # formuliervelden: geen inhoud, wel tekst die per taal wisselt
@@ -2269,7 +2282,7 @@ _POST_FAQ = {
    "Ja, volledig. Locaties ontvangen op verzoek vooraf de verzekerings- en veiligheidsinformatie voor hun eigen administratie.")],
  "prijzen": [
   ("Wat kost een vuurspuwer?",
-   "Een vuurspuwer boek je tussen €350 en €1500: vanaf €350 voor een korte show, rond €750 voor de populairste 20 minuten en tot €1500 voor een volledig festivalprogramma."),
+   "Een vuurspuwer boek je tussen €350 en €1500: vanaf €350 voor een korte show, tussen €450 en €750 voor de populairste 20 minuten en tot €1500 voor een volledig festivalprogramma."),
   ("Wat bepaalt de prijs van een vuurshow?",
    "De duur van de show, het aantal acts (vuur, fakir, mentalisme, reptielen), de reisafstand en de datum. In de offerte staat alles transparant op een rij."),
   ("Hoe snel krijg ik een offerte?",
@@ -2383,11 +2396,31 @@ def _tweeling_van(slug):
 
 posts = [p for p in _ALLE_POSTS if not _tweeling_van(p["slug"])]
 
-# basis-slug -> slug van de versie waarvan tekst, titel en beschrijving
-# worden overgenomen (leeg: het origineel blijft)
-_BETERE_TEKST = {}
+# Per paar is door drie onafhankelijke lezers (lezer, zoekmachine, feiten)
+# gekozen welke versie op het schone adres komt; tekst, titel en
+# beschrijving apart. "-2" = de herschrijving van december 2023 overnemen,
+# None = het origineel houden. Drie paren (bedrijfsfeest-tips, entertainer
+# inhuren, halloween-oorsprong) zijn nog niet beoordeeld en houden het
+# origineel.
+_BETERE_TEKST = {
+    "artiesten-boeken-tips":                                   {"body": None, "title": None, "desc": "-2"},
+    "betekenis-en-geschiedenis-van-fakir":                     {"body": "-2", "title": None, "desc": None},
+    "checklist-voor-het-organiseren-van-een-feest":            {"body": "-2", "title": None, "desc": None},
+    "fantastische-teambuilding-activiteiten-voor-bedrijven-de-beste-tips-en-trends":
+                                                               {"body": "-2", "title": None, "desc": "-2"},
+    "halloweenshow-boeken-2023":                               {"body": "-2", "title": "-2", "desc": None},
+    "ideeen-en-tips-voor-het-leukste-kinderfeestje":           {"body": "-2", "title": "-2", "desc": "-2"},
+    "tips-om-origineel-je-verjaardag-te-vieren":               {"body": "-2", "title": "-2", "desc": "-2"},
+    "tips-voor-een-onvergetelijk-personeelsfeest":             {"body": None, "title": "-2", "desc": "-2"},
+}
 # per pagina: verplichte correcties in de gekozen tekst
 _TEKSTFIX = {}
+# twee koppen kwamen in kleine letters uit WordPress ("artiesten boeken tips");
+# de zoektitel was al goed, de H1 op de pagina niet
+_TITEL = {
+    "artiesten-boeken-tips": "Artiesten boeken: tips voor je evenement",
+    "ideeen-en-tips-voor-het-leukste-kinderfeestje": "Ideeën en tips voor het leukste kinderfeestje",
+}
 
 _blogset = sorted((bp for bp in posts if bp["slug"] not in PC.SHOW_PAGES),
                   key=lambda x: x["date"], reverse=True)
@@ -2396,11 +2429,16 @@ for p in posts:
     # site als volwaardige showpagina — die komt uit KEEP_PAGES.
     if p["slug"] in PC.SHOW_PAGES: continue
     if p["slug"] in _BETERE_TEKST:
-        _bron = pages[_BETERE_TEKST[p["slug"]]]
-        p = {**p, "body": _bron["body"], "title": _bron["title"],
-             "seo_title": _bron["seo_title"] or p["seo_title"],
-             "seo_desc": _bron["seo_desc"] or p["seo_desc"],
-             "img": _bron["img"] or p["img"]}
+        _k = _BETERE_TEKST[p["slug"]]
+        _bron = pages[p["slug"] + "-2"]
+        if _k["body"]:
+            p = {**p, "body": _bron["body"], "img": _bron["img"] or p["img"]}
+        if _k["title"]:
+            p = {**p, "title": _bron["title"], "seo_title": _bron["seo_title"] or p["seo_title"]}
+        if _k["desc"] and _bron["seo_desc"]:
+            p = {**p, "seo_desc": _bron["seo_desc"]}
+    if p["slug"] in _TITEL:
+        p = {**p, "title": _TITEL[p["slug"]]}
     for _van, _naar in _TEKSTFIX.get(p["slug"], ()):
         if _van not in p["body"] and _van not in p["seo_title"] and _van not in p["title"]:
             raise SystemExit(f"  ✖ tekstfix {p['slug']}: {_van!r} niet gevonden")
@@ -3044,6 +3082,7 @@ _VERDWENEN = {
     "/bedrijfsfeest-organiseren-tips/": "/tips-voor-het-organiseren-van-uw-bedrijfsfeest/",
     "/vuurspuwer-inhuren-in-amersfoort/": HUB,
     "/entertainment/vuurspuwer-vuurshow/": "/vuurspuwer-inhuren/",
+    "/offerte-aanvragen/": "/contact-3/",
 }
 _VENUE = re.compile(r"entertainment-bij-|event-bij-|feest-bij-|avond-bij-|avond-in-het-|"
                     r"evenement-bij-|spektakel-bij-|knokke-heist|kasteel|zalmhuis|vismijn|"
@@ -3613,6 +3652,7 @@ print("  homepage en assets gekopieerd")
 # pagina's, want pas dan is bekend welke adressen omgeleid zijn — en het
 # telt niet als inhoudswijziging voor lastmod, want dat is het niet.
 _HREF = re.compile(r'href="(https?://vuurspuwer\.com)?(/[^"#?]*?)/?([#?][^"]*)?"')
+_ABS_A = re.compile(r'(<a\b[^>]*?)href="https?://vuurspuwer\.com(/[^"]*)"')
 _omgezet, _pag = 0, 0
 for _root, _, _fs in os.walk(OUT):
     for _f in _fs:
@@ -3626,6 +3666,11 @@ for _root, _, _fs in os.walk(OUT):
             _omgezet += 1
             return f'href="{m.group(1) or ""}{_RD[pad]}{m.group(3) or ""}"'
         _n = _HREF.sub(_her, _doc)
+        # en een interne link hoort niet met het eigen domein ervoor: dat is
+        # een erfenis van WordPress en telt in browsers en crawlers als een
+        # absolute link naar een andere site — alleen in <a>, niet in
+        # canonical/og/hreflang, want die moeten juist absoluut zijn
+        _n = _ABS_A.sub(lambda m: m.group(1) + 'href="' + m.group(2) + '"', _n)
         if _n != _doc:
             open(_pth, "w", encoding="utf-8").write(_n); _pag += 1
 print(f"  interne links rechtstreeks: {_omgezet} links op {_pag} pagina's wezen naar een omgeleid adres")
