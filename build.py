@@ -433,6 +433,7 @@ _BUSINESS_LD = {
                 "addressCountry": "NL"},
     "areaServed": [{"@type": "Country", "name": "Nederland"},
                    {"@type": "Country", "name": "België"}],
+    "knowsLanguage": ["nl", "en", "de", "fr"],
     "sameAs": ["https://www.facebook.com/show.nuno",
                "https://www.instagram.com/officialnuno",
                "https://x.com/mentalist_nuno",
@@ -469,7 +470,10 @@ _PERSON_LD = {
     "knowsAbout": ["Vuurspuwen", "Fakirshow", "Mentalisme",
                    "Reptielenshow", "Workshop vuurspuwen",
                    "Veiligheid bij vuurshows"],
-    "knowsLanguage": ["nl", "en"],
+    "knowsLanguage": ["nl", "en", "de", "fr"],
+    "hasCredential": {"@type": "EducationalOccupationalCredential",
+                      "credentialCategory": "certification",
+                      "name": "Gecertificeerd vuurspuwer en fakir"},
 }
 
 def person_ld(lang="nl"):
