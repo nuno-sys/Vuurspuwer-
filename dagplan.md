@@ -1,4 +1,4 @@
-# Indexeer-dagplan 2026-09-01
+# Indexeer-dagplan 2026-09-02
 
 Google kent géén open aanmeld-API voor gewone pagina's, dus deze tien
 adressen zijn met de hand aan te melden. Klik een link, druk op
@@ -6,20 +6,20 @@ adressen zijn met de hand aan te melden. Klik een link, druk op
 
 | # | Pagina | Aanmelden bij Google |
 |---|---|---|
-| 1 | `halloween` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fhalloween%2F) |
-| 2 | `de/halloween` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Fhalloween%2F) |
-| 3 | `en/halloween` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fen%2Fhalloween%2F) |
-| 4 | `fr/halloween` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Ffr%2Fhalloween%2F) |
-| 5 | `halloween-amsterdam` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fhalloween-amsterdam%2F) |
-| 6 | `halloween-antwerpen` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fhalloween-antwerpen%2F) |
-| 7 | `halloween-breda` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fhalloween-breda%2F) |
-| 8 | `halloween-brugge` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fhalloween-brugge%2F) |
-| 9 | `halloween-brussel` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fhalloween-brussel%2F) |
-| 10 | `halloween-den-haag` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fhalloween-den-haag%2F) |
+| 1 | `vuurshow-bedrijfsfeest` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurshow-bedrijfsfeest%2F) |
+| 2 | `homepage` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2F) |
+| 3 | `vuurshow-festival` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurshow-festival%2F) |
+| 4 | `contact-3` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fcontact-3%2F) |
+| 5 | `de/feuershow-firmenfeier` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Ffeuershow-firmenfeier%2F) |
+| 6 | `en/fire-show-corporate-event` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fen%2Ffire-show-corporate-event%2F) |
+| 7 | `fr/spectacle-de-feu-entreprise` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Ffr%2Fspectacle-de-feu-entreprise%2F) |
+| 8 | `vuurspuwer-inhuren` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurspuwer-inhuren%2F) |
+| 9 | `wat-kost-een-vuurspuwer` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fwat-kost-een-vuurspuwer%2F) |
+| 10 | `beoordelingen` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fbeoordelingen%2F) |
 
 ## Automatisch verstuurd
 
 - IndexNow: 200 (10 adressen)
 - Bing API: overgeslagen (geen BING_API_KEY ingesteld)
 
-_Volgende ronde: 2026-09-02_
+_Volgende ronde: 2026-09-03_
