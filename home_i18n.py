@@ -128,7 +128,6 @@ HOME = {
   ">Chat op WhatsApp<": ">Chat on WhatsApp<",
 
   # --- reviews ---
-  ">Beoordelingen<": ">Reviews<",
   "4,9 uit <em>136 beoordelingen</em>": "4.9 from <em>136 reviews</em>",
   '&ldquo;Wil je een spectaculaire show met een flinke dosis humor, liters spanning en een portie &bdquo;drakenadem&rdquo; waar je wenkbrauwen spontaan van gaan krullen? Dan ben je bij Nuno aan het juiste adres! Een absolute knaller! Je gasten praten er dagen later nog over&hellip; met sterren in hun ogen &eacute;n waarschijnlijk een lichte rookgeur in hun kleding. 😂✨&rdquo;':
   '&ldquo;Looking for a spectacular show with a hefty dose of humour, litres of suspense and a portion of &ldquo;dragon&rsquo;s breath&rdquo; that will make your eyebrows curl? Then Nuno is the right address! An absolute banger! Your guests will still be talking about it days later&hellip; with stars in their eyes and probably a faint smell of smoke in their clothes. 😂✨&rdquo;',
@@ -169,7 +168,6 @@ HOME = {
   # --- zekerheid ---
   ">Zekerheid<": ">Assurance<",
   "Spektakel is het <em>makkelijke</em> deel": "Spectacle is the <em>easy</em> part",
-  ">Bekend van<": ">As seen on<",
   ">De televisieshow van Uri Geller<": ">Uri Geller&rsquo;s television show<",
   ">Producties in Engeland<": ">Productions in England<",
   ">Veiligheid<": ">Safety<",
@@ -230,18 +228,12 @@ HOME = {
   ">Vast / zakelijk<": ">Landline / business<",
   ">Stuur een bericht<": ">Send a message<",
   ">Mail<": ">Email<",
-  "Nederland, Belgi&euml; &amp; internationaal": "Netherlands, Belgium &amp; international",
   "Voor een datum binnen twee weken: bel of app even, dan gaat het sneller dan mail.":
   "For a date within two weeks: call or message &mdash; it&rsquo;s faster than email.",
   ">Naam<": ">Name<",
   ">E-mail<": ">Email<",
   ">Datum<": ">Date<",
   ">Weet ik nog niet<": ">Not sure yet<",
-  ">Vuurshow<": ">Fire show<",
-  ">Fakirshow<": ">Fakir show<",
-  ">Reptielenshow<": ">Reptile show<",
-  ">Workshop vuurspuwen<": ">Fire-breathing workshop<",
-  ">Mentalisme<": ">Mentalism<",
   ">Themafeest<": ">Theme party<",
   ">Locatie<": ">Location<",
   ">Allebei<": ">Both<",
@@ -249,11 +241,10 @@ HOME = {
   ">Verstuur aanvraag<": ">Send request<",
   "Je ontvangt direct een bevestiging per e-mail &mdash; en binnen 24 uur een persoonlijke reactie.":
   "You&rsquo;ll receive an instant confirmation by email &mdash; and a personal reply within 24 hours.",
-  'placeholder="Plaats of zaal, bijv. Utrecht of De Vereeniging"': 'placeholder="Town or venue, e.g. Utrecht or De Vereeniging"',
-  'placeholder="Bijv. bedrijfsfeest voor 80 personen, show rond 21:00 uur"': 'placeholder="E.g. company party for 80 people, show around 9 pm"',
+  'placeholder="Plaats of zaal"': 'placeholder="Town or venue, e.g. Utrecht or De Vereeniging"',
 
   # --- attributen (alt/aria) ---
-  'aria-label="Geen gesproken tekst"': 'aria-label="No spoken text"',
+  'label="Geen gesproken tekst"': 'aria-label="No spoken text"',
   'label="Geen gesproken tekst"': 'label="No spoken text"',
   "Vuurspuwer Nuno spuwt een vuurbal boven het publiek tijdens een festival overdag": "Fire breather Nuno blows a fireball above the audience during a daytime festival",
   "Fakirshow in het theater: Nuno op het spijkerbed onder het gewicht van een toeschouwer": "Fakir show in the theatre: Nuno on the bed of nails under the weight of a spectator",
@@ -374,7 +365,6 @@ HOME = {
   ">Ontvang uw offerte op maat<": ">Ihr Angebot nach Maß erhalten<",
   ">Chat op WhatsApp<": ">Auf WhatsApp chatten<",
 
-  ">Beoordelingen<": ">Bewertungen<",
   "4,9 uit <em>136 beoordelingen</em>": "4,9 aus <em>136 Bewertungen</em>",
   '&ldquo;Wil je een spectaculaire show met een flinke dosis humor, liters spanning en een portie &bdquo;drakenadem&rdquo; waar je wenkbrauwen spontaan van gaan krullen? Dan ben je bij Nuno aan het juiste adres! Een absolute knaller! Je gasten praten er dagen later nog over&hellip; met sterren in hun ogen &eacute;n waarschijnlijk een lichte rookgeur in hun kleding. 😂✨&rdquo;':
   '&ldquo;Suchst du eine spektakuläre Show mit einer kräftigen Portion Humor, literweise Spannung und einer Prise „Drachenatem“, von der sich deine Augenbrauen spontan kräuseln? Dann bist du bei Nuno an der richtigen Adresse! Ein absoluter Knaller! Deine Gäste reden noch Tage später darüber&hellip; mit Sternen in den Augen und wahrscheinlich einem leichten Rauchgeruch in der Kleidung. 😂✨&rdquo;',
@@ -414,7 +404,6 @@ HOME = {
 
   ">Zekerheid<": ">Sicherheit &amp; Vertrauen<",
   "Spektakel is het <em>makkelijke</em> deel": "Spektakel ist der <em>einfache</em> Teil",
-  ">Bekend van<": ">Bekannt aus<",
   ">De televisieshow van Uri Geller<": ">Der Fernsehshow von Uri Geller<",
   ">Producties in Engeland<": ">Produktionen in England<",
   ">Veiligheid<": ">Sicherheit<",
@@ -470,18 +459,12 @@ HOME = {
   ">Vast / zakelijk<": ">Festnetz / geschäftlich<",
   ">Stuur een bericht<": ">Nachricht senden<",
   ">Mail<": ">E-Mail<",
-  "Nederland, Belgi&euml; &amp; internationaal": "Niederlande, Belgien &amp; international",
   "Voor een datum binnen twee weken: bel of app even, dan gaat het sneller dan mail.":
   "Für einen Termin innerhalb von zwei Wochen: kurz anrufen oder per WhatsApp schreiben &mdash; das geht schneller als E-Mail.",
   ">Naam<": ">Name<",
   ">E-mail<": ">E-Mail<",
   ">Datum<": ">Datum<",
   ">Weet ik nog niet<": ">Weiß ich noch nicht<",
-  ">Vuurshow<": ">Feuershow<",
-  ">Fakirshow<": ">Fakirshow<",
-  ">Reptielenshow<": ">Reptilienshow<",
-  ">Workshop vuurspuwen<": ">Workshop Feuerspucken<",
-  ">Mentalisme<": ">Mentalismus<",
   ">Themafeest<": ">Mottoparty<",
   ">Locatie<": ">Ort<",
   ">Allebei<": ">Beides<",
@@ -489,10 +472,9 @@ HOME = {
   ">Verstuur aanvraag<": ">Anfrage senden<",
   "Je ontvangt direct een bevestiging per e-mail &mdash; en binnen 24 uur een persoonlijke reactie.":
   "Sie erhalten sofort eine Bestätigung per E-Mail &mdash; und innerhalb von 24 Stunden eine persönliche Antwort.",
-  'placeholder="Plaats of zaal, bijv. Utrecht of De Vereeniging"': 'placeholder="Ort oder Saal, z. B. Utrecht oder De Vereeniging"',
-  'placeholder="Bijv. bedrijfsfeest voor 80 personen, show rond 21:00 uur"': 'placeholder="Z. B. Firmenfeier für 80 Personen, Show gegen 21 Uhr"',
+  'placeholder="Plaats of zaal"': 'placeholder="Ort oder Saal, z. B. Utrecht oder De Vereeniging"',
 
-  'aria-label="Geen gesproken tekst"': 'aria-label="Kein gesprochener Text"',
+  'label="Geen gesproken tekst"': 'aria-label="Kein gesprochener Text"',
   'label="Geen gesproken tekst"': 'label="Kein gesprochener Text"',
   "Vuurspuwer Nuno spuwt een vuurbal boven het publiek tijdens een festival overdag": "Feuerspucker Nuno spuckt einen Feuerball über dem Publikum bei einem Festival am Tag",
   "Fakirshow in het theater: Nuno op het spijkerbed onder het gewicht van een toeschouwer": "Fakirshow im Theater: Nuno auf dem Nagelbrett unter dem Gewicht eines Zuschauers",
@@ -613,7 +595,6 @@ HOME = {
   ">Ontvang uw offerte op maat<": ">Recevez votre devis sur mesure<",
   ">Chat op WhatsApp<": ">Discuter sur WhatsApp<",
 
-  ">Beoordelingen<": ">Avis<",
   "4,9 uit <em>136 beoordelingen</em>": "4,9 sur <em>136 avis</em>",
   '&ldquo;Wil je een spectaculaire show met een flinke dosis humor, liters spanning en een portie &bdquo;drakenadem&rdquo; waar je wenkbrauwen spontaan van gaan krullen? Dan ben je bij Nuno aan het juiste adres! Een absolute knaller! Je gasten praten er dagen later nog over&hellip; met sterren in hun ogen &eacute;n waarschijnlijk een lichte rookgeur in hun kleding. 😂✨&rdquo;':
   '&ldquo;Envie d&rsquo;un spectacle spectaculaire avec une bonne dose d&rsquo;humour, des litres de suspense et une portion de « souffle de dragon » à faire friser les sourcils ? Alors Nuno est la bonne adresse ! Un vrai carton ! Vos invités en parleront encore des jours plus tard&hellip; des étoiles dans les yeux et probablement une légère odeur de fumée dans les vêtements. 😂✨&rdquo;',
@@ -653,7 +634,6 @@ HOME = {
 
   ">Zekerheid<": ">Garanties<",
   "Spektakel is het <em>makkelijke</em> deel": "Le spectacle, c'est la partie <em>facile</em>",
-  ">Bekend van<": ">Vu sur<",
   ">De televisieshow van Uri Geller<": ">L'émission télévisée d'Uri Geller<",
   ">Producties in Engeland<": ">Des productions en Angleterre<",
   ">Veiligheid<": ">Sécurité<",
@@ -713,18 +693,12 @@ HOME = {
   ">Vast / zakelijk<": ">Fixe / professionnel<",
   ">Stuur een bericht<": ">Envoyer un message<",
   ">Mail<": ">E-mail<",
-  "Nederland, Belgi&euml; &amp; internationaal": "Pays-Bas, Belgique &amp; international",
   "Voor een datum binnen twee weken: bel of app even, dan gaat het sneller dan mail.":
   "Pour une date sous deux semaines : appelez ou envoyez un message, c'est plus rapide que l'e-mail.",
   ">Naam<": ">Nom<",
   ">E-mail<": ">E-mail<",
   ">Datum<": ">Date<",
   ">Weet ik nog niet<": ">Je ne sais pas encore<",
-  ">Vuurshow<": ">Spectacle de feu<",
-  ">Fakirshow<": ">Spectacle de fakir<",
-  ">Reptielenshow<": ">Spectacle de reptiles<",
-  ">Workshop vuurspuwen<": ">Atelier cracheur de feu<",
-  ">Mentalisme<": ">Mentalisme<",
   ">Themafeest<": ">Soirée à thème<",
   ">Locatie<": ">Lieu<",
   ">Allebei<": ">Les deux<",
@@ -732,10 +706,9 @@ HOME = {
   ">Verstuur aanvraag<": ">Envoyer la demande<",
   "Je ontvangt direct een bevestiging per e-mail &mdash; en binnen 24 uur een persoonlijke reactie.":
   "Vous recevez immédiatement une confirmation par e-mail &mdash; et une réponse personnelle sous 24 heures.",
-  'placeholder="Plaats of zaal, bijv. Utrecht of De Vereeniging"': 'placeholder="Ville ou salle, p. ex. Utrecht ou De Vereeniging"',
-  'placeholder="Bijv. bedrijfsfeest voor 80 personen, show rond 21:00 uur"': 'placeholder="P. ex. fête d\'entreprise pour 80 personnes, spectacle vers 21h"',
+  'placeholder="Plaats of zaal"': 'placeholder="Ville ou salle, p. ex. Utrecht ou De Vereeniging"',
 
-  'aria-label="Geen gesproken tekst"': 'aria-label="Pas de texte parlé"',
+  'label="Geen gesproken tekst"': 'aria-label="Pas de texte parlé"',
   'label="Geen gesproken tekst"': 'label="Pas de texte parlé"',
   "Vuurspuwer Nuno spuwt een vuurbal boven het publiek tijdens een festival overdag": "Le cracheur de feu Nuno souffle une boule de feu au-dessus du public lors d'un festival en journée",
   "Fakirshow in het theater: Nuno op het spijkerbed onder het gewicht van een toeschouwer": "Spectacle de fakir au théâtre : Nuno sur la planche à clous sous le poids d'un spectateur",

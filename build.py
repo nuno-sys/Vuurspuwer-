@@ -60,7 +60,7 @@ NS = {'wp': 'http://wordpress.org/export/1.2/',
 
 CITIES = [
     "vuurspuwer-boeken-in-amsterdam", "vuurspuwer-boeken-in-rotterdam",
-    "vuurspuwer-boeken-in-den-haag", "vuurspuwer-boeken-in-utrecht-2",
+    "vuurspuwer-boeken-in-den-haag", "vuurspuwer-boeken-in-utrecht",
     "vuurspuwer-boeken-in-eindhoven", "vuurspuwer-boeken-in-groningen",
     "vuurspuwer-boeken-in-tilburg", "vuurspuwer-boeken-in-breda",
     "vuurspuwer-boeken-in-antwerpen", "vuurspuwer-boeken-in-gent",
@@ -75,7 +75,7 @@ CITIES = [
 ]
 CITY_LABEL = {
     "vuurspuwer-boeken-in-amsterdam": "Amsterdam", "vuurspuwer-boeken-in-rotterdam": "Rotterdam",
-    "vuurspuwer-boeken-in-den-haag": "Den Haag", "vuurspuwer-boeken-in-utrecht-2": "Utrecht",
+    "vuurspuwer-boeken-in-den-haag": "Den Haag", "vuurspuwer-boeken-in-utrecht": "Utrecht",
     "vuurspuwer-boeken-in-eindhoven": "Eindhoven", "vuurspuwer-boeken-in-groningen": "Groningen",
     "vuurspuwer-boeken-in-tilburg": "Tilburg", "vuurspuwer-boeken-in-breda": "Breda",
     "vuurspuwer-boeken-in-antwerpen": "Antwerpen", "vuurspuwer-boeken-in-gent": "Gent",
@@ -189,6 +189,29 @@ for i in items:
     }
 print(f"  {len(pages)} gepubliceerde pagina's in de export")
 json.dump({"count": len(pages)}, open("/tmp/_pages.json", "w"))
+
+# ------------------------------------------- slugs met een cijfer erachter
+# WordPress plakt "-2" achter een slug als die al bezet is. Voor vier
+# pagina's is dat cijfer het enige wat er van de botsing overbleef: de
+# botsende pagina is allang weg, of was een verdwaalde stadspagina (de
+# slug van het vuurspuwers-artikel was van "Vuurspuwer Ede", die van het
+# verrassingsfeestje van "Vuurspuwer As"). Zo'n adres heeft geen reden
+# om het cijfer te houden: lelijk voor de bezoeker, en Google leest het
+# als "de tweede van twee". De pagina verhuist naar het schone adres, het
+# oude adres wordt een 301 (zie _redirects), en de botsende oude pagina
+# — die tot nu toe naar de homepage stuurde — is geen apart adres meer.
+_HERNOEMD = {
+    "vuurspuwer-boeken-in-utrecht-2": "vuurspuwer-boeken-in-utrecht",
+    "de-betekenis-en-geschiedenis-van-vuurspuwers-2":
+        "de-betekenis-en-geschiedenis-van-vuurspuwers",
+    "zo-organiseer-je-een-geslaagd-verrassingsfeestje-2":
+        "zo-organiseer-je-een-geslaagd-verrassingsfeestje",
+    "vuurspuwer-boeken-voor-een-bedrijfsfeest-de-ultieme-spectaculaire-ervaring-2":
+        "vuurspuwer-boeken-voor-een-bedrijfsfeest-de-ultieme-spectaculaire-ervaring",
+}
+for _oud, _nieuw in _HERNOEMD.items():
+    if _oud in pages:
+        pages[_nieuw] = {**pages.pop(_oud), "slug": _nieuw}
 
 # ------------------------------------------------------- gedeelde onderdelen
 src = open("index.html", encoding="utf-8").read()
@@ -491,6 +514,7 @@ _FOOTER_LABELS = {
         '>Boek nu &rarr;<': '>Book now &rarr;<',
         'Het Europese entertainmentnetwerk &middot; rechtstreeks boeken, zonder commissie': 'The European entertainment network &middot; book direct, no commission',
         'aria-label="Bekijk het profiel van Vuurspuwer Nuno op EntertainerShow.com (opent in een nieuw tabblad)"': 'aria-label="View the profile of Vuurspuwer Nuno on EntertainerShow.com (opens in a new tab)"',
+        "Vuurspuwer, fakir en mentalist. Boekbaar in Nederland, Belgi&euml; en daarbuiten.": 'Fire breather, fakir and mentalist. Available in the Netherlands, Belgium and beyond.',
         "Nederland, Belgi&euml; &amp; internationaal": "Netherlands, Belgium &amp; international"},
  "de": {">Reptielenshow<": ">Reptilienshow<", ">Workshop vuurspuwen<": ">Feuerspucker-Workshop<",
         ">Mentalisme<": ">Mentalismus<", ">Themafeesten<": ">Mottopartys<",
@@ -512,6 +536,7 @@ _FOOTER_LABELS = {
         '>Boek nu &rarr;<': '>Jetzt buchen &rarr;<',
         'Het Europese entertainmentnetwerk &middot; rechtstreeks boeken, zonder commissie': 'Das europ&auml;ische Entertainment-Netzwerk &middot; direkt buchen, ohne Provision',
         'aria-label="Bekijk het profiel van Vuurspuwer Nuno op EntertainerShow.com (opent in een nieuw tabblad)"': 'aria-label="Profil von Vuurspuwer Nuno auf EntertainerShow.com ansehen (&ouml;ffnet in neuem Tab)"',
+        "Vuurspuwer, fakir en mentalist. Boekbaar in Nederland, Belgi&euml; en daarbuiten.": 'Feuerspucker, Fakir und Mentalist. Buchbar in den Niederlanden, Belgien und dar&uuml;ber hinaus.',
         "Nederland, Belgi&euml; &amp; internationaal": "Niederlande, Belgien &amp; international"},
  "fr": {">Reptielenshow<": ">Spectacle de reptiles<", ">Workshop vuurspuwen<": ">Atelier cracheur de feu<",
         ">Mentalisme<": ">Mentalisme<", ">Themafeesten<": ">Fêtes à thème<",
@@ -533,6 +558,7 @@ _FOOTER_LABELS = {
         '>Boek nu &rarr;<': '>R&eacute;server &rarr;<',
         'Het Europese entertainmentnetwerk &middot; rechtstreeks boeken, zonder commissie': 'Le r&eacute;seau europ&eacute;en du divertissement &middot; r&eacute;servation directe, sans commission',
         'aria-label="Bekijk het profiel van Vuurspuwer Nuno op EntertainerShow.com (opent in een nieuw tabblad)"': 'aria-label="Voir le profil de Vuurspuwer Nuno sur EntertainerShow.com (ouvre dans un nouvel onglet)"',
+        "Vuurspuwer, fakir en mentalist. Boekbaar in Nederland, Belgi&euml; en daarbuiten.": 'Cracheur de feu, fakir et mentaliste. Disponible aux Pays-Bas, en Belgique et au-del&agrave;.',
         "Nederland, Belgi&euml; &amp; internationaal": "Pays-Bas, Belgique &amp; international"},
 }
 _WA_TEXT = {
@@ -540,6 +566,9 @@ _WA_TEXT = {
  "de": "Hallo%20Nuno%2C%20ich%20habe%20eine%20Frage%20zu%20einer%20Buchung",
  "fr": "Bonjour%20Nuno%2C%20j%27ai%20une%20question%20concernant%20une%20r%C3%A9servation",
 }
+_CHAT_ARIA = {"en": "Chat with Nuno", "de": "Mit Nuno chatten", "fr": "Discuter avec Nuno"}
+_CHAT_CTA  = {"en": "Chat with Nuno", "de": "Mit Nuno chatten", "fr": "Discuter avec Nuno"}
+_SLUIT     = {"en": "Close", "de": "Schlie&szlig;en", "fr": "Fermer"}
 _WA_ARIA = {"en": "Chat with Nuno on WhatsApp", "de": "Mit Nuno auf WhatsApp chatten",
             "fr": "Discuter avec Nuno sur WhatsApp"}
 _BRAND_ARIA = {"en": "Fire breather Nuno, to the homepage", "de": "Feuerspucker Nuno, zur Startseite",
@@ -626,6 +655,10 @@ def localize_doc(d, lang):
             "de": 'aria-label="Zwischen dunklem und hellem Modus wechseln"',
             "fr": 'aria-label="Basculer entre mode sombre et clair"'}[lang],
            'aria-label="Menu openen"': f'aria-label="{L["menu_btn"]}"',
+           '>Naar de inhoud<': f'>{L["skip"]}<',
+           'aria-label="Chat met Nuno"': f'aria-label="{_CHAT_ARIA[lang]}"',
+           '<span id="chatCtaTxt">Chat met Nuno</span>': f'<span id="chatCtaTxt">{_CHAT_CTA[lang]}</span>',
+           'class="chat__close" id="chatClose" aria-label="Sluiten"': f'class="chat__close" id="chatClose" aria-label="{_SLUIT[lang]}"',
            'data-i18n-open="Menu"': "",
            }
     for a, b in lbl.items(): d = d.replace(a, b)
@@ -1542,7 +1575,13 @@ _WRITTEN_PATHS = set()
 # de datums zoals ze vóór deze build in het grootboek stonden, om achteraf
 # te kunnen zien hoeveel er daadwerkelijk verschoven
 _LEDGER_VOOR = {p: v.get("d") for p, v in _LEDGER.items()}
-_NL_DATUM = r"\d{1,2} (?:" + "|".join(MONTHS_NL[1:]) + r") \d{4}"
+# Zichtbare datums in élke taal van de site, ook de Duitse vorm met punt
+# ("2. September 2026"). Tot nu toe werd alleen de Nederlandse vorm
+# gefilterd, waardoor elke Engelse, Duitse en Franse pagina met een
+# "bijgewerkt op"-regel bij elke bouw een nieuwe vingerafdruk kreeg — en
+# dus elke dag een nieuwe lastmod, zonder dat er iets veranderd was.
+_ALLE_MAANDEN = sorted({m for l in MONTHS_LOC.values() for m in l[1:] if m}, key=len, reverse=True)
+_NL_DATUM = r"\d{1,2}\.? (?:" + "|".join(map(re.escape, _ALLE_MAANDEN)) + r") \d{4}"
 # Wat hier uit gefilterd wordt telt niet als inhoudswijziging. Naast de
 # assethash en datums hoort daar ook de laadplumbing bij: speculatieregels,
 # het poster-attribuut van een video en de sitebrede blokken in de
@@ -1558,9 +1597,29 @@ _VOLATILE = re.compile(
     r"|\bdata-poster=\"[^\"]*\"|\bposter=\"[^\"]*\""
     r"|\?v=[0-9a-f]+|\d{4}-\d{2}-\d{2}|" + _NL_DATUM, re.S)
 
+# Wat telt als "de pagina is veranderd"? De inhoud in <main>, en dan zonder
+# de dingen die niet van deze pagina zíjn: de fotostrips en videostrips
+# (decor dat overal gelijk is), de "lees ook"-lijst en de broodkruimels
+# (navigatie die verschuift zodra er ergens anders een artikel bijkomt of
+# verdwijnt) en de doelen van links (een link die voortaan rechtstreeks
+# naar zijn eindadres wijst, is geen nieuwe tekst). Header, voettekst,
+# chatkaart en cookiekaart staan buiten <main> en tellen dus nooit mee —
+# een vertaalde voettekstregel is geen reden om 60 pagina's als
+# "vandaag gewijzigd" aan te bieden. Google vertrouwt lastmod sitebreed
+# of helemaal niet, dus dit moet precies zijn.
+_MAIN   = re.compile(r"<main\b.*?</main>", re.S)
+_DECOR  = re.compile(r"<aside\b.*?</aside>"
+                     r"|<section class=\"wrap bay relposts\"[^>]*>.*?</section>"
+                     r"|<nav class=\"crumbs\".*?</nav>"
+                     r"|\bhref=\"[^\"]*\"", re.S)
+def _basis(doc):
+    m = _MAIN.search(doc)
+    kern = m.group(0) if m else doc
+    return _VOLATILE.sub("", _DECOR.sub("", kern))
+
 def _lastmod(path, doc):
     _WRITTEN_PATHS.add(path)
-    h = hashlib.sha1(_VOLATILE.sub("", doc).encode("utf-8")).hexdigest()[:16]
+    h = hashlib.sha1(_basis(doc).encode("utf-8")).hexdigest()[:16]
     old = _LEDGER.get(path)
     if old and old.get("h") == h:
         return old["d"]
@@ -2156,13 +2215,51 @@ _AUTHOR_BOX = """
   </div>
 </section>"""
 
-posts = [p for p in pages.values() if p["kind"] == "post"]
+_ALLE_POSTS = [p for p in pages.values() if p["kind"] == "post"]
+_POST_SLUGS = {p["slug"] for p in _ALLE_POSTS}
+
+# Een bericht met een cijfer achter de slug waarvan het origineel óók op
+# de site staat, is een tweeling: dezelfde titel, twee maanden later
+# opnieuw geschreven en door WordPress naast het origineel gezet. Tot nu
+# toe werden beide gebouwd, met elk een canonical naar zichzelf, terwijl
+# het cijferadres tegelijk een 301 kreeg — twee pagina's die om dezelfde
+# zoekopdracht concurreren. Nu komt er per paar precies één op de site,
+# onder het schone adres. Wélke van de twee teksten dat wordt, staat in
+# _BETERE_TEKST; de keuze is per paar gemaakt op leesbaarheid,
+# zoekintentie en feiten.
+def _tweeling_van(slug):
+    base = re.sub(r"-\d+$", "", slug)
+    if base != slug and (base in _POST_SLUGS or base in KEEP_PAGES):
+        return base
+    return None
+
+posts = [p for p in _ALLE_POSTS if not _tweeling_van(p["slug"])]
+
+# basis-slug -> slug van de versie waarvan tekst, titel en beschrijving
+# worden overgenomen (leeg: het origineel blijft)
+_BETERE_TEKST = {}
+# per pagina: verplichte correcties in de gekozen tekst
+_TEKSTFIX = {}
+
 _blogset = sorted((bp for bp in posts if bp["slug"] not in PC.SHOW_PAGES),
                   key=lambda x: x["date"], reverse=True)
 for p in posts:
     # workshop-vuurspuwen is in de export een bericht, maar leeft op de
     # site als volwaardige showpagina — die komt uit KEEP_PAGES.
     if p["slug"] in PC.SHOW_PAGES: continue
+    if p["slug"] in _BETERE_TEKST:
+        _bron = pages[_BETERE_TEKST[p["slug"]]]
+        p = {**p, "body": _bron["body"], "title": _bron["title"],
+             "seo_title": _bron["seo_title"] or p["seo_title"],
+             "seo_desc": _bron["seo_desc"] or p["seo_desc"],
+             "img": _bron["img"] or p["img"]}
+    for _van, _naar in _TEKSTFIX.get(p["slug"], ()):
+        if _van not in p["body"] and _van not in p["seo_title"] and _van not in p["title"]:
+            raise SystemExit(f"  ✖ tekstfix {p['slug']}: {_van!r} niet gevonden")
+        p = {**p, "body": p["body"].replace(_van, _naar),
+             "title": p["title"].replace(_van, _naar),
+             "seo_title": p["seo_title"].replace(_van, _naar),
+             "seo_desc": p["seo_desc"].replace(_van, _naar)}
     _cid, _clabel = post_cat(p)
     _faq_html, _faq_ld = _post_faq(_cid)
     _rel_html, _rel_ld = _related(p, _blogset)
@@ -2726,6 +2823,8 @@ print("  4 homepages gebouwd (nl/en/de/fr, zelfde ontwerp)")
 for _hl, _miss in _hp_missing.items():
     if _miss:
         print(f"  ⚠ home_i18n {_hl}: {len(_miss)} fragmenten niet gevonden")
+        for _m in _miss:
+            print(f"      · {_m[:110]!r}")
 
 kept = set(built)
 lines = ["# oude adressen die blijven werken", "",
@@ -2768,9 +2867,94 @@ for slug in pages:
     lines.append(f"/{slug}/  /  301")
     rest += 1
 
+# 4. de hernoemde adressen: het oude cijferadres naar het schone
+for _oud, _nieuw in _HERNOEMD.items():
+    lines.append(f"/{_oud}/  /{_nieuw}/  301")
+    _OMGELEID.add(_oud)
+
+# 5. adressen waar blogteksten nog naar linken maar die al vóór de export
+# verwijderd waren — 54 links naar 36 adressen die een 404 gaven. Vrijwel
+# allemaal oude locatie-artikelen ("Magisch entertainment bij Kasteel X"):
+# die gaan naar de locatiepagina, net als de opgeheven stadspagina's. De
+# rest naar de pagina die het onderwerp nu draagt. De links in de teksten
+# zelf worden verderop rechtstreeks gemaakt, dus de bezoeker merkt niets
+# van de omleiding; die blijft voor wie van buiten komt. Nieuwe kapotte
+# links laten de bouw omvallen (zie de controle bij de eindpas).
+_VERDWENEN = {
+    "/vuurspuwer-boeken-voor-evenement/":
+        "/hoe-vuurspuwer-nuno-boeken-voor-evenementen-het-complete-antwoord-door-vuurspuwer-nuno/",
+    "/vuurspuwer-boeken-voor-een-bedrijfsfeest/":
+        "/vuurspuwer-boeken-voor-een-bedrijfsfeest-de-ultieme-spectaculaire-ervaring/",
+    "/Vuurspuwer-boeken-voor-een-verjaardag-de-ultieme-spectaculaire-ervaring/":
+        "/vuurspuwer-boeken-voor-een-verjaardag-de-ultieme-spectaculaire-ervaring/",
+    "/wat-is-de-ideale-kijkafstand-voor-het-publiek-het-complete-antwoord-door-vuurspuwer-nuno/":
+        "/vuurspuwer-inhuren/",
+    "/zijn-fakirs-echte-magiers-of-illusionisten-het-complete-antwoord-door-vuurspuwer-nuno/":
+        "/betekenis-en-geschiedenis-van-fakir/",
+    "/bedrijfsfeest-organiseren-tips/": "/tips-voor-het-organiseren-van-uw-bedrijfsfeest/",
+    "/vuurspuwer-inhuren-in-amersfoort/": HUB,
+    "/entertainment/vuurspuwer-vuurshow/": "/vuurspuwer-inhuren/",
+}
+_VENUE = re.compile(r"entertainment-bij-|event-bij-|feest-bij-|avond-bij-|avond-in-het-|"
+                    r"evenement-bij-|spektakel-bij-|knokke-heist|kasteel|zalmhuis|vismijn|"
+                    r"belfort|gravensteen|zuiderpershuis|nekkerhal|technopolis|patershof|"
+                    r"faculty-club|3hoog|abdij-van-park|casino-van-sint-niklaas|salons-|"
+                    r"crowne-plaza|hotel-metropole|kruisherenhotel|auberge-du-pecheur|river-woods")
+_bestaat = lambda u: u == "/" or os.path.exists(os.path.join(OUT, u.strip("/"), "index.html"))
+_HREF_ALL = re.compile(r'<a [^>]*href="(?:https?://vuurspuwer\.com)?(/[^"#?]*)(?:[#?][^"]*)?"')
+_bekend = {l.split()[0] for l in lines if l.startswith("/")}
+_dood = set()
+for _root, _, _fs in os.walk(OUT):
+    for _f in _fs:
+        if not _f.endswith(".html"): continue
+        for _u in _HREF_ALL.findall(open(os.path.join(_root, _f), encoding="utf-8").read()):
+            if _u.startswith(("/assets/", "/api/")) or "." in _u.rsplit("/", 1)[-1]: continue
+            _uu = _u.rstrip("/") + "/"
+            if not _bestaat(_uu) and _uu not in _bekend: _dood.add(_uu)
+_onbekend = []
+for _u in sorted(_dood):
+    _doel = _VERDWENEN.get(_u) or (HUB if _VENUE.search(_u) else None)
+    if not _doel: _onbekend.append(_u); continue
+    lines.append(f"{_u}  {_doel}  301")
+if _onbekend:
+    raise SystemExit("  ✖ interne links naar adressen zonder pagina én zonder omleiding:\n    " + "\n    ".join(_onbekend))
+print(f"  verdwenen adressen omgeleid: {len(_dood)} (waar blogteksten nog naar linkten)")
+
+# Eén regel per bron (de eerste wint, zoals Cloudflare het ook leest) en
+# geen kettingen: elke omleiding wijst meteen naar het eindadres. Een
+# ketting kost de bezoeker een extra rondreis en Google telt hem als
+# ruis; na een hernoeming ontstaan ze vanzelf, dus ze worden hier
+# opgelost in plaats van gehoopt dat ze er niet zijn.
+_RD, _uniek, _dubbel = {}, [], 0
+for l in lines:
+    p = l.split()
+    if len(p) >= 2 and p[0].startswith("/"):
+        if p[0] in _RD: _dubbel += 1; continue
+        _RD[p[0]] = p[1]
+    _uniek.append(l)
+lines = _uniek
+def _eind(doel):
+    gezien = set()
+    while doel in _RD:
+        if doel in gezien: raise SystemExit(f"  ✖ omleidingslus bij {doel}")
+        gezien.add(doel); doel = _RD[doel]
+    return doel
+_kettingen = 0
+for i, l in enumerate(lines):
+    p = l.split()
+    if len(p) >= 2 and p[0].startswith("/") and p[1] in _RD:
+        e = _eind(p[1])
+        if e == p[0]: raise SystemExit(f"  ✖ omleiding naar zichzelf: {p[0]}")
+        lines[i] = f"{p[0]}  {e}  {p[2] if len(p) > 2 else '301'}"
+        _RD[p[0]] = e; _kettingen += 1
+for _bron in _RD:
+    if os.path.exists(os.path.join(OUT, _bron.strip("/"), "index.html")):
+        raise SystemExit(f"  ✖ {_bron} is omgeleid én gebouwd — dat is een duplicaat")
+
 open(os.path.join(OUT, "_redirects"), "w").write("\n".join(lines) + "\n")
 print(f"  _redirects: {len(lines)-2} regels ({dropped} stadspagina's naar de hub, "
-      f"{len(_MATRIX_OM)} matrixpagina's naar hun stad, {rest} overig)")
+      f"{len(_MATRIX_OM)} matrixpagina's naar hun stad, {rest} overig; "
+      f"{_dubbel} dubbele bronnen verwijderd, {_kettingen} kettingen opgelost)")
 
 # sitemap — met xhtml-alternates voor alle taalversies
 _TOP_PAGES = {"halloween", "wat-kost-een-vuurspuwer",
@@ -3269,6 +3453,39 @@ print(f"  feed.xml geschreven ({len(_feed_posts)} artikelen)")
 shutil.copy("favicon.ico", os.path.join(OUT, "favicon.ico"))
 shutil.copy("site.webmanifest", os.path.join(OUT, "site.webmanifest"))
 print("  homepage en assets gekopieerd")
+
+# ------------------------------------------ interne links rechtstreeks
+# Elke interne link die op een omgeleid adres uitkwam, wijst nu meteen
+# naar het eindadres. Er liepen er 235 via een 301: een extra rondreis
+# voor de bezoeker, en voor Google een signaal dat de site zijn eigen
+# adressen niet kent. De _redirects blijven staan voor links van buiten;
+# de site zelf wijst rechtstreeks. Dit gebeurt ná het schrijven van de
+# pagina's, want pas dan is bekend welke adressen omgeleid zijn — en het
+# telt niet als inhoudswijziging voor lastmod, want dat is het niet.
+_HREF = re.compile(r'href="(https?://vuurspuwer\.com)?(/[^"#?]*?)/?([#?][^"]*)?"')
+_omgezet, _pag = 0, 0
+for _root, _, _fs in os.walk(OUT):
+    for _f in _fs:
+        if not _f.endswith(".html"): continue
+        _pth = os.path.join(_root, _f)
+        _doc = open(_pth, encoding="utf-8").read()
+        def _her(m):
+            global _omgezet
+            pad = m.group(2).rstrip("/") + "/"
+            if pad.startswith("/assets/") or pad not in _RD: return m.group(0)
+            _omgezet += 1
+            return f'href="{m.group(1) or ""}{_RD[pad]}{m.group(3) or ""}"'
+        _n = _HREF.sub(_her, _doc)
+        if _n != _doc:
+            open(_pth, "w", encoding="utf-8").write(_n); _pag += 1
+print(f"  interne links rechtstreeks: {_omgezet} links op {_pag} pagina's wezen naar een omgeleid adres")
+for _tf in ("llms.txt", "llms-full.txt", "assistent.txt", "feed.xml", "sitemap.xml"):
+    _tp = os.path.join(OUT, _tf)
+    if not os.path.exists(_tp): continue
+    _tt = open(_tp, encoding="utf-8").read()
+    _fout = [b for b in _RD if f"{SITE}{b}" in _tt or f'"{b}"' in _tt]
+    if _fout:
+        raise SystemExit(f"  ✖ {_tf} verwijst naar omgeleide adressen: {_fout[:5]}")
 
 # grootboek bijwerken: alleen paden die deze build echt bestaan
 _LEDGER = {p: v for p, v in _LEDGER.items() if p in _WRITTEN_PATHS}

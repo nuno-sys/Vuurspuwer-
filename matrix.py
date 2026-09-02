@@ -10,7 +10,7 @@ CITIES = {
  "amsterdam":  ("Amsterdam", "van een rooftopbar aan het IJ tot een bedrijfsfeest op de Zuidas of een borrel in een pakhuis aan de gracht", "vuurspuwer-boeken-in-amsterdam"),
  "rotterdam":  ("Rotterdam", "van een loods op Katendrecht tot een dakterras met skyline-zicht of een festival in het Zuiderpark", "vuurspuwer-boeken-in-rotterdam"),
  "den-haag":   ("Den Haag", "van een strandpaviljoen op Scheveningen tot een statige zaal in het centrum of een bedrijfsfeest op de Binckhorst", "vuurspuwer-boeken-in-den-haag"),
- "utrecht":    ("Utrecht", "van een werfkelder aan de Oudegracht tot een evenementenhal in Leidsche Rijn — en Zeist ligt om de hoek, dus voorrijkosten vallen mee", "vuurspuwer-boeken-in-utrecht-2"),
+ "utrecht":    ("Utrecht", "van een werfkelder aan de Oudegracht tot een evenementenhal in Leidsche Rijn — en Zeist ligt om de hoek, dus voorrijkosten vallen mee", "vuurspuwer-boeken-in-utrecht"),
  "eindhoven":  ("Eindhoven", "van Strijp-S tot het Ketelhuis: industriële locaties en vuur zijn een gouden combinatie", "vuurspuwer-boeken-in-eindhoven"),
  "groningen":  ("Groningen", "van de Grote Markt tot een feestzaal in de binnenstad of een studentenvereniging met lef", "vuurspuwer-boeken-in-groningen"),
  "tilburg":    ("Tilburg", "van de Spoorzone tot een festivalterrein of kroegenfeest — kermisstad Tilburg weet wat spektakel is", "vuurspuwer-boeken-in-tilburg"),
