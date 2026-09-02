@@ -695,6 +695,8 @@ HOME = {
   ">Weet ik nog niet<": ">Je ne sais pas encore<",
   ">Themafeest<": ">Soirée à thème<",
   ">Locatie<": ">Lieu<",
+  '<label class="field"><span>Show</span>': '<label class="field"><span>Spectacle</span>',
+  '<span>Website</span><input type="text" name="website"': '<span>Site web</span><input type="text" name="website"',
   ">Allebei<": ">Les deux<",
   ">Vertel kort over het evenement<": ">Parlez-nous brièvement de l'événement<",
   ">Verstuur aanvraag<": ">Envoyer la demande<",

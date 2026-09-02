@@ -2145,6 +2145,8 @@ _CHROME_LANG["en"]['class="rating__num">4,9<'] = 'class="rating__num">4.9<'
 _CHROME_LANG["en"]['class="rkop__cijfer">4,9<'] = 'class="rkop__cijfer">4.9<'
 _CHROME_LANG["fr"]['aria-label="Shows"'] = 'aria-label="Spectacles"'
 _CHROME_LANG["de"]['aria-label="Site"'] = 'aria-label="Website"'
+# honeypot-label in het formulier: onzichtbaar, maar wel de taal van de pagina
+_CHROME_LANG["fr"]['<span>Website</span><input type="text" name="website"'] = '<span>Site web</span><input type="text" name="website"'
 
 def foot_seo():
     def grp(summary, links):
