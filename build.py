@@ -2401,9 +2401,7 @@ posts = [p for p in _ALLE_POSTS if not _tweeling_van(p["slug"])]
 # Per paar is door drie onafhankelijke lezers (lezer, zoekmachine, feiten)
 # gekozen welke versie op het schone adres komt; tekst, titel en
 # beschrijving apart. "-2" = de herschrijving van december 2023 overnemen,
-# None = het origineel houden. Drie paren (bedrijfsfeest-tips, entertainer
-# inhuren, halloween-oorsprong) zijn nog niet beoordeeld en houden het
-# origineel.
+# None = het origineel houden. Bij gelijkspel wint het origineel.
 _BETERE_TEKST = {
     "artiesten-boeken-tips":                                   {"body": None, "title": None, "desc": "-2"},
     "betekenis-en-geschiedenis-van-fakir":                     {"body": "-2", "title": None, "desc": None},
@@ -2414,9 +2412,22 @@ _BETERE_TEKST = {
     "ideeen-en-tips-voor-het-leukste-kinderfeestje":           {"body": "-2", "title": "-2", "desc": "-2"},
     "tips-om-origineel-je-verjaardag-te-vieren":               {"body": "-2", "title": "-2", "desc": "-2"},
     "tips-voor-een-onvergetelijk-personeelsfeest":             {"body": None, "title": "-2", "desc": "-2"},
+    "tips-voor-het-organiseren-van-uw-bedrijfsfeest":          {"body": "-2", "title": "-2", "desc": "-2"},
+    "waar-kun-je-een-entertainer-inhuren":                     {"body": None, "title": "-2", "desc": "-2"},
+    "wat-vieren-we-met-halloween-en-hoe-is-het-ontstaan":      {"body": None, "title": "-2", "desc": None},
 }
-# per pagina: verplichte correcties in de gekozen tekst
-_TEKSTFIX = {}
+# per pagina: verplichte correcties in de gekozen tekst (van, naar)
+_TEKSTFIX = {
+    "tips-voor-het-organiseren-van-uw-bedrijfsfeest": (
+        # taalfout en misleidend anker in de herschrijving
+        ('<a href="https://vuurspuwer.com/een-onvergetelijk-event-bij-martins-patershof-mechelen-be-entertainment-op-hoog-niveau/">origineel entertainment</a>',
+         '<a href="/vuurshow-bedrijfsfeest/">originele act zoals een vuurshow</a>'),
+        # registerbreuk: de rest van de tekst is in de u-vorm
+        ("Meer informatie over fotografie vind je op", "Meer informatie over fotografie vindt u op"),
+        # los emoji aan het eind van de metabeschrijving
+        ("onvergetelijk entertainment! \u2709\ufe0f", "onvergetelijk entertainment!"),
+    ),
+}
 # twee koppen kwamen in kleine letters uit WordPress ("artiesten boeken tips");
 # de zoektitel was al goed, de H1 op de pagina niet
 _TITEL = {
@@ -2442,7 +2453,7 @@ for p in posts:
     if p["slug"] in _TITEL:
         p = {**p, "title": _TITEL[p["slug"]]}
     for _van, _naar in _TEKSTFIX.get(p["slug"], ()):
-        if _van not in p["body"] and _van not in p["seo_title"] and _van not in p["title"]:
+        if not any(_van in p[_veld] for _veld in ("body", "seo_title", "title", "seo_desc")):
             raise SystemExit(f"  ✖ tekstfix {p['slug']}: {_van!r} niet gevonden")
         p = {**p, "body": p["body"].replace(_van, _naar),
              "title": p["title"].replace(_van, _naar),
