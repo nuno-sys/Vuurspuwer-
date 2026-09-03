@@ -782,45 +782,51 @@
      desktop hero looks soft, so each shape gets its own file and the
      other one is never downloaded. Missing file, no harm: the flame
      carries the hero on its own. */
-  const HERO_VIDEO = {
-    /* The portrait clip is shown at its own shape in the hero panel on wide
-       screens and as the backdrop on phones, so it is never stretched.
-       Point `panel` at a wide master if one is ever shot for it. */
-    portrait: "/assets/media/hero-portrait.mp4",
-    panel:    null
-  };
+  /* Twee sfeerclips die samen doorlopen: eerst de vuurbal in close-up,
+     daarna showreel #3 (slow-motion vuur en drum). De tweede clip wordt
+     pas geladen als de eerste eindigt, dus de start blijft ultralicht.
+     De fotoachtergrond (CSS) staat er meteen; de video fadet erover. */
+  const HERO_CLIPS = [
+    "/assets/media/hero-portrait.mp4",   /* vuurbal in close-up (~5s) */
+    "/assets/media/showreel.mp4"         /* slow-motion vuur + drum (~13s) */
+  ];
 
   function initVideo(){
     const hero = $("#heroVideo");
     if (hero) {
-      const live = () => hero.classList.add("is-live");
+      let i = 0;
+      const live   = () => hero.classList.add("is-live");
+      const unlive = () => hero.classList.remove("is-live");
+      const lijn   = navigator.connection || {};
+      const zuinig = !!lijn.saveData || /(^|-)2g$/.test(lijn.effectiveType || "") || REDUCED;
+
+      /* mobiel is streng over stille autoplay: alles expliciet aan */
+      hero.muted = true; hero.defaultMuted = true; hero.autoplay = true;
+      hero.playsInline = true; hero.loop = false;
+      hero.setAttribute("muted", ""); hero.setAttribute("playsinline", "");
+
+      const tryPlay = () => { const p = hero.play(); if (p && p.catch) p.catch(() => {}); };
       hero.addEventListener("playing", live);
       hero.addEventListener("loadeddata", () => { if (hero.readyState >= 2) live(); });
 
-      const src = innerWidth >= 980
-        ? (HERO_VIDEO.panel || HERO_VIDEO.portrait)
-        : HERO_VIDEO.portrait;
-      const lijn = navigator.connection || {};
-      const zuinig = !!lijn.saveData || /(^|-)2g$/.test(lijn.effectiveType || "");
-      if (src && !zuinig) {
+      /* aan het eind van een clip naar de volgende; de fotoachtergrond
+         vangt de wissel op, dus geen zwart gat */
+      hero.addEventListener("ended", () => {
+        i = (i + 1) % HERO_CLIPS.length;
+        hero.src = HERO_CLIPS[i];
+        hero.load();
+        tryPlay();
+      });
+
+      if (!zuinig) {
         const haalOp = () => {
-          /* mobiel is streng over autoplay: expliciet gedempt en
-             autoplay aan vóór het laden, anders weigert iOS soms */
-          hero.muted = true;
-          hero.defaultMuted = true;
-          hero.autoplay = true;
-          hero.setAttribute("muted", "");
-          hero.src = src;
+          hero.src = HERO_CLIPS[i];
           hero.preload = "auto";
           hero.load();
-          const tryPlay = () => {
-            const p = hero.play();
-            if (p && p.catch) p.catch(() => {});
-          };
           tryPlay();
           hero.addEventListener("loadeddata", tryPlay, { once: true });
-          /* energiebesparing/databesparing blokkeert stille autoplay
-             tot de eerste aanraking — dan alsnog starten */
+          /* energiebesparing blokkeert stille autoplay tot de eerste
+             interactie — dan alsnog starten */
           const kick = () => { if (hero.paused) tryPlay(); };
           ["touchstart", "pointerdown", "scroll"].forEach((ev) =>
             addEventListener(ev, kick, { once: true, passive: true }));
@@ -828,14 +834,10 @@
             if (!document.hidden && hero.paused) tryPlay();
           });
         };
-
-        /* De sfeervideo weegt een megabyte. Startte hij meteen, dan vocht
-           hij op een telefoon vijf seconden lang met de stylesheet, de
-           letters en de eerste foto's om dezelfde smalle lijn — en verloor
-           iedereen. Nu wacht hij tot de pagina zelf binnen is; dan heeft
-           hij de lijn voor zich alleen en staat hij in de praktijk eerder
-           in beeld dan voorheen. Op databesparing of 2G blijft hij weg en
-           draagt de vlam de hero alleen. */
+        /* wacht tot de pagina binnen is: dan heeft de clip de lijn voor
+           zich alleen en staat hij eerder in beeld dan bij een directe start.
+           Op databesparing, 2G of gereduceerde beweging blijft hij weg en
+           draagt de foto de hero. */
         const zodraHetRustigIs = () => {
           if (typeof requestIdleCallback === "function") requestIdleCallback(haalOp, { timeout: 1500 });
           else setTimeout(haalOp, 200);
