@@ -1,8 +1,8 @@
-(function(){var ID="G-VBKVM99CPB";var SLEUTEL="vsCookies";window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+(function(){var ID="G-VBKVM99CPB";var SLEUTEL="vsCookies";var ALTIJD=true;window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
 window.gtag=gtag;function keuze(){try{return localStorage.getItem(SLEUTEL);}catch(e){return null;}}
 function bewaar(v){try{localStorage.setItem(SLEUTEL,v);}catch(e){}}
 var HTML=document.documentElement;var TRAAG=false;try{TRAAG=matchMedia("(prefers-reduced-motion: reduce)").matches;}catch(e){}
-if(keuze()===null)HTML.classList.add("cookie-vraag");function merk(){return document.getElementById("navLogo")||document.querySelector(".nav__brand .logo");}
+if(!ALTIJD&&keuze()===null)HTML.classList.add("cookie-vraag");function merk(){return document.getElementById("navLogo")||document.querySelector(".nav__brand .logo");}
 function geland(){var b=document.querySelector(".nav__brand");if(b){b.classList.remove("is-vliegend");b.classList.add("is-landed");}
 HTML.classList.remove("cookie-vraag");}
 var gestart=false,geladen=false;function start(){if(gestart)return;gestart=true;gtag("js",new Date());gtag("config",ID,{transport_type:"beacon",anonymize_ip:true});function laad(){if(geladen)return;geladen=true;var s=document.createElement("script");s.async=true;s.src="https://www.googletagmanager.com/gtag/js?id="+ID;document.head.appendChild(s);}
@@ -26,5 +26,6 @@ var vlieger=bron.cloneNode(true);vlieger.className=bron.className+" cookie__vlie
 if(vlucht.finished)vlucht.finished.then(neer,neer);else vlucht.onfinish=neer;setTimeout(function(){if(bezig)neer();},1600);}
 function koppel(){var k=kaart();if(!k)return;var ja=document.getElementById("cookieJa");var nee=document.getElementById("cookieNee");if(ja)ja.addEventListener("click",function(){antwoord("ja");});if(nee)nee.addEventListener("click",function(){antwoord("nee");});document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!k.hidden&&!bezig)antwoord("nee");});k.addEventListener("keydown",function(e){if(e.key!=="Tab")return;var f=k.querySelectorAll("button, a[href]");if(!f.length)return;var eerste=f[0],laatste=f[f.length-1];if(e.shiftKey&&document.activeElement===eerste){laatste.focus();e.preventDefault();}
 else if(!e.shiftKey&&document.activeElement===laatste){eerste.focus();e.preventDefault();}});var herzie=document.querySelectorAll("[data-cookie-herzie]");for(var i=0;i<herzie.length;i++){herzie[i].addEventListener("click",function(e){e.preventDefault();toon();});}}
-function begin(){koppel();var v=keuze();if(v==="ja")start();else if(v!=="nee")naEersteVerf(toon);else HTML.classList.remove("cookie-vraag");}
+function begin(){if(ALTIJD){HTML.classList.remove("cookie-vraag");start();return;}
+koppel();var v=keuze();if(v==="ja")start();else if(v!=="nee")naEersteVerf(toon);else HTML.classList.remove("cookie-vraag");}
 if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",begin);}else{begin();}})();

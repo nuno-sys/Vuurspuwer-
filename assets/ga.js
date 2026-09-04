@@ -12,6 +12,15 @@
   var ID = "G-VBKVM99CPB";
   var SLEUTEL = "vsCookies";        /* "ja" | "nee" */
 
+  /* ====================================================================
+     TIJDELIJK — analytics voor iedereen, cookiebanner uit.
+     Reden: even echt verkeer kunnen zien in Google Analytics. Zolang dit
+     "true" is laadt GA meteen voor elke bezoeker en verschijnt de
+     toestemmingskaart niet. Zet terug op "false" om de nette
+     toestemmingsdrempel te herstellen (dan blokkeert "Liever niet" GA weer).
+     ==================================================================== */
+  var ALTIJD = true;
+
   window.dataLayer = window.dataLayer || [];
   function gtag() { dataLayer.push(arguments); }
   window.gtag = gtag;
@@ -30,7 +39,7 @@
   /* Staat de vraag nog open, dan houdt de intro zich in: het merk boven
      in het menu blijft donker tot het logo van de kaart er landt. Dit
      script staat voor site.js, dus de vlag staat er op tijd. */
-  if (keuze() === null) HTML.classList.add("cookie-vraag");
+  if (!ALTIJD && keuze() === null) HTML.classList.add("cookie-vraag");
 
   function merk() {
     return document.getElementById("navLogo") ||
@@ -233,6 +242,11 @@
   }
 
   function begin() {
+    if (ALTIJD) {                     /* TIJDELIJK: meteen meten, geen banner */
+      HTML.classList.remove("cookie-vraag");
+      start();
+      return;
+    }
     koppel();
     var v = keuze();
     if (v === "ja") start();
