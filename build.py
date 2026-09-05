@@ -1455,6 +1455,13 @@ def _serp(title, desc, p, kind, lang):
     _SEEN_TITLES.setdefault(key, slug)
     return title, desc, _serp_kw(p, kind, emo, lang)
 
+_ALT_GENERIEK = {
+    "nl": "Vuurspuwer Nuno spuwt vuur tijdens een spectaculaire vuurshow op een evenement",
+    "en": "Fire breather Nuno breathes fire during a spectacular fire show at an event",
+    "de": "Feuerspucker Nuno spuckt Feuer w\u00e4hrend einer spektakul\u00e4ren Feuershow auf einer Veranstaltung",
+    "fr": "Le cracheur de feu Nuno crache du feu lors d\u2019un spectacle de feu spectaculaire",
+}
+
 def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alternates=None):
     L = I.UI[lang]
     if not p.get("no_toc"):
@@ -1516,6 +1523,12 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
                          "/assets/media/themafeest-1080.webp"]
             iu = fallbacks[sum(map(ord, p["slug"])) % len(fallbacks)]
             ia = ia or "Vuurspuwer Nuno tijdens een vuurshow"
+        # de alt van een hergebruikte foto mag geen andere plaats noemen dan
+        # de pagina zelf (de festivalfoto droeg "Ternat" mee uit WordPress)
+        if kind == "city" and p["slug"] in CITY_LABEL:
+            ia = f"Vuurspuwer Nuno spuwt een vuurbal tijdens een vuurshow \u2013 boekbaar in {CITY_LABEL[p['slug']]} en omgeving"
+        elif ia and "Ternat" in ia and "ternat" not in p["slug"].lower():
+            ia = _ALT_GENERIEK.get(lang, _ALT_GENERIEK["nl"])
         p = {**p, "img": (iu, ia)}
 
     # elk blogbericht draagt dezelfde omslag: donker, alleen Nuno en de vlam
@@ -3325,7 +3338,7 @@ _VIDEOS = [
      "/assets/media/reel-2-poster.webp", "/assets/media/reel-2.mp4", 58),
     ("Showreel Vuurspuwer Nuno",
      "Korte showreel van vuurspuwer en fakir Nuno.",
-     "/assets/media/reel-poster.jpg", "/assets/media/showreel.mp4", 13),
+     "/assets/media/reel-poster.webp", "/assets/media/showreel.mp4", 13),
     ("Vuurbal in close-up - Vuurspuwer Nuno",
      "Meters hoge vuurbal van vuurspuwer Nuno, gefilmd van dichtbij.",
      "/assets/media/vuurbal-900.webp", "/assets/media/hero-portrait.mp4", 5),
@@ -3815,6 +3828,26 @@ for _tf in ("llms.txt", "llms-full.txt", "assistent.txt", "feed.xml", "sitemap.x
     _fout = [b for b in _RD if f"{SITE}{b}" in _tt or f'"{b}"' in _tt]
     if _fout:
         raise SystemExit(f"  ✖ {_tf} verwijst naar omgeleide adressen: {_fout[:5]}")
+
+# ------------------------------------------------ alle foto's in WebP
+# Elke zichtbare foto (img-src, srcset, poster) hoort WebP te zijn, met AVIF
+# ernaast via <picture>. Uitzonderingen: deelafbeeldingen (og-*) en icoontjes
+# blijven jpg/png omdat sociale platforms en iOS dat verwachten; het logo in
+# het schema (logo-mail.png) is geen zichtbare foto. Breekt de build zodra er
+# een jpg/png-foto insluipt.
+_ATTR_IMG = re.compile(r'\b(?:src|srcset|data-poster|poster)="([^"]+)"', re.I)
+_MAG_NIET_WEBP = ("og-", "/assets/icon", "apple-touch", "favicon", "maskable", "logo-mail")
+_fout_img = set()
+for _root, _, _fs in os.walk(OUT):
+    for _f in _fs:
+        if not _f.endswith(".html"): continue
+        _h = open(os.path.join(_root, _f), encoding="utf-8").read()
+        for _v in _ATTR_IMG.findall(_h):
+            if re.search(r"\.(?:jpe?g|png|gif)(?:\s|,|$|\?)", _v, re.I) and not any(m in _v for m in _MAG_NIET_WEBP):
+                _fout_img.add(_v[:90])
+if _fout_img:
+    raise SystemExit("  \u2716 foto's die geen WebP zijn (zet ze om of voeg een uitzondering toe):\n    " + "\n    ".join(sorted(_fout_img)[:12]))
+print("  alle zichtbare foto's in WebP (+AVIF): gecontroleerd")
 
 # grootboek bijwerken: alleen paden die deze build echt bestaan
 _LEDGER = {p: v for p, v in _LEDGER.items() if p in _WRITTEN_PATHS}

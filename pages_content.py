@@ -26,7 +26,7 @@ VIDEOS = [
     ("reel-2.mp4", "reel-2-poster.webp", "PT58S",
      "Acts & fakirwerk",
      "Compilatie van vuur- en fakiracts van Vuurspuwer Nuno op festivals en bedrijfsfeesten."),
-    ("showreel.mp4", "reel-poster.jpg", "PT13S",
+    ("showreel.mp4", "reel-poster.webp", "PT13S",
      "Showreel",
      "Korte showreel van vuurspuwer en fakir Nuno."),
     ("hero-portrait.mp4", "vuurbal-900.webp", "PT5S",

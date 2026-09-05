@@ -55,6 +55,9 @@
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/instrument-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/jetbrains-latin.woff2" crossorigin>
+<!-- het LCP-beeld van de hero is een CSS-achtergrond: zonder deze hint ontdekt de browser hem pas na de stylesheet -->
+<link rel="preload" as="image" href="/assets/media/vuurbal-900.avif" type="image/avif" fetchpriority="high">
+<link rel="stylesheet" href="/assets/site.css">
 <!--A:HEAD-->
 <script type="application/ld+json">
 {
@@ -500,7 +503,7 @@
    "@type": "VideoObject",
    "name": "Showreel Vuurspuwer Nuno",
    "description": "Korte showreel van vuurspuwer en fakir Nuno.",
-   "thumbnailUrl": "https://vuurspuwer.com/assets/media/reel-poster.jpg",
+   "thumbnailUrl": "https://vuurspuwer.com/assets/media/reel-poster.webp",
    "contentUrl": "https://vuurspuwer.com/assets/media/showreel.mp4",
    "uploadDate": "2026-08-30",
    "duration": "PT13S",
@@ -768,7 +771,6 @@
  ]
 }
 </script>
-<link rel="stylesheet" href="/assets/site.css">
 <!--A:/HEAD-->
 </head>
 <body>
@@ -1030,7 +1032,7 @@
       </figure>
 
       <figure class="reel rise" data-delay="2">
-        <video muted loop playsinline preload="none" data-poster="/assets/media/reel-poster.jpg"
+        <video muted loop playsinline preload="none" data-poster="/assets/media/reel-poster.webp"
                data-src="/assets/media/showreel.mp4" aria-label="Showreel van vuurspuwer Nuno"><track kind="captions" src="/assets/media/stil.vtt" srclang="nl" label="Geen gesproken tekst"></video>
         <button class="reel__play" type="button" aria-label="Showreel afspelen">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>

@@ -13,7 +13,7 @@
 <link rel="mask-icon" href="/assets/pinned-tab.svg" color="#FFB020">
 <link rel="preconnect" href="https://www.googletagmanager.com">
 <!-- Google Analytics: buiten het kritieke pad, zie /assets/ga.js -->
-<script src="/assets/ga.js?v=74780af64c" defer></script>
+<script src="/assets/ga.js?v=d3200b1d5f" defer></script>
 <title>🔥 Hire a Fire Breather? Fire Show &amp; Fakir Show | Nuno</title>
 <meta name="description" content="🔥 The Benelux&#x27; top fire breather, seen on SBS6, RTL 4 &amp; VTM ★ 4.9/5 (136 reviews) ✓ Fire shows, fakir shows, mentalism &amp; workshops ✓ €350–€1500 ✓ Quote within 24h.">
 <meta name="keywords" content="hire fire breather, book fire show, fakir show, mentalist, fire breathing workshop, event entertainment, Netherlands, Belgium">
@@ -58,6 +58,9 @@
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/instrument-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/jetbrains-latin.woff2" crossorigin>
+<!-- het LCP-beeld van de hero is een CSS-achtergrond: zonder deze hint ontdekt de browser hem pas na de stylesheet -->
+<link rel="preload" as="image" href="/assets/media/vuurbal-900.avif" type="image/avif" fetchpriority="high">
+<link rel="stylesheet" href="/assets/site.css?v=d3200b1d5f">
 <!--A:HEAD-->
 <script type="application/ld+json">
 {
@@ -503,7 +506,7 @@
    "@type": "VideoObject",
    "name": "Showreel Vuurspuwer Nuno",
    "description": "Short showreel of fire breather and fakir Nuno.",
-   "thumbnailUrl": "https://vuurspuwer.com/assets/media/reel-poster.jpg",
+   "thumbnailUrl": "https://vuurspuwer.com/assets/media/reel-poster.webp",
    "contentUrl": "https://vuurspuwer.com/assets/media/showreel.mp4",
    "uploadDate": "2026-08-30",
    "duration": "PT13S",
@@ -771,7 +774,6 @@
  ]
 }
 </script>
-<link rel="stylesheet" href="/assets/site.css?v=74780af64c">
 <!--A:/HEAD-->
 <script type="speculationrules">{"prefetch":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/api/*"}},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prerender":[{"where":{"and":[{"selector_matches":".nav a, .menu a, .btn"},{"not":{"href_matches":"/api/*"}},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"},{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/api/*"}},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"conservative"}]}</script>
 </head>
@@ -1034,7 +1036,7 @@
       </figure>
 
       <figure class="reel rise" data-delay="2">
-        <video muted loop playsinline preload="none" data-poster="/assets/media/reel-poster.jpg"
+        <video muted loop playsinline preload="none" data-poster="/assets/media/reel-poster.webp"
                data-src="/assets/media/showreel.mp4" aria-label="Showreel of fire breather Nuno"><track kind="captions" src="/assets/media/stil.vtt" srclang="en" label="No spoken text"></video>
         <button class="reel__play" type="button" aria-label="Play showreel">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
@@ -1703,7 +1705,7 @@
   </div>
 </div>
 
-<script src="/assets/site.js?v=74780af64c" defer></script>
+<script src="/assets/site.js?v=d3200b1d5f" defer></script>
 <!--A:/BODY-->
 </body>
 </html>
