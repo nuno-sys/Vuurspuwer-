@@ -315,7 +315,12 @@ width:var(--logo-w, 104px);
 aspect-ratio:292 / 80;
 -webkit-mask:var(--logo-src) no-repeat center / contain;
 mask:var(--logo-src) no-repeat center / contain;
-position:relative;}
+position:relative;
+overflow:hidden;
+isolation:isolate;
+transform:translateZ(0);
+-webkit-backface-visibility:hidden;
+backface-visibility:hidden;}
 .logo::before{
 content:"";
 position:absolute;

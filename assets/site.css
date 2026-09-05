@@ -451,6 +451,16 @@ button,input,select,textarea{ font:inherit; color:inherit; }
   -webkit-mask:var(--logo-src) no-repeat center / contain;
   mask:var(--logo-src) no-repeat center / contain;
   position:relative;
+  /* De hittegolf hieronder is een breed, gecomposit pseudo-element dat
+     ver buiten het woordmerk uitsteekt. Safari past het masker dan op de
+     laag mét dat overstek toe, waardoor de laatste O ritmisch wegviel.
+     Het overstek wegknippen en het merk op een eigen laag zetten houdt
+     het masker stabiel; zichtbaar verandert er niets. */
+  overflow:hidden;
+  isolation:isolate;
+  transform:translateZ(0);
+  -webkit-backface-visibility:hidden;
+  backface-visibility:hidden;
 }
 /* de hittegolf loopt via transform op een breed pseudo-element, zodat de
    animatie op de gpu draait (composited) in plaats van te hertekenen */
