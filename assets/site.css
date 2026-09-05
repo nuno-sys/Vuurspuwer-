@@ -2005,6 +2005,9 @@ body.is-locked .nav__call{ opacity:0; pointer-events:none; transition:opacity .3
 }
 .geo__more{ margin:.9rem 0 0; font-size:var(--t-sm); }
 .geo__more a{ color:var(--flame); }
+/* tikdoel van kleine tekstlinks naar 24px, zonder zichtbare verschuiving:
+   de extra ruimte wordt door de negatieve marge weer weggehaald */
+.geo__more a, .foot__nav a{ display:inline-block; padding:.25rem 0; margin:-.25rem 0; }
 
 /* ============================================================
    FAQ
@@ -3128,9 +3131,24 @@ body.is-locked .wa{ opacity:0; pointer-events:none; transition:opacity .3s var(-
 /* Homepage-secties onder de vouw: pas opmaken als ze in de buurt komen.
    Bewust NIET de galerij (#werk: sticky viewport erin) en niet het
    boekingsblok (#boeken: formulier met focus/anker). */
-#shows, #reel, #maatwerk, #reviews, #over, #locaties, #faq{
-  content-visibility:auto;
-  contain-intrinsic-size:auto 900px;
+#shows, #reel, #maatwerk, #reviews, #over, #locaties, #faq{ content-visibility:auto; }
+/* gemeten inhoudshoogtes (zonder padding), zodat scrollbalk en ankers
+   vóór de opmaak al kloppen — mobiel 412px / desktop 1350px breed */
+#shows{ contain-intrinsic-size:auto 3976px; }
+#reel{ contain-intrinsic-size:auto 1142px; }
+#maatwerk{ contain-intrinsic-size:auto 1101px; }
+#reviews{ contain-intrinsic-size:auto 2322px; }
+#over{ contain-intrinsic-size:auto 886px; }
+#locaties{ contain-intrinsic-size:auto 1362px; }
+#faq{ contain-intrinsic-size:auto 584px; }
+@media (min-width:701px){
+  #shows{ contain-intrinsic-size:auto 1839px; }
+  #reel{ contain-intrinsic-size:auto 1107px; }
+  #maatwerk{ contain-intrinsic-size:auto 528px; }
+  #reviews{ contain-intrinsic-size:auto 2133px; }
+  #over{ contain-intrinsic-size:auto 848px; }
+  #locaties{ contain-intrinsic-size:auto 701px; }
+  #faq{ contain-intrinsic-size:auto 672px; }
 }
 
 /* het hidden-attribuut wint altijd van display-regels op klassen */

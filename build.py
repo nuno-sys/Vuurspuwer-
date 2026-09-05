@@ -774,7 +774,7 @@ def localize_doc(d, lang):
     for a, b in _COOKIE_LBL[lang].items(): d = d.replace(a, b)
     # WhatsApp-knop: taalversie van tekst, label en statuswoorden
     d = d.replace("Hallo%20Nuno%2C%20ik%20heb%20een%20vraag%20over%20een%20boeking", _WA_TEXT[lang])
-    d = d.replace('aria-label="Chat met Nuno op WhatsApp"', f'aria-label="{_WA_ARIA[lang]}"')
+    d = d.replace('<span class="vh">Chat met Nuno op WhatsApp</span>', f'<span class="vh">{_WA_ARIA[lang]}</span>')
     d = d.replace('<a class="wa" ', f'<a class="wa" data-online="{L["wa_status_on"]}" data-offline="{L["wa_status_off"]}" ')
     d = d.replace('>Online</b>', f'>{L["wa_status_on"]}</b>')
     # voettekst-zoekbalk in de taal van de pagina

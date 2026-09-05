@@ -1513,6 +1513,7 @@ color:var(--flame);
 margin:0 0 .9rem;}
 .geo__more{ margin:.9rem 0 0; font-size:var(--t-sm); }
 .geo__more a{ color:var(--flame); }
+.geo__more a, .foot__nav a{ display:inline-block; padding:.25rem 0; margin:-.25rem 0; }
 .faq{
 display:grid;
 gap:1px;
@@ -2385,9 +2386,22 @@ outline:none;}
 .bcard, .rcard, .relcard, .faq__item, .gloss__item{
 content-visibility:auto;
 contain-intrinsic-size:auto 240px;}
-#shows, #reel, #maatwerk, #reviews, #over, #locaties, #faq{
-content-visibility:auto;
-contain-intrinsic-size:auto 900px;}
+#shows, #reel, #maatwerk, #reviews, #over, #locaties, #faq{ content-visibility:auto; }
+#shows{ contain-intrinsic-size:auto 3976px; }
+#reel{ contain-intrinsic-size:auto 1142px; }
+#maatwerk{ contain-intrinsic-size:auto 1101px; }
+#reviews{ contain-intrinsic-size:auto 2322px; }
+#over{ contain-intrinsic-size:auto 886px; }
+#locaties{ contain-intrinsic-size:auto 1362px; }
+#faq{ contain-intrinsic-size:auto 584px; }
+@media (min-width:701px){
+#shows{ contain-intrinsic-size:auto 1839px; }
+#reel{ contain-intrinsic-size:auto 1107px; }
+#maatwerk{ contain-intrinsic-size:auto 528px; }
+#reviews{ contain-intrinsic-size:auto 2133px; }
+#over{ contain-intrinsic-size:auto 848px; }
+#locaties{ contain-intrinsic-size:auto 701px; }
+#faq{ contain-intrinsic-size:auto 672px; }}
 [hidden]{ display:none !important; }
 .wa__ava{
 position:relative;
