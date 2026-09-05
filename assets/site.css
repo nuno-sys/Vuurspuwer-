@@ -805,6 +805,15 @@ body.is-locked .nav__call{ opacity:0; pointer-events:none; transition:opacity .3
   background-image:image-set(url("/assets/media/vuurbal-900.avif") type("image/avif"),
                              url("/assets/media/vuurbal-900.webp") type("image/webp"));
 }
+/* op een telefoon volstaat de 640-variant (2x scherm ≈ 780px, achter scrim
+   en video): zelfde beeld, ruim de helft van de bytes voor het LCP-beeld */
+@media (max-width:700px){
+  .hero__film{
+    background-image:url("/assets/media/vuurbal-640.webp");
+    background-image:image-set(url("/assets/media/vuurbal-640.avif") type("image/avif"),
+                               url("/assets/media/vuurbal-640.webp") type("image/webp"));
+  }
+}
 .hero__film video{
   width:100%; height:100%;
   /* de hele clip in beeld — Nuno's gezicht hoort erbij */
@@ -3115,6 +3124,13 @@ body.is-locked .wa{ opacity:0; pointer-events:none; transition:opacity .3s var(-
 .bcard, .rcard, .relcard, .faq__item, .gloss__item{
   content-visibility:auto;
   contain-intrinsic-size:auto 240px;
+}
+/* Homepage-secties onder de vouw: pas opmaken als ze in de buurt komen.
+   Bewust NIET de galerij (#werk: sticky viewport erin) en niet het
+   boekingsblok (#boeken: formulier met focus/anker). */
+#shows, #reel, #maatwerk, #reviews, #over, #locaties, #faq{
+  content-visibility:auto;
+  contain-intrinsic-size:auto 900px;
 }
 
 /* het hidden-attribuut wint altijd van display-regels op klassen */
