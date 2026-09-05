@@ -1640,6 +1640,7 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
 <script>try{{if(localStorage.vsTheme==="light")document.documentElement.setAttribute("data-theme","light")}}catch(e){{}}</script>
 <link rel="mask-icon" href="/assets/pinned-tab.svg" color="#FFB020">
 <link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
 {GTAG}
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
