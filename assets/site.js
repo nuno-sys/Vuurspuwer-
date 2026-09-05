@@ -154,8 +154,13 @@
     let gain = 1;
     function resize(){
       const dpr = clamp(window.devicePixelRatio || 1, 1, innerWidth < 700 ? 1.2 : 1.6);
-      const w = Math.round(cv.clientWidth  * dpr);
-      const h = Math.round(cv.clientHeight * dpr);
+      /* Een zachte, wazige vlam heeft geen volle resolutie nodig: op 60%
+         ziet hij er gelijk uit (het canvas rekt mee), maar de shader
+         rekent bijna 3x minder pixels — minder GPU, minder accu, en in
+         software-WebGL (Lighthouse/PSI) fors minder hoofdthread. */
+      const SCHAAL = 0.6;
+      const w = Math.round(cv.clientWidth  * dpr * SCHAAL);
+      const h = Math.round(cv.clientHeight * dpr * SCHAAL);
       if (cv.width !== w || cv.height !== h) {
         cv.width = w; cv.height = h;
         gl.viewport(0, 0, w, h);
@@ -217,6 +222,23 @@
     reset();
     addEventListener("resize", reset, { passive: true });
 
+    /* Eén vonk-sprite per kleur, één keer getekend. Per frame is het dan
+       alleen nog drawImage met een alpha — in plaats van 62 verse
+       radial-gradients: ~10x goedkoper op de hoofdthread, elk frame. */
+    const SPR = 32, SPRITES = {};
+    for (const col of ["255,243,214", "255,176,32", "255,77,10"]) {
+      const c = document.createElement("canvas");
+      c.width = c.height = SPR;
+      const g2 = c.getContext("2d");
+      const g = g2.createRadialGradient(SPR / 2, SPR / 2, 0, SPR / 2, SPR / 2, SPR / 2);
+      g.addColorStop(0,   "rgba(" + col + ",0.95)");
+      g.addColorStop(0.4, "rgba(" + col + ",0.28)");
+      g.addColorStop(1,   "rgba(" + col + ",0)");
+      g2.fillStyle = g;
+      g2.fillRect(0, 0, SPR, SPR);
+      SPRITES[col] = c;
+    }
+
     return function draw(t){
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, W, H);
@@ -232,16 +254,11 @@
         const k = 1 - p.life / p.max;
         const a = Math.sin(Math.PI * k) * 0.85;
         const col = p.hot > 0.72 ? "255,243,214" : p.hot > 0.34 ? "255,176,32" : "255,77,10";
-
-        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 5);
-        g.addColorStop(0,   "rgba(" + col + "," + (a * 0.95).toFixed(3) + ")");
-        g.addColorStop(0.4, "rgba(" + col + "," + (a * 0.28).toFixed(3) + ")");
-        g.addColorStop(1,   "rgba(" + col + ",0)");
-        ctx.fillStyle = g;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r * 5, 0, Math.PI * 2);
-        ctx.fill();
+        const d = p.r * 10;
+        ctx.globalAlpha = a;
+        ctx.drawImage(SPRITES[col], p.x - d / 2, p.y - d / 2, d, d);
       }
+      ctx.globalAlpha = 1;
       ctx.globalCompositeOperation = "source-over";
     };
   }
@@ -254,6 +271,26 @@
 
   let last = S.y = window.scrollY || 0;
   let rawVel = 0, running = true, t0 = performance.now();
+
+  /* De vlam en de vonken zijn het duurste wat deze pagina doet. Zolang de
+     bezoeker nog wacht op de pagina zelf (letters, foto's, eerste
+     aanraking) tekenen we ze niet: eerst interactief, dán vuur. Het vuur
+     ontsteekt bij de eerste beweging of aanraking — vrijwel iedereen doet
+     dat binnen een paar tellen — en anders vanzelf een paar tellen na
+     'load'. De hero draagt intussen de foto en de video, dus er valt
+     niets weg; het vuur komt er alleen net iets later bij. */
+  let vuurMag = false;
+  function ontsteekVuur(){
+    if (vuurMag) return;
+    vuurMag = true;
+    ["pointerdown", "touchstart", "scroll", "keydown", "wheel", "pointermove"].forEach((ev) =>
+      removeEventListener(ev, ontsteekVuur));
+  }
+  ["pointerdown", "touchstart", "scroll", "keydown", "wheel", "pointermove"].forEach((ev) =>
+    addEventListener(ev, ontsteekVuur, { once: true, passive: true }));
+  const naLoad = () => setTimeout(ontsteekVuur, 6000);
+  if (document.readyState === "complete") naLoad();
+  else addEventListener("load", naLoad, { once: true });
 
   const burn = $("#burn");
   const stage = $(".stage");
@@ -306,7 +343,7 @@
        Het canvas houdt zijn laatste beeld, dus er verdwijnt niets; het
        staat alleen even stil. */
     S.tick = (S.tick || 0) ^ 1;
-    if (S.tick && !document.documentElement.classList.contains("cookie-open")) {
+    if (S.tick && vuurMag && !document.documentElement.classList.contains("cookie-open")) {
       if (drawFlame)  drawFlame(t);
       if (drawEmbers) drawEmbers(t);
     }
