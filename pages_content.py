@@ -447,6 +447,10 @@ NEW_REVIEWS = [
   "Wij hadden een vuurspuw workshop geboekt voor een vrijgezellenfeest bij Nuno. Nuno weet er echt een feestje van te maken en we hebben dan ook een hele leuke workshop gehad. Aanrader!"),
  ("Anton Fennema", "Google", "2026-08-10", "review-anton", (480, 197),
   "Geweldige workshop gehad van Nuno. Veiligheid voor alles! Ik heb er ontzettend veel van geleerd. En een hele fijne middag gehad. Iemand zonder kapsones en passie voor zijn vak. Diepe buiging!"),
+ # oudste van de serie, via ShowBird (score 10/10); de datum staat niet op
+ # de screenshot, dus liever geen datum dan een verzonnen datum
+ ("Paul Oosterling", "ShowBird", None, "review-paul", (480, 508),
+  "Grandioos entertainment. Vantevoren uiterst prettig contact gehad met Nuno zelf, was ook ruim vantevoren aanwezig. Zijn vuurspuwer/fakirshow is in &eacute;&eacute;n woord geweldig, met veel humor en passie erin. Heb zelf ook meegedaan met vuurspuwen, op verzoek van Nuno &mdash; was prachtig om te doen; hij voerde eerst de spanning wat op, met veel humor. Prachtige kerel, die Nuno: betrekt de gasten ook bij zijn shows, iedereen heeft ervan genoten. Nogmaals hartelijk bedankt om deze speciale dag extra bijzonder te maken."),
 ]
 
 def new_review_cards(badge="NIEUW", ago="augustus 2026", lang_attr="",
@@ -454,19 +458,24 @@ def new_review_cards(badge="NIEUW", ago="augustus 2026", lang_attr="",
     out = []
     for i, (n, meta, d, img, (iw, ih), t) in enumerate(NEW_REVIEWS):
         delay = f' data-delay="{i % 3}"' if i % 3 else ""
+        # de bron-tag volgt het platform van de review (Google of ShowBird);
+        # de vertaalde teksten bevatten het woord "Google" op dezelfde plek
+        bron = "ShowBird" if "showbird" in meta.lower() else "Google"
+        proof_c, proof_alt_c = proof.replace("Google", bron), proof_alt.replace("Google", bron)
+        # zonder bekende datum geen NIEUW-badge en geen "x geleden"-tijd
+        badge_html = f'<span class="rcard__new" data-rev-new data-rev-date="{d}">{badge}</span>' if d else ""
+        time_html = f'<time class="rcard__ago" data-rev-date="{d}" datetime="{d}">{ago}</time>' if d else ""
         out.append(
             f'<article class="rcard rcard--new rise"{delay}{lang_attr}>'
-            f'<p class="rcard__stars" aria-label="5 van de 5 sterren">★★★★★'
-            f'<span class="rcard__new" data-rev-new data-rev-date="{d}">{badge}</span></p>'
+            f'<p class="rcard__stars" aria-label="5 van de 5 sterren">★★★★★{badge_html}</p>'
             f'<blockquote><p>&ldquo;{t}&rdquo;</p></blockquote>'
-            f'<footer class="rcard__who">{n} <span>&middot; {meta}</span>'
-            f'<time class="rcard__ago" data-rev-date="{d}" datetime="{d}">{ago}</time></footer>'
+            f'<footer class="rcard__who">{n} <span>&middot; {meta}</span>{time_html}</footer>'
             f'<a class="rcard__proof" href="/assets/media/{img}-900.webp" data-lightbox>'
             f'<img src="/assets/media/{img}-480.webp" '
             f'srcset="/assets/media/{img}-480.webp 480w, /assets/media/{img}-900.webp 900w" '
             f'sizes="(max-width:760px) 86vw, 350px" width="{iw}" height="{ih}" '
-            f'loading="lazy" decoding="async" alt="{proof_alt} {n}">'
-            f'<span class="rcard__prooftag">{proof}</span></a></article>')
+            f'loading="lazy" decoding="async" alt="{proof_alt_c} {n}">'
+            f'<span class="rcard__prooftag">{proof_c}</span></a></article>')
     return "".join(out)
 
 def reviews_body():
@@ -502,12 +511,14 @@ def reviews_schema():
                                  "bestRating": "5", "worstRating": "1"},
              "review": [{"@type": "Review",
                          "author": {"@type": "Person", "name": n},
-                         "datePublished": d,
+                         **({"datePublished": d} if d else {}),
+                         "publisher": {"@type": "Organization",
+                                       "name": "ShowBird" if "showbird" in m.lower() else "Google"},
                          "reviewRating": {"@type": "Rating", "ratingValue": "5",
                                           "bestRating": "5"},
                          "reviewBody": _html.unescape(t),
                          "itemReviewed": {"@id": f"{SITE}/#business"}}
-                        for n, _m, d, _img, _wh, t in NEW_REVIEWS]
+                        for n, m, d, _img, _wh, t in NEW_REVIEWS]
                        + [{"@type": "Review",
                            "author": {"@type": "Person", "name": n},
                            "reviewRating": {"@type": "Rating", "ratingValue": "5",
