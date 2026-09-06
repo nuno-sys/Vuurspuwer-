@@ -1,0 +1,60 @@
+# Lighthouse (mobiel, gesimuleerd 4G + 4x CPU) én de echte response-headers
+# van de live site, gemeten vanaf een GitHub-runner. Handmatig te starten
+# (Actions → "Lighthouse live") en elke maandag automatisch. De scores komen
+# in de samenvatting van de run; de volledige rapporten als artefact.
+name: Lighthouse live
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "30 6 * * 1"
+permissions: {}
+jobs:
+  meet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Headers van de live site
+        run: |
+          {
+            echo "## Response-headers (live)"
+            for u in / /wat-kost-een-vuurspuwer/ /assets/site.css /assets/fonts/archivo-latin.woff2; do
+              echo; echo "### https://vuurspuwer.com$u"; echo '```'
+              curl -sI -H 'Accept-Encoding: br, gzip' "https://vuurspuwer.com$u" \
+                | grep -iE '^(HTTP|server|cache-control|cf-cache-status|content-encoding|content-type|strict-transport|link|content-security|permissions-policy|alt-svc|age):' || true
+              echo '```'
+            done
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Lighthouse mobiel
+        run: |
+          mkdir -p rapporten
+          for p in / /wat-kost-een-vuurspuwer/ /beoordelingen/ /contact-3/ /vuurspuwer-boeken-in-amsterdam/; do
+            naam=$(echo "$p" | tr '/' '_'); [ "$naam" = "_" ] && naam=home
+            npx --yes lighthouse@12 "https://vuurspuwer.com$p" \
+              --only-categories=performance,accessibility,best-practices,seo \
+              --form-factor=mobile --screenEmulation.mobile \
+              --throttling-method=simulate \
+              --chrome-flags="--headless=new --no-sandbox" \
+              --output=json --output-path="rapporten/$naam.json" --quiet
+          done
+      - name: Samenvatting
+        run: |
+          {
+            echo "## Lighthouse mobiel (live)"
+            echo "| Pagina | Perf | A11y | BP | SEO | FCP | LCP | TBT | CLS | TTFB | Gewicht |"
+            echo "|---|---|---|---|---|---|---|---|---|---|---|"
+            node -e '
+              const fs=require("fs");
+              for (const f of fs.readdirSync("rapporten")) {
+                const r=JSON.parse(fs.readFileSync("rapporten/"+f)); const a=r.audits, c=r.categories;
+                const s=k=>Math.round((c[k]?.score??0)*100), ms=k=>Math.round(a[k]?.numericValue??0);
+                console.log(`| ${new URL(r.finalDisplayedUrl).pathname} | ${s("performance")} | ${s("accessibility")} | ${s("best-practices")} | ${s("seo")} | ${ms("first-contentful-paint")} ms | ${ms("largest-contentful-paint")} ms | ${ms("total-blocking-time")} ms | ${(a["cumulative-layout-shift"]?.numericValue??0).toFixed(3)} | ${ms("server-response-time")} ms | ${Math.round((a["total-byte-weight"]?.numericValue??0)/1024)} KB |`);
+              }'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-rapporten
+          path: rapporten
+          retention-days: 30
