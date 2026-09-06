@@ -6,7 +6,7 @@ if(!ALTIJD&&keuze()===null)HTML.classList.add("cookie-vraag");function merk(){re
 function geland(){var b=document.querySelector(".nav__brand");if(b){b.classList.remove("is-vliegend");b.classList.add("is-landed");}
 HTML.classList.remove("cookie-vraag");}
 var gestart=false,geladen=false;function start(){if(gestart)return;gestart=true;gtag("js",new Date());gtag("config",ID,{transport_type:"beacon",anonymize_ip:true});function laad(){if(geladen)return;geladen=true;var s=document.createElement("script");s.async=true;s.src="https://www.googletagmanager.com/gtag/js?id="+ID;document.head.appendChild(s);}
-if(document.readyState==="complete")setTimeout(laad,250);else addEventListener("load",function(){setTimeout(laad,250);});["pointerdown","keydown","touchstart","scroll"].forEach(function(ev){addEventListener(ev,laad,{once:true,passive:true});});addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")laad();});}
+var UITSTEL=4000;if(document.readyState==="complete")setTimeout(laad,UITSTEL);else addEventListener("load",function(){setTimeout(laad,UITSTEL);});["pointerdown","keydown","touchstart","scroll"].forEach(function(ev){addEventListener(ev,laad,{once:true,passive:true});});addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")laad();});}
 function kaart(){return document.getElementById("cookie");}
 var bezig=false;function straks(fn){if(typeof requestAnimationFrame!=="function"){fn();return;}
 requestAnimationFrame(function(){requestAnimationFrame(fn);});}

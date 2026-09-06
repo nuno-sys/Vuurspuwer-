@@ -1,8 +1,18 @@
-/*
-  Link: </assets/site.css?v=d2d9797fa5>; rel=preload; as=style
+/
+  Link: </assets/site.css?v=0975be645c>; rel=preload; as=style
   Link: </assets/fonts/archivo-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin
   Link: </assets/fonts/instrument-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin
   Link: </assets/fonts/jetbrains-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin
+  Cache-Control: public, max-age=60, stale-while-revalidate=86400
+
+/*/
+  Link: </assets/site.css?v=0975be645c>; rel=preload; as=style
+  Link: </assets/fonts/archivo-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin
+  Link: </assets/fonts/instrument-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin
+  Link: </assets/fonts/jetbrains-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin
+  Cache-Control: public, max-age=60, stale-while-revalidate=86400
+
+/*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), browsing-topics=()

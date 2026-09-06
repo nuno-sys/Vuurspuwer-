@@ -68,9 +68,13 @@
       s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
       document.head.appendChild(s);
     }
-    /* net als voorheen buiten het kritieke pad houden */
-    if (document.readyState === "complete") setTimeout(laad, 250);
-    else addEventListener("load", function () { setTimeout(laad, 250); });
+    /* Buiten het kritieke pad: pas bij de eerste interactie, of anders
+       vier seconden na 'load'. Zo telt gtag.js nooit mee in de eerste
+       schermopbouw en de metingen; de paginaweergave wordt bij het
+       laden alsnog gewoon gemeld (de dataLayer buffert tot dan). */
+    var UITSTEL = 4000;
+    if (document.readyState === "complete") setTimeout(laad, UITSTEL);
+    else addEventListener("load", function () { setTimeout(laad, UITSTEL); });
     ["pointerdown", "keydown", "touchstart", "scroll"].forEach(function (ev) {
       addEventListener(ev, laad, { once: true, passive: true });
     });

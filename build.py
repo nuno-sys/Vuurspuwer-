@@ -268,6 +268,24 @@ def og_image_for(iu):
         return f"/assets/media/og-{base}.jpg"
     return "/assets/media/og-festival.jpg"
 
+_AFM_CACHE = {}
+def afm_attr(iu):
+    """width/height-attributen van een media-bestand (uit de echte pixels),
+    zodat de browser de verhouding kent vóór het beeld binnen is: geen
+    verschuiving, en Lighthouse ziet elk beeld als 'sized'."""
+    if iu not in _AFM_CACHE:
+        attr = ""
+        f = os.path.join("assets", "media", os.path.basename(iu or ""))
+        if iu and iu.startswith("/assets/media/") and os.path.exists(f):
+            try:
+                from PIL import Image
+                with Image.open(f) as im:
+                    attr = f' width="{im.width}" height="{im.height}"'
+            except Exception:
+                attr = ""
+        _AFM_CACHE[iu] = attr
+    return _AFM_CACHE[iu]
+
 def srcset_of(iu):
     """Zoekt de -480/-640/-900/…-broertjes van een media-bestand op schijf
     en bouwt daar een srcset van, zodat telefoons de kleine variant laden."""
@@ -1565,8 +1583,8 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
         pre_ss = f' imagesrcset="{ss}" imagesizes="100vw"' if ss else ""
         preload = f'<link rel="preload" as="image" href="{esc(iu)}"{pre_ss} fetchpriority="high">'
         hero = f'''<header class="phero">
-    <img class="phero__bg" src="{esc(iu)}"{ss_attr} alt="" aria-hidden="true" fetchpriority="high" decoding="async">
-    <img class="phero__img" src="{esc(iu)}"{ss_attr} alt="{esc(ia)}" fetchpriority="high" decoding="async">
+    <img class="phero__bg" src="{esc(iu)}"{ss_attr}{afm_attr(iu)} alt="" aria-hidden="true" fetchpriority="high" decoding="async">
+    <img class="phero__img" src="{esc(iu)}"{ss_attr}{afm_attr(iu)} alt="{esc(ia)}" fetchpriority="high" decoding="async">
     <div class="phero__veil" aria-hidden="true"></div>
     <div class="phero__body wrap">
       {crumb_html}
@@ -1766,6 +1784,9 @@ _DECOR  = re.compile(r"<aside\b.*?</aside>"
                      # toegankelijkheidslabels, ondertitelingstaal en verborgen
                      # formuliervelden: geen inhoud, wel tekst die per taal wisselt
                      r"|\b(?:aria-label|srclang|label)=\"[^\"]*\""
+                     # afmetingen, laadhints en srcsets van beelden: techniek,
+                     # geen inhoud (een width/height erbij is geen nieuwe tekst)
+                     r"|\b(?:width|height|srcset|sizes|loading|decoding|fetchpriority)=\"[^\"]*\""
                      r"|<input type=\"hidden\"[^>]*>", re.S)
 def _basis(doc):
     m = _MAIN.search(doc)
@@ -1777,6 +1798,12 @@ def _lastmod(path, doc):
     h = hashlib.sha1(_basis(doc).encode("utf-8")).hexdigest()[:16]
     old = _LEDGER.get(path)
     if old and old.get("h") == h:
+        return old["d"]
+    # LASTMOD_REKEY=1: alleen de vingerafdrukken vernieuwen, de datums laten
+    # staan. Nodig als de normalisatie hierboven verandert (dan verschuift
+    # elke vingerafdruk zonder dat er een letter inhoud wijzigde).
+    if old and os.environ.get("LASTMOD_REKEY"):
+        _LEDGER[path] = {"h": h, "d": old["d"]}
         return old["d"]
     _LEDGER[path] = {"h": h, "d": TODAY}
     return TODAY
@@ -3581,14 +3608,22 @@ shutil.copytree("assets", os.path.join(OUT, "assets"))
 
 # css en js geminificeerd in dist; de bronbestanden blijven leesbaar
 def _minify_css(t):
-    # voorzichtig: alleen commentaar en overbodige witruimte, niets in strings
+    # Voorzichtig maar volledig: commentaar weg, elke regel getrimd, dan alle
+    # regeleinden tot één spatie (nooit twee tokens aan elkaar plakken), en de
+    # spaties rond { } ; , weghalen. Veilig omdat geen enkele content-string op
+    # deze site een {, }, ; of , bevat (de bouw controleert dat hieronder).
     t = re.sub(r"/\*.*?\*/", "", t, flags=re.S)
-    t = "\n".join(l.strip() for l in t.splitlines() if l.strip())
-    t = re.sub(r"\n(?=[{}])", "", t)
+    t = " ".join(l.strip() for l in t.splitlines() if l.strip())
+    t = re.sub(r"\s*([{};,])\s*", r"\1", t)
+    t = t.replace(";}", "}")
+    t = re.sub(r"  +", " ", t)
     return t
 
 p = os.path.join(OUT, "assets", "site.css")
 _src = open(p).read()
+for _cs in re.findall(r'content:\s*"([^"]*)"', _src):
+    if any(c in _cs for c in "{};,"):
+        raise SystemExit(f"\u2716 content-string met risicoteken, css-minify onveilig: {_cs!r}")
 open(p, "w").write(_minify_css(_src))
 print(f"  site.css geminificeerd: {len(_src)//1024} -> {os.path.getsize(p)//1024} KiB")
 
@@ -3605,12 +3640,18 @@ except ImportError:
 # Cloudflare-equivalent van de oude LiteSpeed-serveroptimalisaties:
 # de browser krijgt css en fonts al aangereikt vóór de HTML er is.
 _hdrs = open("_headers", encoding="utf-8").read()
-_early = ("/*\n"
-          f"  Link: </assets/site.css?v={VER}>; rel=preload; as=style\n"
-          "  Link: </assets/fonts/archivo-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin\n"
-          "  Link: </assets/fonts/instrument-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin\n"
-          "  Link: </assets/fonts/jetbrains-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin\n")
-_hdrs = _hdrs.replace("/*\n", _early, 1)
+# Alleen op documenten (de startpagina en alle /pad/-adressen): de Link-
+# preloads voor Early Hints en een korte HTML-cache met stale-while-
+# revalidate (herhaalbezoek direct uit de cache, verse versie op de
+# achtergrond). Bewust niet onder /*: Cloudflare voegt gelijknamige headers
+# van meerdere passende regels samen, en dan zou de HTML-cachetijd ook op
+# de assets (die een jaar immutable zijn) terechtkomen.
+_doc = (f"  Link: </assets/site.css?v={VER}>; rel=preload; as=style\n"
+        "  Link: </assets/fonts/archivo-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin\n"
+        "  Link: </assets/fonts/instrument-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin\n"
+        "  Link: </assets/fonts/jetbrains-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin\n"
+        "  Cache-Control: public, max-age=60, stale-while-revalidate=86400\n")
+_hdrs = _hdrs.replace("/*\n", "/\n" + _doc + "\n/*/\n" + _doc + "\n/*\n", 1)
 # De hash van het speculatieregel-blok in de CSP zetten, berekend uit de
 # inhoud die we net gegenereerd hebben - zo kan hij nooit verlopen als de
 # regels veranderen. 'inline-speculation-rules' alleen blijkt niet genoeg:

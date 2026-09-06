@@ -3142,6 +3142,11 @@ body.is-locked .wa{ opacity:0; pointer-events:none; transition:opacity .3s var(-
    Bewust NIET de galerij (#werk: sticky viewport erin) en niet het
    boekingsblok (#boeken: formulier met focus/anker). */
 #shows, #reel, #maatwerk, #reviews, #over, #locaties, #faq{ content-visibility:auto; }
+/* de voettekst staat op elke pagina onderaan en is 2000–2600px hoog:
+   pas opmaken als hij in de buurt komt (gemeten inhoudshoogte als
+   plaatshouder, zodat de schuifbalk niet springt) */
+footer.foot{ content-visibility:auto; contain-intrinsic-size:auto 2498px; }
+@media (min-width:701px){ footer.foot{ contain-intrinsic-size:auto 1913px; } }
 /* gemeten inhoudshoogtes (zonder padding), zodat scrollbalk en ankers
    vóór de opmaak al kloppen — mobiel 412px / desktop 1350px breed */
 #shows{ contain-intrinsic-size:auto 3976px; }
