@@ -2202,9 +2202,9 @@ _CHROME_I18N = {
  'aria-label="5 van de 5 sterren"': {"en": "5 out of 5 stars", "de": "5 von 5 Sternen", "fr": "5 étoiles sur 5"},
  'aria-label="Alle pagina\'s per onderwerp"': {"en": "All pages by topic", "de": "Alle Seiten nach Thema", "fr": "Toutes les pages par thème"},
 }
-_KVK = {"en": "Chamber of Commerce 98164325 &middot; VAT NL002416954B13",
-        "de": "Handelsregister (KvK) 98164325 &middot; USt-IdNr. NL002416954B13",
-        "fr": "Registre du commerce (KvK) 98164325 &middot; TVA NL002416954B13"}
+_KVK = {"en": "Chamber of Commerce 98164325 &middot; VAT NL005311537B71",
+        "de": "Handelsregister (KvK) 98164325 &middot; USt-IdNr. NL005311537B71",
+        "fr": "Registre du commerce (KvK) 98164325 &middot; TVA NL005311537B71"}
 _DELEN = {"en": "Share&hellip;", "de": "Teilen&hellip;", "fr": "Partager&hellip;"}
 # Dezelfde labels zijn ook nodig ín de gegenereerde pagina's (broodkruimels,
 # de laadmelding, videotracks, sterren): die staan niet in het footer-fragment
@@ -2217,7 +2217,7 @@ for _l in ("en", "de", "fr"):
         _C[_k] = _k.split("=")[0] + f'="{_tr[_l]}"'
     _C['srclang="nl"'] = f'srclang="{_l}"'
     _C['<span id="chatStatus">Online</span>'] = f'<span id="chatStatus">{I.UI[_l]["wa_status_on"]}</span>'
-    _C["KvK 98164325 &middot; btw NL002416954B13"] = _KVK[_l]
+    _C["KvK 98164325 &middot; btw NL005311537B71"] = _KVK[_l]
     _C["<span>Delen&hellip;</span>"] = f"<span>{_DELEN[_l]}</span>"
     for _nl, _tr in _FSEO_I18N.items():
         _C[f'>{esc(_nl)}<'] = f'>{esc(_tr[_l])}<'
@@ -2229,7 +2229,7 @@ for _l in ("en", "de", "fr"):
         _F[f'>Vuurspuwer {esc(_n)}<'] = f'>{_VUURSPUWER[_l]} {esc(_STAD_I18N.get(_n, {}).get(_l, _n))}<'
     for _k, _tr in _CHROME_I18N.items():
         _F[_k] = _k.split("=")[0] + f'="{_tr[_l]}"'
-    _F["KvK 98164325 &middot; btw NL002416954B13"] = _KVK[_l]
+    _F["KvK 98164325 &middot; btw NL005311537B71"] = _KVK[_l]
     _F["<span>Delen&hellip;</span>"] = f"<span>{_DELEN[_l]}</span>"
     _F['<span id="chatStatus">Online</span>'] = f'<span id="chatStatus">{I.UI[_l]["wa_status_on"]}</span>'
     _F['srclang="nl"'] = f'srclang="{_l}"'
