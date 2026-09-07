@@ -517,14 +517,16 @@ def reviews_schema():
                          "reviewRating": {"@type": "Rating", "ratingValue": "5",
                                           "bestRating": "5"},
                          "reviewBody": _html.unescape(t),
-                         "itemReviewed": {"@id": f"{SITE}/#business"}}
+                         "itemReviewed": {"@type": "LocalBusiness", "@id": f"{SITE}/#business",
+                                          "name": "Vuurspuwer Nuno"}}
                         for n, m, d, _img, _wh, t in NEW_REVIEWS]
                        + [{"@type": "Review",
                            "author": {"@type": "Person", "name": n},
                            "reviewRating": {"@type": "Rating", "ratingValue": "5",
                                             "bestRating": "5"},
                            "reviewBody": t,
-                           "itemReviewed": {"@id": f"{SITE}/#business"}}
+                           "itemReviewed": {"@type": "LocalBusiness", "@id": f"{SITE}/#business",
+                                            "name": "Vuurspuwer Nuno"}}
                           for n, _, t in REVIEWS]}]
 
 # ------------------------------------------------------------------ contact
