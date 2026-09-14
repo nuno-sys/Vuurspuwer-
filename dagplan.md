@@ -1,4 +1,4 @@
-# Indexeer-dagplan 2026-09-06
+# Indexeer-dagplan 2026-09-14
 
 Google kent géén open aanmeld-API voor gewone pagina's, dus deze tien
 adressen zijn met de hand aan te melden. Klik een link, druk op
@@ -6,20 +6,20 @@ adressen zijn met de hand aan te melden. Klik een link, druk op
 
 | # | Pagina | Aanmelden bij Google |
 |---|---|---|
-| 1 | `de` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2F) |
-| 2 | `de/bewertungen` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Fbewertungen%2F) |
-| 3 | `de/fakirshow` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Ffakirshow%2F) |
-| 4 | `de/feuer-glossar` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Ffeuer-glossar%2F) |
-| 5 | `de/feuershow-geburtstag` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Ffeuershow-geburtstag%2F) |
-| 6 | `de/feuershow-hochzeit` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Ffeuershow-hochzeit%2F) |
-| 7 | `de/feuershow` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Ffeuershow%2F) |
-| 8 | `de/feuerspucker-aachen` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Ffeuerspucker-aachen%2F) |
-| 9 | `de/feuerspucker-duesseldorf` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Ffeuerspucker-duesseldorf%2F) |
-| 10 | `de/feuerspucker-duisburg` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Ffeuerspucker-duisburg%2F) |
+| 1 | `fantastische-teambuilding-activiteiten-voor-bedrijven-de-beste-tips-en-trends` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Ffantastische-teambuilding-activiteiten-voor-bedrijven-de-beste-tips-en-trends%2F) |
+| 2 | `hoe-lang-duurt-de-voorbereiding-van-een-vuurshow-het-complete-antwoord-door-vuurspuwer-nuno` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fhoe-lang-duurt-de-voorbereiding-van-een-vuurshow-het-complete-antwoord-door-vuurspuwer-nuno%2F) |
+| 3 | `hoe-lang-duurt-een-typische-vuurshow-van-nuno-het-complete-antwoord-door-vuurspuwer-nuno` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fhoe-lang-duurt-een-typische-vuurshow-van-nuno-het-complete-antwoord-door-vuurspuwer-nuno%2F) |
+| 4 | `hoe-vuurspuwer-nuno-boeken-voor-evenementen-het-complete-antwoord-door-vuurspuwer-nuno` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fhoe-vuurspuwer-nuno-boeken-voor-evenementen-het-complete-antwoord-door-vuurspuwer-nuno%2F) |
+| 5 | `hoe-werkt-de-vuurspuwer-met-muziek-en-licht-het-complete-antwoord-door-vuurspuwer-nuno` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fhoe-werkt-de-vuurspuwer-met-muziek-en-licht-het-complete-antwoord-door-vuurspuwer-nuno%2F) |
+| 6 | `hoe-wordt-een-fakirshow-voorbereid-faq` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fhoe-wordt-een-fakirshow-voorbereid-faq%2F) |
+| 7 | `ideeen-en-tips-voor-het-leukste-kinderfeestje` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fideeen-en-tips-voor-het-leukste-kinderfeestje%2F) |
+| 8 | `kan-een-vuurshow-binnen-gehouden-worden-het-complete-antwoord-door-vuurspuwer-nuno` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fkan-een-vuurshow-binnen-gehouden-worden-het-complete-antwoord-door-vuurspuwer-nuno%2F) |
+| 9 | `kan-ik-een-vuurspuwer-huren-voor-een-kinderfeestje-het-complete-antwoord-door-vuurspuwer-nuno` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fkan-ik-een-vuurspuwer-huren-voor-een-kinderfeestje-het-complete-antwoord-door-vuurspuwer-nuno%2F) |
+| 10 | `kan-ik-vuurspuwer-nuno-boeken-voor-mijn-bruiloft-het-complete-antwoord-door-vuurspuwer-nuno` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fkan-ik-vuurspuwer-nuno-boeken-voor-mijn-bruiloft-het-complete-antwoord-door-vuurspuwer-nuno%2F) |
 
 ## Automatisch verstuurd
 
 - IndexNow: 200 (10 adressen)
 - Bing API: overgeslagen (geen BING_API_KEY ingesteld)
 
-_Volgende ronde: 2026-09-07_
+_Volgende ronde: 2026-09-15_
