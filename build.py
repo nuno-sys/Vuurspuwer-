@@ -2636,12 +2636,95 @@ _ANTWOORD_EERST = {
    'lopen over glas en het beheersen van vuur.</strong></p>',
 }
 
-_blogset = sorted((bp for bp in posts if bp["slug"] not in PC.SHOW_PAGES),
+# Welke oude WordPress-pagina's zijn eigenlijk een boekbare gelegenheid?
+# De titel van de gelegenheid komt uit de slug, zodat het schema per pagina
+# klopt in plaats van overal hetzelfde te zeggen.
+_GEL_NAAM = {
+ "bruiloft": "Vuurshow op een bruiloft", "huwelijksceremonie": "Vuurshow bij een huwelijksceremonie",
+ "verloving": "Vuurshow op een verlovingsfeest", "bedrijfsfeest": "Vuurshow op een bedrijfsfeest",
+ "personeelsfeest": "Vuurshow op een personeelsfeest", "verjaardag": "Vuurshow op een verjaardag",
+ "jubileum": "Vuurshow op een jubileum", "festival": "Vuurshow op een festival",
+ "vrijgezellenfeest": "Vuurshow op een vrijgezellenfeest", "buurtfeest": "Vuurshow op een buurtfeest",
+ "straatfeest": "Vuurshow op een straatfeest", "kinderfeestje": "Vuurshow op een kinderfeestje",
+ "familiedag": "Vuurshow op een familiedag", "strandfeest": "Vuurshow op een strandfeest",
+ "openingsceremonie": "Vuurshow bij een openingsceremonie", "productlancering": "Vuurshow bij een productlancering",
+ "sportevenement": "Vuurshow op een sportevenement", "cultureel-evenement": "Vuurshow op een cultureel evenement",
+ "open-dag": "Vuurshow op een open dag", "diploma-uitreiking": "Vuurshow bij een diploma-uitreiking",
+ "reunie": "Vuurshow op een reünie", "pensioenfeest": "Vuurshow op een pensioenfeest",
+ "afscheidsfeest": "Vuurshow op een afscheidsfeest", "gala-diner": "Vuurshow bij een gala-diner",
+ "promotiefeest": "Vuurshow op een promotiefeest", "eindejaarsfeest": "Vuurshow op een eindejaarsfeest",
+ "kerstborrel": "Vuurshow op een kerstborrel", "oud-en-nieuw": "Vuurshow op een oud-en-nieuwfeest",
+ "winter-wonderland": "Vuurshow op een winter-wonderlandfeest", "carnaval": "Vuurshow op een carnavalsevenement",
+ "halloween": "Vuurshow op een halloweenfeest", "horrorfeest": "Vuurshow op een horrorfeest",
+ "1001-nacht": "Vuurshow op een 1001-nacht-themafeest", "caribean": "Vuurshow op een Caribisch themafeest",
+ "middeleeuws": "Vuurshow op een middeleeuws themafeest", "superhelden": "Vuurshow op een superheldenfeest",
+ "cowboy-en-indianen": "Vuurshow op een cowboy- en indianenfeest", "ibiza-party": "Vuurshow op een Ibiza-party",
+ "gemaskerd-bal": "Vuurshow op een gemaskerd bal", "themafeest": "Vuurshow op een themafeest",
+}
+def _gelegenheid(slug):
+    """De naam van de gelegenheid als deze pagina er een is, anders None."""
+    if not re.search(r"boeken-voor|themafeest", slug): return None
+    for _sleutel, _naam in _GEL_NAAM.items():
+        if _sleutel in slug: return _naam
+    return None
+
+# ------------------------------------------------- kannibalisatie opheffen
+# De export leverde per gelegenheid twee tot vijf bijna identieke pagina's
+# op (een korte en een lange WordPress-versie, soms naast een met de hand
+# geschreven pagina). Search Console laat zien wat dat kost: bedrijfsfeest
+# had vijf pagina's en samen 2 vertoningen, bruiloft vijf en samen 9,
+# verjaardag vier en samen 2. Google verdeelt de waarde en zet er dan geen
+# enkele hoog. Deze pagina's worden niet meer gebouwd maar 301'd naar de
+# sterkste versie, zodat alle signalen op één adres samenkomen. De dekking
+# blijft gelijk: elk onderwerp houdt een pagina, maar dan één goede.
+_SAMENVOEGEN = {
+ # bruiloft en alles wat daarop lijkt
+ "vuurspuwer-boeken-voor-bruiloft": "/vuurshow-bruiloft/",
+ "vuurspuwer-boeken-voor-een-bruiloft-de-ultieme-spectaculaire-ervaring": "/vuurshow-bruiloft/",
+ "vuurspuwer-boeken-voor-een-huwelijksceremonie-de-ultieme-spectaculaire-ervaring": "/vuurshow-bruiloft/",
+ "vuurspuwer-boeken-voor-een-verloving-de-ultieme-spectaculaire-ervaring": "/vuurshow-bruiloft/",
+ "vuurspuwer-nuno-de-perfecte-toevoeging-aan-jouw-bruiloft-of-bedrijfsfeest": "/vuurshow-bruiloft/",
+ # bedrijfsfeest en personeelsfeest
+ "vuurspuwer-boeken-voor-bedrijfsfeest": "/vuurshow-bedrijfsfeest/",
+ "vuurspuwer-boeken-voor-een-bedrijfsfeest-de-ultieme-spectaculaire-ervaring": "/vuurshow-bedrijfsfeest/",
+ "vuurspuwer-boeken-voor-een-personeelsfeest-de-ultieme-spectaculaire-ervaring": "/vuurshow-bedrijfsfeest/",
+ # verjaardag en jubileum
+ "vuurspuwer-boeken-voor-verjaardag": "/vuurshow-verjaardag/",
+ "vuurspuwer-boeken-voor-een-verjaardag-de-ultieme-spectaculaire-ervaring": "/vuurshow-verjaardag/",
+ "vuurspuwer-boeken-voor-jubileum": "/vuurshow-verjaardag/",
+ "vuurspuwer-boeken-voor-een-jubileum-de-ultieme-spectaculaire-ervaring": "/vuurshow-verjaardag/",
+ # festivals
+ "vuurspuwer-boeken-voor-festivals": "/vuurshow-festival/",
+ "vuurspuwer-boeken-voor-een-festivals-de-ultieme-spectaculaire-ervaring": "/vuurshow-festival/",
+ # vrijgezellenfeest
+ "vuurspuwer-boeken-voor-vrijgezellenfeest": "/vrijgezellenfeest/",
+ "vuurspuwer-boeken-voor-een-vrijgezellenfeest-de-ultieme-spectaculaire-ervaring": "/vrijgezellenfeest/",
+ # halloween en horror
+ "halloweenshow-boeken-2023": "/halloween/",
+ "vuurspuwer-boeken-voor-een-halloween-party-de-ultieme-spectaculaire-ervaring": "/halloween/",
+ "vuurspuwer-boeken-voor-een-horrorfeest-de-ultieme-spectaculaire-ervaring": "/halloween/",
+ # december
+ "vuurspuwer-boeken-voor-een-kerstborrel-de-ultieme-spectaculaire-ervaring": "/kerst-nieuwjaar-entertainment/",
+ "vuurspuwer-boeken-voor-een-eindejaarsfeest-de-ultieme-spectaculaire-ervaring": "/kerst-nieuwjaar-entertainment/",
+ "vuurspuwer-boeken-voor-een-oud-en-nieuw-feest-de-ultieme-spectaculaire-ervaring": "/kerst-nieuwjaar-entertainment/",
+ "vuurspuwer-boeken-voor-een-winter-wonderland-feest-de-ultieme-spectaculaire-ervaring": "/kerst-nieuwjaar-entertainment/",
+ # lange tweelingen zonder eigen geschreven pagina: naar de korte versie
+ "vuurspuwer-boeken-voor-een-1001-nacht-themafeest-de-ultieme-spectaculaire-ervaring": "/vuurspuwer-boeken-voor-1001-nacht-themafeest/",
+ "vuurspuwer-boeken-voor-een-buurtfeest-de-ultieme-spectaculaire-ervaring": "/vuurspuwer-boeken-voor-buurtfeest/",
+ "vuurspuwer-boeken-voor-een-caribean-themafeest-de-ultieme-spectaculaire-ervaring": "/vuurspuwer-boeken-voor-caribean-themafeest/",
+ "vuurspuwer-boeken-voor-een-openingsceremonie-de-ultieme-spectaculaire-ervaring": "/vuurspuwer-boeken-voor-openingsceremonie/",
+ "vuurspuwer-boeken-voor-een-productlancering-de-ultieme-spectaculaire-ervaring": "/vuurspuwer-boeken-voor-productlancering/",
+ "vuurspuwer-boeken-voor-een-sportevenement-de-ultieme-spectaculaire-ervaring": "/vuurspuwer-boeken-voor-sportevenement/",
+}
+
+_blogset = sorted((bp for bp in posts if bp["slug"] not in PC.SHOW_PAGES
+                   and bp["slug"] not in _SAMENVOEGEN),
                   key=lambda x: x["date"], reverse=True)
 for p in posts:
     # workshop-vuurspuwen is in de export een bericht, maar leeft op de
     # site als volwaardige showpagina — die komt uit KEEP_PAGES.
     if p["slug"] in PC.SHOW_PAGES: continue
+    if p["slug"] in _SAMENVOEGEN: continue
     if p["slug"] in _BETERE_TEKST:
         _k = _BETERE_TEKST[p["slug"]]
         _bron = pages[p["slug"] + "-2"]
@@ -2672,6 +2755,26 @@ for p in posts:
          "cat_label": _clabel.split(" ", 1)[1],
          "keywords": f'{_clabel.split(" ", 1)[1]}, vuurshow, vuurspuwer, fakirshow, entertainment boeken'}
     _extra_ld = [_faq_ld] + ([_rel_ld] if _rel_ld else [])
+    # Gelegenheidspagina's zijn geen artikel maar een boekbare dienst. Met
+    # Service + AggregateOffer ziet Google waar de pagina over gaat, dat er
+    # een prijs bij hoort en in welk gebied het geldt. Zonder dit blijft het
+    # voor een zoekmachine "een tekst over een feest".
+    _gel = _gelegenheid(p["slug"])
+    if _gel:
+        _extra_ld.append({
+            "@context": "https://schema.org", "@type": "Service",
+            "@id": f"{SITE}/{p['slug']}/#service",
+            "name": _gel, "serviceType": "Vuurshow",
+            "description": text_of(p["body"], 240),
+            "url": f"{SITE}/{p['slug']}/",
+            "provider": {"@id": f"{SITE}/#business"},
+            "areaServed": [{"@type": "Country", "name": "Nederland"},
+                           {"@type": "Country", "name": "België"}],
+            "offers": {"@type": "AggregateOffer", "priceCurrency": "EUR",
+                       "lowPrice": "350", "highPrice": "1500", "offerCount": "6",
+                       "description": "Power-act van 10 minuten vanaf €350, showblok van "
+                                      "20 minuten vanaf €450, avondprogramma tot €1500. "
+                                      "Reis, materiaal en verzekering inbegrepen."}})
     write(p["slug"], render(p, "post", _extra_ld, _AUTHOR_BOX + _faq_html + _rel_html))
     built.append(p["slug"])
 
@@ -3486,6 +3589,19 @@ print(f"  verdwenen adressen omgeleid: {len(_dood)} (waar blogteksten nog naar l
 # worden nergens meer naartoe gelinkt, dus de lus hierboven vindt ze niet —
 # maar Google kent ze nog wel en stuurt er bezoekers heen. Zonder omleiding
 # is dat een 404 en verdampt de opgebouwde waarde.
+_sv_over = 0
+for _van, _naar in _SAMENVOEGEN.items():
+    # Deze keuzes zijn met de hand gemaakt per onderwerp en winnen dus van de
+    # grovere patroonregels hierboven, die élk adres met "vuurspuwer"+"boeken"
+    # naar de locatiehub sturen — dat zou een bruiloftspagina op de
+    # locatiepagina laten uitkomen in plaats van op de bruiloftspagina.
+    _voor = len(lines)
+    lines = [l for l in lines if not l.startswith(f"/{_van}/  ")]
+    if len(lines) < _voor: _sv_over += 1
+    lines.append(f"/{_van}/  {_naar}  301")
+print(f"  samengevoegd: {len(_SAMENVOEGEN)} dubbele gelegenheidspagina's naar hun sterkste "
+      f"versie ({_sv_over} preciezer dan de patroonregel)")
+
 _404 = _overruled = 0
 if os.path.exists("redirects-404.tsv"):
     for _r in open("redirects-404.tsv", encoding="utf-8"):
@@ -3778,7 +3894,8 @@ parts.append("## Reviews van opdrachtgevers (4,9/5 uit 136 beoordelingen)\n\n" +
              "\n".join(f"- {n}: “{_plain(t)}”" for n, _, t in PC.REVIEWS))
 
 parts.append("## Blogartikelen\n\n" +
-             "\n".join(f"- [{p['title']}]({SITE}/{p['slug']}/)" for p in posts))
+             "\n".join(f"- [{p['title']}]({SITE}/{p['slug']}/)" for p in posts
+                          if p["slug"] not in _SAMENVOEGEN))
 
 _city_paths = sorted(u for u, _ in urls if u.count("/") == 2 and
                      any(k in u for k in ("vuurspuwer-", "fakirshow-", "workshop-vuurspuwen-",
@@ -4030,7 +4147,8 @@ print("  sw.js geschreven")
 from datetime import datetime as _dt
 def _rfc822(d):
     return _dt.strptime(d, "%Y-%m-%d").strftime("%a, %d %b %Y 10:00:00 +0000")
-_feed_posts = sorted((bp for bp in posts if bp["slug"] not in PC.SHOW_PAGES),
+_feed_posts = sorted((bp for bp in posts if bp["slug"] not in PC.SHOW_PAGES
+                      and bp["slug"] not in _SAMENVOEGEN),
                      key=lambda x: x["date"], reverse=True)[:20]
 _items = "".join(f"""
   <item>
