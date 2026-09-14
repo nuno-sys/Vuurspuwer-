@@ -278,7 +278,27 @@ SHOW_PAGES = {
 <h2>Hoe kan ik een fakirshow boeken?</h2>
 <p>Vul het <a href="/contact-3/">contactformulier</a> in en wij nemen binnen 24 uur contact met u op. Na een kort gesprek ontvangt u een gratis en vrijblijvende offerte op maat. Klaar om uw publiek te verrassen en te verbazen? Neem vandaag nog contact op!</p>
 """,
-  "faq": [],
+  "faq": [
+   ("Wat kost een fakirshow?",
+    "Een fakirshow kost tussen de €350 en €1500. Een compacte act van 10 minuten begint bij €350, "
+    "een volledig showblok van 20 minuten bij €450. Reiskosten, materiaal en verzekering zitten "
+    "altijd in het bedrag, dus je krijgt één all-in offerte."),
+   ("Wat gebeurt er tijdens een fakirshow?",
+    "Nuno loopt over glas, ligt op een spijkerbed en demonstreert zwaardkunsten, met vuurspuwen "
+    "als klassieke afsluiter. Het publiek wordt actief betrokken — gasten mogen bijvoorbeeld op "
+    "de fakir gaan staan terwijl hij op het spijkerbed ligt, altijd onder begeleiding."),
+   ("Kan een fakirshow binnen?",
+    "Ja, en dat is juist de kracht van de fakirshow: hij heeft geen open vuur nodig. Daardoor kan "
+    "hij in zalen, restaurants en bedrijfspanden waar een vuurshow niet mag. Op verzoek komt het "
+    "vuurspuwen erbij als de ruimte dat toelaat."),
+   ("Is een fakirshow gevaarlijk voor het publiek?",
+    "Nee. Nuno werkt al zeventien jaar met deze acts en is verzekerd. Publieksdeelname gebeurt "
+    "altijd onder zijn directe begeleiding en alleen bij onderdelen die daar veilig voor zijn."),
+   ("Hoe lang duurt een fakirshow?",
+    "Tien tot dertig minuten. Tien minuten is een compacte act op het hoogtepunt van de avond, "
+    "twintig minuten is de volledige show met spijkerbed, glas en zwaarden. Voor een avondvullend "
+    "programma worden meerdere blokken over de avond verdeeld."),
+  ],
   "service": {"name": "Fakirshow", "type": "Fakir Performance",
               "desc": "Spannende fakirshow met klassieke acts zoals spijkerbed, glaslopen en extreme demonstraties, veilig uitgevoerd met ervaring en discipline."},
   "fotos": [("fakirshow-640.webp", "fakirshow-640.webp", 640, 1351, "Fakirshow in het theater", "Fakirshow in het theater: Nuno op het spijkerbed onder het gewicht van een toeschouwer"),
@@ -311,7 +331,26 @@ SHOW_PAGES = {
 <h2>Meer informatie over reptielen</h2>
 <p>Wilt u meer weten over de fascinerende wereld van reptielen? Bezoek de <a href="https://nl.wikipedia.org/wiki/Reptielen" rel="noopener nofollow">Wikipedia-pagina over reptielen</a> &mdash; of bekijk de <a href="/">homepagina</a> van Vuurspuwer.com.</p>
 """,
-  "faq": [],
+  "faq": [
+   ("Welke dieren komen mee naar de reptielenshow?",
+    "Verschillende soorten slangen, vogelspinnen en andere reptielen. Welke dieren precies "
+    "meekomen stemt Nuno af op je publiek en de locatie; bij kinderfeesten en bedrijfsfeesten "
+    "is de selectie anders."),
+   ("Is de reptielenshow veilig, ook voor kinderen?",
+    "Ja. Alles gebeurt onder begeleiding van een ervaren professional. Aanraken en vasthouden is "
+    "altijd vrijwillig — juist gasten die eerst bang zijn, durven vaak als laatste toch. De show "
+    "is geschikt voor alle leeftijden."),
+   ("Wat kost een reptielenshow?",
+    "Een reptielenshow kost tussen de €350 en €1500, afhankelijk van de duur en het aantal "
+    "blokken. Reiskosten en materiaal zitten in het bedrag. Vraag een offerte aan en je hebt "
+    "binnen 24 uur een prijs op maat."),
+   ("Kan de reptielenshow binnen?",
+    "Ja, de reptielenshow is bij uitstek een binnenact. Er is geen open vuur nodig, dus hij kan "
+    "in zalen, restaurants, musea en bedrijfspanden waar een vuurshow niet mag."),
+   ("Kan de reptielenshow gecombineerd worden met een vuurshow?",
+    "Zeker, dat is een populaire combinatie. De reptielenshow werkt goed als rondgang tussen de "
+    "gasten, waarna de vuurshow buiten het feest afsluit. Zo is er de hele avond iets te beleven."),
+  ],
   "service": {"name": "Reptielenshow", "type": "Educational Reptile Show",
               "desc": "Educatieve en interactieve reptielenshow met exotische dieren. Geschikt voor families, scholen en events: veilig, gecontroleerd en boeiend."},
   "fotos": [("reptiel-900.webp", "reptiel-960.webp", 900, 838, "Boa constrictor tijdens de show", "Nuno met een boa constrictor om zijn arm tijdens de reptielenshow")],

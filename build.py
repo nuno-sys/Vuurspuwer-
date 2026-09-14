@@ -2288,6 +2288,59 @@ if os.path.isdir(OUT): shutil.rmtree(OUT)
 os.makedirs(OUT, exist_ok=True)
 built, missing = [], []
 
+# Per stad de eigen omgeving, zodat de FAQ op elke stadspagina een echt
+# ander antwoord geeft in plaats van twintig keer dezelfde tekst.
+_STAD_REGIO = {
+ "vuurspuwer-boeken-in-amsterdam": ("Noord-Holland", "Amstelveen, Haarlem en Zaanstad"),
+ "vuurspuwer-boeken-in-rotterdam": ("Zuid-Holland", "Schiedam, Capelle aan den IJssel en Dordrecht"),
+ "vuurspuwer-boeken-in-den-haag": ("Zuid-Holland", "Delft, Zoetermeer en Rijswijk"),
+ "vuurspuwer-boeken-in-utrecht": ("de provincie Utrecht", "Amersfoort, Nieuwegein en Zeist"),
+ "vuurspuwer-boeken-in-eindhoven": ("Noord-Brabant", "Helmond, Veldhoven en Best"),
+ "vuurspuwer-boeken-in-groningen": ("het noorden", "Assen, Leeuwarden en Delfzijl"),
+ "vuurspuwer-boeken-in-tilburg": ("Noord-Brabant", "Waalwijk, Oisterwijk en Goirle"),
+ "vuurspuwer-boeken-in-breda": ("Noord-Brabant", "Etten-Leur, Oosterhout en Roosendaal"),
+ "vuurspuwer-boeken-in-antwerpen": ("de provincie Antwerpen", "Mechelen, Lier en Sint-Niklaas"),
+ "vuurspuwer-boeken-in-gent": ("Oost-Vlaanderen", "Aalst, Sint-Niklaas en Deinze"),
+ "vuurspuwer-boeken-in-brussel": ("het Brussels Gewest en Vlaams-Brabant", "Leuven, Halle en Vilvoorde"),
+ "vuurspuwer-boeken-in-brugge": ("West-Vlaanderen", "Oostende, Roeselare en Kortrijk"),
+ "vuurspuwer-boeken-in-leuven": ("Vlaams-Brabant", "Aarschot, Tienen en Diest"),
+ "vuurspuwer-boeken-in-liege": ("de provincie Luik", "Verviers, Seraing en Hoei"),
+ "vuurspuwer-boeken-in-mechelen": ("de provincie Antwerpen", "Lier, Vilvoorde en Willebroek"),
+ "spectaculaire-vuurspuwer-aachen-maak-uw-evenement-in-de-keizerstad-onvergetelijk":
+   ("de grensregio", "Vaals, Kerkrade en Heerlen"),
+ "vuurspuwer-inhuren-in-krefeld-een-vlammend-spektakel-voor-uw-event":
+   ("de Niederrhein", "Venlo, Mönchengladbach en Duisburg"),
+ "vuurspuwer-monchengladbach-spectaculaire-vuurshows-net-over-de-grens":
+   ("de Niederrhein", "Roermond, Venlo en Krefeld"),
+ "vuurspuwer-inhuren-in-kaldenkirchen-spectaculair-entertainment-in-de-grensregio":
+   ("de grensregio", "Venlo, Nettetal en Roermond"),
+ "vuurspuwer-inhuren-in-kleve-breng-vurige-magie-naar-de-grensregio":
+   ("de Niederrhein", "Nijmegen, Emmerich en Arnhem"),
+}
+def stad_faq(slug, city):
+    regio, buursteden = _STAD_REGIO.get(slug, ("de omgeving", "de omliggende gemeenten"))
+    return [
+     (f"Wat kost een vuurspuwer in {city}?",
+      f"Een show in {city} kost tussen de €350 en €1500. Een power-act van 10 minuten begint "
+      f"bij €350, het showblok van 20 minuten bij €450. Reiskosten naar {city} zitten al in "
+      "het bedrag, dus je krijgt één all-in offerte zonder verrassingen achteraf."),
+     (f"Komt Nuno ook buiten {city}?",
+      f"Ja. Nuno werkt in heel {regio} en komt onder meer in {buursteden}. Hij treedt op in "
+      "heel Nederland en België; waar je feest ook is, de reis zit in de prijs."),
+     (f"Mag een vuurshow in {city}?",
+      f"Op vrijwel elke locatie in {city} kan het, en vaak juist wél op plekken waar vuurwerk "
+      "verboden is — een vuurshow valt onder andere regels. Nuno overlegt vooraf met de "
+      "locatie, bepaalt de veiligheidszone en neemt eigen blusmiddelen mee."),
+     (f"Hoe snel kan ik boeken voor een evenement in {city}?",
+      "Vraag een offerte aan via het formulier of WhatsApp; binnen 24 uur heb je antwoord met "
+      "een prijs op maat. Voor december en de festivalzomer is vroeg boeken verstandig — die "
+      "data zijn het eerst vol."),
+     (f"Kan de show binnen in {city}?",
+      f"Ja, als er genoeg hoogte en ventilatie is. Binnen verschuift het accent naar "
+      "vuurjongleren en body fire en blijven de vlammen lager. Is de zaal echt te laag, dan "
+      "zijn de fakirshow of mentalisme een volwaardig alternatief zonder open vuur."),
+    ]
+
 for slug in CITIES:
     p = pages.get(slug)
     if not p: missing.append(slug); continue
@@ -2302,7 +2355,20 @@ for slug in CITIES:
            "provider": {"@id": f"{SITE}/#business"},
            "areaServed": {"@type": "City", "name": city},
            "url": f"{SITE}/{slug}/"}
-    write(slug, render(p, "city", svc, near, alternates=regio_alternates(slug)))
+    _faq = stad_faq(slug, city)
+    _faq_ld = {"@context": "https://schema.org", "@type": "FAQPage",
+               "@id": f"{SITE}/{slug}/#faq",
+               "mainEntity": [{"@type": "Question", "name": _q,
+                               "acceptedAnswer": {"@type": "Answer", "text": _a}}
+                              for _q, _a in _faq]}
+    # Eigen label: deze FAQ is per stad anders, dus het is inhoud van de
+    # pagina zelf en geen gedeeld decor. Het grootboek (_DECOR) slaat de
+    # gedeelde FAQ-blokken over; met dit eigen label telt hij wél mee, en
+    # de lastmod blijft dus kloppen. Meteen ook een uniek landmark-label.
+    _faq_html = PC.show_faq_html({"faq": _faq}).replace(
+        'aria-label="Veelgestelde vragen"', f'aria-label="Veelgestelde vragen over {esc(city)}"')
+    write(slug, render(p, "city", [svc, _faq_ld], _faq_html + near,
+                       alternates=regio_alternates(slug)))
     built.append(slug)
 
 # blogcategorieën: elk artikel krijgt een rubriek (zichtbaar als label,
@@ -2609,6 +2675,48 @@ for p in posts:
     write(p["slug"], render(p, "post", _extra_ld, _AUTHOR_BOX + _faq_html + _rel_html))
     built.append(p["slug"])
 
+_PAGINA_FAQ = {
+ "entertainer-huren": [
+   ("Wat kost het om een entertainer in te huren?",
+    "Bij Nuno kost een optreden tussen de \u20ac350 en \u20ac1500, afhankelijk van de showvorm, de duur "
+    "en het aantal blokken. Reiskosten, materiaal en verzekering zitten in het bedrag, dus je "
+    "krijgt \u00e9\u00e9n all-in offerte zonder verrassingen achteraf."),
+   ("Welke acts kan ik boeken?",
+    "Een vuurshow met vuurspuwen en draaiend vuur, een fakirshow met spijkerbed en glasact, "
+    "mentalisme, een reptielenshow en een workshop vuurspuwen. Ze zijn los te boeken of te "
+    "combineren tot een avondvullend programma."),
+   ("Hoe ver van tevoren moet ik een entertainer boeken?",
+    "Hoe eerder hoe beter, zeker voor december en de festivalzomer: die data zijn het eerst vol. "
+    "Last minute is vaak nog mogelijk \u2014 vraag het gewoon, binnen 24 uur heb je antwoord."),
+   ("In welke plaatsen treedt Nuno op?",
+    "In heel Nederland en heel Belgi\u00eb, van Groningen tot Luik. Nuno werkt vanuit Zeist en de "
+    "reiskosten zitten altijd in de offerte."),
+   ("Wat als het regent of de show niet buiten kan?",
+    "Dan schakelt Nuno naar een act die binnen kan: de fakirshow, mentalisme of de reptielenshow "
+    "hebben geen open vuur nodig. Je feest gaat dus altijd door."),
+ ],
+ "entertainer-huren-voor-bedrijfsfeest": [
+   ("Wat kost een entertainer voor een bedrijfsfeest?",
+    "Tussen de \u20ac350 en \u20ac1500, afhankelijk van de showvorm en de duur. Je krijgt \u00e9\u00e9n all-in "
+    "offerte inclusief reis, materiaal en verzekering, en de factuur gaat netjes op rekening "
+    "met btw-specificatie."),
+   ("Welke act werkt het best op een personeelsfeest?",
+    "Een vuurshow als opening of grande finale werkt het sterkst: \u00e9\u00e9n gedeeld moment waar "
+    "iedereen het daarna over heeft. Voor een borrel of diner werkt de reptielenshow of "
+    "mentalisme beter, omdat die tussen de gasten door gaan."),
+   ("Kan het optreden binnen, in ons bedrijfspand?",
+    "Ja. De fakirshow, mentalisme en de reptielenshow hebben geen open vuur nodig en kunnen "
+    "overal binnen. Een vuurshow kan binnen als er genoeg hoogte en ventilatie is; Nuno "
+    "bekijkt de locatie vooraf."),
+   ("Kan de show op ons thema worden aangepast?",
+    "Ja, dat gebeurt vaak. Nuno stemt muziek, kleding en opbouw af op het thema van je feest \u2014 "
+    "van 1001 nacht en middeleeuwen tot Halloween en oud en nieuw."),
+   ("Krijgen we een factuur voor de administratie?",
+    "Ja, je ontvangt een nette factuur met duidelijke btw-specificatie. KvK 98164325, "
+    "btw NL005311537B71."),
+ ],
+}
+
 for slug in KEEP_PAGES:
     p = pages.get(slug)
     if not p: missing.append(slug); continue
@@ -2731,6 +2839,21 @@ for slug in KEEP_PAGES:
              "img": ("/assets/media/post-cover.webp",
                      "Vuurspuwer Nuno met een metershoge vuurbal tegen een zwarte nachtlucht")}
         write(slug, render(p, "page", blog_ld, alternates=alts))
+        built.append(slug); continue
+    # Commerciële pagina's zonder eigen FAQ krijgen er hier een, met schema.
+    # Alleen waar het echt past: op contact-, galerij- en juridische pagina's
+    # zou een FAQ geforceerd zijn en dat helpt niemand.
+    if slug in _PAGINA_FAQ:
+        _f = _PAGINA_FAQ[slug]
+        _f_ld = {"@context": "https://schema.org", "@type": "FAQPage",
+                 "@id": f"{SITE}/{slug}/#faq",
+                 "mainEntity": [{"@type": "Question", "name": _q,
+                                 "acceptedAnswer": {"@type": "Answer", "text": _a}}
+                                for _q, _a in _f]}
+        _f_html = PC.show_faq_html({"faq": _f}).replace(
+            'aria-label="Veelgestelde vragen"',
+            f'aria-label="Veelgestelde vragen over {esc(p["title"])}"')
+        write(slug, render(p, "page", [_f_ld], _f_html, alternates=alts))
         built.append(slug); continue
     write(slug, render(p, "page", alternates=alts)); built.append(slug)
 
