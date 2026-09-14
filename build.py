@@ -3221,13 +3221,30 @@ for _van, _naar in _MATRIX_OM.items():
     lines.append(f"/{_van}/  /{_naar}/  301")
     _OMGELEID.add(_van)
 
-# 3. alles wat verder wegvalt naar de homepage, zodat niets een 404 wordt
+# 3. alles wat verder wegvalt naar het dichtstbijzijnde onderwerp. Naar de
+#    homepage sturen is de laatste keus: Google telt een omleiding naar een
+#    pagina die het onderwerp niet dekt als "soft 404" en laat de opgebouwde
+#    waarde dan alsnog verdampen.
+def _dichtstbij(slug):
+    if re.search(r"fakir", slug):                 return "/fakir-show-inhuren/"
+    if re.search(r"halloween|horror", slug):      return "/halloween/"
+    if re.search(r"workshop", slug):              return "/workshop-vuurspuwen/"
+    if re.search(r"reptiel|slang", slug):         return "/reptielenhow/"
+    if re.search(r"kerst|nieuwjaar|oud-en-nieuw", slug): return "/kerst-nieuwjaar-entertainment/"
+    if re.search(r"bruiloft|huwelijk|trouw", slug):      return "/vuurshow-bruiloft/"
+    if re.search(r"bedrijfsfeest|personeelsfeest", slug):return "/vuurshow-bedrijfsfeest/"
+    if re.search(r"verjaardag", slug):            return "/vuurshow-verjaardag/"
+    if re.search(r"festival", slug):              return "/vuurshow-festival/"
+    if re.search(r"entertainer", slug):           return "/entertainer-huren/"
+    # stads- en locatieberichten (vuurspuwer-<plaats>-...) horen bij de hub
+    if re.search(r"vuurspuw|vuurshow|vlammen", slug):   return HUB
+    return "/"
 rest = 0
 for slug in pages:
     if slug in kept: continue
     if any(l.startswith(f"/{slug}/ ") or l.startswith(f"/{slug}/\t") for l in lines): continue
     if f"/{slug}/  {HUB}  301" in lines: continue
-    lines.append(f"/{slug}/  /  301")
+    lines.append(f"/{slug}/  {_dichtstbij(slug)}  301")
     rest += 1
 
 # 4. de hernoemde adressen: het oude cijferadres naar het schone
@@ -3283,6 +3300,33 @@ for _u in sorted(_dood):
 if _onbekend:
     raise SystemExit("  ✖ interne links naar adressen zonder pagina én zonder omleiding:\n    " + "\n    ".join(_onbekend))
 print(f"  verdwenen adressen omgeleid: {len(_dood)} (waar blogteksten nog naar linkten)")
+
+# Oude adressen die nog in Google staan maar geen pagina meer hebben.
+# Bron: de Search Console-export (zie redirects-404.tsv). Deze adressen
+# worden nergens meer naartoe gelinkt, dus de lus hierboven vindt ze niet —
+# maar Google kent ze nog wel en stuurt er bezoekers heen. Zonder omleiding
+# is dat een 404 en verdampt de opgebouwde waarde.
+_404 = _overruled = 0
+if os.path.exists("redirects-404.tsv"):
+    for _r in open("redirects-404.tsv", encoding="utf-8"):
+        if _r.startswith("#") or "\t" not in _r: continue
+        _bron, _doel = (x.strip() for x in _r.split("\t", 1))
+        if not _bron.startswith("/") or not _doel.startswith("/"): continue
+        if _bestaat(_bron):
+            raise SystemExit(f"  \u2716 {_bron} staat in redirects-404.tsv maar bestaat wél")
+        if not _bestaat(_doel):
+            raise SystemExit(f"  \u2716 omleidingsdoel bestaat niet: {_doel} (bron {_bron})")
+        # Dit bestand is met de hand samengesteld uit echte Search Console-
+        # data en wint daarom van de grovere patroonregels hierboven (die
+        # bijvoorbeeld élk adres met "vuurspuwer"+"boeken" naar de
+        # locatiehub sturen, ook een commerciële pagina).
+        _voor = len(lines)
+        lines = [l for l in lines if not l.startswith(f"{_bron}  ")]
+        if len(lines) < _voor: _overruled += 1
+        lines.append(f"{_bron}  {_doel}  301")
+        _404 += 1
+    print(f"  oude Google-adressen omgeleid: {_404} uit redirects-404.tsv "
+          f"({_overruled} preciezer dan de patroonregel)")
 
 # Eén regel per bron (de eerste wint, zoals Cloudflare het ook leest) en
 # geen kettingen: elke omleiding wijst meteen naar het eindadres. Een
