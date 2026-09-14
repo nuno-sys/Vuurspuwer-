@@ -15,6 +15,7 @@ import i18n as I
 import matrix as MX
 import occasions as OCC
 import occasions_i18n as OCCI
+import nieuwe_paginas as NP
 
 # gelegenheid-pagina's registreren: slugs voor hreflang, vertalingen
 # in de taalbouw (de NL-versies worden verderop apart gebouwd)
@@ -2156,10 +2157,20 @@ _OCC_LBL = {
  "vuurwerk-alternatief":    {"nl": "🎆 Vuurwerk-alternatief", "en": "🎆 Fireworks alternative", "de": "🎆 Feuerwerk-Alternative", "fr": "🎆 Alternative à l'artifice"},
  "kerst-nieuwjaar-entertainment": {"nl": "🎄 Kerst & nieuwjaar", "en": "🎄 Christmas & New Year", "de": "🎄 Weihnachten & Silvester", "fr": "🎄 Noël & Nouvel An"},
 }
+# Nederlandstalige zoekwoordpagina's zonder taalversies: alleen in de
+# Nederlandse lijst opnemen, anders linken de en/de/fr-pagina's naar een
+# pagina die in hun taal niet bestaat.
+_OCC_LBL_NL_ONLY = {
+ "vuurshow-boeken": "\U0001F525 Vuurshow boeken",
+ "vlammenshow":     "\U0001F30B Vlammenshow",
+}
 def occ_links(lang, skip=None):
     items = "".join(
         f'<li><a href="{I.url_of(lang, s)}">{lbl[lang]}</a></li>'
         for s, lbl in _OCC_LBL.items() if s != skip)
+    if lang == "nl":
+        items += "".join(f'<li><a href="/{s}/">{lbl}</a></li>'
+                         for s, lbl in _OCC_LBL_NL_ONLY.items() if s != skip)
     return (f'<section class="wrap bay occlinks"><h2 class="bay__title">{esc(_OCC_HEAD[lang])}</h2>'
             f'<ul class="citylist">{items}</ul></section>')
 
@@ -2533,6 +2544,32 @@ _TITEL = {
     "ideeen-en-tips-voor-het-leukste-kinderfeestje": "Ideeën en tips voor het leukste kinderfeestje",
 }
 
+# Zoektitel en -omschrijving overschrijven waar de oude tekst niet belooft
+# wat de zoeker zoekt. Search Console liet zien dat deze pagina's wél hoog
+# staan maar niet aangeklikt worden.
+_SEO = {
+ "betekenis-en-geschiedenis-van-fakir": {
+   "seo_title": "\U0001F5E1\uFE0F Wat is een fakir? Betekenis & geschiedenis uitgelegd",
+   "seo_desc": "Een fakir is van oorsprong een ascetische monnik; het woord komt van het "
+               "Arabische faq\u012br, \u2018arm\u2019. Lees de betekenis, herkomst en de "
+               "moderne fakirshow.",
+ },
+}
+
+# Het antwoord bovenaan, in de vorm die Google als uitgelicht fragment kan
+# overnemen: eerst de definitie in 60\u201370 woorden, dan pas het verhaal.
+# Een pagina die op positie 10 staat met nul klikken verliest het niet op
+# ranking maar op de belofte in het zoekresultaat.
+_ANTWOORD_EERST = {
+ "betekenis-en-geschiedenis-van-fakir":
+   '<p><strong>Een fakir is van oorsprong een ascetische monnik uit de islamitische en '
+   'hindoe\u00efstische traditie, die door meditatie, zelfbeheersing en onthechting leert om '
+   'pijn en ontbering te doorstaan. Het woord komt van het Arabische <em>faq\u012br</em>, dat '
+   '\u201carm\u201d of \u201cbehoeftig\u201d betekent. Tegenwoordig kennen de meeste mensen de fakir vooral '
+   'van de kunststukken die uit die traditie zijn voortgekomen: liggen op een spijkerbed, '
+   'lopen over glas en het beheersen van vuur.</strong></p>',
+}
+
 _blogset = sorted((bp for bp in posts if bp["slug"] not in PC.SHOW_PAGES),
                   key=lambda x: x["date"], reverse=True)
 for p in posts:
@@ -2550,6 +2587,10 @@ for p in posts:
             p = {**p, "seo_desc": _bron["seo_desc"]}
     if p["slug"] in _TITEL:
         p = {**p, "title": _TITEL[p["slug"]]}
+    if p["slug"] in _SEO:
+        p = {**p, **_SEO[p["slug"]]}
+    if p["slug"] in _ANTWOORD_EERST:
+        p = {**p, "body": _ANTWOORD_EERST[p["slug"]] + p["body"]}
     for _van, _naar in _TEKSTFIX.get(p["slug"], ()):
         if not any(_van in p[_veld] for _veld in ("body", "seo_title", "title", "seo_desc")):
             raise SystemExit(f"  ✖ tekstfix {p['slug']}: {_van!r} niet gevonden")
@@ -2938,6 +2979,22 @@ for _slug, OC in OCC.NL.items():
                         alternates=alternates_for(_slug)))
     built.append(_slug)
 print(f"  {len(OCC.NL)} gelegenheid-pagina's (nl) gebouwd")
+
+# Nederlandstalige zoekwoordpagina's zonder taalversies (zie nieuwe_paginas.py).
+# Ze krijgen bewust géén hreflang: verwijzen naar vertalingen die niet bestaan
+# is een fout die Google aanrekent.
+for _slug, _NPG in NP.NL.items():
+    _p = {"slug": _slug, "title": _NPG["title"], "seo_title": _NPG["seo_title"],
+          "seo_desc": _NPG["seo_desc"], "img": _NPG["img"],
+          "eyebrow": _NPG["eyebrow"], "date": TODAY, "body": _NPG["body"]}
+    _extra = wizard("nl") + prijs_strip("nl") + PC.show_faq_html(_NPG)
+    if _NPG.get("fotos"):
+        _extra += ('<section class="wrap bay"><div class="prose--page" style="max-width:none">'
+                   + PC._fotorij(_NPG["fotos"]) + "</div></section>")
+    _extra += occ_links("nl")
+    write(_slug, render(_p, "page", PC.show_schema(_slug, _NPG), _extra, alternates=None))
+    built.append(_slug)
+print(f"  {len(NP.NL)} nieuwe zoekwoordpagina's (nl) gebouwd")
 
 # het Vuur-woordenboek: kennisbank met DefinedTerm-schema, in vier talen
 for _gl in ("nl", "en", "de", "fr"):
