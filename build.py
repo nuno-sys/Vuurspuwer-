@@ -2373,10 +2373,29 @@ _CITY_H1 = {
  "vuurspuwer-boeken-in-breda": "Vuurspuwer inhuren in Breda: maak uw feest onvergetelijk",
  "vuurspuwer-boeken-in-liege": "Vuurspuwer inhuren in Luik (Liège): spectaculaire vuurshow"
 }
+# De Eindhoven-pagina had na de herschrijving van juli een tekst over Hove
+# (bij Antwerpen): dertien keer de verkeerde stad. Vervangen door een tekst
+# die over Eindhoven gaat, zonder verzonnen locaties of klanten.
+_CITY_BODY = {
+ "vuurspuwer-boeken-in-eindhoven": """
+<p><strong>Een vuurspuwer inhuren in Eindhoven? Nuno komt vanuit Zeist naar de Lichtstad en de rest van Zuidoost-Brabant voor bedrijfsfeesten, bruiloften, festivals en verjaardagen. De reis zit in de prijs: je krijgt één all-in offerte tussen €350 en €1500 en binnen 24 uur antwoord.</strong></p>
+<h2>Vuurshow in Eindhoven: wat je kunt verwachten</h2>
+<p>Een show van Nuno begint rustig met vuurjongleren, bouwt op via draaiend vuur en body fire, en eindigt met het vuurspuwen: vuurballen tot zo'n zes meter hoog. Een power-act van tien minuten past als verrassing op het hoogtepunt van de avond; het showblok van twintig minuten is de volledige opbouw en wordt het meest geboekt. Voor een avondvullend programma verdeelt hij meerdere blokken over de avond, eventueel afgewisseld met een <a href="/fakir-show-inhuren/">fakirshow</a> of mentalisme.</p>
+<h2>Buiten of binnen in Eindhoven</h2>
+<p>Buiten is het uitgangspunt: ongeveer zes bij zes meter vrije ruimte en zes meter vrije hoogte, weg van tenten en parasols. Een bedrijfsterrein, een terras, een parkeerplaats of een festivalveld is meestal ruim genoeg. Binnen kan het ook als de zaal hoog genoeg is en goed geventileerd wordt; de vlammen blijven dan lager en het accent verschuift naar jongleren en body fire. Is open vuur echt geen optie, dan zijn de fakirshow en mentalisme volwaardige alternatieven zonder vuur.</p>
+<h2>Veiligheid, ook bij een vuurshow in de stad</h2>
+<p>Nuno werkt al zeventien jaar met vuur en is bekend van SBS6, RTL 4 en VTM. Hij komt ruim voor aanvang, loopt de locatie met je door, bepaalt de veiligheidszone en heeft eigen blusmiddelen bij zich. Hij is verzekerd en werkt met een speciale showvloeistof. Een vuurshow valt onder andere regels dan vuurwerk; sommige locaties willen wel een melding vooraf, en daar helpt hij je bij.</p>
+<h2>Voor welke gelegenheid</h2>
+<p>Een <a href="/vuurshow-bedrijfsfeest/">bedrijfsfeest</a> als opening of grande finale, een <a href="/vuurshow-bruiloft/">bruiloft</a> bij de avondopening, een <a href="/vuurshow-festival/">festival</a> als publiekstrekker of een <a href="/vuurshow-verjaardag/">verjaardag of jubileum</a> als complete verrassing. Ook een <a href="/workshop-vuurspuwen/">workshop vuurspuwen</a> als teambuilding is in Eindhoven en omgeving te boeken.</p>
+<h2>Vuurspuwer boeken in Eindhoven</h2>
+<p>Stuur je datum en locatie via het <a href="/contact-3/">aanvraagformulier</a> of via WhatsApp; binnen 24 uur heb je een prijs op maat. Bekijk het <a href="/wat-kost-een-vuurspuwer/">prijzenoverzicht</a> of lees de <a href="/beoordelingen/">beoordelingen</a> van eerdere opdrachtgevers. Nuno komt ook in Helmond, Veldhoven, Best en de rest van Noord-Brabant; de reis zit altijd in de offerte.</p>
+""",
+}
 for slug in CITIES:
     p = pages.get(slug)
     if not p: missing.append(slug); continue
     if slug in _CITY_H1: p = {**p, "title": _CITY_H1[slug]}
+    if slug in _CITY_BODY: p = {**p, "body": _CITY_BODY[slug]}
     city = CITY_LABEL[slug]
     others = [(CITY_LABEL[s], s) for s in CITIES if s != slug][:8]
     near = ('<section class="wrap bay"><h2 class="bay__title">Ook in de <em>buurt</em></h2>'
