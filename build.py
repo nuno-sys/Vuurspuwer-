@@ -220,6 +220,8 @@ for _oud, _nieuw in _HERNOEMD.items():
 # gedeelde rubriek-FAQ.
 import urllib.parse
 import nieuwe_posts as NPOST
+import hub_locaties as HUBL
+import verder_lezen as VL
 for _np in NPOST.POSTS:
     if _np["slug"] in pages:
         raise SystemExit(f"  \u2716 nieuw artikel botst met bestaande slug: {_np['slug']}")
@@ -1500,6 +1502,9 @@ _ALT_GENERIEK = {
 
 def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alternates=None):
     L = I.UI[lang]
+    # contextuele leeslinks op de commerciële pagina's (alleen NL), in <main>
+    if lang == "nl" and p.get("slug") in VL.MAP:
+        extra_html = (extra_html or "") + VL.blok(p["slug"], esc)
     if not p.get("no_toc"):
         p = {**p, "body": _add_toc(p.get("body", ""), lang)}
     title = p["seo_title"] or f'{p["title"]} | Vuurspuwer Nuno'
@@ -2361,9 +2366,17 @@ def stad_faq(slug, city):
       "zijn de fakirshow of mentalisme een volwaardig alternatief zonder open vuur."),
     ]
 
+# Koppen die de automatische herschrijving van juli verkeerd achterliet:
+# Eindhoven heette "Hove", Breda droeg nog het sjabloon "[Jouw Bedrijfsnaam]".
+_CITY_H1 = {
+ "vuurspuwer-boeken-in-eindhoven": "Vuurspuwer inhuren in Eindhoven: vuurshow in de Lichtstad",
+ "vuurspuwer-boeken-in-breda": "Vuurspuwer inhuren in Breda: maak uw feest onvergetelijk",
+ "vuurspuwer-boeken-in-liege": "Vuurspuwer inhuren in Luik (Liège): spectaculaire vuurshow"
+}
 for slug in CITIES:
     p = pages.get(slug)
     if not p: missing.append(slug); continue
+    if slug in _CITY_H1: p = {**p, "title": _CITY_H1[slug]}
     city = CITY_LABEL[slug]
     others = [(CITY_LABEL[s], s) for s in CITIES if s != slug][:8]
     near = ('<section class="wrap bay"><h2 class="bay__title">Ook in de <em>buurt</em></h2>'
@@ -2871,10 +2884,15 @@ _PAGINA_FAQ = {
 
 # koppen uit de export die niets zeggen over de pagina ("Shows")
 _KEEP_TITEL = {"entertainer-huren": "Entertainer inhuren: vuurshow, fakir & mentalist voor je event"}
+_PAGINA_FAQ["locaties-vuurshows-nederland-belgie"] = HUBL.HUB["faq"]
+
 for slug in KEEP_PAGES:
     p = pages.get(slug)
     if not p: missing.append(slug); continue
     if slug in _KEEP_TITEL: p = {**p, "title": _KEEP_TITEL[slug]}
+    if slug == "locaties-vuurshows-nederland-belgie":
+        p = {**p, "title": HUBL.HUB["title"], "seo_title": HUBL.HUB["seo_title"],
+             "seo_desc": HUBL.HUB["seo_desc"], "body": HUBL.HUB["body"]}
     # taalversies (en/de/fr) verwijzen naar elkaar via hreflang
     alts = alternates_for(slug) if slug in I.SLUGS else None
     if slug == "videos":
