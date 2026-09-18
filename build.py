@@ -214,6 +214,16 @@ for _oud, _nieuw in _HERNOEMD.items():
     if _oud in pages:
         pages[_nieuw] = {**pages.pop(_oud), "slug": _nieuw}
 
+# Nieuwe artikelen buiten de export om (zie nieuwe_posts.py). Ze gaan als
+# gewone post door dezelfde molen: rubriek, schema, "lees ook", sitemap,
+# feed en llms-full. Een eigen FAQ en eigen zoekwoorden gaan voor op de
+# gedeelde rubriek-FAQ.
+import nieuwe_posts as NPOST
+for _np in NPOST.POSTS:
+    if _np["slug"] in pages:
+        raise SystemExit(f"  \u2716 nieuw artikel botst met bestaande slug: {_np['slug']}")
+    pages[_np["slug"]] = {"kind": "post", "date": NPOST.DATUM, **_np}
+
 # In 21 artikelen stonden nog oude adressen (een hotmail-adres en twee
 # adressen van vroegere sites) als contactadres. Het enige adres dat
 # gelezen wordt is nuno@vuurspuwer.com — daar komen de aanvragen binnen
@@ -2748,12 +2758,24 @@ for p in posts:
              "seo_title": p["seo_title"].replace(_van, _naar),
              "seo_desc": p["seo_desc"].replace(_van, _naar)}
     _cid, _clabel = post_cat(p)
-    _faq_html, _faq_ld = _post_faq(_cid)
+    if p.get("faq"):
+        # eigen vragen bij dit artikel; eigen label zodat het grootboek ze
+        # als inhoud van de pagina ziet (de gedeelde rubriek-FAQ telt niet mee)
+        _faq_html = PC.show_faq_html({"faq": p["faq"]}).replace(
+            'aria-label="Veelgestelde vragen"',
+            f'aria-label="Veelgestelde vragen over {esc(p["title"])}"')
+        _faq_ld = {"@context": "https://schema.org", "@type": "FAQPage",
+                   "@id": f"{SITE}/{p['slug']}/#faq",
+                   "mainEntity": [{"@type": "Question", "name": _q,
+                                   "acceptedAnswer": {"@type": "Answer", "text": _a}}
+                                  for _q, _a in p["faq"]]}
+    else:
+        _faq_html, _faq_ld = _post_faq(_cid)
     _rel_html, _rel_ld = _related(p, _blogset)
     p = {**p, "body": p["body"] + _POST_CTA,
          "eyebrow": _clabel,
          "cat_label": _clabel.split(" ", 1)[1],
-         "keywords": f'{_clabel.split(" ", 1)[1]}, vuurshow, vuurspuwer, fakirshow, entertainment boeken'}
+         "keywords": p.get("keywords") or f'{_clabel.split(" ", 1)[1]}, vuurshow, vuurspuwer, fakirshow, entertainment boeken'}
     _extra_ld = [_faq_ld] + ([_rel_ld] if _rel_ld else [])
     # Gelegenheidspagina's zijn geen artikel maar een boekbare dienst. Met
     # Service + AggregateOffer ziet Google waar de pagina over gaat, dat er
