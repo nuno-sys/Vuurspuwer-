@@ -191,6 +191,7 @@ SHOW_PAGES = {
   "img": ("/assets/media/avondvuur-1080.webp", "Vuurspuwer Nuno spuwt een enorme vuurbal in de avondschemering"),
   "body": """
 <p>Zoekt u niet zomaar entertainment, maar een act die uw gasten letterlijk ademloos achterlaat? Een openingsshow of afsluiter waar nog jaren over gesproken wordt? Welkom in de wereld van Nuno.</p>
+<p>Wil je meteen weten wat een show kost en hoe hij is opgebouwd? Lees dan <a href="/vuurshow-boeken/">alles over vuurshow boeken</a>. Zoek je vooral groot, zichtbaar vuur, dan is de <a href="/vlammenshow/">vlammenshow</a> de meest gekozen vorm.</p>
 <p>Als een van de meest gevraagde en ervaren vuurartiesten en fakirs van de Benelux tilt Nuno elk evenement naar een ongekend niveau. Met <a href="/over-nuno/" title="meer dan 15 jaar internationale ervaring">meer dan 15 jaar internationale ervaring</a>, spectaculaire tv-optredens en een absolute focus op veiligheid levert Nuno geen standaard vuurspuw-act, maar een high-end visueel meesterwerk &mdash; <a href="/locaties-vuurshows-nederland-belgie/" title="aangepast aan uw locatie">aangepast aan uw locatie</a>.</p>
 <p>Klaar om de vonk te laten overslaan? Lees verder of vraag direct een vrijblijvende offerte aan. Meer weten over wat een vuurspuwer doet? Lees <a href="https://nl.wikipedia.org/wiki/Vuurspuwen" rel="noopener">deze pagina op Wikipedia</a>.</p>
 

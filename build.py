@@ -218,6 +218,7 @@ for _oud, _nieuw in _HERNOEMD.items():
 # gewone post door dezelfde molen: rubriek, schema, "lees ook", sitemap,
 # feed en llms-full. Een eigen FAQ en eigen zoekwoorden gaan voor op de
 # gedeelde rubriek-FAQ.
+import urllib.parse
 import nieuwe_posts as NPOST
 for _np in NPOST.POSTS:
     if _np["slug"] in pages:
@@ -393,10 +394,12 @@ def crumbs(items):
                                 for k, (n, u) in enumerate(items)]}
     return f'<nav class="crumbs" aria-label="Kruimelpad"><ol>{li}</ol></nav>', data
 
-# Google toont reviewsterren en prijzen alleen bij bepaalde typen; Service
-# hoort daar niet bij. Daarom krijgt elke pagina met een Service ook een
-# Product-knoop (sterren + vanafprijs) en draagt elke pagina het volledige
-# LocalBusiness-blok, zodat beide rich results overal gedetecteerd worden.
+# Sterren horen alleen op pagina's waar de beoordelingen ook echt te zien
+# zijn (de homepage en /beoordelingen/). Vroeger kreeg elke dienstpagina
+# een Product-knoop met dezelfde 4,9/136 en droeg elke pagina de
+# bedrijfsrating — 113 identieke sterrenblokken op pagina's zonder één
+# zichtbare review. Dat is precies het patroon dat Google als misleidende
+# opmaak aanmerkt. De prijs blijft: die staat als Offer op de Service zelf.
 _RATING_LD = {"@type": "AggregateRating", "ratingValue": "4.9",
               "reviewCount": "136", "bestRating": "5", "worstRating": "1"}
 _OFFER_TXT = {
@@ -467,7 +470,6 @@ _BUSINESS_LD = {
                "https://www.instagram.com/officialnuno",
                "https://x.com/mentalist_nuno",
                "https://entertainershow.com/artiest/vuurspuwer-nuno/"],
-    "aggregateRating": _RATING_LD,
 }
 
 def business_ld(lang="nl"):
@@ -553,16 +555,7 @@ def _augment_rich_results(graph, lang, page_desc=None, page_img=None, page_url=N
             offers.setdefault("offerCount", "6")
             offers.setdefault("availability", "https://schema.org/InStock")
             if g.get("url"): offers.setdefault("url", g["url"])
-            pid = (g.get("@id") or (g.get("url", "") + "#service")).replace("#service", "#product")
-            prod = {"@context": "https://schema.org", "@type": "Product",
-                    "@id": pid, "name": g.get("name"),
-                    "description": g.get("description") or page_desc,
-                    "brand": {"@type": "Brand", "name": "Vuurspuwer Nuno"},
-                    "offers": offers, "aggregateRating": _RATING_LD}
-            img = g.get("image") or page_img
-            if img: prod["image"] = img
-            if g.get("inLanguage"): prod["inLanguage"] = g["inLanguage"]
-            extra.append(prod)
+            g["offers"] = offers
     if not any(isinstance(g, dict) and
                ("LocalBusiness" in types(g) or "EntertainmentBusiness" in types(g))
                for g in graph):
@@ -800,6 +793,20 @@ def localize_doc(d, lang):
     d = d.replace('<button class="burger"',
                   f'<button class="burger" data-txt-open="{L["close_btn"]}" data-txt-closed="{L["menu_btn"]}"')
     for a, b in _FOOTER_LABELS[lang].items(): d = d.replace(a, b)
+    # de twee Nederlandstalige zoekwoordpagina's hebben geen taalversie:
+    # niet linken vanuit en/de/fr (zie nieuwe_paginas.py)
+    if lang != "nl":
+        d = re.sub(r'\s*<li><a href="/(?:vuurshow-boeken|vlammenshow)/">[^<]*</a></li>', "", d)
+        # De Service-knopen in de homepage-graph droegen op elke taalversie
+        # het Nederlandse @id met een vertaalde naam: één id, vier namen. Op
+        # de taalhomes wijzen id en url nu naar de eigen taalpagina.
+        for _sl in ("vuurspuwer-inhuren", "fakir-show-inhuren", "reptielenhow",
+                    "workshop-vuurspuwen", "entertainer-huren",
+                    "entertainer-huren-voor-bedrijfsfeest", "halloween"):
+            if _sl in I.SLUGS:
+                _tw = I.url_of(lang, _sl)
+                d = d.replace(f'"{SITE}/{_sl}/#service"', f'"{SITE}{_tw}#service"')
+                d = d.replace(f'"url": "{SITE}/{_sl}/"', f'"url": "{SITE}{_tw}"')
     for a, b in _COOKIE_LBL[lang].items(): d = d.replace(a, b)
     # WhatsApp-knop: taalversie van tekst, label en statuswoorden
     d = d.replace("Hallo%20Nuno%2C%20ik%20heb%20een%20vraag%20over%20een%20boeking", _WA_TEXT[lang])
@@ -1512,8 +1519,11 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
         _body, _vid_in = _insert_two(p["body"], _mg_html, _vg_html)
         p = {**p, "body": _body}
         SITEMAP_IMG[path] = list(dict.fromkeys(SITEMAP_IMG.get(path, []) + _mg_fulls))
-        if _vid_in:
-            _vg_ld = _ld
+        # De videostrip blijft zichtbaar, maar krijgt hier géén VideoObject-
+        # schema: dezelfde twee clips op 163 pagina's markeren is voor Google
+        # sjabloon, geen inhoud. Het schema staat op /videos/ (videos_schema)
+        # en op de homepage, waar de video's het onderwerp zijn.
+        _vg_ld = []
     home  = "/" if lang == "nl" else f"/{lang}/"
     trail = [(L["crumb_home"], home)]
     if kind == "post":   trail.append(("Blog", "/blog/"))
@@ -2624,6 +2634,9 @@ _TITEL = {
 # wat de zoeker zoekt. Search Console liet zien dat deze pagina's wél hoog
 # staan maar niet aangeklikt worden.
 _SEO = {
+ "fantastische-teambuilding-activiteiten-voor-bedrijven-de-beste-tips-en-trends": {
+   "seo_title": "\U0001F3E2 Teambuilding voor bedrijven: idee\u00ebn & vuurshow-workshop",
+ },
  "betekenis-en-geschiedenis-van-fakir": {
    "seo_title": "\U0001F5E1\uFE0F Wat is een fakir? Betekenis & geschiedenis uitgelegd",
    "seo_desc": "Een fakir is van oorsprong een ascetische monnik; het woord komt van het "
@@ -2718,6 +2731,12 @@ _SAMENVOEGEN = {
  "vuurspuwer-boeken-voor-een-eindejaarsfeest-de-ultieme-spectaculaire-ervaring": "/kerst-nieuwjaar-entertainment/",
  "vuurspuwer-boeken-voor-een-oud-en-nieuw-feest-de-ultieme-spectaculaire-ervaring": "/kerst-nieuwjaar-entertainment/",
  "vuurspuwer-boeken-voor-een-winter-wonderland-feest-de-ultieme-spectaculaire-ervaring": "/kerst-nieuwjaar-entertainment/",
+ # het artikel dat zegt dat Nuno géén workshops geeft, terwijl de
+ # workshoppagina ze verkoopt — twee pagina's die elkaar tegenspreken
+ "biedt-nuno-ook-workshop-vuurspuwen-aan-het-complete-antwoord-door-vuurspuwer-nuno": "/workshop-vuurspuwen/",
+ # twee prijsartikelen en twee geschiedenisartikelen om hetzelfde zoekwoord
+ "wat-zijn-de-kosten-van-een-professionele-vuurspuwer-het-complete-antwoord-door-vuurspuwer-nuno": "/wat-kost-een-vuurspuwer/",
+ "de-betekenis-en-geschiedenis-van-vuurspuwers": "/wat-is-de-geschiedenis-van-vuurspuwen-het-complete-antwoord-door-vuurspuwer-nuno/",
  # lange tweelingen zonder eigen geschreven pagina: naar de korte versie
  "vuurspuwer-boeken-voor-een-1001-nacht-themafeest-de-ultieme-spectaculaire-ervaring": "/vuurspuwer-boeken-voor-1001-nacht-themafeest/",
  "vuurspuwer-boeken-voor-een-buurtfeest-de-ultieme-spectaculaire-ervaring": "/vuurspuwer-boeken-voor-buurtfeest/",
@@ -2750,6 +2769,11 @@ for p in posts:
         p = {**p, **_SEO[p["slug"]]}
     if p["slug"] in _ANTWOORD_EERST:
         p = {**p, "body": _ANTWOORD_EERST[p["slug"]] + p["body"]}
+    # De FAQ-artikelen droegen de hele zoektitel als kop ("...?: Het Complete
+    # Antwoord door Vuurspuwer Nuno", tot honderd tekens). De <title> houdt
+    # die staart; de kop op de pagina eindigt bij de vraag.
+    p = {**p, "title": re.sub(r"\s*\??:?\s*Het Complete Antwoord door Vuurspuwer Nuno\s*$", "?",
+                              p["title"], flags=re.I).replace("??", "?")}
     for _van, _naar in _TEKSTFIX.get(p["slug"], ()):
         if not any(_van in p[_veld] for _veld in ("body", "seo_title", "title", "seo_desc")):
             raise SystemExit(f"  ✖ tekstfix {p['slug']}: {_van!r} niet gevonden")
@@ -2770,13 +2794,16 @@ for p in posts:
                                    "acceptedAnswer": {"@type": "Answer", "text": _a}}
                                   for _q, _a in p["faq"]]}
     else:
-        _faq_html, _faq_ld = _post_faq(_cid)
+        # de gedeelde rubriek-FAQ blijft zichtbaar, maar krijgt geen FAQPage-
+        # schema: 58 pagina's met een byte-identiek vragenblok in het schema
+        # is voor Google geen inhoud maar herhaling
+        _faq_html, _ = _post_faq(_cid); _faq_ld = None
     _rel_html, _rel_ld = _related(p, _blogset)
     p = {**p, "body": p["body"] + _POST_CTA,
          "eyebrow": _clabel,
          "cat_label": _clabel.split(" ", 1)[1],
          "keywords": p.get("keywords") or f'{_clabel.split(" ", 1)[1]}, vuurshow, vuurspuwer, fakirshow, entertainment boeken'}
-    _extra_ld = [_faq_ld] + ([_rel_ld] if _rel_ld else [])
+    _extra_ld = ([_faq_ld] if _faq_ld else []) + ([_rel_ld] if _rel_ld else [])
     # Gelegenheidspagina's zijn geen artikel maar een boekbare dienst. Met
     # Service + AggregateOffer ziet Google waar de pagina over gaat, dat er
     # een prijs bij hoort en in welk gebied het geldt. Zonder dit blijft het
@@ -2842,9 +2869,12 @@ _PAGINA_FAQ = {
  ],
 }
 
+# koppen uit de export die niets zeggen over de pagina ("Shows")
+_KEEP_TITEL = {"entertainer-huren": "Entertainer inhuren: vuurshow, fakir & mentalist voor je event"}
 for slug in KEEP_PAGES:
     p = pages.get(slug)
     if not p: missing.append(slug); continue
+    if slug in _KEEP_TITEL: p = {**p, "title": _KEEP_TITEL[slug]}
     # taalversies (en/de/fr) verwijzen naar elkaar via hreflang
     alts = alternates_for(slug) if slug in I.SLUGS else None
     if slug == "videos":
@@ -3214,10 +3244,21 @@ built.append("wat-kost-een-vuurspuwer")
 
 # gelegenheid-pagina's (NL): bruiloft, bedrijfsfeest, verjaardag, festival,
 # vrijgezellenfeest, vuurwerk-alternatief en kerst/nieuwjaar
+# Eén zin per gelegenheid die met wisselende ankertekst naar de twee
+# hoofdpagina's verwijst — niet alleen via het gedeelde linkblok onderaan.
+_HOOFD_LINK = {
+ "vuurshow-bruiloft":       '<p>Wil je eerst zien wat een show inhoudt? Lees dan <a href="/vuurshow-boeken/">alles over het boeken van een vuurshow</a>, of bekijk de <a href="/vlammenshow/">vlammenshow met metershoge vuurballen</a> als je vooral groot vuur wilt bij de avondopening.</p>',
+ "vuurshow-bedrijfsfeest":  '<p>Meer weten over de opbouw, de prijzen en de veiligheid? Kijk bij <a href="/vuurshow-boeken/">vuurshow boeken voor je evenement</a>. Zoek je vooral een spectaculaire afsluiter, dan is <a href="/vlammenshow/">een vlammenshow huren</a> de meest gekozen vorm.</p>',
+ "vuurshow-festival":       '<p>Op een festival telt bereik: lees hoe een <a href="/vuurshow-boeken/">vuurshow op een festivalplein</a> wordt opgebouwd en waarom de <a href="/vlammenshow/">vlammenshow</a> in het donker het verst draagt.</p>',
+ "vuurshow-verjaardag":     '<p>Twijfel je tussen groot en intiem? Vergelijk de vormen op <a href="/vuurshow-boeken/">vuurshow boeken</a>; voor een verrassing in de tuin is de <a href="/vlammenshow/">vlammenshow van tien minuten</a> vaak precies genoeg.</p>',
+ "vrijgezellenfeest":       '<p>Liever kijken dan zelf doen? Dan past een <a href="/vuurshow-boeken/">korte vuurshow</a> of een <a href="/vlammenshow/">vlammenshow</a> als afsluiter van de dag.</p>',
+ "vuurwerk-alternatief":    '<p>Alles over de show zelf, de prijzen en de ruimte die nodig is lees je bij <a href="/vuurshow-boeken/">vuurshow boeken</a>; wie het grootste vuur zoekt kiest de <a href="/vlammenshow/">vlammenshow</a>.</p>',
+ "kerst-nieuwjaar-entertainment": '<p>In december is vroeg boeken verstandig; bekijk de mogelijkheden bij <a href="/vuurshow-boeken/">vuurshow boeken</a> en de <a href="/vlammenshow/">vlammenshow voor de jaarwisseling</a>.</p>',
+}
 for _slug, OC in OCC.NL.items():
     _p = {"slug": _slug, "title": OC["title"], "seo_title": OC["seo_title"],
           "seo_desc": OC["seo_desc"], "img": OC["img"], "eyebrow": OC["eyebrow"],
-          "date": TODAY, "body": OC["body"]}
+          "date": TODAY, "body": OC["body"] + _HOOFD_LINK.get(_slug, "")}
     _extra = wizard("nl") + prijs_strip("nl") + PC.show_faq_html(OC)
     if OC.get("fotos"):
         _extra += ('<section class="wrap bay"><div class="prose--page" style="max-width:none">'
@@ -3641,7 +3682,11 @@ if os.path.exists("redirects-404.tsv"):
         _voor = len(lines)
         lines = [l for l in lines if not l.startswith(f"{_bron}  ")]
         if len(lines) < _voor: _overruled += 1
-        lines.append(f"{_bron}  {_doel}  301")
+        # Cloudflare vergelijkt met het ge-encodeerde pad: een spatie of een
+        # é in de bron matcht alleen als %20 / %C3%A9. Vijf oude Franse
+        # adressen met spaties vielen daardoor stil buiten de omleiding.
+        _bron_enc = urllib.parse.quote(urllib.parse.unquote(_bron), safe="/-_.~!$&'()*+,;=:@")
+        lines.append(f"{_bron_enc}  {_doel}  301")
         _404 += 1
     print(f"  oude Google-adressen omgeleid: {_404} uit redirects-404.tsv "
           f"({_overruled} preciezer dan de patroonregel)")
@@ -3690,6 +3735,7 @@ _TOP_PAGES = {"halloween", "wat-kost-een-vuurspuwer",
               "vuur-woordenboek", "en/fire-glossary",
               "de/feuer-glossar", "fr/glossaire-du-feu"}
 _TOP_PAGES |= set(OCC.SLUGS)
+_TOP_PAGES |= {"vuurshow-boeken", "vlammenshow"}
 _TOP_PAGES |= {f"{l}/{OCC.SLUGS[s][l]}" for s in OCC.SLUGS for l in ("en", "de", "fr")}
 def _prio(s):
     if s in _TOP_PAGES: return "0.9"
