@@ -1,4 +1,4 @@
-# Indexeer-dagplan 2026-09-18
+# Indexeer-dagplan 2026-09-19
 
 Google kent géén open aanmeld-API voor gewone pagina's, dus deze tien
 adressen zijn met de hand aan te melden. Klik een link, druk op
@@ -6,20 +6,20 @@ adressen zijn met de hand aan te melden. Klik een link, druk op
 
 | # | Pagina | Aanmelden bij Google |
 |---|---|---|
-| 1 | `vuurshow-in-belgie-boeken-vlaanderen-wallonie` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurshow-in-belgie-boeken-vlaanderen-wallonie%2F) |
-| 2 | `fakirshow-wat-gebeurt-er-precies` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Ffakirshow-wat-gebeurt-er-precies%2F) |
-| 3 | `teambuilding-met-vuur-workshop-vuurspuwen-bedrijven` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fteambuilding-met-vuur-workshop-vuurspuwen-bedrijven%2F) |
-| 4 | `vrouwelijke-vuurspuwer-boeken-duo-act` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvrouwelijke-vuurspuwer-boeken-duo-act%2F) |
-| 5 | `vuurspuwer-boeken-voor-gemaskerd-bal` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurspuwer-boeken-voor-gemaskerd-bal%2F) |
-| 6 | `vuurspuwer-boeken-voor-openingsceremonie` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurspuwer-boeken-voor-openingsceremonie%2F) |
-| 7 | `vuurspuwer-boeken-voor-productlancering` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurspuwer-boeken-voor-productlancering%2F) |
-| 8 | `vuurspuwer-boeken-voor-promotiefeest` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurspuwer-boeken-voor-promotiefeest%2F) |
-| 9 | `vuurspuwer-boeken-voor-sportevenement` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurspuwer-boeken-voor-sportevenement%2F) |
-| 10 | `vuurspuwer-boeken-voor-straatfeest` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurspuwer-boeken-voor-straatfeest%2F) |
+| 1 | `vuurspuwer-inhuren-in-kaldenkirchen-spectaculair-entertainment-in-de-grensregio` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurspuwer-inhuren-in-kaldenkirchen-spectaculair-entertainment-in-de-grensregio%2F) |
+| 2 | `vuurspuwer-inhuren-in-kleve-breng-vurige-magie-naar-de-grensregio` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurspuwer-inhuren-in-kleve-breng-vurige-magie-naar-de-grensregio%2F) |
+| 3 | `vuurspuwer-inhuren-in-krefeld-een-vlammend-spektakel-voor-uw-event` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurspuwer-inhuren-in-krefeld-een-vlammend-spektakel-voor-uw-event%2F) |
+| 4 | `vuurspuwer-monchengladbach-spectaculaire-vuurshows-net-over-de-grens` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurspuwer-monchengladbach-spectaculaire-vuurshows-net-over-de-grens%2F) |
+| 5 | `vuurwerkshow-of-vuurshow-wat-mag-nog` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurwerkshow-of-vuurshow-wat-mag-nog%2F) |
+| 6 | `waar-kun-je-een-entertainer-inhuren` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fwaar-kun-je-een-entertainer-inhuren%2F) |
+| 7 | `wat-is-de-beste-tijd-van-het-jaar-voor-een-vuurshow-het-complete-antwoord-door-vuurspuwer-nuno` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fwat-is-de-beste-tijd-van-het-jaar-voor-een-vuurshow-het-complete-antwoord-door-vuurspuwer-nuno%2F) |
+| 8 | `wat-is-de-culturele-betekenis-van-fakirisme-het-complete-antwoord-door-vuurspuwer-nuno` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fwat-is-de-culturele-betekenis-van-fakirisme-het-complete-antwoord-door-vuurspuwer-nuno%2F) |
+| 9 | `wat-is-de-geschiedenis-van-vuurspuwen-het-complete-antwoord-door-vuurspuwer-nuno` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fwat-is-de-geschiedenis-van-vuurspuwen-het-complete-antwoord-door-vuurspuwer-nuno%2F) |
+| 10 | `wat-is-de-minimale-benodigde-ruimte-voor-een-vuurshow-buiten-faq` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fwat-is-de-minimale-benodigde-ruimte-voor-een-vuurshow-buiten-faq%2F) |
 
 ## Automatisch verstuurd
 
 - IndexNow: 200 (10 adressen)
 - Bing API: overgeslagen (geen BING_API_KEY ingesteld)
 
-_Volgende ronde: 2026-09-19_
+_Volgende ronde: 2026-09-20_
