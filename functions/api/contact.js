@@ -124,6 +124,56 @@ function rowsHtml(d, labels) {
   return rows.join("");
 }
 
+/* Waar kwam deze aanvraag vandaan? De pagina stuurt een klein blokje mee
+   (landingspagina, verwijzende site, eventuele utm-parameters, apparaat).
+   Zonder dat staat er in elke aanvraagmail alleen "er is iemand" en blijft
+   gissen of Google, Instagram of mond-tot-mond het werk deed. Alleen
+   eerste-partij en alleen voor de duur van de sessie; er gaat niets naar
+   derden en het staat niet in de bevestiging aan de klant. */
+function bronNaam(verwijzer, utm) {
+  if (utm.utm_source) {
+    // het Google-bedrijfsprofiel zet zijn markering in utm_medium
+    const m = `${utm.utm_source} ${utm.utm_medium || ""}`.toLowerCase();
+    if (m.includes("bedrijfsprofiel") || m.includes("gbp")) return "Google-bedrijfsprofiel";
+    return utm.utm_source + (utm.utm_medium ? ` (${utm.utm_medium})` : "");
+  }
+  if (utm.gclid) return "Google Ads";
+  if (!verwijzer) return "direct of app (getypt, bladwijzer, WhatsApp)";
+  let host = "";
+  try { host = new URL(verwijzer).hostname.replace(/^www\./, ""); } catch { return "onbekend"; }
+  if (host.endsWith("vuurspuwer.com")) return "eigen site";
+  if (host.includes("google")) return "Google (organisch)";
+  if (host.includes("bing")) return "Bing";
+  if (host.includes("duckduckgo")) return "DuckDuckGo";
+  if (host.includes("ecosia")) return "Ecosia";
+  if (host.includes("instagram")) return "Instagram";
+  if (host.includes("facebook")) return "Facebook";
+  if (host.includes("tiktok")) return "TikTok";
+  if (host.includes("youtube")) return "YouTube";
+  if (host.includes("entertainershow")) return "EntertainerShow";
+  if (host.includes("showbird")) return "ShowBird";
+  return host;
+}
+
+function herkomstRegel(ruw) {
+  let h = {};
+  try {
+    h = typeof ruw === "string" ? JSON.parse(ruw) : (ruw || {});
+    if (typeof h !== "object" || h === null) h = {};
+  } catch { h = {}; }
+  const kort = (v, n) => String(v ?? "").replace(/\s+/g, " ").trim().slice(0, n);
+  const utm = {};
+  for (const k of ["utm_source", "utm_medium", "utm_campaign", "gclid"]) {
+    if (h[k]) utm[k] = kort(h[k], 80);
+  }
+  const delen = [bronNaam(kort(h.verwijzer, 300), utm)];
+  if (h.landing) delen.push(`binnengekomen op ${kort(h.landing, 160)}`);
+  if (h.formulier && h.formulier !== h.landing) delen.push(`formulier op ${kort(h.formulier, 160)}`);
+  if (utm.utm_campaign) delen.push(`campagne ${utm.utm_campaign}`);
+  if (h.apparaat) delen.push(kort(h.apparaat, 20));
+  return delen.join(" \u00b7 ");
+}
+
 /* Bevestiging voor de aanvrager: zwart, het logo in het midden, de
    kopie van de aanvraag en onderaan de WhatsApp-knop voor spoed. */
 function confirmationHtml(d, t) {
@@ -172,7 +222,7 @@ function confirmationHtml(d, t) {
 }
 
 /* De aanvraag zelf, voor Nuno: zelfde stijl, alle velden op een rij. */
-function requestHtml(d) {
+function requestHtml(d, bron) {
   return `<!doctype html>
 <html lang="nl">
 <head><meta charset="utf-8"><title>Nieuwe aanvraag</title></head>
@@ -189,6 +239,10 @@ function requestHtml(d) {
         <tr><td style="border-top:1px solid #2e2113;padding-top:6px;">
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0">${rowsHtml(d, T9N.nl.labels)}</table>
         </td></tr>
+        ${bron ? `<tr><td style="padding-top:16px;border-top:1px solid #2e2113;">
+          <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#8A7A6D;padding-top:12px;">Herkomst</div>
+          <div style="font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;color:#C6B29E;padding-top:4px;">${esc(bron)}</div>
+        </td></tr>` : ""}
         <tr><td style="padding-top:16px;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#8A7A6D;">
           Beantwoord deze mail om ${esc(d.naam)} direct te mailen (reply-to staat goed).
         </td></tr>
@@ -287,7 +341,7 @@ export async function onRequestPost({ request, env, waitUntil }) {
     to: [to],
     reply_to: [d.email],
     subject: `\u{1F525} Aanvraag van ${d.naam}${d.act && d.act !== "Weet ik nog niet" ? ` — ${d.act}` : ""}${d.datum ? ` op ${d.datum}` : ""}`,
-    html: requestHtml(d),
+    html: requestHtml(d, herkomstRegel(data.herkomst)),
     text: textVersion(d, "Nieuwe aanvraag via vuurspuwer.com", T9N.nl.labels),
   });
 

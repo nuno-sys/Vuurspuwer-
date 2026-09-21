@@ -9,6 +9,33 @@
   const lerp  = (a, b, t) => a + (b - a) * t;
 
   /* --------------------------------------------------------------
+     Herkomst van de bezoeker — waar kwam hij binnen en waarvandaan
+     --------------------------------------------------------------
+     Draait op élke pagina, want de landingspagina is bijna nooit het
+     contactformulier: iemand komt binnen op een showpagina en klikt pas
+     daarna door. De eerste aanraking wint, zodat de bron blijft staan.
+     Alleen eerste-partij, alleen deze sessie (sessionStorage), en het
+     gaat uitsluitend mee met een aanvraag die je zelf verstuurt. */
+  const HERKOMST = "vsHerkomst";
+  try {
+    if (!sessionStorage.getItem(HERKOMST)) {
+      const q = new URLSearchParams(location.search);
+      const raak = matchMedia("(pointer: coarse)").matches ||
+                   (navigator.maxTouchPoints || 0) > 0;
+      const h = {
+        landing: location.pathname.slice(0, 160),
+        verwijzer: (document.referrer || "").slice(0, 300),
+        apparaat: raak ? "mobiel" : "desktop"
+      };
+      for (const k of ["utm_source", "utm_medium", "utm_campaign", "gclid"]) {
+        const v = q.get(k);
+        if (v) h[k] = v.slice(0, 80);
+      }
+      sessionStorage.setItem(HERKOMST, JSON.stringify(h));
+    }
+  } catch (e) {}
+
+  /* --------------------------------------------------------------
      Shared scroll state — one rAF loop drives everything
      -------------------------------------------------------------- */
   const S = {
@@ -1098,6 +1125,11 @@
 
       const payload = {};
       for (const [k, v] of data.entries()) payload[k] = String(v);
+      try {
+        const h = JSON.parse(sessionStorage.getItem(HERKOMST) || "{}");
+        h.formulier = location.pathname.slice(0, 160);
+        payload.herkomst = JSON.stringify(h);
+      } catch (e) {}
 
       const knop = form.querySelector('button[type="submit"]');
       if (knop) knop.disabled = true;
@@ -1121,6 +1153,16 @@
           : (form.dataset.msgOk ||
              ("\u{1F525} Gelukt &mdash; je aanvraag is verstuurd! Je ontvangt direct " +
               "een bevestiging per e-mail en ik reageer <b>binnen 24 uur</b>."));
+        /* Zodat een aanvraag ook in Analytics een gebeurtenis is en je kunt
+           zien welke pagina's tot boekingen leiden, niet alleen tot bezoek. */
+        try {
+          if (typeof gtag === "function") {
+            gtag("event", "aanvraag_verstuurd", {
+              pagina: location.pathname,
+              act: String(data.get("act") || "")
+            });
+          }
+        } catch (e) {}
         form.reset();
       } catch {
         /* vangnet: lukt het versturen niet (offline, of de mailfunctie is
