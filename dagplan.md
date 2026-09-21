@@ -1,4 +1,4 @@
-# Indexeer-dagplan 2026-09-17
+# Indexeer-dagplan 2026-09-21
 
 Google kent géén open aanmeld-API voor gewone pagina's, dus deze tien
 adressen zijn met de hand aan te melden. Klik een link, druk op
@@ -6,20 +6,20 @@ adressen zijn met de hand aan te melden. Klik een link, druk op
 
 | # | Pagina | Aanmelden bij Google |
 |---|---|---|
-| 1 | `vuurspuwer-boeken-voor-een-familiedag-de-ultieme-spectaculaire-ervaring` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurspuwer-boeken-voor-een-familiedag-de-ultieme-spectaculaire-ervaring%2F) |
-| 2 | `vuurspuwer-boeken-voor-een-gala-diner-de-ultieme-spectaculaire-ervaring` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurspuwer-boeken-voor-een-gala-diner-de-ultieme-spectaculaire-ervaring%2F) |
-| 3 | `vuurspuwer-boeken-voor-een-ibiza-party-de-ultieme-spectaculaire-ervaring` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurspuwer-boeken-voor-een-ibiza-party-de-ultieme-spectaculaire-ervaring%2F) |
-| 4 | `vuurspuwer-boeken-voor-een-kinderfeestje-de-ultieme-spectaculaire-ervaring` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurspuwer-boeken-voor-een-kinderfeestje-de-ultieme-spectaculaire-ervaring%2F) |
-| 5 | `vuurspuwer-boeken-voor-een-middeleeuws-themafeest-de-ultieme-spectaculaire-ervaring` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurspuwer-boeken-voor-een-middeleeuws-themafeest-de-ultieme-spectaculaire-ervaring%2F) |
-| 6 | `vuurspuwer-boeken-voor-een-open-dag-de-ultieme-spectaculaire-ervaring` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurspuwer-boeken-voor-een-open-dag-de-ultieme-spectaculaire-ervaring%2F) |
-| 7 | `vuurspuwer-boeken-voor-een-pensioenfeest-de-ultieme-spectaculaire-ervaring` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurspuwer-boeken-voor-een-pensioenfeest-de-ultieme-spectaculaire-ervaring%2F) |
-| 8 | `vuurspuwer-boeken-voor-een-reunie-de-ultieme-spectaculaire-ervaring` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurspuwer-boeken-voor-een-reunie-de-ultieme-spectaculaire-ervaring%2F) |
-| 9 | `vuurspuwer-boeken-voor-een-strandfeest-de-ultieme-spectaculaire-ervaring` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurspuwer-boeken-voor-een-strandfeest-de-ultieme-spectaculaire-ervaring%2F) |
-| 10 | `vuurspuwer-boeken-voor-een-superhelden-themafeest-de-ultieme-spectaculaire-ervaring` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurspuwer-boeken-voor-een-superhelden-themafeest-de-ultieme-spectaculaire-ervaring%2F) |
+| 1 | `de/halloween` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Fhalloween%2F) |
+| 2 | `en/halloween` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fen%2Fhalloween%2F) |
+| 3 | `fr/halloween` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Ffr%2Fhalloween%2F) |
+| 4 | `halloween` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fhalloween%2F) |
+| 5 | `homepage` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2F) |
+| 6 | `beoordelingen` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fbeoordelingen%2F) |
+| 7 | `contact-3` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fcontact-3%2F) |
+| 8 | `de/feuershow-firmenfeier` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Ffeuershow-firmenfeier%2F) |
+| 9 | `en/fire-show-corporate-event` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fen%2Ffire-show-corporate-event%2F) |
+| 10 | `fr/spectacle-de-feu-entreprise` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Ffr%2Fspectacle-de-feu-entreprise%2F) |
 
 ## Automatisch verstuurd
 
 - IndexNow: 200 (10 adressen)
 - Bing API: overgeslagen (geen BING_API_KEY ingesteld)
 
-_Volgende ronde: 2026-09-18_
+_Volgende ronde: 2026-09-22_
