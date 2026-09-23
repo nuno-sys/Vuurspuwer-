@@ -1,4 +1,4 @@
-# Indexeer-dagplan 2026-09-22
+# Indexeer-dagplan 2026-09-23
 
 Google kent géén open aanmeld-API voor gewone pagina's, dus deze tien
 adressen zijn met de hand aan te melden. Klik een link, druk op
@@ -6,20 +6,20 @@ adressen zijn met de hand aan te melden. Klik een link, druk op
 
 | # | Pagina | Aanmelden bij Google |
 |---|---|---|
-| 1 | `vuurshow-bedrijfsfeest` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurshow-bedrijfsfeest%2F) |
-| 2 | `vuurshow-festival` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurshow-festival%2F) |
-| 3 | `vuurspuwer-inhuren` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurspuwer-inhuren%2F) |
-| 4 | `wat-kost-een-vuurspuwer` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fwat-kost-een-vuurspuwer%2F) |
-| 5 | `de/feuershow-festival` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Ffeuershow-festival%2F) |
-| 6 | `en/fire-show-festival` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fen%2Ffire-show-festival%2F) |
-| 7 | `fakir-show-inhuren` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Ffakir-show-inhuren%2F) |
-| 8 | `fr/spectacle-de-feu-festival` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Ffr%2Fspectacle-de-feu-festival%2F) |
-| 9 | `kerst-nieuwjaar-entertainment` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fkerst-nieuwjaar-entertainment%2F) |
-| 10 | `vuur-woordenboek` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuur-woordenboek%2F) |
+| 1 | `wat-vieren-we-met-halloween-en-hoe-is-het-ontstaan` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fwat-vieren-we-met-halloween-en-hoe-is-het-ontstaan%2F) |
+| 2 | `workshop-vuurspuwen` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fworkshop-vuurspuwen%2F) |
+| 3 | `locaties-vuurshows-nederland-belgie` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Flocaties-vuurshows-nederland-belgie%2F) |
+| 4 | `vrijgezellenfeest` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvrijgezellenfeest%2F) |
+| 5 | `vuurshow-bruiloft` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurshow-bruiloft%2F) |
+| 6 | `vuurshow-verjaardag` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurshow-verjaardag%2F) |
+| 7 | `vuurspuwer-boeken-in-amsterdam` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurspuwer-boeken-in-amsterdam%2F) |
+| 8 | `vuurspuwer-boeken-in-antwerpen` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurspuwer-boeken-in-antwerpen%2F) |
+| 9 | `vuurspuwer-boeken-in-breda` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurspuwer-boeken-in-breda%2F) |
+| 10 | `vuurspuwer-boeken-in-brugge` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurspuwer-boeken-in-brugge%2F) |
 
 ## Automatisch verstuurd
 
 - IndexNow: 200 (10 adressen)
 - Bing API: overgeslagen (geen BING_API_KEY ingesteld)
 
-_Volgende ronde: 2026-09-23_
+_Volgende ronde: 2026-09-24_
