@@ -1,4 +1,4 @@
-# Indexeer-dagplan 2026-09-25
+# Indexeer-dagplan 2026-09-26
 
 Google kent géén open aanmeld-API voor gewone pagina's, dus deze tien
 adressen zijn met de hand aan te melden. Klik een link, druk op
@@ -6,20 +6,20 @@ adressen zijn met de hand aan te melden. Klik een link, druk op
 
 | # | Pagina | Aanmelden bij Google |
 |---|---|---|
-| 1 | `vuurspuwer-boeken-in-tilburg` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurspuwer-boeken-in-tilburg%2F) |
-| 2 | `vuurspuwer-boeken-in-utrecht` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fvuurspuwer-boeken-in-utrecht%2F) |
-| 3 | `de` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2F) |
-| 4 | `de/bewertungen` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Fbewertungen%2F) |
-| 5 | `de/fakirshow` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Ffakirshow%2F) |
-| 6 | `de/feuer-glossar` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Ffeuer-glossar%2F) |
-| 7 | `de/feuershow-geburtstag` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Ffeuershow-geburtstag%2F) |
-| 8 | `de/feuershow-hochzeit` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Ffeuershow-hochzeit%2F) |
-| 9 | `de/feuershow` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Ffeuershow%2F) |
-| 10 | `de/feuerspucker-aachen` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Ffeuerspucker-aachen%2F) |
+| 1 | `de/feuerspucker-duesseldorf` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Ffeuerspucker-duesseldorf%2F) |
+| 2 | `de/feuerspucker-duisburg` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Ffeuerspucker-duisburg%2F) |
+| 3 | `de/feuerspucker-kaldenkirchen` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Ffeuerspucker-kaldenkirchen%2F) |
+| 4 | `de/feuerspucker-kleve` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Ffeuerspucker-kleve%2F) |
+| 5 | `de/feuerspucker-kosten` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Ffeuerspucker-kosten%2F) |
+| 6 | `de/feuerspucker-krefeld` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Ffeuerspucker-krefeld%2F) |
+| 7 | `de/feuerspucker-moenchengladbach` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Ffeuerspucker-moenchengladbach%2F) |
+| 8 | `de/feuerspucker-workshop` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Ffeuerspucker-workshop%2F) |
+| 9 | `de/feuerwerk-alternative` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Ffeuerwerk-alternative%2F) |
+| 10 | `de/fotos` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Ffotos%2F) |
 
 ## Automatisch verstuurd
 
 - IndexNow: 200 (10 adressen)
 - Bing API: overgeslagen (geen BING_API_KEY ingesteld)
 
-_Volgende ronde: 2026-09-26_
+_Volgende ronde: 2026-09-27_
