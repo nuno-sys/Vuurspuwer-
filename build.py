@@ -2750,6 +2750,52 @@ _SEO = {
 # overnemen: eerst de definitie in 60\u201370 woorden, dan pas het verhaal.
 # Een pagina die op positie 10 staat met nul klikken verliest het niet op
 # ranking maar op de belofte in het zoekresultaat.
+# Pagina's waarvan de tekst volledig vervangen wordt. De herschrijving van
+# juli 2026 liet op een aantal pagina's sporen achter die Google als
+# gegenereerde inhoud leest: koppen in Title Case, inleidingen die aankondigen
+# wat er komt in plaats van het te zeggen, en halve zinnen waarin de naam van
+# de artiest twee keer staat. Deze pagina's dragen te veel verkeer om ze te
+# laten staan en te weinig eigen waarde om ze te laten zoals ze zijn.
+#
+# /betekenis-en-geschiedenis-van-fakir/ is na de homepage de grootste pagina
+# van de site: 1.740 vertoningen in zes maanden op gemiddelde positie 10,7 en
+# twee klikken. De twee zoekopdrachten die erachter zitten, "fakir betekenis"
+# (943 vertoningen, positie 10,8) en "wat is een fakir" (258 vertoningen,
+# positie 10,6), leveren samen nul klikken op. Op die plek in de resultaten
+# staat de pagina onder de definitie die Google zelf bovenaan toont; de enige
+# manier omhoog is een tekst die de vraag beter beantwoordt dan de concurrent.
+_NIEUWE_TEKST = {
+ "betekenis-en-geschiedenis-van-fakir": """
+<h2>Wat betekent het woord fakir?</h2>
+<p>Het woord komt van het Arabische <em>faqīr</em> (فقير), dat “arm” of “behoeftig” betekent. In de soefitraditie van de islam is een fakir iemand die vrijwillig afstand doet van bezit om zich op het geestelijke te richten. Het Perzische woord <em>darwish</em> — in het Nederlands “derwisj” — betekent ongeveer hetzelfde. In India werd de term ook gebruikt voor rondtrekkende asceten uit de hindoeïstische traditie, waar het woord <em>sadhoe</em> gangbaarder is. Het Nederlands nam “fakir” in de negentiende eeuw over, vrijwel zeker via het Frans.</p>
+<h2>Fakir, derwisj, sadhoe en yogi: wat is het verschil?</h2>
+<p>De vier woorden worden door elkaar gebruikt, maar ze komen uit verschillende tradities.</p>
+<table>
+<thead><tr><th>Woord</th><th>Herkomst</th><th>Betekent letterlijk</th><th>Kern</th></tr></thead>
+<tbody>
+<tr><td>Fakir</td><td>Arabisch, islamitisch</td><td>arme, behoeftige</td><td>onthechting van bezit</td></tr>
+<tr><td>Derwisj</td><td>Perzisch, soefisme</td><td>bedelaar aan de deur</td><td>onthechting, vaak in een orde</td></tr>
+<tr><td>Sadhoe</td><td>Sanskriet, hindoeïsme</td><td>goed mens, volbrenger</td><td>wereldverzaking</td></tr>
+<tr><td>Yogi</td><td>Sanskriet</td><td>beoefenaar van yoga</td><td>beheersing van lichaam en geest</td></tr>
+</tbody>
+</table>
+<p>In het dagelijks spraakgebruik is “fakir” de verzamelnaam geworden voor al deze figuren, en in Europa vooral voor de kunststukken die eraan worden toegeschreven.</p>
+<h2>Waar komt het beeld van het spijkerbed vandaan?</h2>
+<p>Het beeld dat de meeste mensen bij een fakir hebben — liggend op spijkers, lopend over glas, ongevoelig voor pijn — is grotendeels in het Westen ontstaan. In de negentiende eeuw brachten reisverslagen uit Brits-Indië verhalen mee over asceten die urenlang roerloos in één houding bleven of zichzelf extreme ontberingen oplegden. Die verhalen werden in Europa en Amerika opgepakt door varietétheaters en circussen, waar “de fakir” uitgroeide tot een vast nummer: een artiest in oosterse kledij met een spijkerbed en vuur.</p>
+<p>De oorspronkelijke ascetische praktijk en het podiumnummer liepen daarmee uiteen. De eerste is religieus van aard en niet bedoeld om bekeken te worden; de tweede is theater en is het altijd geweest. Wie vandaag in Nederland of België een fakir ziet optreden, ziet die tweede traditie.</p>
+<h2>Waarom doet een spijkerbed geen pijn?</h2>
+<p>Hier zit geen mystiek achter maar natuurkunde. De spijkers van een spijkerbed staan dicht op elkaar, meestal enkele centimeters uit elkaar over het hele oppervlak. Daardoor rust het lichaamsgewicht niet op één punt maar op honderden punten tegelijk, en is de druk per spijker te laag om de huid te doorboren. Hetzelfde principe maakt het mogelijk dat er iemand op de fakir gaat staan: het extra gewicht wordt over dezelfde honderden punten verdeeld.</p>
+<p>Dat betekent niet dat het niets voorstelt. Opstaan en gaan liggen zijn het gevaarlijkst, omdat het gewicht dan kórt op weinig spijkers rust. Dat vraagt techniek, beheersing en oefening — en dat is precies waar de ascetische traditie en het podiumnummer elkaar raken.</p>
+<h2>De fakirshow vandaag</h2>
+<p>Een moderne fakirshow is een opeenvolging van kunststukken die hun herkomst in die traditie hebben: het spijkerbed, lopen over glasscherven, werken met zwaarden en messen, en vuur. Het publiek doet mee, bijvoorbeeld door op de fakir te gaan staan terwijl hij op het spijkerbed ligt — altijd onder begeleiding en nooit zonder toestemming. De spanning komt niet uit het risico maar uit de vraag die bij iedereen opkomt: hoe kan dit?</p>
+<p>Vuurspuwer Nuno brengt de fakirshow al zeventien jaar en is bekend van SBS6, RTL 4 en VTM. Wil je weten wat er precies gebeurt tijdens zo'n show, lees dan <a href="/fakirshow-wat-gebeurt-er-precies/">wat er precies gebeurt tijdens een fakirshow</a>. Wil je de show boeken, kijk dan op <a href="/fakir-show-inhuren/">fakirshow inhuren</a> of bekijk de <a href="/videos/">video's</a>.</p>
+<h2>Is een fakir hetzelfde als een vuurspuwer?</h2>
+<p>Nee, al overlappen ze. Vuurspuwen is één onderdeel dat in veel fakirshows voorkomt, maar een <a href="/vuurspuwer-inhuren/">vuurshow</a> is een eigen discipline met jongleren, draaiend vuur en body fire, en zonder spijkerbed of glas. Omgekeerd kan een fakirshow volledig zonder vuur. De twee worden vaak samen geboekt omdat ze elkaar aanvullen: de fakirshow werkt binnen en van dichtbij, de vuurshow buiten en van een afstand.</p>
+<h2>Veelgebruikte termen</h2>
+<p>Meer woorden rond vuur en fakirisme staan in de <a href="/vuur-woordenboek/">begrippenlijst</a>. Verwante vragen: <a href="/wat-is-de-culturele-betekenis-van-fakirisme-het-complete-antwoord-door-vuurspuwer-nuno/">wat de culturele betekenis van fakirisme is</a> en <a href="/wat-is-de-geschiedenis-van-vuurspuwen-het-complete-antwoord-door-vuurspuwer-nuno/">waar vuurspuwen vandaan komt</a>.</p>
+""",
+}
+
 _ANTWOORD_EERST = {
  "betekenis-en-geschiedenis-van-fakir":
    '<p><strong>Een fakir is van oorsprong een ascetische monnik uit de islamitische en '
@@ -2868,6 +2914,8 @@ for p in posts:
         p = {**p, "title": _TITEL[p["slug"]]}
     if p["slug"] in _SEO:
         p = {**p, **_SEO[p["slug"]]}
+    if p["slug"] in _NIEUWE_TEKST:
+        p = {**p, "body": _NIEUWE_TEKST[p["slug"]]}
     if p["slug"] in _ANTWOORD_EERST:
         p = {**p, "body": _ANTWOORD_EERST[p["slug"]] + p["body"]}
     # De FAQ-artikelen droegen de hele zoektitel als kop ("...?: Het Complete
