@@ -1,0 +1,80 @@
+{
+ "datum": "2026-10-09",
+ "waarschuwingen": [],
+ "robots_status": 200,
+ "robots_cloudflare": false,
+ "robots": {
+  "OAI-SearchBot": true,
+  "ChatGPT-User": true,
+  "PerplexityBot": true,
+  "Perplexity-User": true,
+  "Claude-SearchBot": true,
+  "Claude-User": true,
+  "Googlebot": true,
+  "Bingbot": true,
+  "Applebot": true,
+  "Google-Extended": true,
+  "GPTBot": true,
+  "ClaudeBot": true
+ },
+ "rand": {
+  "OAI-SearchBot": {
+   "status": 200,
+   "geweigerd": false
+  },
+  "ChatGPT-User": {
+   "status": 200,
+   "geweigerd": false
+  },
+  "PerplexityBot": {
+   "status": 200,
+   "geweigerd": false
+  },
+  "Perplexity-User": {
+   "status": 200,
+   "geweigerd": false
+  },
+  "Claude-SearchBot": {
+   "status": 200,
+   "geweigerd": false
+  },
+  "Claude-User": {
+   "status": 200,
+   "geweigerd": false
+  },
+  "Googlebot": {
+   "status": 200,
+   "geweigerd": false
+  },
+  "Bingbot": {
+   "status": 200,
+   "geweigerd": false
+  },
+  "Applebot": {
+   "status": 200,
+   "geweigerd": false
+  },
+  "GPTBot": {
+   "status": 200,
+   "geweigerd": false
+  },
+  "ClaudeBot": {
+   "status": 200,
+   "geweigerd": false
+  }
+ },
+ "bestanden": {
+  "/llms.txt": {
+   "status": 200,
+   "type": "text/plain; charset=utf-8"
+  },
+  "/llms-full.txt": {
+   "status": 200,
+   "type": "text/plain; charset=utf-8"
+  },
+  "/sitemap.xml": {
+   "status": 200,
+   "type": "application/xml"
+  }
+ }
+}
