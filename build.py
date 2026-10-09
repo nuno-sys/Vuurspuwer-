@@ -4869,12 +4869,23 @@ print("  homepage en assets gekopieerd")
 # telt niet als inhoudswijziging voor lastmod, want dat is het niet.
 _HREF = re.compile(r'href="(https?://vuurspuwer\.com)?(/[^"#?]*?)/?([#?][^"]*)?"')
 _ABS_A = re.compile(r'(<a\b[^>]*?)href="https?://vuurspuwer\.com(/[^"]*)"')
-_omgezet, _pag = 0, 0
+# Een link naar een omgeleid adres dat op déze pagina uitkomt, zou na het
+# omzetten naar zichzelf wijzen (een samengevoegd artikel waar het doel zelf
+# naar linkte). Dan blijft alleen de tekst staan.
+_A_OMGELEID = re.compile(r'<a\b[^>]*?href="(?:https?://vuurspuwer\.com)?(/[^"#?]*?)/?(?:[#?][^"]*)?"[^>]*>(.*?)</a>', re.S)
+_omgezet, _pag, _zelflinks = 0, 0, 0
 for _root, _, _fs in os.walk(OUT):
     for _f in _fs:
         if not _f.endswith(".html"): continue
         _pth = os.path.join(_root, _f)
         _doc = open(_pth, encoding="utf-8").read()
+        _hier = "/" if _root == OUT else "/" + os.path.relpath(_root, OUT).replace(os.sep, "/") + "/"
+        def _zelf(m):
+            global _zelflinks
+            if _RD.get(m.group(1).rstrip("/") + "/") != _hier: return m.group(0)
+            _zelflinks += 1
+            return m.group(2)
+        _doc0, _doc = _doc, _A_OMGELEID.sub(_zelf, _doc)
         def _her(m):
             global _omgezet
             pad = m.group(2).rstrip("/") + "/"
@@ -4887,9 +4898,23 @@ for _root, _, _fs in os.walk(OUT):
         # absolute link naar een andere site — alleen in <a>, niet in
         # canonical/og/hreflang, want die moeten juist absoluut zijn
         _n = _ABS_A.sub(lambda m: m.group(1) + 'href="' + m.group(2) + '"', _n)
-        if _n != _doc:
+        if _n != _doc0:
             open(_pth, "w", encoding="utf-8").write(_n); _pag += 1
-print(f"  interne links rechtstreeks: {_omgezet} links op {_pag} pagina's wezen naar een omgeleid adres")
+print(f"  interne links rechtstreeks: {_omgezet} links op {_pag} pagina's wezen naar een omgeleid adres"
+      f" ({_zelflinks} kwamen op de eigen pagina uit en zijn gewone tekst geworden)")
+# De Verder-lezen-blokken zijn met de hand gekozen: elke link moet naar een
+# gebouwde pagina wijzen, niet naar een omleiding (dan klopt de ankertekst
+# niet meer), niet naar de pagina zelf en niet twee keer naar hetzelfde adres.
+_vl_fout = []
+for _vs, _vi in VL.MAP.items():
+    _vh = [h for h, _ in _vi]
+    for _h in _vh:
+        if _h in _RD or not os.path.exists(os.path.join(OUT, _h.strip("/"), "index.html")):
+            _vl_fout.append(f"{_vs}: {_h} bestaat niet (meer) als pagina")
+        if _h == f"/{_vs}/": _vl_fout.append(f"{_vs}: linkt naar zichzelf")
+    if len(set(_vh)) != len(_vh): _vl_fout.append(f"{_vs}: dubbele link")
+if _vl_fout:
+    raise SystemExit("  ✖ Verder lezen:\n    " + "\n    ".join(_vl_fout))
 for _tf in ("llms.txt", "llms-full.txt", "assistent.txt", "feed.xml", "sitemap.xml"):
     _tp = os.path.join(OUT, _tf)
     if not os.path.exists(_tp): continue
