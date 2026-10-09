@@ -4319,6 +4319,22 @@ for pth, pr in urls:
     sm.append(entry + "</url>")
 sm.append("</urlset>")
 open(os.path.join(OUT, "sitemap.xml"), "w").write("\n".join(sm) + "\n")
+
+# Daarnaast één sitemap per taal, met dezelfde regels. sitemap.xml blijft de
+# volledige lijst, want de IndexNow-Action, tools/dagplan.py en
+# tools/indexeer.py lezen daar de adressen uit. De taal-sitemaps zijn er om in
+# Search Console los in te dienen: dan toont het Sitemaps-rapport per taal
+# hoeveel adressen er geïndexeerd zijn. Een adres in twee sitemaps is volgens
+# Google geen probleem.
+# sm[0] is de XML-declaratie, sm[1] de <urlset>-tag met de namespaces
+_kop, _staart = sm[0] + "\n" + sm[1], "</urlset>"
+_per_taal = {"nl": [], "en": [], "de": [], "fr": []}
+for _e in sm[2:-1]:
+    _m = re.search(r"<loc>" + re.escape(SITE) + r"/(en|de|fr)/", _e)
+    _per_taal[_m.group(1) if _m else "nl"].append(_e)
+for _l, _es in _per_taal.items():
+    open(os.path.join(OUT, f"sitemap-{_l}.xml"), "w").write("\n".join([_kop] + _es + [_staart]) + "\n")
+print("  taal-sitemaps: " + ", ".join(f"{_l} {len(_es)}" for _l, _es in _per_taal.items()))
 open(os.path.join(OUT, "robots.txt"), "w").write(f"""# vuurspuwer.com — alles mag gecrawld worden, ook door AI-assistenten.
 # Overzicht voor taalmodellen: {SITE}/llms.txt
 # Volledige inhoud in platte tekst: {SITE}/llms-full.txt
@@ -4370,6 +4386,10 @@ User-agent: CCBot
 Allow: /
 
 Sitemap: {SITE}/sitemap.xml
+Sitemap: {SITE}/sitemap-nl.xml
+Sitemap: {SITE}/sitemap-en.xml
+Sitemap: {SITE}/sitemap-de.xml
+Sitemap: {SITE}/sitemap-fr.xml
 """)
 print(f"  sitemap.xml: {len(urls)} adressen")
 

@@ -49,3 +49,7 @@ User-agent: CCBot
 Allow: /
 
 Sitemap: https://vuurspuwer.com/sitemap.xml
+Sitemap: https://vuurspuwer.com/sitemap-nl.xml
+Sitemap: https://vuurspuwer.com/sitemap-en.xml
+Sitemap: https://vuurspuwer.com/sitemap-de.xml
+Sitemap: https://vuurspuwer.com/sitemap-fr.xml
