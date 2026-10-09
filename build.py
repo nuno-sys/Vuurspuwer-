@@ -1498,6 +1498,51 @@ def _serp_kw(p, kind, emo, lang="nl"):
             seen.add(k.lower()); out.append(k)
     return ", ".join(out)
 
+# Titels en beschrijvingen voor de zoekresultaten, oktober 2026. Gekozen op
+# basis van de Search Console-export: pagina's met veel vertoningen en weinig
+# klikken. Titels tot 60 tekens en beschrijvingen tot 156, zodat Google ze niet
+# afkapt; met prijs en belofte, zonder superlatieven die niet te onderbouwen
+# zijn. None = de bestaande titel houden.
+_SERP_FIX = {
+ "vuurspuwer-inhuren": ("\U0001F525 Vuurspuwer inhuren | Vuurshow in NL & BE vanaf €350",
+   "Vuurspuwer inhuren voor je feest of bedrijfsevent? Vuurballen tot 6 meter, binnen en buiten, in heel NL & BE. €350–€1500 all-in, offerte binnen 24 uur."),
+ "fakir-show-inhuren": ("⚔️ Fakirshow boeken | Spijkerbed, glas & zwaarden | Nuno",
+   "Fakirshow boeken: spijkerbed, glaslopen en zwaarden, met het publiek als deel van de act. Binnen en zonder vuur. €350–€1500 all-in, offerte binnen 24 uur."),
+ "wat-kost-een-vuurspuwer": ("\U0001F4B6 Wat kost een vuurspuwer? Prijzen 2026: €350 tot €1500",
+   "Vuurspuwer huren: wat kost het? Power-act vanaf €350, showblok of festivalshow tot €1500, all-in inclusief reis. Alle pakketten en wat de prijs bepaalt."),
+ "entertainer-huren-voor-bedrijfsfeest": ("\U0001F3E2 Entertainer bedrijfsfeest | Vuurshow, fakir of mentalist",
+   "Entertainer huren voor je bedrijfsfeest: vuurshow als finale, fakirshow of mentalisme binnen. Heel NL & BE, €350–€1500 all-in, offerte binnen 24 uur."),
+ "halloween": (None,
+   "\U0001F383 Halloween-act boeken: duivelse vuurshow en horror-fakir, bekend van Walibi Fright Nights. Heel NL & BE vanaf €350, offerte binnen 24 uur."),
+ "videos": ("\U0001F3AC Video's van de vuurshow en fakirshow | Vuurspuwer Nuno",
+   "Bekijk video's van de vuurshows en fakiracts van Nuno op festivals, bedrijfsfeesten en bruiloften in Nederland en België. ★ 4,9/5 uit 136 reviews."),
+ "fotos": ("\U0001F4F8 Foto's van vuurshow, fakirshow en reptielenshow | Nuno",
+   "Foto's van de vuurshows, fakirshows, reptielenshow en workshops van Nuno op festivals, bedrijfsfeesten en bruiloften in NL en BE. ★ 4,9/5 uit 136 reviews."),
+ "over-nuno": ("\U0001F525 Over Nuno: vuurspuwer, fakir en mentalist uit Zeist",
+   "Nuno uit Zeist: 17 jaar vuurspuwer, fakir, mentalist en reptielenshow-artiest, bekend van SBS6, RTL 4 en VTM. Wie hij is, wat hij doet en hoe je boekt."),
+}
+
+def _stad_desc(slug, city):
+    """Een eigen beschrijving per stad. Tot oktober 2026 hadden alle
+    stadspagina's dezelfde zin met alleen een andere plaatsnaam; dat is het
+    sjabloonpatroon waarop de site is afgestraft. De buursteden per stad staan
+    al in _STAD_REGIO en maken elke beschrijving anders."""
+    regio, buren = _STAD_REGIO.get(slug, (None, None))
+    opties = []
+    if buren:
+        opties.append(f"\U0001F4CD Vuurspuwer inhuren in {city}? Nuno komt ook naar {buren}. "
+                      f"Vuurshow vanaf €350 all-in ★ 4,9/5 ✓ offerte binnen 24 uur.")
+        opties.append(f"\U0001F4CD Vuurspuwer in {city}: vuurshow vanaf €350 all-in, ook in {buren}. "
+                      f"★ 4,9/5 ✓ offerte binnen 24 uur.")
+    if regio:
+        opties.append(f"\U0001F4CD Vuurspuwer inhuren in {city} en {regio}? Vuurshow vanaf €350 all-in "
+                      f"★ 4,9/5 ✓ offerte binnen 24 uur.")
+    opties.append(f"\U0001F4CD Vuurspuwer inhuren in {city}: vuurshow, fakirshow of mentalisme vanaf €350 "
+                  f"all-in ★ 4,9/5 ✓ offerte binnen 24 uur.")
+    for o in opties:
+        if len(o) <= 156: return o
+    return opties[-1]
+
 def _serp(title, desc, p, kind, lang):
     slug = p.get("slug", "")
     topic = f"{slug} {title}"
@@ -1507,9 +1552,12 @@ def _serp(title, desc, p, kind, lang):
     if kind == "city" and lang == "nl" and slug in CITY_LABEL:
         city = CITY_LABEL[slug]
         title = f"🔥 Vuurspuwer inhuren in {city} | Vuurshow vanaf €350"
-        desc = (f"📍 Vuurspuwer Nuno in {city}: vuurshow, fakirshow & workshop "
-                f"vuurspuwen ★ 4,9/5 (136 reviews) ✓ €350–€1500 ✓ Binnen 24 uur "
-                f"een offerte voor jouw feest of event in {city}.")
+        desc = _stad_desc(slug, city)
+    elif lang == "nl" and slug in _SERP_FIX:
+        _ft, desc = _SERP_FIX[slug]
+        if _ft: title = _ft
+        elif not _has_emoji(title := _fit_title(title)):
+            title = f"{emo} {title}"
     else:
         title = _fit_title(title)
         if not _has_emoji(title):
@@ -3651,7 +3699,7 @@ _HRE_ALL = "".join(f'<link rel="alternate" hreflang="{l}" href="{SITE}{home_alts
                    for l in ("nl", "en", "de", "fr")) + \
            '<link rel="alternate" hreflang="x-default" href="https://vuurspuwer.com/">'
 _HP_TITLE = "<title>🔥 Vuurspuwer inhuren? Vuurshow &amp; Fakirshow | Nuno</title>"
-_HP_DESC = '<meta name="description" content="🔥 Dé vuurspuwer van NL &amp; BE, bekend van SBS6, RTL 4 en VTM ★ 4,9/5 (136 reviews) ✓ Vuurshow, fakirshow, mentalisme &amp; workshops ✓ €350–€1500 ✓ Binnen 24 uur offerte.">'
+_HP_DESC = '<meta name="description" content="🔥 Vuurspuwer, fakir en mentalist voor NL &amp; BE, bekend van SBS6, RTL 4 en VTM. ★ 4,9/5 (136 reviews) ✓ €350–€1500 all-in ✓ Offerte binnen 24 uur.">'
 _HP_KW = '<meta name="keywords" content="vuurspuwer inhuren, vuurspuwer boeken, vuurshow boeken, fakirshow, mentalist boeken, workshop vuurspuwen, entertainment bedrijfsfeest, artiest bruiloft, Nederland, België">'
 _HP_OGT = '<meta property="og:title" content="🔥 Vuurspuwer inhuren? Vuurshow &amp; Fakirshow | Nuno">'
 _HP_OGD = '<meta property="og:description" content="Dé vuurspuwer van NL &amp; BE, bekend van SBS6, RTL 4 en VTM ★ 4,9/5 (136 reviews). Vuurshow, fakirshow, mentalisme &amp; workshops — binnen 24 uur offerte.">'

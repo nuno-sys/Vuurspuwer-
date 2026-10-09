@@ -10,17 +10,17 @@ deelwoorden aan de beurt komen."""
 HEAD = {
  "en": {
   "title": "🔥 Hire a Fire Breather? Fire Show &amp; Fakir Show | Nuno",
-  "desc": "🔥 The Benelux&#x27; top fire breather, seen on SBS6, RTL 4 &amp; VTM ★ 4.9/5 (136 reviews) ✓ Fire shows, fakir shows, mentalism &amp; workshops ✓ €350–€1500 ✓ Quote within 24h.",
+  "desc": "🔥 Fire breather, fakir and mentalist for NL, BE, LU and the German border, seen on SBS6, RTL 4 &amp; VTM. ★ 4.9/5 (136) ✓ €350–€1500 all-in ✓ Quote in 24h.",
   "kw": "hire fire breather, book fire show, fakir show, mentalist, fire breathing workshop, event entertainment, Netherlands, Belgium",
  },
  "de": {
   "title": "🔥 Feuerspucker buchen? Feuershow &amp; Fakirshow | Nuno",
-  "desc": "🔥 Der Top-Feuerspucker der Benelux, bekannt aus SBS6, RTL 4 &amp; VTM ★ 4,9/5 (136 Bewertungen) ✓ Feuershow, Fakirshow, Mentalismus &amp; Workshops ✓ 350–1500 € ✓ Angebot in 24 h.",
+  "desc": "🔥 Feuerspucker, Fakir und Mentalist für NL, BE, LU und die Grenzregion, bekannt aus SBS6, RTL 4 &amp; VTM. ★ 4,9/5 (136) ✓ 350–1500 € inkl. ✓ Angebot in 24 h.",
   "kw": "Feuerspucker buchen, Feuershow buchen, Fakirshow, Mentalist, Workshop Feuerspucken, Event-Entertainment, Niederlande, Belgien",
  },
  "fr": {
   "title": "🔥 Engager un Cracheur de Feu ? Spectacle de Feu | Nuno",
-  "desc": "🔥 Le meilleur cracheur de feu du Benelux, vu sur SBS6, RTL 4 &amp; VTM ★ 4,9/5 (136 avis) ✓ Spectacles de feu, fakir, mentalisme &amp; ateliers ✓ 350–1500 € ✓ Devis sous 24 h.",
+  "desc": "🔥 Cracheur de feu, fakir et mentaliste aux Pays-Bas, en Belgique et au Luxembourg, vu sur SBS6, RTL 4 &amp; VTM. ★ 4,9/5 (136) ✓ Dès 350 € ✓ Devis sous 24 h.",
   "kw": "engager cracheur de feu, réserver spectacle de feu, spectacle fakir, mentaliste, atelier cracheur de feu, animation événement, Pays-Bas, Belgique",
  },
 }
