@@ -61,6 +61,10 @@ for _s in list(NP.NL):
     NP.NL[_s] = _tx("nl", _s, NP.NL[_s])
 for _s in list(OCC.NL):
     OCC.NL[_s] = _tx("nl", _s, OCC.NL[_s])
+# de vaste showpagina's (vuurshow, fakirshow, workshop, ...) halen hun tekst
+# uit pages_content.SHOW_PAGES; ook daar gaat de nieuwe tekst overheen
+for _s in list(PC.SHOW_PAGES):
+    PC.SHOW_PAGES[_s] = _tx("nl", _s, PC.SHOW_PAGES[_s])
 
 TODAY = date.today().isoformat()
 MONTHS_NL = ["", "januari", "februari", "maart", "april", "mei", "juni", "juli",

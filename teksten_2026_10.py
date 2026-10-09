@@ -757,6 +757,73 @@ OVERRIDE = {
    "Een vuurshow van Nuno kost tussen 350 en 1500 euro all-in, inclusief reis, materiaal, showvloeistof, blusmiddelen en verzekering. Een professionele vuurwerkshow is doorgaans aanzienlijk duurder, zeker als je de vergunningsaanvraag, het veiligheidsplan en de afzetting meerekent. Stuur je datum en locatie via het aanvraagformulier of WhatsApp en je hebt binnen 24 uur een offerte."),
  ],
 },
+ ("nl", "workshop-vuurspuwen"): {
+ "title": "Workshop vuurspuwen: zelf een vuurbal blazen, onder begeleiding",
+ "seo_title": "🔥 Workshop vuurspuwen | Veilig leren van Nuno, all-in",
+ "seo_desc": "Workshop vuurspuwen voor teambuilding, vrijgezellenfeest of verjaardag. Vanaf 18 jaar, één tot twee uur, op jouw locatie. All-in offerte binnen 24 uur.",
+ "body": """
+<p><strong>Een workshop vuurspuwen is een begeleide sessie waarin je onder toezicht van vuurspuwer Nuno zelf leert een vuurbal te blazen. De workshop is voor iedereen vanaf 18 jaar, duurt één tot twee uur en vindt buiten plaats op jouw locatie in Nederland of België. Nuno neemt alle materialen mee en je krijgt binnen 24 uur een all-in offerte tussen 350 en 1500 euro.</strong></p>
+
+<h2>Wat leer je tijdens een workshop vuurspuwen?</h2>
+<p>Het doel is dat iedere deelnemer die dat wil aan het eind zelf een vuurbal heeft geblazen. Daar komt meer bij kijken dan de meeste mensen denken. Je leert waarom vuurspuwen draait om vernevelen en niet om spugen, hoe je staat ten opzichte van de wind, waar je fakkel moet zijn en waar je hoofd, en wat je doet als het niet gaat zoals gepland. Daarnaast leert Nuno je vuurhappen: een vlam beheerst doven. Wie al eerder met vuur heeft gewerkt, gaat verder met variaties en het timen van meerdere vuurballen achter elkaar.</p>
+<p>Wat je niet leert, is hoe je dit thuis zelf doet. De workshop is een ervaring onder toezicht, met materiaal en een showvloeistof die Nuno meebrengt en weer meeneemt. Vuurspuwen zonder begeleiding is gevaarlijk; dat zegt hij aan het begin, en het is de eerlijkste les van de dag.</p>
+
+<h2>Vuurspuwen of vuurhappen: wat is het verschil?</h2>
+<p>Bij vuurspuwen blaas je een fijne nevel van showvloeistof langs een fakkel, en die nevel vat vlam: dat is de vuurbal. Bij vuurhappen breng je een brandende fakkel naar je mond en doof je de vlam, zonder iets te blazen. Vuurhappen ziet er voor het publiek spannender uit dan het is en is daardoor een goede eerste stap; vuurspuwen is het moment waar de groep op wacht. In de workshop komen ze allebei aan bod, in die volgorde, zodat je eerst went aan vuur dichtbij je gezicht voordat je zelf vuur maakt. Wat er natuurkundig gebeurt, staat uitgelegd in <a href="/wat-is-vuurspuwen-en-hoe-werkt-het/">wat vuurspuwen is en hoe het werkt</a>.</p>
+
+<h2>Hoe verloopt de workshop?</h2>
+<p>Nuno bouwt de workshop altijd in dezelfde volgorde op: eerst begrijpen, dan oefenen, dan vuur.</p>
+<ol>
+<li><strong>Uitleg.</strong> Wat er gebeurt als je vuur spuwt, welke vloeistof je gebruikt en waarom, welke kleding wel en niet kan, en hoe de veiligheidszone werkt. Niemand pakt een fakkel voordat dit deel klaar is.</li>
+<li><strong>Oefenen zonder vuur.</strong> Houding, adem en richting, net zo lang tot het gebaar vanzelf gaat. Hier zie je wie er klaar voor is, en wie nog even nodig heeft.</li>
+<li><strong>De vuurzone.</strong> Om de beurt stap je naar de afgezette zone, met Nuno naast je. De eerste vuurbal is meestal klein; de tweede of derde is degene waar de groep voor gaat juichen.</li>
+<li><strong>Afronding.</strong> Wie wil, gaat nog een keer. Wie genoeg heeft gezien, kijkt en moedigt aan. Meedoen is de hele middag vrijwillig.</li>
+</ol>
+<p>Het ritme van uitleg, oefenen en om de beurt naar de vuurzone maakt dat de groep de hele tijd samen bezig is. Wie niet aan de beurt is, staat aan de rand van de zone te kijken, en dat is bij vuur nooit saai.</p>
+
+<h2>Voor wie is een workshop vuurspuwen geschikt?</h2>
+<p>Voor iedereen vanaf 18 jaar, van complete beginners tot mensen die al eens met vuur hebben gewerkt. Nuno past het tempo en de moeilijkheid aan de groep aan. Lef is geen voorwaarde: juist de deelnemer die aan het begin het meest twijfelt, staat aan het eind vaak het trotst op de foto. Wie twijfelt over zijn gezondheid, bijvoorbeeld bij klachten aan de luchtwegen, overlegt dat vooraf. Niemand hoeft te spuwen; kijken mag altijd.</p>
+
+<h2>Teambuilding, vrijgezellenfeest of verjaardag</h2>
+<p><strong>Teambuilding.</strong> Collega's die elkaar normaal alleen van vergaderingen kennen, staan ineens naast elkaar in een vuurzone en moedigen elkaar aan. Dat levert meer op dan een quiz: iedereen heeft iets gedaan wat hij niet voor mogelijk hield, samen. Hoe je zo'n middag voor een bedrijf opzet, staat in <a href="/teambuilding-met-vuur-workshop-vuurspuwen-bedrijven/">teambuilding met vuur</a>.</p>
+<p><strong>Vrijgezellenfeest.</strong> De klassieker: de vrijgezel als eerste naar de zone, de vrienden als publiek, en de grootste vuurbal van de dag als afsluiter. Meer ideeën voor die dag op de pagina over het <a href="/vrijgezellenfeest/">vrijgezellenfeest</a>.</p>
+<p><strong>Verjaardag of jubileum.</strong> Een workshop maakt van een verjaardag een dag waar iedereen iets heeft gedaan in plaats van alleen gekeken. Combineer het met een <a href="/vuurshow-verjaardag/">vuurshow op de verjaardag</a> als je 's avonds ook nog iets voor de rest van de gasten wilt.</p>
+<p><strong>Verenigingen en clubs.</strong> Een sportclub, studentenvereniging of jeugdbeweging met leden vanaf 18 jaar: de workshop past goed bij een clubdag of een jaarlijks uitje.</p>
+
+<h2>Wat heeft je locatie nodig?</h2>
+<p>De workshop gebeurt buiten. Er moet genoeg vrije ruimte zijn voor een afgezette vuurzone, ver genoeg van tenten, parasols, bomen en gebouwen, en een plek waar de groep op afstand kan staan kijken. Een tuin, weiland, parkeerterrein, binnenplaats of strand werkt meestal. Wind telt mee: Nuno bepaalt ter plekke waar de zone komt, zodat je altijd met de wind mee werkt en niet ertegenin.</p>
+<p>Je hoeft zelf niets te regelen behalve de ruimte. Fakkels, showvloeistof, blusmiddelen en wat verder nodig is neemt Nuno mee. Draag kleding van natuurlijke stof en zet lang haar vast; dat krijg je vooraf ook nog op een rij.</p>
+
+<h2>Wat trek je aan en wat neem je mee?</h2>
+<p>Kleding van katoen, wol of een andere natuurlijke stof, met lange mouwen. Synthetische stoffen zoals fleece, nylon en polyester smelten bij hitte en horen niet in de buurt van een vuurzone. Zet lang haar vast, laat haarlak en gel die dag achterwege, en doe sjaals en losse kettingen af. Verder hoef je niets mee te nemen: fakkels, vloeistof en blusmiddelen komen met Nuno mee. Wel handig: iemand in de groep die niet meedoet en foto's maakt, want de eerste vuurbal van een collega of vriend wil je vastleggen.</p>
+
+<h2>Veiligheid</h2>
+<p>Veiligheid is geen hoofdstuk van de workshop, het is de manier waarop de hele workshop is opgebouwd. Je leert eerst alles over de juiste brandstof, beschermende kleding en het beperken van risico's, en pas dan komt er vuur aan te pas. Nuno werkt al zeventien jaar met vuur, is bekend van SBS6, RTL 4 en VTM, en is gecertificeerd en verzekerd. Hij zet de zone af, houdt de blusmiddelen binnen handbereik en staat bij elke poging naast de deelnemer. Lees ook <a href="/vuurspuwen-op-locatie-wat-zijn-de-veiligheidsvereisten-het-complete-antwoord-door-vuurspuwer-nuno/">welke veiligheidseisen er gelden bij vuurspuwen op locatie</a> als je je goed wilt voorbereiden.</p>
+
+<h2>Workshop en vuurshow combineren</h2>
+<p>Veel groepen kiezen voor allebei: 's middags de workshop, 's avonds een <a href="/vuurshow-boeken/">vuurshow</a> als afsluiter. De deelnemers kijken dan met andere ogen naar de show, omdat ze net hebben ervaren hoe moeilijk een kleine vuurbal al is. Je krijgt één offerte voor beide en Nuno is de hele dag je aanspreekpunt.</p>
+
+<h2>Wat kost een workshop vuurspuwen?</h2>
+<p>Een workshop kost tussen 350 en 1500 euro, afhankelijk van de groepsgrootte, de duur en de locatie. Het bedrag is all-in: reis, materiaal en verzekering zitten erin, en er komt achteraf niets bij. Combineer je de workshop met een vuurshow, dan zit ook die in dezelfde offerte. Meer over de prijsopbouw lees je op <a href="/wat-kost-een-vuurspuwer/">wat kost een vuurspuwer</a>.</p>
+
+<h2>Workshop vuurspuwen boeken</h2>
+<p>Stuur via het <a href="/contact-3/">aanvraagformulier</a> of WhatsApp je datum, locatie, het aantal deelnemers en de gelegenheid. Binnen 24 uur heb je een voorstel op maat. Lees eerst de <a href="/beoordelingen/">beoordelingen</a> als je wilt weten hoe eerdere groepen het vonden: gemiddeld 4,9 uit 5 op 136 beoordelingen.</p>
+""",
+ "faq": [
+  ("Is de workshop vuurspuwen veilig?",
+   "Ja, mits hij onder begeleiding gebeurt, en daar is de hele workshop op gebouwd. Je leert eerst alles over brandstof, kleding en risico's, oefent daarna zonder vuur en gaat pas dan om de beurt naar een afgezette zone, met Nuno naast je en blusmiddelen binnen handbereik. Vuurspuwen zonder begeleiding is wel gevaarlijk; probeer het dus nooit zelf thuis."),
+  ("Voor wie is de workshop geschikt?",
+   "Voor iedereen vanaf 18 jaar, van complete beginners tot gevorderden. Nuno past het tempo en de moeilijkheid aan het niveau en de wensen van de groep aan. Twijfel je over je gezondheid, bijvoorbeeld bij klachten aan de luchtwegen, overleg dat dan vooraf. Meedoen is altijd vrijwillig: wie liever kijkt, kijkt."),
+  ("Hoe lang duurt een workshop vuurspuwen?",
+   "Eén tot twee uur. De precieze duur hangt af van het aantal deelnemers, omdat iedereen om de beurt naar de vuurzone gaat, en van hoeveel pogingen de groep wil doen. Je spreekt de duur vooraf af, en die bepaalt mee waar je binnen de prijs van 350 tot 1500 euro uitkomt."),
+  ("Waar kan de workshop plaatsvinden?",
+   "Buiten, op een door jou gekozen plek in Nederland of België, zolang er genoeg vrije ruimte is voor een afgezette vuurzone, weg van tenten, bomen en gebouwen. Een tuin, weiland, parkeerterrein, binnenplaats of strand werkt meestal. Nuno neemt alle materialen mee en bepaalt ter plekke met de wind waar de zone komt."),
+  ("Kunnen we de workshop combineren met een vuurshow?",
+   "Ja, dat is een veelgekozen opzet: 's middags de workshop voor de groep, 's avonds een vuurshow als afsluiter voor alle gasten. De deelnemers kijken dan met andere ogen naar de show. Je krijgt één all-in offerte voor beide en Nuno is de hele dag je aanspreekpunt."),
+  ("Wat kost een workshop vuurspuwen?",
+   "Tussen 350 en 1500 euro, afhankelijk van de groepsgrootte, de duur en de locatie. Reis, materiaal en verzekering zitten in het bedrag, dus de offerte is wat je betaalt. Vraag vrijblijvend een offerte aan via het formulier, telefoon of WhatsApp; je hebt binnen 24 uur een voorstel op maat."),
+ ],
+},
 }
 
 # nieuwe Nederlandse pagina's, in de vorm van nieuwe_paginas.NL
