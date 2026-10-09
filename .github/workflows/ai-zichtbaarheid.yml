@@ -1,0 +1,80 @@
+# Elke maandag: kunnen AI-crawlers de site lezen, en noemen ChatGPT, Gemini,
+# Claude en Perplexity Nuno als je ze vraagt naar een vuurspuwer, fakir of
+# mentalist? Resultaat in ai-zichtbaarheid/RAPPORT.md.
+#
+# De toegangscontrole draait altijd en kost niets. De meting per assistent
+# draait alleen voor de aanbieders waarvan een sleutel als repository-geheim
+# bestaat: ANTHROPIC_API_KEY, OPENAI_API_KEY, GEMINI_API_KEY,
+# PERPLEXITY_API_KEY. Ontbreken ze allemaal, dan wordt alleen de toegang
+# gecontroleerd. Een ander model kiezen kan met een repository-variabele
+# (ANTHROPIC_MODEL, OPENAI_MODEL, GEMINI_MODEL, PERPLEXITY_MODEL).
+name: AI-zichtbaarheid
+on:
+  schedule:
+    # maandag 05:37 UTC, voor de dagelijkse indexering
+    - cron: "37 5 * * 1"
+  workflow_dispatch:
+    inputs:
+      max:
+        description: "Alleen de eerste N vragen (leeg = alle 20)"
+        required: false
+        default: ""
+permissions:
+  contents: write
+concurrency:
+  group: ai-zichtbaarheid
+  cancel-in-progress: false
+jobs:
+  meten:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Verwerking testen
+        run: AI_ZICHT_GEEN_NET=1 python3 tools/ai_zichtbaarheid.py --zelftest
+
+      - name: Toegang voor AI-crawlers (live)
+        continue-on-error: true
+        run: python3 tools/ai_zichtbaarheid.py --toegang
+
+      - name: Meting bij de AI-assistenten
+        continue-on-error: true
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
+          ANTHROPIC_MODEL: ${{ vars.ANTHROPIC_MODEL }}
+          OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
+          PERPLEXITY_MODEL: ${{ vars.PERPLEXITY_MODEL }}
+          MAX_VRAGEN: ${{ github.event.inputs.max }}
+        run: |
+          if [ -n "$ANTHROPIC_API_KEY" ]; then pip install --quiet anthropic; fi
+          python3 tools/ai_zichtbaarheid.py ${MAX_VRAGEN:+--max "$MAX_VRAGEN"}
+
+      - name: Rapport vastleggen
+        if: always()
+        run: |
+          git config user.name  "vuurspuwer-indexeerbot"
+          git config user.email "nuno@vuurspuwer.com"
+          git add ai-zichtbaarheid/
+          if git diff --cached --quiet; then
+            echo "Niets gewijzigd."
+          else
+            git commit -m "AI-zichtbaarheid $(date -u +%F) [skip ci]"
+            git pull --rebase --autostash origin main
+            git push origin HEAD:main
+          fi
+
+      - name: Samenvatting
+        if: always()
+        run: cat ai-zichtbaarheid/RAPPORT.md >> "$GITHUB_STEP_SUMMARY"
