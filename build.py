@@ -3590,14 +3590,69 @@ for slug in pages:
     elif base in ("contact", "contact-me") and slug not in kept:
         lines.append(f"/{slug}/  /contact-3/  301")
 
-# 2. stadspagina's die niet meegaan, naar de locatiepagina
+# 2. stadspagina's die niet meegaan.
+#
+# Hier stond tot oktober 2026 één regel: alles naar de locatiehub. Dat leverde
+# 716 omleidingen naar één pagina op, en dat is precies verkeerd. Google
+# behandelt een 301 naar een pagina die de zoekvraag niet beantwoordt als een
+# soft 404: de bron verdwijnt en het doel erft niets. Erger nog, een netwerk van
+# honderden doorway-adressen dat in één pagina samenkomt leest als een nieuw
+# netwerk in plaats van als opruiming — en juist daarop is deze site op
+# 21 augustus 2026 door de spam update geraakt.
+#
+# Daarom drie uitkomsten in plaats van één:
+#   a. bestaat er een pagina over dezelfde stad? -> 301 daarheen (echte 1-op-1)
+#   b. verdiende de pagina aantoonbaar verkeer?  -> die staat in kept, komt hier niet
+#   c. de rest -> géén regel, dus een eerlijke 404. Dat is wat Google voorschrijft
+#      voor een pagina die weg is zonder vervanging, en het is de snelste manier
+#      om de doorway-voetafdruk uit de index te krijgen.
 HUB = "/locaties-vuurshows-nederland-belgie/"
-dropped = 0
+
+# plaatsnaam (zoals hij in een oud adres voorkomt) -> de stadspagina die bestaat
+_STAD_1OP1 = {
+ "amsterdam": "vuurspuwer-boeken-in-amsterdam",
+ "rotterdam": "vuurspuwer-boeken-in-rotterdam",
+ "den-haag": "vuurspuwer-boeken-in-den-haag",
+ "s-gravenhage": "vuurspuwer-boeken-in-den-haag",
+ "utrecht": "vuurspuwer-boeken-in-utrecht",
+ "eindhoven": "vuurspuwer-boeken-in-eindhoven",
+ "groningen": "vuurspuwer-boeken-in-groningen",
+ "tilburg": "vuurspuwer-boeken-in-tilburg",
+ "breda": "vuurspuwer-boeken-in-breda",
+ "antwerpen": "vuurspuwer-boeken-in-antwerpen",
+ "gent": "vuurspuwer-boeken-in-gent",
+ "brussel": "vuurspuwer-boeken-in-brussel",
+ "bruxelles": "vuurspuwer-boeken-in-brussel",
+ "brugge": "vuurspuwer-boeken-in-brugge",
+ "leuven": "vuurspuwer-boeken-in-leuven",
+ "liege": "vuurspuwer-boeken-in-liege",
+ "luik": "vuurspuwer-boeken-in-liege",
+ "mechelen": "vuurspuwer-boeken-in-mechelen",
+}
+_STAD_RX = [(re.compile(r"(?:^|-)" + re.escape(_p) + r"(?:-|$)"), _d)
+            for _p, _d in _STAD_1OP1.items()]
+
+def _zelfde_stad(slug):
+    """Het adres van de stadspagina over dezelfde stad, of None.
+
+    Alleen een echte naamovereenkomst telt. Een pagina over Zwolle naar
+    Groningen sturen omdat beide in het noorden liggen is géén vervanging;
+    daarvoor is 404 het juiste antwoord."""
+    for _rx, _doel in _STAD_RX:
+        if _rx.search(slug): return f"/{_doel}/"
+    return None
+
+dropped = 0      # 301 naar dezelfde stad
+weggevallen = 0  # bewust geen regel: 404
 for slug, p in pages.items():
     if slug in kept: continue
     if re.search(r"vuurspuw|vuurshow", slug) and re.search(r"boeken|inhuren|huren|in-", slug):
-        lines.append(f"/{slug}/  {HUB}  301")
-        dropped += 1
+        _doel = _zelfde_stad(slug)
+        if _doel:
+            lines.append(f"/{slug}/  {_doel}  301")
+            dropped += 1
+        else:
+            weggevallen += 1
 
 # 2b. de opgeheven matrixpagina's naar de stadspagina van dezelfde stad
 for _van, _naar in _MATRIX_OM.items():
@@ -3619,15 +3674,24 @@ def _dichtstbij(slug):
     if re.search(r"verjaardag", slug):            return "/vuurshow-verjaardag/"
     if re.search(r"festival", slug):              return "/vuurshow-festival/"
     if re.search(r"entertainer", slug):           return "/entertainer-huren/"
-    # stads- en locatieberichten (vuurspuwer-<plaats>-...) horen bij de hub
-    if re.search(r"vuurspuw|vuurshow|vlammen", slug):   return HUB
-    return "/"
+    # stads- en locatieberichten (vuurspuwer-<plaats>-...): alleen naar de
+    # stadspagina als het écht dezelfde stad is. Anders niets: een 404 is
+    # eerlijker dan een omleiding naar een pagina over een andere plaats.
+    _zs = _zelfde_stad(slug)
+    if _zs: return _zs
+    if re.search(r"vuurspuw|vuurshow|vlammen", slug):   return None
+    # Naar de homepage sturen is nooit goed: Google ziet dat als soft 404.
+    return None
 rest = 0
 for slug in pages:
     if slug in kept: continue
     if any(l.startswith(f"/{slug}/ ") or l.startswith(f"/{slug}/\t") for l in lines): continue
     if f"/{slug}/  {HUB}  301" in lines: continue
-    lines.append(f"/{slug}/  {_dichtstbij(slug)}  301")
+    _d = _dichtstbij(slug)
+    if not _d:
+        weggevallen += 1
+        continue
+    lines.append(f"/{slug}/  {_d}  301")
     rest += 1
 
 # 4. de hernoemde adressen: het oude cijferadres naar het schone
@@ -3658,6 +3722,63 @@ _VERDWENEN = {
     "/vuurspuwer-inhuren-in-amersfoort/": HUB,
     "/entertainment/vuurspuwer-vuurshow/": "/vuurspuwer-inhuren/",
     "/offerte-aanvragen/": "/contact-3/",
+
+    # Oktober 2026: toen de 716 blinde omleidingen naar de locatiehub vervielen
+    # (zie stap 2) bleken blogteksten nog naar 36 van die adressen te linken.
+    # Een levende pagina mag nooit naar een 404 wijzen, dus krijgen ze hier een
+    # doel. Voor de gelegenheidspagina's bestaat een échte vervanging; de
+    # stadsartikelen gaan naar de locatiepagina, want dat is voor een lezer die
+    # op "vuurspuwer in Deventer" klikt de juiste bestemming.
+    "/vuurspuwer-boeken-voor-een-1001-nacht-themafeest-de-ultieme-spectaculaire-ervaring/":
+        "/vuurspuwer-boeken-voor-1001-nacht-themafeest/",
+    "/vuurspuwer-boeken-voor-een-caribean-themafeest-de-ultieme-spectaculaire-ervaring/":
+        "/vuurspuwer-boeken-voor-caribean-themafeest/",
+    "/vuurspuwer-boeken-voor-een-buurtfeest-de-ultieme-spectaculaire-ervaring/":
+        "/vuurspuwer-boeken-voor-buurtfeest/",
+    "/vuurspuwer-boeken-voor-een-vrijgezellenfeest-de-ultieme-spectaculaire-ervaring/":
+        "/vrijgezellenfeest/",
+    "/vuurspuwer-boeken-voor-vrijgezellenfeest/": "/vrijgezellenfeest/",
+    "/vuurspuwer-boeken-voor-een-eindejaarsfeest-de-ultieme-spectaculaire-ervaring/":
+        "/kerst-nieuwjaar-entertainment/",
+    "/vuurspuwer-boeken-voor-een-winter-wonderland-feest-de-ultieme-spectaculaire-ervaring/":
+        "/kerst-nieuwjaar-entertainment/",
+    "/vuurspuwer-boeken-voor-een-jubileum-de-ultieme-spectaculaire-ervaring/":
+        "/vuurshow-bedrijfsfeest/",
+    "/vuurspuwer-boeken-voor-jubileum/": "/vuurshow-bedrijfsfeest/",
+    "/vuurspuwer-boeken-voor-een-openingsceremonie-de-ultieme-spectaculaire-ervaring/":
+        "/vuurshow-bedrijfsfeest/",
+    "/vuurspuwer-boeken-voor-een-productlancering-de-ultieme-spectaculaire-ervaring/":
+        "/vuurspuwer-boeken-voor-promotiefeest/",
+    "/vuurspuwer-boeken-voor-een-sportevenement-de-ultieme-spectaculaire-ervaring/":
+        "/vuurshow-festival/",
+    "/vuurspuwer-boeken-voor-een-verloving-de-ultieme-spectaculaire-ervaring/":
+        "/vuurshow-bruiloft/",
+    "/vuurspuwer-inhuren-of-boeken/": "/vuurspuwer-inhuren/",
+    "/wat-zijn-de-kosten-van-een-professionele-vuurspuwer-het-complete-antwoord-door-vuurspuwer-nuno/":
+        "/wat-kost-een-vuurspuwer/",
+    "/de-betekenis-en-geschiedenis-van-vuurspuwers/":
+        "/wat-is-de-geschiedenis-van-vuurspuwen-het-complete-antwoord-door-vuurspuwer-nuno/",
+    # stadsartikelen waar blogteksten nog naar linken
+    "/spectaculaire-vuurspuwer-bocholt-een-vlammende-toevoeging-aan-uw-feest/": HUB,
+    "/vuurspuwer-berlare-zet-uw-evenement-in-vuur-en-vlam-aan-het-donkmeer/": HUB,
+    "/vuurspuwer-deventer-breng-vlammende-magie-naar-de-hanzestad/": HUB,
+    "/vuurspuwer-edam-volendam-zet-de-dijk-in-vuur-en-vlam/": HUB,
+    "/vuurspuwer-goes-vlammend-entertainment-in-het-hart-van-zeeland/": HUB,
+    "/vuurspuwer-in-altena-inhuren-zet-uw-evenement-in-vuur-en-vlam/": HUB,
+    "/vuurspuwer-inhuren-in-albrandswaard-zet-uw-evenement-in-vuur-en-vlam/": HUB,
+    "/vuurspuwer-inhuren-in-bad-bentheim-zet-uw-event-in-vuur-en-vlam/": HUB,
+    "/vuurspuwer-inhuren-in-harlingen-vlammend-spektakel-aan-de-waddenzee/": HUB,
+    "/vuurspuwer-inhuren-in-hendrik-ido-ambacht-spectaculair-entertainment/": HUB,
+    "/vuurspuwer-inhuren-in-ledegem-zet-je-feest-in-vuur-en-vlam/": HUB,
+    "/vuurspuwer-inhuren-in-lille-zet-de-kempen-in-vuur-en-vlam/": HUB,
+    "/vuurspuwer-inhuren-in-rijssen-holten-zet-uw-evenement-in-vuur-en-vlam/": HUB,
+    "/vuurspuwer-inhuren-in-sint-laureins-magie-in-het-meetjesland/": HUB,
+    "/vuurspuwer-inhuren-in-sint-michielsgestel-maak-uw-event-onvergetelijk/": HUB,
+    "/vuurspuwer-inhuren-in-tholen-een-vlammende-toevoeging-aan-uw-evenement/": HUB,
+    "/vuurspuwer-inhuren-in-vlieland-maak-uw-eiland-event-onvergetelijk/": HUB,
+    "/vuurspuwer-moerbeke-inhuren-breng-vurige-magie-naar-het-waasland/": HUB,
+    "/vuurspuwer-retie-zet-jouw-evenement-in-vlam-en-vuur/": HUB,
+    "/vuurspuwer-vught-spectaculair-entertainment-voor-elk-evenement/": HUB,
 }
 _VENUE = re.compile(r"entertainment-bij-|event-bij-|feest-bij-|avond-bij-|avond-in-het-|"
                     r"evenement-bij-|spektakel-bij-|knokke-heist|kasteel|zalmhuis|vismijn|"
@@ -3702,7 +3823,107 @@ for _van, _naar in _SAMENVOEGEN.items():
 print(f"  samengevoegd: {len(_SAMENVOEGEN)} dubbele gelegenheidspagina's naar hun sterkste "
       f"versie ({_sv_over} preciezer dan de patroonregel)")
 
-_404 = _overruled = 0
+# Oktober 2026. In redirects-404.tsv stonden 494 van de 648 adressen op drie
+# algemene taalpagina's: /en/fire-show/, /de/feuershow/ en /fr/spectacle-de-feu/.
+# Dat is dezelfde trechter als de locatiehub en dus dezelfde fout: Google telt
+# een 301 naar een pagina die de zoekvraag niet beantwoordt als soft 404.
+# Hieronder krijgt elk adres eerst de kans op een pagina die het onderwerp wél
+# draagt; lukt dat niet, dan vervalt de regel en geeft het adres een eerlijke
+# 404 — het juiste antwoord voor een pagina die weg is zonder vervanging.
+_GENERIEK = {"/en/fire-show/", "/de/feuershow/", "/fr/spectacle-de-feu/"}
+_ONDERWERP = {
+ "de": [
+  (r"aachen|aken", "/de/feuerspucker-aachen/"),
+  (r"krefeld", "/de/feuerspucker-krefeld/"),
+  (r"kleve|kleef", "/de/feuerspucker-kleve/"),
+  (r"duisburg", "/de/feuerspucker-duisburg/"),
+  (r"d[uü]sseldorf|duesseldorf", "/de/feuerspucker-duesseldorf/"),
+  (r"m[oö]nchengladbach|moenchengladbach", "/de/feuerspucker-moenchengladbach/"),
+  (r"kaldenkirchen", "/de/feuerspucker-kaldenkirchen/"),
+  (r"fakir", "/de/fakirshow/"),
+  (r"workshop|kurs", "/de/feuerspucker-workshop/"),
+  (r"kosten|preis|prijs|tarif", "/de/feuerspucker-kosten/"),
+  (r"hochzeit|bruiloft|huwelijk|trouw|mariage", "/de/feuershow-hochzeit/"),
+  (r"firmenfeier|bedrijfsfeest|personeelsfeest|firmen", "/de/feuershow-firmenfeier/"),
+  (r"geburtstag|verjaardag", "/de/feuershow-geburtstag/"),
+  (r"festival", "/de/feuershow-festival/"),
+  (r"weihnacht|silvester|kerst|nieuwjaar|neujahr", "/de/weihnachtsfeier-silvester-show/"),
+  (r"junggesellen|vrijgezellen", "/de/junggesellenabschied/"),
+  (r"feuerwerk|vuurwerk", "/de/feuerwerk-alternative/"),
+  (r"halloween", "/de/halloween/"),
+  (r"glossar|lexikon|begriff", "/de/feuer-glossar/"),
+  (r"nuno|ueber|über|about|over-nuno", "/de/ueber-nuno/"),
+  (r"kontakt|contact|offerte|angebot", "/de/kontakt/"),
+  (r"video|film", "/de/videos/"),
+  (r"foto|bild", "/de/fotos/"),
+  (r"bewertung|review|beoordeling|referenz", "/de/bewertungen/"),
+  (r"feuerspuck|feuerschluck|mieten|buchen|feuershow", "/de/feuershow/"),
+ ],
+ "en": [
+  (r"fakir", "/en/fakir-show/"),
+  (r"workshop|course|lesson", "/en/fire-breathing-workshop/"),
+  (r"price|cost|prijs|kosten|rate|quote", "/en/fire-breather-prices/"),
+  (r"wedding|bruiloft|huwelijk|marriage", "/en/fire-show-wedding/"),
+  (r"corporate|company|business|bedrijfsfeest|personeelsfeest", "/en/fire-show-corporate-event/"),
+  (r"birthday|verjaardag", "/en/fire-show-birthday/"),
+  (r"festival", "/en/fire-show-festival/"),
+  (r"christmas|new-year|kerst|nieuwjaar", "/en/christmas-new-year-entertainment/"),
+  (r"bachelor|stag|hen-party|vrijgezellen", "/en/bachelor-party-activity/"),
+  (r"firework|vuurwerk", "/en/fireworks-alternative/"),
+  (r"halloween", "/en/halloween/"),
+  (r"glossary|terms", "/en/fire-glossary/"),
+  (r"nuno|about", "/en/about-nuno/"),
+  (r"contact|quote", "/en/contact/"),
+  (r"video", "/en/videos/"),
+  (r"photo|foto", "/en/photos/"),
+  (r"review|beoordeling|testimonial", "/en/reviews/"),
+  (r"fire-breath|fire-eat|hire|fire-show", "/en/fire-show/"),
+ ],
+ "fr": [
+  (r"bruxelles|brussel", "/fr/cracheur-de-feu-bruxelles/"),
+  (r"charleroi", "/fr/cracheur-de-feu-charleroi/"),
+  (r"li[eè]ge|luik", "/fr/cracheur-de-feu-liege/"),
+  (r"mons|bergen", "/fr/cracheur-de-feu-mons/"),
+  (r"namur|namen", "/fr/cracheur-de-feu-namur/"),
+  (r"fakir", "/fr/spectacle-de-fakir/"),
+  (r"atelier|workshop|stage", "/fr/atelier-cracheur-de-feu/"),
+  (r"prix|tarif|co[uû]t|prijs|kosten", "/fr/prix-cracheur-de-feu/"),
+  (r"mariage|bruiloft|huwelijk|noce", "/fr/spectacle-de-feu-mariage/"),
+  (r"entreprise|corporate|bedrijfsfeest|personeelsfeest", "/fr/spectacle-de-feu-entreprise/"),
+  (r"anniversaire|verjaardag", "/fr/spectacle-de-feu-anniversaire/"),
+  (r"festival", "/fr/spectacle-de-feu-festival/"),
+  (r"no[eë]l|nouvel-an|kerst|nieuwjaar", "/fr/spectacle-noel-nouvel-an/"),
+  (r"evjf|evg|enterrement|vrijgezellen", "/fr/evjf-evg-activite/"),
+  (r"feu-d-artifice|feu-artifice|vuurwerk", "/fr/alternative-feu-artifice/"),
+  (r"halloween", "/fr/halloween/"),
+  (r"glossaire|lexique", "/fr/glossaire-du-feu/"),
+  (r"nuno|propos|about", "/fr/a-propos-de-nuno/"),
+  (r"contact|devis", "/fr/contact/"),
+  (r"video|film", "/fr/videos/"),
+  (r"photo|foto", "/fr/photos/"),
+  (r"avis|review|beoordeling", "/fr/avis/"),
+  (r"cracheur|spectacle-de-feu|souffleur", "/fr/spectacle-de-feu/"),
+ ],
+}
+_ONDERWERP_RX = {_l: [(re.compile(_rx, re.I), _d) for _rx, _d in _v]
+                 for _l, _v in _ONDERWERP.items()}
+
+def _preciezer(bron, doel):
+    """Een doel dat het onderwerp van het oude adres echt draagt, of None.
+
+    None betekent bewust géén omleiding: dat adres geeft een 404. Dat is
+    eerlijker dan honderden losse onderwerpen op één algemene showpagina
+    laten uitkomen, want dat is wat Google als doorway-netwerk leest."""
+    if doel not in _GENERIEK: return doel
+    _m = re.match(r"^/(en|de|fr)/", bron)
+    if not _m: return doel
+    _pad = urllib.parse.unquote(bron)
+    for _rx, _d in _ONDERWERP_RX[_m.group(1)]:
+        if _rx.search(_pad): return _d if _bestaat(_d) else None
+    return None
+
+_404 = _overruled = _vervallen = 0
+_preciezer_n = 0
 if os.path.exists("redirects-404.tsv"):
     for _r in open("redirects-404.tsv", encoding="utf-8"):
         if _r.startswith("#") or "\t" not in _r: continue
@@ -3712,6 +3933,13 @@ if os.path.exists("redirects-404.tsv"):
             raise SystemExit(f"  \u2716 {_bron} staat in redirects-404.tsv maar bestaat wél")
         if not _bestaat(_doel):
             raise SystemExit(f"  \u2716 omleidingsdoel bestaat niet: {_doel} (bron {_bron})")
+        _fijner = _preciezer(_bron, _doel)
+        if _fijner is None:
+            _vervallen += 1
+            continue
+        if _fijner != _doel:
+            _doel = _fijner
+            _preciezer_n += 1
         # Dit bestand is met de hand samengesteld uit echte Search Console-
         # data en wint daarom van de grovere patroonregels hierboven (die
         # bijvoorbeeld élk adres met "vuurspuwer"+"boeken" naar de
@@ -3726,7 +3954,8 @@ if os.path.exists("redirects-404.tsv"):
         lines.append(f"{_bron_enc}  {_doel}  301")
         _404 += 1
     print(f"  oude Google-adressen omgeleid: {_404} uit redirects-404.tsv "
-          f"({_overruled} preciezer dan de patroonregel)")
+          f"({_overruled} preciezer dan de patroonregel, {_preciezer_n} naar een pagina "
+          f"over het eigen onderwerp, {_vervallen} vervallen naar 404)")
 
 # Eén regel per bron (de eerste wint, zoals Cloudflare het ook leest) en
 # geen kettingen: elke omleiding wijst meteen naar het eindadres. Een
@@ -3760,9 +3989,10 @@ for _bron in _RD:
         raise SystemExit(f"  ✖ {_bron} is omgeleid én gebouwd — dat is een duplicaat")
 
 open(os.path.join(OUT, "_redirects"), "w").write("\n".join(lines) + "\n")
-print(f"  _redirects: {len(lines)-2} regels ({dropped} stadspagina's naar de hub, "
+print(f"  _redirects: {len(lines)-2} regels ({dropped} naar de pagina over dezelfde stad, "
       f"{len(_MATRIX_OM)} matrixpagina's naar hun stad, {rest} overig; "
       f"{_dubbel} dubbele bronnen verwijderd, {_kettingen} kettingen opgelost)")
+print(f"  bewust zonder regel (404): {weggevallen} oude doorway-adressen zonder vervanging")
 
 # sitemap — met xhtml-alternates voor alle taalversies
 _TOP_PAGES = {"halloween", "wat-kost-een-vuurspuwer",
