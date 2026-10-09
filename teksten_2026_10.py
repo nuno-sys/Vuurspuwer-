@@ -66,7 +66,7 @@ OVERRIDE = {
 <h2>Kulisse am Wasser und in der Altstadt</h2>
 <p>Viele Veranstalter wünschen sich Feuer vor einer markanten Kulisse: die Rheinpromenade bei Dämmerung, die Architektur im Medienhafen, eine Dachterrasse mit Blick über die Stadt. Solche Orte sind fotogen, haben aber ihre Eigenheiten. Unter freiem Himmel braucht die volle Show eine Grundfläche von rund sechs auf sechs Metern und ebenso viel Raum nach oben – auf einer Dachterrasse mit Markisen oder Rankgerüsten ist das nicht selbstverständlich. In den Innenhöfen der Altstadt ist meist die Höhe der begrenzende Faktor, nicht die Breite. Öffentliche Flächen wie das Rheinufer gehören nicht einer Location, sondern der Stadt; dort ist eine Abstimmung mit dem Ordnungsamt sinnvoll. Die Meldung macht der Veranstalter, Nuno liefert die nötigen Angaben dazu.</p>
 <h2>Wenn kein offenes Feuer erlaubt ist</h2>
-<p>Messehallen, manche Hotels und Säle mit empfindlicher Brandmeldeanlage schließen offene Flammen grundsätzlich aus. Dann muss das Programm nicht ausfallen. Drinnen funktionieren eine <a href="/de/fakirshow/">Fakirshow</a> mit Nagelbrett, Glas und Schwertern oder Mentalismus ohne jede Flamme. Ist der Saal hoch genug und gut belüftet, ist eine Feuershow drinnen möglich, mit niedrigeren Flammen und mehr Gewicht auf Jonglage und Body Fire. Das klären Sie am besten frühzeitig mit der Haustechnik. Eine Feuershow ist übrigens keine Pyrotechnik; ein Pyrotechniker ist nicht nötig.</p>
+<p>Messehallen, manche Hotels und Säle mit empfindlicher Brandmeldeanlage schließen offene Flammen grundsätzlich aus. Dann muss das Programm nicht ausfallen. Drinnen funktionieren eine <a href="/de/fakirshow/">Fakirshow</a> mit Nagelbrett, Glas und Schwertern oder <a href="/de/mentalist-buchen/">Mentalismus</a> ohne jede Flamme. Ist der Saal hoch genug und gut belüftet, ist eine Feuershow drinnen möglich, mit niedrigeren Flammen und mehr Gewicht auf Jonglage und Body Fire. Das klären Sie am besten frühzeitig mit der Haustechnik. Eine Feuershow ist übrigens keine Pyrotechnik; ein Pyrotechniker ist nicht nötig.</p>
 <h2>Feuershow zur Hochzeit in Düsseldorf</h2>
 <p>Bei Hochzeiten gelten im Prinzip dieselben Fragen, nur dass das Brautpaar sie selten selbst stellen möchte. Geben Sie Nuno einfach den Kontakt Ihrer Location oder Ihres Hochzeitsplaners, dann wird der Rest direkt abgestimmt. Gut passt der Showblock nach dem Eröffnungstanz oder zur blauen Stunde draußen. Mehr dazu unter <a href="/de/feuershow-hochzeit/">Feuershow Hochzeit</a>.</p>
 <h2>Preis, Rechnung und Anfrage</h2>
@@ -211,7 +211,7 @@ OVERRIDE = {
 <h2>Was in Krefeld als Fläche funktioniert</h2>
 <p>Am Rheinufer in Uerdingen, auf der Promenade oder einer Wiese am Deich, steht die Show frei und ohne Höhenbegrenzung. Rund um Burg Linn gibt es Gärten und Hofflächen, die zu einer Hochzeit im historischen Rahmen passen, ohne dass die Flammen an ein Dach stoßen. Im Stadtwald und in den Parks am Rand von Bockum und Verberg ist meist die Baumkrone das, was Nuno zuerst anschaut. In der Innenstadt um Theaterplatz, Ostwall und Dionysiusplatz wird es enger; ein Innenhof oder ein Parkplatz hinter dem Gebäude ist dort realistischer als die Straße selbst. Die Faustregel bleibt überall gleich: rund sechs mal sechs Meter frei, sechs Meter nach oben, Abstand zu Zelten, Schirmen und Markisen. Nuno sieht sich vorab Fotos an und am Tag selbst die Fläche.</p>
 <h2>Hochzeit, Geburtstag, Stadtfest: Feuerspucker für private Feiern</h2>
-<p>Nicht jede Anfrage aus Krefeld kommt von einer Firma. Eine Hochzeit in Linn oder Hüls, ein runder <a href="/de/feuershow-geburtstag/">Geburtstag</a> im Garten in Traar, ein Straßenfest in Oppum oder ein Vereinsabend in Fischeln: Überall gilt dasselbe Angebot, derselbe Aufbau, dieselbe Vorbereitung. Für den privaten Rahmen ist der Power-Act von zehn Minuten oft die richtige Länge, weil er als Überraschung funktioniert, ohne den Abend zu dominieren. Wer die Gäste länger draußen halten will, nimmt den Showblock von zwanzig Minuten oder lässt Nuno nach dem Feuer mit einem Block Mentalismus weitermachen, der auch drinnen und ohne Flamme funktioniert.</p>
+<p>Nicht jede Anfrage aus Krefeld kommt von einer Firma. Eine Hochzeit in Linn oder Hüls, ein runder <a href="/de/feuershow-geburtstag/">Geburtstag</a> im Garten in Traar, ein Straßenfest in Oppum oder ein Vereinsabend in Fischeln: Überall gilt dasselbe Angebot, derselbe Aufbau, dieselbe Vorbereitung. Für den privaten Rahmen ist der Power-Act von zehn Minuten oft die richtige Länge, weil er als Überraschung funktioniert, ohne den Abend zu dominieren. Wer die Gäste länger draußen halten will, nimmt den Showblock von zwanzig Minuten oder lässt Nuno nach dem Feuer mit einem Block <a href="/de/mentalist-buchen/">Mentalismus</a> weitermachen, der auch drinnen und ohne Flamme funktioniert.</p>
 <h2>Was kostet eine Feuershow in Krefeld?</h2>
 <p>Ab 350 Euro, nach oben bis 1500 Euro, je nach Anzahl und Länge der Blöcke und danach, ob eine zweite Disziplin wie Fakir oder Mentalismus dazukommt. Anfahrt aus Zeist, Showflüssigkeit und Löschmittel sind enthalten, es gibt keine getrennten Fahrtkosten. Für Unternehmen wichtig: Nuno stellt eine niederländische Rechnung mit Umsatzsteuer-ID, sodass die Buchhaltung die Leistung wie bei anderen Lieferanten aus den Niederlanden verbuchen kann. Was den Preis innerhalb der Spanne bestimmt, steht unter <a href="/de/feuerspucker-kosten/">Feuerspucker Kosten</a>.</p>
 <h2>Pyrotechnik, Ordnungsamt, Versicherung: die Regeln in Deutschland</h2>
@@ -253,7 +253,7 @@ OVERRIDE = {
 <li><strong>Showblock, 20 Minuten:</strong> der vollständige Aufbau von der Jonglage bis zum Feuerspucken. Diese Länge wird am häufigsten gebucht.</li>
 <li><strong>Mehrere Blöcke:</strong> über den Abend verteilt, zum Beispiel ein Block bei Einbruch der Dunkelheit und ein zweiter kurz vor Mitternacht.</li>
 </ul>
-<p>Für eine <a href="/de/feuershow-hochzeit/">Feuershow zur Hochzeit</a> passt meist der Showblock, bei einer <a href="/de/feuershow-firmenfeier/">Firmenfeier</a> wird die Show gern mit Mentalismus oder einer <a href="/de/fakirshow/">Fakirshow</a> kombiniert, damit es auch drinnen etwas zu sehen gibt.</p>
+<p>Für eine <a href="/de/feuershow-hochzeit/">Feuershow zur Hochzeit</a> passt meist der Showblock, bei einer <a href="/de/feuershow-firmenfeier/">Firmenfeier</a> wird die Show gern mit <a href="/de/mentalist-buchen/">Mentalismus</a> oder einer <a href="/de/fakirshow/">Fakirshow</a> kombiniert, damit es auch drinnen etwas zu sehen gibt.</p>
 <h2>Wie viel Platz braucht die Show auf dem Vereinsgelände?</h2>
 <p>Draußen rechnen Sie mit ungefähr sechs mal sechs Metern Platz und sechs Metern Luft nach oben. Wichtig ist der Abstand zu Festzelten, Pavillons, Sonnenschirmen und tief hängenden Ästen. Ein Sportplatz, ein Schotterparkplatz neben dem Vereinsheim oder der Hof eines Bauernhofs am Stadtrand reichen in der Regel aus. Drinnen geht es auch, wenn der Saal hoch genug ist und gut belüftet wird; dann bleiben die Flammen niedriger, und Jonglage und Body Fire stehen stärker im Mittelpunkt. Nuno ist vor Beginn rechtzeitig da, geht die Fläche mit Ihnen ab, steckt eine Sicherheitszone ab und bringt eigene Löschmittel mit.</p>
 <h2>Muss ich die Feuershow beim Ordnungsamt anmelden?</h2>
@@ -285,7 +285,7 @@ OVERRIDE = {
 <h2>Un public bilingue, souvent international</h2>
 <p>À Bruxelles, une même salle réunit facilement francophones, néerlandophones et collègues venus de toute l'Europe. Le feu se passe de traduction, mais l'introduction et les échanges avec le public comptent pour que la salle suive. Nuno les assure en français, en néerlandais, en anglais ou en allemand, et passe de l'une à l'autre si le public est mélangé. Pour un événement d'entreprise ou d'organisation dans le quartier européen, l'anglais sert souvent de langue commune ; quand vraiment personne ne partage la même langue, il peut aussi jouer presque sans paroles.</p>
 <h2>Cracher du feu dans une salle du centre : tout dépend du plafond</h2>
-<p>Beaucoup d'événements bruxellois se tiennent à l'intérieur : anciens entrepôts reconvertis, salles de réception sous verrière, hôtels, espaces de conférence. Une animation feu y est possible si la hauteur sous plafond est suffisante et la ventilation bonne. Les flammes restent alors plus basses et le spectacle met l'accent sur la jonglerie de feu et le body fire plutôt que sur les grandes boules de feu. L'accord du gestionnaire de salle et la question des détecteurs de fumée se règlent en amont, pas le soir même. Quand le plafond est trop bas ou que la salle refuse toute flamme, deux spectacles fonctionnent sans feu : le <a href="/fr/spectacle-de-fakir/">spectacle de fakir</a>, avec lit de clous, verre et épées, et le mentalisme.</p>
+<p>Beaucoup d'événements bruxellois se tiennent à l'intérieur : anciens entrepôts reconvertis, salles de réception sous verrière, hôtels, espaces de conférence. Une animation feu y est possible si la hauteur sous plafond est suffisante et la ventilation bonne. Les flammes restent alors plus basses et le spectacle met l'accent sur la jonglerie de feu et le body fire plutôt que sur les grandes boules de feu. L'accord du gestionnaire de salle et la question des détecteurs de fumée se règlent en amont, pas le soir même. Quand le plafond est trop bas ou que la salle refuse toute flamme, deux spectacles fonctionnent sans feu : le <a href="/fr/spectacle-de-fakir/">spectacle de fakir</a>, avec lit de clous, verre et épées, et le <a href="/fr/mentaliste-spectacle/">mentalisme</a>.</p>
 <h2>Quelle formule pour un événement d'entreprise ?</h2>
 <table>
 <thead><tr><th>Formule</th><th>Durée</th><th>Pour quel moment</th></tr></thead>
@@ -332,7 +332,7 @@ OVERRIDE = {
 <li><strong>Le power act de dix minutes</strong>, en surprise : à l'ouverture, juste après le discours de la direction, ou au moment où l'on dévoile quelque chose.</li>
 <li><strong>Le bloc de vingt minutes</strong>, avec toute la montée en puissance, placé après le repas, quand les invités sortent prendre l'air.</li>
 </ul>
-<p>Pour une soirée plus longue, Nuno répartit plusieurs blocs, éventuellement en alternance avec un <a href="/fr/spectacle-de-fakir/">spectacle de fakir</a> ou du mentalisme en salle, sans flamme. Plus de détails sur la page <a href="/fr/spectacle-de-feu-entreprise/">spectacle de feu pour entreprise</a>.</p>
+<p>Pour une soirée plus longue, Nuno répartit plusieurs blocs, éventuellement en alternance avec un <a href="/fr/spectacle-de-fakir/">spectacle de fakir</a> ou du <a href="/fr/mentaliste-spectacle/">mentalisme</a> en salle, sans flamme. Plus de détails sur la page <a href="/fr/spectacle-de-feu-entreprise/">spectacle de feu pour entreprise</a>.</p>
 <h2>Fêtes de quartier et kermesses dans le Hainaut</h2>
 <p>Prenez par exemple une fête de rue à Marcinelle, une kermesse à Gilly ou la fête d'un comité de quartier à Montignies : ce sont des publics qui se massent volontiers tout près, enfants au premier rang. Il faut donc une zone dégagée d'environ six mètres sur six, avec six mètres de hauteur libre, loin des tonnelles, des parasols et des stands. Nuno délimite lui-même cette zone de sécurité à son arrivée et l'explique aux bénévoles. Une place, une cour d'école ou un parking fermé à la circulation suffit généralement. Le meilleur moment ? Juste après la tombée de la nuit, quand les familles sont encore là et que les flammes se voient de loin : c'est souvent ce qui fait venir les voisins qui hésitaient encore.</p>
 <p>Pour ce genre d'événement en plein air, la commune demande parfois une déclaration préalable. Un spectacle de feu ne relève pas des mêmes règles qu'un feu d'artifice, mais mieux vaut se renseigner tôt ; Nuno s'en occupe avec vous et fournit les informations dont l'administration a besoin.</p>
@@ -414,7 +414,7 @@ OVERRIDE = {
 <p>Certaines salles historiques n'autorisent pas les flammes, ou le plafond est trop bas. À l'intérieur, un spectacle de feu reste envisageable avec assez de hauteur et une bonne ventilation, mais les flammes sont alors réduites. Sinon, Nuno propose d'autres numéros complets :</p>
 <ul>
 <li>le <a href="/fr/spectacle-de-fakir/">fakir</a> : lit de clous, verre brisé, épées ;</li>
-<li>le mentalisme, qui fonctionne aussi bien pour vingt personnes que pour une grande salle ;</li>
+<li>le <a href="/fr/mentaliste-spectacle/">mentalisme</a>, qui fonctionne aussi bien pour vingt personnes que pour une grande salle ;</li>
 <li>le <a href="/fr/spectacle-de-reptiles/">spectacle de reptiles</a>, avec serpents et mygales, apprécié lors des fêtes familiales.</li>
 </ul>
 <h2>Sécurité : ce que Nuno prend en charge</h2>
@@ -945,10 +945,222 @@ NL = {
 }
 
 # mentalisme in het Engels, Duits en Frans (i18n.PAGES-vorm, sleutel = NL-slug)
-SLUGS = {}  # mentalisme-vertalingen nog niet compleet
+SLUGS = {"mentalist-boeken": {"en": "mentalist-hire", "de": "mentalist-buchen", "fr": "mentaliste-spectacle"}}
 EN = {}
+EN["mentalist-boeken"] = {
+ "title": "Hire a mentalist for your corporate event, wedding or dinner",
+ "seo_title": "🧠 Hire a Mentalist | Nuno, from €350 all-in",
+ "seo_desc": "Hire a mentalist for a corporate event, wedding or dinner. No fire, any room, 20 to several hundred guests. €350–€1500 all-in, quote within 24 hours.",
+ "eyebrow": "Mentalist",
+ "img": ("/assets/media/mentalist-900.webp", "Mentalist Nuno during a performance"),
+ "body": """
+<p><strong>You can hire a mentalist through Nuno, a performer based in Zeist in the Netherlands with seventeen years on stage, known from SBS6, RTL 4 and VTM. Mentalism needs no fire, so it fits almost any room. A performance costs between €350 and €1500 all-in, travel and materials included, and you have a quote within 24 hours.</strong></p>
+<h2>What is mentalism?</h2>
+<p>Mentalism is a stage art in which the performer appears to read minds. A mentalist seems to know the word a guest is thinking of, predicts a choice before it is made, or steers that choice without the guest noticing. None of it is supernatural. The tools are body language, suggestion, memory techniques, psychology and a good deal of theatre, and a serious mentalist will tell you so if you ask. That honesty is part of the appeal: the audience knows there is a method, and still cannot see it.</p>
+<p>It is easy to confuse with related arts, so briefly:</p>
+<table>
+<thead><tr><th>Art</th><th>What happens</th><th>Where the effect takes place</th></tr></thead>
+<tbody>
+<tr><td>Magic</td><td>Objects appear, vanish or change</td><td>In the performer's hands</td></tr>
+<tr><td>Mentalism</td><td>Thoughts, choices and predictions</td><td>In the mind of a guest</td></tr>
+<tr><td>Hypnosis</td><td>Guests follow suggestions in a trance-like state</td><td>In the behaviour of volunteers</td></tr>
+</tbody>
+</table>
+<h2>What does a performance look like?</h2>
+<p>There are three formats, depending on your programme:</p>
+<ul>
+<li><strong>Table walkabout.</strong> Nuno moves from table to table or group to group during the reception or between courses, a few minutes at each, at arm's length. Everyone sees it up close and nobody has to leave their seat.</li>
+<li><strong>Stage set.</strong> One continuous set for the whole room, with guests joining him at the front or taking part from their seats. It works after dinner or as a programme item between speeches.</li>
+<li><strong>Both.</strong> A walkabout during drinks and a stage set later in the evening, so every table has had its own moment before the shared part begins.</li>
+</ul>
+<p>Interaction is the whole point. A mentalist needs guests who choose something, write something down or hold something in mind. Nobody is made a fool of; whoever takes part becomes the centre of attention for a moment, in a way the rest of the table will still be talking about the next day.</p>
+<h2>No fire, so it works anywhere indoors</h2>
+<p>A fire show needs space, height and sometimes a notification to the venue or the municipality. Mentalism needs none of that. A restaurant with a low ceiling, a meeting room, a living room, a historic hall or a boat all work. There is no smoke, no heat and no bang, which also makes it the obvious choice when a venue does not allow open flames or the weather makes an outdoor show uncertain.</p>
+<p>Group size is flexible. With twenty guests, the walkabout becomes one long, intimate show. With several hundred, the stage set does the work, if needed with a screen so the back row can see what the volunteer on stage writes down.</p>
+<h2>Why mentalism works at a corporate event or dinner</h2>
+<p>At a company party or a business dinner, people often only half know each other. A mentalist gives them something to talk about straight away: "how did he know that?" comes up at every table, and colleagues from different departments suddenly share an experience. Because the act is interactive, nobody stays a mere spectator. And because there are no loud sounds or lighting effects, the conversation at dinner carries on until Nuno reaches the next table.</p>
+<p>For an organiser, the act fits around the programme rather than the other way round. If dinner runs late, the stage set moves by fifteen minutes. If there is a speech, the walkabout waits.</p>
+<h2>A mentalist at a wedding</h2>
+<p>At a wedding, the two families and the groups of friends share something during the reception or dinner. A walkabout fills exactly the moment when the couple is away with the photographer or the tables are waiting for the next course. If you want fire as well, the <a href="/en/fire-show-wedding/">fire show at a wedding</a> on the terrace makes the finale, with mentalism as the indoor programme earlier in the day.</p>
+<h2>Combining it with a fire show or fakir show</h2>
+<ol>
+<li><strong>Mentalism inside, fire outside.</strong> A walkabout or stage set during dinner, then the <a href="/en/fire-show/">fire show</a> on the terrace or car park to close the evening: fire juggling, spinning fire, body fire and, as the finale, fireballs up to about six metres high.</li>
+<li><strong>Mentalism and fakir in one room.</strong> Without outdoor space, the <a href="/en/fakir-show/">fakir show</a> with the bed of nails, glass and swords is the physical contrast to the mental work. Neither act uses open fire.</li>
+</ol>
+<p>Because it is one performer, you have one contact, one quote and one set-up. There is no need to coordinate two acts or plan two breaks.</p>
+<h2>Mentalist or fire show: which suits your event?</h2>
+<ul>
+<li><strong>Indoors only, low ceilings, or a building where fire is not allowed:</strong> a mentalist. The room needs no changes.</li>
+<li><strong>A seated dinner where conversation matters:</strong> a mentalist, as a walkabout. A fire show interrupts dinner; a walkabout fills it.</li>
+<li><strong>A terrace or square with a standing crowd:</strong> a fire show. Fire works at a distance, for a large group at once, and needs no words.</li>
+<li><strong>A long evening with several moments:</strong> both. Mentalism as the thread indoors, fire as the finale outside.</li>
+</ul>
+<h2>How much does it cost to hire a mentalist?</h2>
+<p>A performance costs between €350 and €1500, all-in. Travel from Zeist, materials and preparation are included, and nothing is added afterwards. Where you land within that range depends on the length, whether you choose a walkabout, a stage set or both, and whether a fire or fakir show is added. You always get one price for the whole. The general price structure is explained on <a href="/en/fire-breather-prices/">fire breather prices</a>.</p>
+<h2>What do you need to arrange?</h2>
+<p>Very little: a spot where Nuno can be seen, some light and, for larger groups, a microphone. No stage is needed. Tell him beforehand how the programme runs and when guests sit or stand, and he will work out with you where the walkabout and stage set fit best. Nuno presents in English, Dutch, German and French, so an international group is no obstacle.</p>
+<h2>How to book</h2>
+<p>Send your date, venue, number of guests and type of event through the <a href="/en/contact/">contact form</a> or WhatsApp, and you will have a quote within 24 hours. Undecided between mentalism, fire or a combination? Just say so, and Nuno will advise what suits your venue and programme. The <a href="/en/reviews/">reviews</a> average 4.9 out of 5 across 136 ratings. He works from Zeist across the Netherlands, Belgium, Luxembourg and the German border region, and travel is always included in the quote.</p>
+""",
+ "faq": [
+  ("Can a mentalist perform for a small group?",
+   "Yes, and that is where the table walkabout works best. With twenty or thirty guests, everyone is within arm's length and every guest has a moment up close. A stage set is not needed; the whole evening becomes one intimate show. For larger groups, Nuno combines the walkabout with a set for the whole room."),
+  ("Do I need to provide a stage for a mentalist?",
+   "No. A corner of the room or an open patch of floor where Nuno can be seen is enough. Some light on that spot helps, so guests can see what is written down or chosen, and a microphone helps in a large room. No set, smoke or technical equipment is needed, which is the big practical advantage over a fire show."),
+  ("Does mentalism work for an international audience?",
+   "Yes. Nuno presents in English, Dutch, German and French and can switch language from table to table during a walkabout. Because the act revolves around guests' choices and thoughts rather than wordplay, it also works for a mixed audience that only half speaks each other's language. Tell him beforehand which languages will be at the tables."),
+  ("How long does a mentalist perform?",
+   "That depends on the format. A table walkabout follows the length of the drinks or dinner, moving from table to table; a stage set is one continuous item at a fixed moment. You agree the length in advance based on your programme and the number of guests, and that length partly decides where you land within the €350 to €1500 range."),
+  ("Can I combine mentalism with a fire show on the same evening?",
+   "Yes, it is a popular set-up: mentalism indoors during the reception or dinner, and the fire show outdoors to close the evening, with fire juggling, spinning fire, body fire and fireballs up to about six metres. Because it is one performer, you get one quote and one contact. Without outdoor space, the fakir show is the alternative in the same room."),
+  ("What if a guest does not want to take part?",
+   "Then that guest does not take part. Mentalism works with volunteers who raise their hand or who feel like choosing or writing something down at the table; nobody is dragged forward or made a fool of. In practice it tends to go the other way: once the first table has seen what happens, the tables next to it want a turn too."),
+ ],
+ "service": {"name": "Hire a mentalist", "type": "Mentalism", "desc": "Interactive mentalism for corporate events, dinners, weddings and parties: no fire, indoors or outdoors, in the Netherlands, Belgium, Luxembourg and the German border region."},
+ "fotos": [("mentalist-900.webp", "mentalist-1371.webp", 900, 900, "Mentalist", "Mentalist Nuno during a performance")],
+}
 DE = {}
+DE["mentalist-boeken"] = {
+ "title": "Mentalist buchen für Firmenfeier, Hochzeit oder Dinner",
+ "seo_title": "🧠 Mentalist buchen | Nuno, ab 350 € inklusive",
+ "seo_desc": "Mentalist buchen für Firmenfeier, Hochzeit oder Dinner: ohne Feuer, in jedem Raum, für 20 bis mehrere hundert Gäste. 350 bis 1500 € inklusive Anfahrt.",
+ "eyebrow": "Mentalist",
+ "img": ("/assets/media/mentalist-900.webp", "Mentalist Nuno während eines Auftritts"),
+ "body": """
+<p><strong>Einen Mentalisten buchen Sie bei Nuno aus Zeist in den Niederlanden: siebzehn Jahre Bühnenerfahrung, bekannt aus SBS6, RTL 4 und VTM, und ein Programm ohne Feuer, das deshalb in nahezu jeden Saal passt. Ein Auftritt kostet zwischen 350 und 1500 Euro, Anfahrt und Material inklusive, und Sie erhalten binnen 24 Stunden ein Angebot.</strong></p>
+<h2>Was ist Mentalismus?</h2>
+<p>Mentalismus ist eine Bühnenkunst, bei der der Künstler scheinbar Gedanken liest. Ein Mentalist scheint zu wissen, an welches Wort ein Gast denkt, sagt eine Entscheidung voraus, bevor sie fällt, oder lenkt sie, ohne dass der Gast es merkt. Übernatürlich ist daran nichts. Die Werkzeuge sind Körpersprache, Suggestion, Gedächtnistechnik, Psychologie und eine ordentliche Portion Theater, und ein seriöser Mentalist sagt Ihnen das auf Nachfrage auch. Gerade diese Ehrlichkeit macht den Reiz aus: Das Publikum weiß, dass es eine Methode gibt, und sieht sie trotzdem nicht.</p>
+<table>
+<thead><tr><th>Kunstform</th><th>Was passiert</th><th>Wo der Effekt entsteht</th></tr></thead>
+<tbody>
+<tr><td>Zauberei</td><td>Gegenstände erscheinen, verschwinden, verwandeln sich</td><td>In den Händen des Künstlers</td></tr>
+<tr><td>Mentalismus</td><td>Gedanken, Entscheidungen, Vorhersagen</td><td>Im Kopf eines Gastes</td></tr>
+<tr><td>Hypnose</td><td>Gäste folgen Suggestionen in einem tranceähnlichen Zustand</td><td>Im Verhalten von Freiwilligen</td></tr>
+</tbody>
+</table>
+<h2>Wie läuft ein Auftritt ab?</h2>
+<ul>
+<li><strong>Tischrunde.</strong> Nuno geht während des Empfangs oder zwischen den Gängen von Tisch zu Tisch, jeweils einige Minuten, auf Armlänge. Jeder erlebt es aus nächster Nähe, niemand muss aufstehen.</li>
+<li><strong>Bühnenblock.</strong> Ein zusammenhängender Block für den ganzen Saal, mit Gästen, die nach vorne kommen oder vom Platz aus mitmachen. Passt nach dem Essen oder zwischen zwei Reden.</li>
+<li><strong>Kombination.</strong> Tischrunde beim Empfang, Bühnenblock später am Abend. So hatte jeder Tisch seinen eigenen Moment, bevor der gemeinsame Teil beginnt.</li>
+</ul>
+<p>Ohne Interaktion geht es nicht: Ein Mentalist braucht Gäste, die etwas wählen, etwas aufschreiben oder an etwas denken. Niemand wird bloßgestellt. Wer mitmacht, steht für einen Moment im Mittelpunkt, und zwar so, dass der Tisch am nächsten Tag noch darüber spricht.</p>
+<h2>Ohne Feuer, also überall drinnen möglich</h2>
+<p>Eine Feuershow braucht Platz, Höhe und manchmal eine Abstimmung mit der Location oder dem Ordnungsamt. Mentalismus braucht nichts davon. Ein Restaurant mit niedriger Decke, ein Tagungsraum, ein Wohnzimmer, ein historischer Saal oder ein Schiff: Alles geht. Kein Rauch, keine Hitze, kein Knall. Damit ist ein Mentalist auch die naheliegende Wahl, wenn die Location offenes Feuer verbietet oder das Wetter eine Show im Freien unsicher macht.</p>
+<p>Bei der Gruppengröße ist das Genre flexibel. Bei zwanzig Gästen wird die Tischrunde zu einer langen, persönlichen Show. Bei mehreren hundert Gästen trägt der Bühnenblock, bei Bedarf mit Leinwand, damit auch die letzte Reihe sieht, was der Gast auf der Bühne aufschreibt.</p>
+<h2>Warum ein Mentalist auf der Firmenfeier funktioniert</h2>
+<p>Auf einer Firmenfeier oder einem Geschäftsessen kennen sich viele nur flüchtig. Ein Mentalist liefert sofort Gesprächsstoff: „Woher wusste er das?" fällt an jedem Tisch, und Kollegen aus verschiedenen Abteilungen haben plötzlich etwas gemeinsam erlebt. Weil das Programm interaktiv ist, bleibt niemand bloß Zuschauer. Und weil es keine lauten Geräusche oder Lichteffekte gibt, läuft das Tischgespräch weiter, bis Nuno am nächsten Tisch steht.</p>
+<p>Für Veranstalter angenehm: Das Programm richtet sich nach dem Ablauf, nicht umgekehrt. Dauert das Essen länger, verschiebt sich der Bühnenblock. Kommt eine Rede dazwischen, wartet die Tischrunde.</p>
+<h2>Ein Mentalist auf der Hochzeit</h2>
+<p>Auf einer Hochzeit erleben die beiden Familien und die Freundeskreise beim Empfang oder Dinner etwas Gemeinsames. Eine Tischrunde füllt genau die Zeit, in der das Brautpaar mit dem Fotografen unterwegs ist oder die Tische auf den nächsten Gang warten. Soll es abends doch Feuer sein, bildet die <a href="/de/feuershow-hochzeit/">Feuershow zur Hochzeit</a> draußen das Finale, Mentalismus das Programm drinnen.</p>
+<h2>Kombination mit Feuershow oder Fakirshow</h2>
+<ol>
+<li><strong>Mentalismus drinnen, Feuer draußen.</strong> Tischrunde oder Bühnenblock beim Dinner, danach die <a href="/de/feuershow/">Feuershow</a> auf der Terrasse oder dem Parkplatz: Feuerjonglage, drehendes Feuer, Body Fire und zum Schluss Feuerbälle bis etwa sechs Meter Höhe.</li>
+<li><strong>Mentalismus und Fakir in einem Saal.</strong> Ohne Außenfläche bildet die <a href="/de/fakirshow/">Fakirshow</a> mit Nagelbrett, Glas und Schwertern den körperlichen Gegenpol zur Kopfarbeit. Beide kommen ohne offenes Feuer aus.</li>
+</ol>
+<p>Weil es ein Künstler ist, haben Sie einen Ansprechpartner, ein Angebot und einen Aufbau.</p>
+<h2>Mentalist oder Feuershow: Was passt zu Ihrer Feier?</h2>
+<ul>
+<li><strong>Nur drinnen, niedrige Decke oder Feuerverbot:</strong> Mentalist. Am Raum muss nichts geändert werden.</li>
+<li><strong>Gesetztes Dinner, bei dem das Gespräch zählt:</strong> Mentalist als Tischrunde. Eine Feuershow unterbricht das Essen, eine Tischrunde füllt es.</li>
+<li><strong>Terrasse oder Platz mit stehendem Publikum:</strong> Feuershow. Feuer wirkt auf Distanz, für viele gleichzeitig und ohne Worte.</li>
+<li><strong>Langer Abend mit mehreren Höhepunkten:</strong> beides.</li>
+</ul>
+<h2>Was kostet ein Mentalist?</h2>
+<p>Ein Auftritt kostet zwischen 350 und 1500 Euro, alles inklusive: Anfahrt aus Zeist, Material und Vorbereitung. Nachträglich kommt nichts dazu. Wo Sie in dieser Spanne landen, hängt von der Dauer ab, von Tischrunde, Bühnenblock oder beidem und davon, ob eine Feuer- oder Fakirshow dazukommt. Die Preisbildung erklärt die Seite <a href="/de/feuerspucker-kosten/">Feuerspucker Kosten</a>. Die Rechnung kommt aus den Niederlanden mit Umsatzsteuer-ID.</p>
+<h2>Was müssen Sie organisieren?</h2>
+<p>Wenig: einen Platz, an dem Nuno gut zu sehen ist, etwas Licht und bei größeren Gruppen ein Mikrofon. Eine Bühne ist nicht nötig. Nennen Sie vorab den Ablauf und wann die Gäste sitzen oder stehen. Nuno präsentiert auf Deutsch, Niederländisch, Englisch und Französisch.</p>
+<h2>So buchen Sie</h2>
+<p>Schicken Sie Datum, Ort, Gästezahl und Anlass über das <a href="/de/kontakt/">Kontaktformular</a> oder per WhatsApp; binnen 24 Stunden haben Sie ein Angebot. Wenn Sie zwischen Mentalismus, Feuer oder einer Kombination schwanken, schreiben Sie es dazu. Die <a href="/de/bewertungen/">Bewertungen</a> liegen bei 4,9 von 5 aus 136 Stimmen. Nuno kommt in die Niederlande, nach Belgien, Luxemburg und in die deutsche Grenzregion, etwa nach <a href="/de/feuerspucker-aachen/">Aachen</a> oder <a href="/de/feuerspucker-krefeld/">Krefeld</a>; die Anfahrt ist immer im Angebot enthalten.</p>
+""",
+ "faq": [
+  ("Tritt ein Mentalist auch vor kleinen Gruppen auf?",
+   "Ja, und gerade dann kommt die Tischrunde am besten zur Geltung. Bei zwanzig bis dreißig Gästen sitzt jeder auf Armlänge und erlebt seinen eigenen Moment aus nächster Nähe. Ein Bühnenblock ist dann nicht nötig; der ganze Abend wird zu einer persönlichen Show. Bei größeren Gruppen kombiniert Nuno die Tischrunde mit einem Block für den ganzen Saal."),
+  ("Braucht ein Mentalist eine Bühne?",
+   "Nein. Eine Ecke des Raums oder eine freie Fläche, an der Nuno gut zu sehen ist, reicht. Etwas Licht an dieser Stelle hilft, damit die Gäste sehen, was gewählt oder aufgeschrieben wird, und in einem großen Saal ein Mikrofon. Kulisse, Rauch oder Technik braucht es nicht; das ist der große praktische Vorteil gegenüber einer Feuershow."),
+  ("Funktioniert Mentalismus auch bei internationalem Publikum?",
+   "Ja. Nuno präsentiert auf Deutsch, Niederländisch, Englisch und Französisch und wechselt bei einer Tischrunde notfalls von Tisch zu Tisch die Sprache. Weil das Programm von den Entscheidungen und Gedanken der Gäste lebt und nicht von Wortwitz, funktioniert es auch bei gemischtem Publikum. Sagen Sie vorab, welche Sprachen an den Tischen sitzen."),
+  ("Wie lange dauert ein Auftritt?",
+   "Das hängt vom Format ab. Eine Tischrunde folgt der Dauer des Empfangs oder Dinners und geht von Tisch zu Tisch; ein Bühnenblock ist ein zusammenhängender Programmpunkt zu einer festen Zeit. Die Dauer stimmen Sie vorab anhand Ihres Ablaufs und der Gästezahl ab, und sie bestimmt mit, wo Sie in der Spanne von 350 bis 1500 Euro landen."),
+  ("Lässt sich Mentalismus mit einer Feuershow am selben Abend verbinden?",
+   "Ja, das wird oft so gebucht: Mentalismus drinnen beim Empfang oder Dinner, die Feuershow draußen als Abschluss mit Feuerjonglage, drehendem Feuer, Body Fire und Feuerbällen bis etwa sechs Meter Höhe. Weil es ein Künstler ist, gibt es ein Angebot und einen Ansprechpartner. Ohne Außenfläche ist die Fakirshow die Alternative im selben Saal."),
+  ("Was ist, wenn ein Gast nicht mitmachen möchte?",
+   "Dann macht er nicht mit. Mentalismus arbeitet mit Freiwilligen, die sich melden oder am Tisch Lust haben, etwas zu wählen oder aufzuschreiben; niemand wird nach vorne gezerrt oder bloßgestellt. In der Praxis ist es eher umgekehrt: Sobald der erste Tisch gesehen hat, was passiert, wollen die Nachbartische auch an die Reihe kommen."),
+ ],
+ "service": {"name": "Mentalist buchen", "type": "Mentalismus", "desc": "Interaktiver Mentalismus für Firmenfeiern, Dinner, Hochzeiten und Feste: ohne Feuer, drinnen wie draußen, in den Niederlanden, Belgien, Luxemburg und der deutschen Grenzregion."},
+ "fotos": [("mentalist-900.webp", "mentalist-1371.webp", 900, 900, "Mentalist", "Mentalist Nuno während eines Auftritts")],
+}
 FR = {}
+FR["mentalist-boeken"] = {
+ "title": "Engager un mentaliste pour votre soirée d'entreprise, mariage ou dîner",
+ "seo_title": "🧠 Mentaliste pour événement | Nuno, dès 350 €",
+ "seo_desc": "Engager un mentaliste pour une soirée d'entreprise, un mariage ou un dîner : sans feu, dans toute salle, de 20 à plusieurs centaines d'invités. Dès 350 €.",
+ "eyebrow": "Mentaliste",
+ "img": ("/assets/media/mentalist-900.webp", "Le mentaliste Nuno pendant une représentation"),
+ "body": """
+<p><strong>Pour engager un mentaliste, adressez-vous à Nuno, artiste installé à Zeist aux Pays-Bas : dix-sept ans de scène, connu grâce à SBS6, RTL 4 et VTM, et un numéro sans feu qui trouve sa place dans presque toutes les salles. Une prestation coûte entre 350 et 1500 euros tout compris, déplacement et matériel inclus, avec un devis sous 24 heures.</strong></p>
+<h2>Qu'est-ce que le mentalisme ?</h2>
+<p>Le mentalisme est un art de scène dans lequel l'artiste semble lire dans les pensées. Le mentaliste paraît connaître le mot auquel pense un invité, prédit un choix avant qu'il ne soit fait, ou l'oriente sans que l'invité s'en aperçoive. Rien de surnaturel là-dedans : les outils sont le langage corporel, la suggestion, les techniques de mémoire, la psychologie et une bonne dose de théâtre, et un mentaliste sérieux vous le dira si vous le lui demandez. C'est justement ce qui fascine : le public sait qu'il y a une méthode, et ne la voit pas.</p>
+<table>
+<thead><tr><th>Discipline</th><th>Ce qui se passe</th><th>Où naît l'effet</th></tr></thead>
+<tbody>
+<tr><td>Magie</td><td>Des objets apparaissent, disparaissent, se transforment</td><td>Dans les mains de l'artiste</td></tr>
+<tr><td>Mentalisme</td><td>Pensées, choix, prédictions</td><td>Dans la tête d'un invité</td></tr>
+<tr><td>Hypnose</td><td>Des volontaires suivent des suggestions dans un état proche de la transe</td><td>Dans le comportement des volontaires</td></tr>
+</tbody>
+</table>
+<h2>Comment se déroule une prestation ?</h2>
+<ul>
+<li><strong>Tour de tables.</strong> Pendant l'apéritif ou entre les plats, Nuno passe d'une table à l'autre, quelques minutes à chaque fois, à portée de main. Chacun vit le numéro de près, sans quitter sa chaise.</li>
+<li><strong>Bloc sur scène.</strong> Un passage continu pour toute la salle, avec des invités qui le rejoignent à l'avant ou participent depuis leur place. Idéal après le dîner ou entre deux discours.</li>
+<li><strong>Les deux.</strong> Tour de tables à l'apéritif, bloc sur scène plus tard dans la soirée : chaque table a eu son moment avant la partie commune.</li>
+</ul>
+<p>Tout repose sur l'interaction. Le mentaliste a besoin d'invités qui choisissent, écrivent ou pensent à quelque chose. Personne n'est ridiculisé : celui qui participe devient un instant le centre de l'attention, d'une manière dont sa table parlera encore le lendemain.</p>
+<h2>Sans feu, donc partout en intérieur</h2>
+<p>Un spectacle de feu demande de l'espace, de la hauteur et parfois une déclaration à la commune ou au gestionnaire de salle. Le mentalisme ne demande rien de tout cela. Restaurant au plafond bas, salle de réunion, salon, salle historique, bateau : tout convient. Ni fumée, ni chaleur, ni détonation. C'est aussi le choix naturel quand le lieu interdit les flammes ou quand la météo rend un spectacle en plein air incertain.</p>
+<p>Le format s'adapte au nombre d'invités. À vingt, le tour de tables devient un long spectacle intime. À plusieurs centaines, le bloc sur scène prend le relais, si besoin avec un écran pour que le dernier rang voie ce que le volontaire écrit.</p>
+<h2>Pourquoi le mentalisme fonctionne en soirée d'entreprise</h2>
+<p>Lors d'une soirée d'entreprise ou d'un dîner d'affaires, beaucoup ne se connaissent qu'à moitié. Un mentaliste leur donne immédiatement un sujet de conversation : « comment a-t-il su ? » revient à chaque table, et des collègues de services différents ont soudain vécu quelque chose ensemble. Le numéro est interactif, personne ne reste simple spectateur, et comme il n'y a ni bruit fort ni effets lumineux, la conversation continue jusqu'à ce que Nuno arrive à la table suivante.</p>
+<p>Pour l'organisateur, le numéro s'adapte au programme et non l'inverse : si le dîner s'éternise, le bloc sur scène se décale ; s'il y a un discours, le tour de tables attend.</p>
+<h2>Un mentaliste pour un mariage</h2>
+<p>Lors d'un mariage, les deux familles et les groupes d'amis partagent un moment pendant le vin d'honneur ou le dîner. Le tour de tables occupe précisément le temps où les mariés sont avec le photographe ou où les tables attendent le plat suivant. Si vous voulez aussi du feu, le <a href="/fr/spectacle-de-feu-mariage/">spectacle de feu pour un mariage</a> en terrasse fait le final, et le mentalisme le programme en intérieur plus tôt dans la journée.</p>
+<h2>Combiner avec un spectacle de feu ou de fakir</h2>
+<ol>
+<li><strong>Mentalisme à l'intérieur, feu à l'extérieur.</strong> Tour de tables ou bloc sur scène pendant le dîner, puis le <a href="/fr/spectacle-de-feu/">spectacle de feu</a> en terrasse ou sur le parking pour clôturer : jonglerie de feu, feu tournoyant, body fire et, en final, des boules de feu jusqu'à environ six mètres.</li>
+<li><strong>Mentalisme et fakir dans la même salle.</strong> Sans espace extérieur, le <a href="/fr/spectacle-de-fakir/">spectacle de fakir</a> avec le lit de clous, le verre et les épées apporte le contraste physique au travail mental. Aucun des deux n'utilise de flamme nue.</li>
+</ol>
+<p>Un seul artiste, donc un seul interlocuteur, un seul devis et une seule installation.</p>
+<h2>Mentaliste ou spectacle de feu : que choisir ?</h2>
+<ul>
+<li><strong>Uniquement en intérieur, plafond bas ou feu interdit :</strong> le mentaliste. Rien à changer dans la salle.</li>
+<li><strong>Un dîner assis où la conversation compte :</strong> le mentaliste, en tour de tables. Le feu interrompt le repas, le tour de tables l'accompagne.</li>
+<li><strong>Une terrasse ou une place avec un public debout :</strong> le spectacle de feu, qui se voit de loin, par beaucoup à la fois, et se passe de mots.</li>
+<li><strong>Une longue soirée avec plusieurs temps forts :</strong> les deux.</li>
+</ul>
+<h2>Combien coûte un mentaliste ?</h2>
+<p>Une prestation coûte entre 350 et 1500 euros, tout compris : déplacement depuis Zeist, matériel et préparation. Rien ne s'ajoute après coup. Votre place dans cette fourchette dépend de la durée, du choix entre tour de tables, bloc sur scène ou les deux, et de l'ajout éventuel d'un spectacle de feu ou de fakir. La construction des prix est expliquée sur la page <a href="/fr/prix-cracheur-de-feu/">prix d'un cracheur de feu</a>. La facture est établie avec numéro de TVA intracommunautaire.</p>
+<h2>Que devez-vous prévoir ?</h2>
+<p>Peu de chose : un endroit où Nuno est bien visible, un peu de lumière et, pour un grand groupe, un micro. Pas besoin de scène. Indiquez à l'avance le déroulé et les moments où les invités sont assis ou debout. Nuno présente en français, néerlandais, anglais et allemand.</p>
+<h2>Comment réserver</h2>
+<p>Envoyez la date, le lieu, le nombre d'invités et le type d'événement via le <a href="/fr/contact/">formulaire de contact</a> ou WhatsApp : vous recevez un devis sous 24 heures. Vous hésitez entre mentalisme, feu ou combinaison ? Dites-le simplement. Les <a href="/fr/avis/">avis</a> affichent 4,9 sur 5 pour 136 évaluations. Nuno se déplace aux Pays-Bas, en Belgique, par exemple à <a href="/fr/cracheur-de-feu-bruxelles/">Bruxelles</a> ou <a href="/fr/cracheur-de-feu-liege/">Liège</a>, au <a href="/fr/cracheur-de-feu-luxembourg/">Luxembourg</a> et dans la région frontalière allemande ; le déplacement est toujours compris dans le devis.</p>
+""",
+ "faq": [
+  ("Un mentaliste peut-il se produire devant un petit groupe ?",
+   "Oui, et c'est là que le tour de tables donne le meilleur de lui-même. À vingt ou trente invités, chacun est à portée de main et vit son propre moment de près. Un bloc sur scène n'est alors pas nécessaire : toute la soirée devient un spectacle intime. Pour un groupe plus important, Nuno combine le tour de tables avec un passage pour toute la salle."),
+  ("Faut-il prévoir une scène pour un mentaliste ?",
+   "Non. Un coin de la salle ou un espace dégagé où Nuno est bien visible suffit. Un peu de lumière à cet endroit aide les invités à voir ce qui est choisi ou écrit, et un micro est utile dans une grande salle. Ni décor, ni fumée, ni technique : c'est le grand avantage pratique par rapport à un spectacle de feu."),
+  ("Le mentalisme fonctionne-t-il avec un public international ?",
+   "Oui. Nuno présente en français, néerlandais, anglais et allemand et peut changer de langue d'une table à l'autre pendant le tour de tables. Comme le numéro repose sur les choix et les pensées des invités plutôt que sur des jeux de mots, il fonctionne aussi avec un public mixte. Précisez à l'avance quelles langues seront présentes."),
+  ("Combien de temps dure une prestation ?",
+   "Cela dépend du format. Un tour de tables suit la durée de l'apéritif ou du dîner, de table en table ; un bloc sur scène est un moment continu à une heure précise. La durée se convient à l'avance selon votre programme et le nombre d'invités, et elle détermine en partie votre place dans la fourchette de 350 à 1500 euros."),
+  ("Peut-on combiner mentalisme et spectacle de feu le même soir ?",
+   "Oui, c'est une formule fréquente : le mentalisme en intérieur pendant l'accueil ou le dîner, puis le spectacle de feu dehors pour finir, avec jonglerie de feu, feu tournoyant, body fire et boules de feu jusqu'à environ six mètres. Un seul artiste, donc un seul devis et un seul interlocuteur. Sans espace extérieur, le spectacle de fakir prend le relais dans la même salle."),
+  ("Et si un invité ne veut pas participer ?",
+   "Alors il ne participe pas. Le mentalisme fonctionne avec des volontaires qui lèvent la main ou qui ont envie, à table, de choisir ou d'écrire quelque chose ; personne n'est traîné sur scène ni ridiculisé. En pratique, c'est plutôt l'inverse : dès que la première table a vu ce qui se passe, les tables voisines veulent leur tour."),
+ ],
+ "service": {"name": "Engager un mentaliste", "type": "Mentalisme", "desc": "Mentalisme interactif pour soirées d'entreprise, dîners, mariages et fêtes : sans feu, en intérieur comme en extérieur, aux Pays-Bas, en Belgique, au Luxembourg et dans la région frontalière allemande."},
+ "fotos": [("mentalist-900.webp", "mentalist-1371.webp", 900, 900, "Mentaliste", "Le mentaliste Nuno pendant une représentation")],
+}
 
 # Luxemburg in het Duits en het Frans, zonder NL-versie; wijzen naar elkaar
 LUX = {}
@@ -973,7 +1185,7 @@ LUX["de"] = {"feuerspucker-luxemburg": {
 </ul>
 <p>Unter freiem Himmel sollte ein Quadrat von etwa sechs Metern Seitenlänge frei bleiben, ohne Zelte, Sonnenschirme oder Äste in den sechs Metern darüber. Drinnen ist die Show möglich, wenn Raumhöhe und Belüftung stimmen; das Feuer fällt dann kleiner aus.</p>
 <h2>Feuer und Mentalismus an einem Abend</h2>
-<p>Weil die Anfahrt ohnehin weit ist, bietet es sich an, zwei Programmpunkte zu verbinden: draußen die Feuershow, drinnen Mentalismus oder eine <a href="/de/fakirshow/">Fakirshow</a>. Mentalismus braucht im Gegensatz zum Feuer Sprache, deshalb wird die Sprache dafür vorab mit Ihnen festgelegt – Deutsch, Französisch oder Englisch. Für Hochzeiten finden Sie Ideen unter <a href="/de/feuershow-hochzeit/">Feuershow Hochzeit</a>, für Unternehmen unter <a href="/de/feuershow-firmenfeier/">Feuershow Firmenfeier</a>.</p>
+<p>Weil die Anfahrt ohnehin weit ist, bietet es sich an, zwei Programmpunkte zu verbinden: draußen die Feuershow, drinnen <a href="/de/mentalist-buchen/">Mentalismus</a> oder eine <a href="/de/fakirshow/">Fakirshow</a>. Mentalismus braucht im Gegensatz zum Feuer Sprache, deshalb wird die Sprache dafür vorab mit Ihnen festgelegt – Deutsch, Französisch oder Englisch. Für Hochzeiten finden Sie Ideen unter <a href="/de/feuershow-hochzeit/">Feuershow Hochzeit</a>, für Unternehmen unter <a href="/de/feuershow-firmenfeier/">Feuershow Firmenfeier</a>.</p>
 <h2>Rechnung, Versicherung und Anmeldung</h2>
 <p>Die Rechnung stellt Nuno als niederländischer Unternehmer mit USt-ID aus; Luxemburg und die Niederlande sind beide in der EU, die Abrechnung über die Grenze ist also unkompliziert. Seit siebzehn Jahren steht er mit Feuer auf der Bühne, hat Zertifikat und Versicherung, und aus dem Fernsehen (SBS6, RTL 4, VTM) kennt man ihn in den Niederlanden und Belgien. Am Tag selbst ist er deutlich vor Showbeginn da, prüft mit Ihnen den Platz, legt die Sicherheitszone fest und hat Löschmittel sowie seine spezielle Showflüssigkeit selbst im Gepäck. Rechtlich gilt die Feuershow nicht als Pyrotechnik. Wenn Ihre Gemeinde oder die Location vorher informiert werden möchte, übernimmt das der Veranstalter; Nuno unterstützt Sie dabei.</p>
 <h2>Termin in Luxemburg anfragen</h2>
@@ -1018,7 +1230,7 @@ LUX["fr"] = {"cracheur-de-feu-luxembourg": {
 <h2>Facture, assurance et déclaration</h2>
 <p>Pour une société luxembourgeoise, Nuno établit sa facture avec un numéro de TVA intracommunautaire, comme pour n'importe quel client européen. Il est certifié et assuré pour ses spectacles de feu. Selon la commune ou le lieu, une déclaration préalable peut être demandée ; le feu de spectacle n'est pas soumis au régime des feux d'artifice, mais c'est une question à mettre sur la liste dès la première visite du lieu. Nuno prépare ces éléments avec vous. Le jour même, il inspecte le lieu, balise une zone de sécurité, garde ses extincteurs à proximité et utilise un liquide conçu pour le spectacle.</p>
 <h2>Combiner plusieurs numéros sur une même soirée</h2>
-<p>Puisque le déplacement est fait, autant en profiter. Beaucoup de galas se prêtent à une combinaison : du mentalisme pendant le dîner, sans aucune flamme, puis un <a href="/fr/spectacle-de-feu/">spectacle de feu</a> dehors à la nuit tombée. Le <a href="/fr/spectacle-de-fakir/">fakir</a>, avec lit de clous, verre et épées, fonctionne lui aussi en salle. Pour les entreprises, voyez la page <a href="/fr/spectacle-de-feu-entreprise/">spectacle de feu entreprise</a> ; pour les festivals, la page <a href="/fr/spectacle-de-feu-festival/">spectacle de feu festival</a>.</p>
+<p>Puisque le déplacement est fait, autant en profiter. Beaucoup de galas se prêtent à une combinaison : du <a href="/fr/mentaliste-spectacle/">mentalisme</a> pendant le dîner, sans aucune flamme, puis un <a href="/fr/spectacle-de-feu/">spectacle de feu</a> dehors à la nuit tombée. Le <a href="/fr/spectacle-de-fakir/">fakir</a>, avec lit de clous, verre et épées, fonctionne lui aussi en salle. Pour les entreprises, voyez la page <a href="/fr/spectacle-de-feu-entreprise/">spectacle de feu entreprise</a> ; pour les festivals, la page <a href="/fr/spectacle-de-feu-festival/">spectacle de feu festival</a>.</p>
 <h2>Réserver depuis le Luxembourg</h2>
 <p>Dix-sept ans d'expérience, des apparitions télévisées sur SBS6, sur RTL 4 et sur VTM, et 4,9 sur 5 sur 136 avis. Décrivez votre événement (date, commune, programme de la soirée) via le <a href="/fr/contact/">formulaire de contact</a> ; vous recevez un devis dans les 24 heures. Les tarifs sont expliqués sur la page <a href="/fr/prix-cracheur-de-feu/">prix</a>.</p>
 """,

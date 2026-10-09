@@ -69,7 +69,7 @@
 },
 "/de/feuerspucker-duesseldorf/": {
 "d": "2026-10-09",
-"h": "9b5d7a1cc372888f"
+"h": "853dbb300b90d64e"
 },
 "/de/feuerspucker-duisburg/": {
 "d": "2026-10-09",
@@ -89,15 +89,15 @@
 },
 "/de/feuerspucker-krefeld/": {
 "d": "2026-10-09",
-"h": "fc8301237e7580d5"
+"h": "991f39cf24472ddc"
 },
 "/de/feuerspucker-luxemburg/": {
 "d": "2026-10-09",
-"h": "dcd4c9c052ad1990"
+"h": "6231deb5e5a8383d"
 },
 "/de/feuerspucker-moenchengladbach/": {
 "d": "2026-10-09",
-"h": "69a34637176f250c"
+"h": "82620270f4035715"
 },
 "/de/feuerspucker-workshop/": {
 "d": "2026-08-31",
@@ -122,6 +122,10 @@
 "/de/kontakt/": {
 "d": "2026-09-01",
 "h": "ec5e9201e850dcd8"
+},
+"/de/mentalist-buchen/": {
+"d": "2026-10-09",
+"h": "f499a2bc8d799da0"
 },
 "/de/reptilienshow/": {
 "d": "2026-10-09",
@@ -211,6 +215,10 @@
 "d": "2026-09-01",
 "h": "8ffb778f32d95160"
 },
+"/en/mentalist-hire/": {
+"d": "2026-10-09",
+"h": "ca790450f8ff31ac"
+},
 "/en/photos/": {
 "d": "2026-08-31",
 "h": "4734325a035acfa3"
@@ -289,11 +297,11 @@
 },
 "/fr/cracheur-de-feu-bruxelles/": {
 "d": "2026-10-09",
-"h": "7e47d158c504d5bc"
+"h": "3a90bf6282735b67"
 },
 "/fr/cracheur-de-feu-charleroi/": {
 "d": "2026-10-09",
-"h": "64eaf12dcf32be92"
+"h": "234325103aaf7732"
 },
 "/fr/cracheur-de-feu-liege/": {
 "d": "2026-10-09",
@@ -301,11 +309,11 @@
 },
 "/fr/cracheur-de-feu-luxembourg/": {
 "d": "2026-10-09",
-"h": "6d66888a681d120c"
+"h": "a3dc08d430c39d87"
 },
 "/fr/cracheur-de-feu-mons/": {
 "d": "2026-10-09",
-"h": "386c78052e92261b"
+"h": "1d5f15d409ae5d80"
 },
 "/fr/cracheur-de-feu-namur/": {
 "d": "2026-10-09",
@@ -322,6 +330,10 @@
 "/fr/halloween/": {
 "d": "2026-09-01",
 "h": "a1de49743979793b"
+},
+"/fr/mentaliste-spectacle/": {
+"d": "2026-10-09",
+"h": "568d8eabf8948e52"
 },
 "/fr/photos/": {
 "d": "2026-08-31",

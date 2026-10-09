@@ -850,7 +850,7 @@ def localize_doc(d, lang):
         # het Nederlandse @id met een vertaalde naam: één id, vier namen. Op
         # de taalhomes wijzen id en url nu naar de eigen taalpagina.
         for _sl in ("vuurspuwer-inhuren", "fakir-show-inhuren", "reptielenhow",
-                    "workshop-vuurspuwen", "entertainer-huren",
+                    "workshop-vuurspuwen", "entertainer-huren", "mentalist-boeken",
                     "entertainer-huren-voor-bedrijfsfeest", "halloween"):
             if _sl in I.SLUGS:
                 _tw = I.url_of(lang, _sl)
