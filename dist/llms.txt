@@ -114,5 +114,5 @@ Boekingen lopen via het aanvraagformulier of WhatsApp; reactie met een offerte b
 
 ## Optional
 - [Volledige inhoud (llms-full.txt)](https://vuurspuwer.com/llms-full.txt): alle hoofdpagina's, stadspagina's in vier talen, veelgestelde vragen en reviews in platte tekst
-- [Sitemap](https://vuurspuwer.com/sitemap.xml): alle 195 pagina's met afbeeldingen en video's, ook per taal: [nl](https://vuurspuwer.com/sitemap-nl.xml), [en](https://vuurspuwer.com/sitemap-en.xml), [de](https://vuurspuwer.com/sitemap-de.xml), [fr](https://vuurspuwer.com/sitemap-fr.xml)
+- [Sitemap](https://vuurspuwer.com/sitemap.xml): alle 181 pagina's met afbeeldingen en video's, ook per taal: [nl](https://vuurspuwer.com/sitemap-nl.xml), [en](https://vuurspuwer.com/sitemap-en.xml), [de](https://vuurspuwer.com/sitemap-de.xml), [fr](https://vuurspuwer.com/sitemap-fr.xml)
 - [Blog](https://vuurspuwer.com/blog/): artikelen over vuurshows, veiligheid en evenementen

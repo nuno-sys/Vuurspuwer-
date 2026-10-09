@@ -10,12 +10,8 @@ MAP = {
    "Wat is vuurspuwen en hoe werkt het?"
   ],
   [
-   "/vuurspuwen-op-locatie-wat-zijn-de-veiligheidsvereisten-het-complete-antwoord-door-vuurspuwer-nuno/",
-   "Veiligheidsvereisten voor vuurspuwen op locatie"
-  ],
-  [
-   "/hoe-lang-duurt-een-typische-vuurshow-van-nuno-het-complete-antwoord-door-vuurspuwer-nuno/",
-   "Hoe lang duurt een vuurshow?"
+   "/zijn-er-speciale-vergunningen-nodig-voor-vuurspuwen-faq/",
+   "Vergunning en veiligheidsplan voor vuurspuwen"
   ],
   [
    "/vrouwelijke-vuurspuwer-boeken-duo-act/",
@@ -32,14 +28,6 @@ MAP = {
    "Wat is een fakir? Betekenis en geschiedenis"
   ],
   [
-   "/wat-zijn-de-populairste-themas-voor-een-fakirshow-het-complete-antwoord-door-vuurspuwer-nuno/",
-   "Populaire thema's voor een fakirshow"
-  ],
-  [
-   "/wat-kost-een-fakirshow-met-spijkerbed-per-uur-het-complete-antwoord-door-vuurspuwer-nuno/",
-   "Wat kost een fakirshow? Prijzen en factoren"
-  ],
-  [
    "/hoe-wordt-een-fakirshow-voorbereid-faq/",
    "Hoe wordt een fakirshow voorbereid?"
   ]
@@ -54,22 +42,18 @@ MAP = {
    "Teambuilding workshop vuurspuwen voor bedrijven"
   ],
   [
-   "/vuurspuwen-op-locatie-wat-zijn-de-veiligheidsvereisten-het-complete-antwoord-door-vuurspuwer-nuno/",
-   "Veiligheidsvereisten voor vuurspuwen op locatie"
-  ],
-  [
-   "/wat-is-de-geschiedenis-van-vuurspuwen-het-complete-antwoord-door-vuurspuwer-nuno/",
-   "De geschiedenis van vuurspuwen"
+   "/vuur-woordenboek/",
+   "Vuur-woordenboek: vuurspuwen, vuurhappen en andere vuurtermen uitgelegd"
   ]
  ],
  "wat-kost-een-vuurspuwer": [
   [
-   "/wat-kost-een-fakirshow-met-spijkerbed-per-uur-het-complete-antwoord-door-vuurspuwer-nuno/",
-   "Wat kost een fakirshow met spijkerbed?"
+   "/fakirshow-wat-gebeurt-er-precies/",
+   "Fakirshow: wat gebeurt er en wat kost het?"
   ],
   [
-   "/hoe-lang-duurt-een-typische-vuurshow-van-nuno-het-complete-antwoord-door-vuurspuwer-nuno/",
-   "Hoe lang duurt een vuurshow?"
+   "/vuurshow-boeken/",
+   "Power-act, showblok of avondprogramma: welke kies je?"
   ],
   [
    "/vuurshow-in-belgie-boeken-vlaanderen-wallonie/",
@@ -82,20 +66,12 @@ MAP = {
  ],
  "vuurshow-boeken": [
   [
-   "/hoe-lang-duurt-een-typische-vuurshow-van-nuno-het-complete-antwoord-door-vuurspuwer-nuno/",
-   "Hoe lang duurt een vuurshow?"
-  ],
-  [
-   "/kan-een-vuurshow-binnen-gehouden-worden-het-complete-antwoord-door-vuurspuwer-nuno/",
-   "Kan een vuurshow binnen gehouden worden?"
-  ],
-  [
    "/wat-is-de-minimale-benodigde-ruimte-voor-een-vuurshow-buiten-faq/",
    "Minimale ruimte voor een vuurshow buiten"
   ],
   [
-   "/wat-is-de-beste-tijd-van-het-jaar-voor-een-vuurshow-het-complete-antwoord-door-vuurspuwer-nuno/",
-   "Beste tijd van het jaar voor een vuurshow"
+   "/vlammenshow/",
+   "Voor welke avonden en maanden past een vlammenshow?"
   ],
   [
    "/vuurshow-in-belgie-boeken-vlaanderen-wallonie/",
@@ -112,18 +88,14 @@ MAP = {
    "Wat is vuurspuwen en hoe werkt het?"
   ],
   [
-   "/hoe-werkt-de-vuurspuwer-met-muziek-en-licht-het-complete-antwoord-door-vuurspuwer-nuno/",
-   "Hoe werkt een vuurshow met muziek en licht?"
-  ],
-  [
    "/wat-is-de-minimale-benodigde-ruimte-voor-een-vuurshow-buiten-faq/",
    "Minimale ruimte voor een vuurshow buiten"
   ]
  ],
  "vuurshow-bruiloft": [
   [
-   "/kan-ik-vuurspuwer-nuno-boeken-voor-mijn-bruiloft-het-complete-antwoord-door-vuurspuwer-nuno/",
-   "Vuurspuwer op je bruiloft boeken: alles wat je moet weten"
+   "/mentalist-boeken/",
+   "Mentalist op je bruiloft: binnen en zonder vuur"
   ],
   [
    "/vuurwerkshow-of-vuurshow-wat-mag-nog/",
@@ -134,12 +106,8 @@ MAP = {
    "Duo-act met vuurdanseres boeken"
   ],
   [
-   "/hoe-lang-duurt-een-typische-vuurshow-van-nuno-het-complete-antwoord-door-vuurspuwer-nuno/",
-   "Hoe lang duurt een vuurshow?"
-  ],
-  [
-   "/wat-is-de-beste-tijd-van-het-jaar-voor-een-vuurshow-het-complete-antwoord-door-vuurspuwer-nuno/",
-   "Beste tijd van het jaar voor een vuurshow"
+   "/vlammenshow/",
+   "Voor welke avonden en maanden past een vlammenshow?"
   ]
  ],
  "vuurshow-bedrijfsfeest": [
@@ -156,12 +124,8 @@ MAP = {
    "Personeelsfeest organiseren: 10 tips"
   ],
   [
-   "/kan-een-vuurshow-binnen-gehouden-worden-het-complete-antwoord-door-vuurspuwer-nuno/",
-   "Kan een vuurshow binnen gehouden worden?"
-  ],
-  [
-   "/wordt-de-show-aangepast-aan-het-thema-van-het-evenement-het-complete-antwoord-door-vuurspuwer-nuno/",
-   "Wordt de show aangepast aan het thema?"
+   "/wat-is-vuurspuwen-en-hoe-werkt-het/",
+   "Vuurspuwen binnen of buiten: wat is er nodig?"
   ]
  ],
  "vuurshow-festival": [
@@ -170,16 +134,8 @@ MAP = {
    "Vergunning voor een vuurshow: wat moet u regelen?"
   ],
   [
-   "/vuurspuwen-op-locatie-wat-zijn-de-veiligheidsvereisten-het-complete-antwoord-door-vuurspuwer-nuno/",
-   "Veiligheidsvereisten voor vuurspuwen op locatie"
-  ],
-  [
    "/wat-is-de-minimale-benodigde-ruimte-voor-een-vuurshow-buiten-faq/",
    "Minimale ruimte voor een vuurshow buiten"
-  ],
-  [
-   "/hoe-werkt-de-vuurspuwer-met-muziek-en-licht-het-complete-antwoord-door-vuurspuwer-nuno/",
-   "Hoe werkt een vuurshow met muziek en licht?"
   ],
   [
    "/vuurwerkshow-of-vuurshow-wat-mag-nog/",
@@ -210,8 +166,8 @@ MAP = {
    "Fakirshow: wat gebeurt er precies?"
   ],
   [
-   "/wat-zijn-de-populairste-themas-voor-een-fakirshow-het-complete-antwoord-door-vuurspuwer-nuno/",
-   "Populaire thema's voor een fakirshow"
+   "/fakir-show-inhuren/",
+   "Fakirshow boeken: acts en thema's"
   ],
   [
    "/themafeest-ideeen-en-voorbeelden/",
@@ -224,12 +180,8 @@ MAP = {
    "Wat is vuurspuwen en hoe werkt het?"
   ],
   [
-   "/vuurspuwen-op-locatie-wat-zijn-de-veiligheidsvereisten-het-complete-antwoord-door-vuurspuwer-nuno/",
-   "Veiligheidsvereisten voor vuurspuwen op locatie"
-  ],
-  [
-   "/wat-is-de-geschiedenis-van-vuurspuwen-het-complete-antwoord-door-vuurspuwer-nuno/",
-   "De geschiedenis van vuurspuwen"
+   "/vuur-woordenboek/",
+   "Vuur-woordenboek: vuurspuwen, vuurhappen en andere vuurtermen uitgelegd"
   ],
   [
    "/checklist-voor-het-organiseren-van-een-feest/",
@@ -246,8 +198,8 @@ MAP = {
    "Ideeën en tips voor het leukste kinderfeestje"
   ],
   [
-   "/kan-ik-een-vuurspuwer-huren-voor-een-kinderfeestje-het-complete-antwoord-door-vuurspuwer-nuno/",
-   "Vuurspuwer op een kinderfeestje: veilig of niet?"
+   "/entertainer-huren/",
+   "Feest met kinderen: welke act past, en kan een vuurshow erbij?"
   ],
   [
    "/themafeest-ideeen-en-voorbeelden/",
@@ -266,10 +218,6 @@ MAP = {
   [
    "/waar-kun-je-een-entertainer-inhuren/",
    "Waar kun je een entertainer inhuren?"
-  ],
-  [
-   "/wordt-de-show-aangepast-aan-het-thema-van-het-evenement-het-complete-antwoord-door-vuurspuwer-nuno/",
-   "Wordt de show aangepast aan het thema?"
   ]
  ]
 }

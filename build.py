@@ -2900,7 +2900,7 @@ _NIEUWE_TEKST = {
 <h2>Is een fakir hetzelfde als een vuurspuwer?</h2>
 <p>Nee, al overlappen ze. Vuurspuwen is één onderdeel dat in veel fakirshows voorkomt, maar een <a href="/vuurspuwer-inhuren/">vuurshow</a> is een eigen discipline met jongleren, draaiend vuur en body fire, en zonder spijkerbed of glas. Omgekeerd kan een fakirshow volledig zonder vuur. De twee worden vaak samen geboekt omdat ze elkaar aanvullen: de fakirshow werkt binnen en van dichtbij, de vuurshow buiten en van een afstand.</p>
 <h2>Veelgebruikte termen</h2>
-<p>Meer woorden rond vuur en fakirisme staan in de <a href="/vuur-woordenboek/">begrippenlijst</a>. Verwante vragen: <a href="/wat-is-de-culturele-betekenis-van-fakirisme-het-complete-antwoord-door-vuurspuwer-nuno/">wat de culturele betekenis van fakirisme is</a> en <a href="/wat-is-de-geschiedenis-van-vuurspuwen-het-complete-antwoord-door-vuurspuwer-nuno/">waar vuurspuwen vandaan komt</a>.</p>
+<p>Meer woorden rond vuur en fakirisme staan in de <a href="/vuur-woordenboek/">begrippenlijst</a>. Wat vuurspuwen is en waar het vandaan komt, staat bij <a href="/wat-is-vuurspuwen-en-hoe-werkt-het/">wat is vuurspuwen en hoe werkt het</a>.</p>
 """,
 }
 
@@ -2991,7 +2991,7 @@ _SAMENVOEGEN = {
  "biedt-nuno-ook-workshop-vuurspuwen-aan-het-complete-antwoord-door-vuurspuwer-nuno": "/workshop-vuurspuwen/",
  # twee prijsartikelen en twee geschiedenisartikelen om hetzelfde zoekwoord
  "wat-zijn-de-kosten-van-een-professionele-vuurspuwer-het-complete-antwoord-door-vuurspuwer-nuno": "/wat-kost-een-vuurspuwer/",
- "de-betekenis-en-geschiedenis-van-vuurspuwers": "/wat-is-de-geschiedenis-van-vuurspuwen-het-complete-antwoord-door-vuurspuwer-nuno/",
+ "de-betekenis-en-geschiedenis-van-vuurspuwers": "/wat-is-vuurspuwen-en-hoe-werkt-het/",
  # lange tweelingen zonder eigen geschreven pagina: naar de korte versie
  "vuurspuwer-boeken-voor-een-1001-nacht-themafeest-de-ultieme-spectaculaire-ervaring": "/vuurspuwer-boeken-voor-1001-nacht-themafeest/",
  "vuurspuwer-boeken-voor-een-buurtfeest-de-ultieme-spectaculaire-ervaring": "/vuurspuwer-boeken-voor-buurtfeest/",
@@ -2999,6 +2999,40 @@ _SAMENVOEGEN = {
  "vuurspuwer-boeken-voor-een-openingsceremonie-de-ultieme-spectaculaire-ervaring": "/vuurspuwer-boeken-voor-openingsceremonie/",
  "vuurspuwer-boeken-voor-een-productlancering-de-ultieme-spectaculaire-ervaring": "/vuurspuwer-boeken-voor-productlancering/",
  "vuurspuwer-boeken-voor-een-sportevenement-de-ultieme-spectaculaire-ervaring": "/vuurspuwer-boeken-voor-sportevenement/",
+ # Oktober 2026: de veertien artikelen "...het complete antwoord door
+ # vuurspuwer Nuno" die in juli 2026 met AI zijn herschreven. Na de
+ # spam-update van augustus (geschaalde teksten) waren ze samen goed voor
+ # zo'n vijf klikken in drie maanden. Elk gaat naar de levende pagina die
+ # dezelfde vraag beantwoordt; per artikel gekozen en door drie onafhankelijke
+ # controles getoetst (doet het doel de vraag echt, geen trechter naar een hub).
+ "hoe-lang-duurt-de-voorbereiding-van-een-vuurshow-het-complete-antwoord-door-vuurspuwer-nuno":
+     "/vuurshow-boeken/",
+ "hoe-lang-duurt-een-typische-vuurshow-van-nuno-het-complete-antwoord-door-vuurspuwer-nuno":
+     "/vuurshow-boeken/",
+ "hoe-vuurspuwer-nuno-boeken-voor-evenementen-het-complete-antwoord-door-vuurspuwer-nuno":
+     "/vuurshow-boeken/",
+ "hoe-werkt-de-vuurspuwer-met-muziek-en-licht-het-complete-antwoord-door-vuurspuwer-nuno":
+     "/vuurshow-boeken/",
+ "kan-een-vuurshow-binnen-gehouden-worden-het-complete-antwoord-door-vuurspuwer-nuno":
+     "/vlammenshow/",
+ "kan-ik-een-vuurspuwer-huren-voor-een-kinderfeestje-het-complete-antwoord-door-vuurspuwer-nuno":
+     "/entertainer-huren/",
+ "kan-ik-vuurspuwer-nuno-boeken-voor-mijn-bruiloft-het-complete-antwoord-door-vuurspuwer-nuno":
+     "/vuurshow-bruiloft/",
+ "vuurspuwen-op-locatie-wat-zijn-de-veiligheidsvereisten-het-complete-antwoord-door-vuurspuwer-nuno":
+     "/zijn-er-speciale-vergunningen-nodig-voor-vuurspuwen-faq/",
+ "wat-is-de-beste-tijd-van-het-jaar-voor-een-vuurshow-het-complete-antwoord-door-vuurspuwer-nuno":
+     "/vlammenshow/",
+ "wat-is-de-culturele-betekenis-van-fakirisme-het-complete-antwoord-door-vuurspuwer-nuno":
+     "/betekenis-en-geschiedenis-van-fakir/",
+ "wat-is-de-geschiedenis-van-vuurspuwen-het-complete-antwoord-door-vuurspuwer-nuno":
+     "/wat-is-vuurspuwen-en-hoe-werkt-het/",
+ "wat-kost-een-fakirshow-met-spijkerbed-per-uur-het-complete-antwoord-door-vuurspuwer-nuno":
+     "/fakir-show-inhuren/",
+ "wat-zijn-de-populairste-themas-voor-een-fakirshow-het-complete-antwoord-door-vuurspuwer-nuno":
+     "/fakir-show-inhuren/",
+ "wordt-de-show-aangepast-aan-het-thema-van-het-evenement-het-complete-antwoord-door-vuurspuwer-nuno":
+     "/entertainer-huren-voor-bedrijfsfeest/",
 }
 
 _blogset = sorted((bp for bp in posts if bp["slug"] not in PC.SHOW_PAGES
@@ -3203,8 +3237,10 @@ for slug in KEEP_PAGES:
         write(slug, render(p, "page", PC.contact_schema(), PC.CONTACT_FORM, alternates=alts))
         built.append(slug); continue
     if slug == "blog":
+        # samengevoegde artikelen bestaan niet meer als pagina: geen kaart en
+        # geen BlogPosting, anders toont de blog oude titels die elders uitkomen
         blog_posts = [bp for bp in sorted(posts, key=lambda x: x["date"], reverse=True)
-                      if bp["slug"] not in PC.SHOW_PAGES]
+                      if bp["slug"] not in PC.SHOW_PAGES and bp["slug"] not in _SAMENVOEGEN]
         # artikelen per rubriek, met filterchips bovenaan
         groups = {}
         for bp in blog_posts:
@@ -3962,8 +3998,7 @@ for _oud, _nieuw in _HERNOEMD.items():
 # van de omleiding; die blijft voor wie van buiten komt. Nieuwe kapotte
 # links laten de bouw omvallen (zie de controle bij de eindpas).
 _VERDWENEN = {
-    "/vuurspuwer-boeken-voor-evenement/":
-        "/hoe-vuurspuwer-nuno-boeken-voor-evenementen-het-complete-antwoord-door-vuurspuwer-nuno/",
+    "/vuurspuwer-boeken-voor-evenement/": "/vuurshow-boeken/",
     "/vuurspuwer-boeken-voor-een-bedrijfsfeest/":
         "/vuurspuwer-boeken-voor-een-bedrijfsfeest-de-ultieme-spectaculaire-ervaring/",
     "/Vuurspuwer-boeken-voor-een-verjaardag-de-ultieme-spectaculaire-ervaring/":
@@ -4010,8 +4045,7 @@ _VERDWENEN = {
     "/vuurspuwer-inhuren-of-boeken/": "/vuurspuwer-inhuren/",
     "/wat-zijn-de-kosten-van-een-professionele-vuurspuwer-het-complete-antwoord-door-vuurspuwer-nuno/":
         "/wat-kost-een-vuurspuwer/",
-    "/de-betekenis-en-geschiedenis-van-vuurspuwers/":
-        "/wat-is-de-geschiedenis-van-vuurspuwen-het-complete-antwoord-door-vuurspuwer-nuno/",
+    "/de-betekenis-en-geschiedenis-van-vuurspuwers/": "/wat-is-vuurspuwen-en-hoe-werkt-het/",
     # stadsartikelen waar blogteksten nog naar linken
     "/spectaculaire-vuurspuwer-bocholt-een-vlammende-toevoeging-aan-uw-feest/": HUB,
     "/vuurspuwer-berlare-zet-uw-evenement-in-vuur-en-vlam-aan-het-donkmeer/": HUB,
@@ -4041,7 +4075,8 @@ _VENUE = re.compile(r"entertainment-bij-|event-bij-|feest-bij-|avond-bij-|avond-
                     r"crowne-plaza|hotel-metropole|kruisherenhotel|auberge-du-pecheur|river-woods")
 _bestaat = lambda u: u == "/" or os.path.exists(os.path.join(OUT, u.strip("/"), "index.html"))
 _HREF_ALL = re.compile(r'<a [^>]*href="(?:https?://vuurspuwer\.com)?(/[^"#?]*)(?:[#?][^"]*)?"')
-_bekend = {l.split()[0] for l in lines if l.startswith("/")}
+# samengevoegde pagina's krijgen hun omleiding pas verderop, maar zijn wel bekend
+_bekend = {l.split()[0] for l in lines if l.startswith("/")} | {f"/{_k}/" for _k in _SAMENVOEGEN}
 _dood = set()
 for _root, _, _fs in os.walk(OUT):
     for _f in _fs:
@@ -4893,6 +4928,9 @@ for _root, _, _fs in os.walk(OUT):
             _omgezet += 1
             return f'href="{m.group(1) or ""}{_RD[pad]}{m.group(3) or ""}"'
         _n = _HREF.sub(_her, _doc)
+        # oude artikeltitels als linktekst: het achtervoegsel van de juli-
+        # artikelen hoort niet in een link naar een andere pagina
+        _n = re.sub(r"\s*:?\s*Het Complete Antwoord door Vuurspuwer Nuno(?=\s*</a>)", "", _n)
         # en een interne link hoort niet met het eigen domein ervoor: dat is
         # een erfenis van WordPress en telt in browsers en crawlers als een
         # absolute link naar een andere site — alleen in <a>, niet in
