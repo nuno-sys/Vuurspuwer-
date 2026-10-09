@@ -1590,7 +1590,10 @@ def render(p, kind, extra_schema=None, extra_html="", lang="nl", path=None, alte
         for l in ("nl", "en", "de", "fr"):
             if l in alternates:
                 hreflang += f'<link rel="alternate" hreflang="{l}" href="{SITE}{alternates[l]}">\n'
-        hreflang += f'<link rel="alternate" hreflang="x-default" href="{SITE}{alternates["nl"]}">'
+        # x-default is de Nederlandse versie; voor pagina's zonder NL-versie
+        # (Luxemburg: alleen Duits en Frans) de Franse, de voertaal daar
+        _xd = alternates.get("nl") or alternates.get("fr") or next(iter(alternates.values()))
+        hreflang += f'<link rel="alternate" hreflang="x-default" href="{SITE}{_xd}">'
     HDR, FTR = chrome(lang)
     FTR = FTR.replace('<div class="foot__bar">', lang_row(lang, alternates) + '\n  <div class="foot__bar">')
 

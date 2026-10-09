@@ -45,6 +45,89 @@ OVERRIDE = {
    "Für Hochzeiten und Firmenfeiern in der Adventszeit und rund um Karneval sind die Wochenenden früh belegt; einige Monate Vorlauf sind dann sinnvoll. Außerhalb der Saison reicht oft eine kürzere Frist, und ein freier Termin ist auch kurzfristig möglich, wenn die Fläche passt. Fragen Sie einfach mit Datum und Ort an; die Antwort kommt innerhalb von 24 Stunden."),
  ],
 },
+ ("de", "feuerspucker-duesseldorf"): {
+ "title": "Feuerspucker in Düsseldorf buchen: Feuershow für Firmenevent, Messeabend und Hochzeit",
+ "seo_title": "🔥 Feuerspucker Düsseldorf buchen | Feuershow mieten",
+ "seo_desc": "Feuershow in Düsseldorf mieten: versicherter Feuerkünstler für Firmenevent, Messeabend oder Hochzeit, Abstimmung mit der Location. Ab 350 € inkl. Anfahrt.",
+ "body": """
+<p><strong>Für eine Feuershow in Düsseldorf verlangen Hotels, Eventlocations und Agenturen mehr als ein gutes Video: Versicherungsnachweis, Ablaufplan, Sicherheitskonzept. Nuno ist versichert, stimmt Ablauf und Sicherheit vorab mit dem Haus ab, präsentiert auf Deutsch oder Englisch und beantwortet Ihre Anfrage binnen 24 Stunden mit einem Festpreis ab 350 Euro, Anfahrt aus Zeist inklusive.</strong></p>
+<h2>Was Düsseldorfer Locations vor einer Feuershow wissen wollen</h2>
+<p>In der Landeshauptstadt arbeiten viele Veranstaltungsorte mit eigener Haustechnik, Brandschutzbeauftragten und festen Abläufen. Bevor dort jemand mit Feuer auftreten darf, kommen meist dieselben Fragen: Ist der Künstler versichert? Wie groß ist die Sicherheitszone? Welche Brennflüssigkeit wird verwendet? Wer löscht im Notfall? Wo wird aufgebaut, und wie lange dauert das?</p>
+<p>Auf diese Fragen gibt es bei Nuno klare Antworten. Nuno ist zertifiziert sowie versichert, und gespielt wird mit einer speziellen Showflüssigkeit, nicht mit beliebigem Brennstoff. Er reist mit eigenen Löschmitteln an, ist vor Showbeginn rechtzeitig vor Ort, geht die Fläche mit dem Ansprechpartner der Location ab und steckt die Sicherheitszone sichtbar ab. Wenn die Location vorab Unterlagen sehen möchte, schicken Sie ihm die Anforderungen weiter; die Abstimmung zwischen Ihnen, dem Haus und dem Künstler ist dann vor dem Veranstaltungstag erledigt und nicht erst beim Aufbau.</p>
+<p>Was die Abstimmung beschleunigt, wenn Sie anfragen: der Name der Location und ein Ansprechpartner dort, die geplante Uhrzeit der Show, ein oder zwei Fotos der vorgesehenen Fläche und bei Innenräumen die ungefähre Deckenhöhe. Mit diesen Angaben lässt sich meist schon im ersten Angebot sagen, welche Variante der Show an diesem Ort möglich ist.</p>
+<h2>Firmenevent, Messeabend oder Kundenempfang: welches Format?</h2>
+<p>Während großer Messen ist Düsseldorf voll mit Abendveranstaltungen von Ausstellern, Verbänden und Agenturen. Für solche Formate ist es sinnvoll, die Show klar zu takten:</p>
+<ul>
+<li>Ein <strong>Power-Act von zehn Minuten</strong> als Signal zum Programmstart oder als Abschluss einer Rede.</li>
+<li>Ein <strong>Showblock von zwanzig Minuten</strong>, wenn die Feuershow selbst der Programmpunkt des Abends ist.</li>
+<li><strong>Mehrere kurze Blöcke</strong>, wenn Gäste kommen und gehen, etwa bei einem Empfang mit offenem Ende.</li>
+</ul>
+<p>Bei internationalem Publikum moderiert Nuno auf Englisch, Französisch oder Deutsch. Ausführliche Informationen zu Abläufen bei Unternehmen finden Sie auf der Seite <a href="/de/feuershow-firmenfeier/">Feuershow für die Firmenfeier</a>.</p>
+<h2>Kulisse am Wasser und in der Altstadt</h2>
+<p>Viele Veranstalter wünschen sich Feuer vor einer markanten Kulisse: die Rheinpromenade bei Dämmerung, die Architektur im Medienhafen, eine Dachterrasse mit Blick über die Stadt. Solche Orte sind fotogen, haben aber ihre Eigenheiten. Unter freiem Himmel braucht die volle Show eine Grundfläche von rund sechs auf sechs Metern und ebenso viel Raum nach oben – auf einer Dachterrasse mit Markisen oder Rankgerüsten ist das nicht selbstverständlich. In den Innenhöfen der Altstadt ist meist die Höhe der begrenzende Faktor, nicht die Breite. Öffentliche Flächen wie das Rheinufer gehören nicht einer Location, sondern der Stadt; dort ist eine Abstimmung mit dem Ordnungsamt sinnvoll. Die Meldung macht der Veranstalter, Nuno liefert die nötigen Angaben dazu.</p>
+<h2>Wenn kein offenes Feuer erlaubt ist</h2>
+<p>Messehallen, manche Hotels und Säle mit empfindlicher Brandmeldeanlage schließen offene Flammen grundsätzlich aus. Dann muss das Programm nicht ausfallen. Drinnen funktionieren eine <a href="/de/fakirshow/">Fakirshow</a> mit Nagelbrett, Glas und Schwertern oder Mentalismus ohne jede Flamme. Ist der Saal hoch genug und gut belüftet, ist eine Feuershow drinnen möglich, mit niedrigeren Flammen und mehr Gewicht auf Jonglage und Body Fire. Das klären Sie am besten frühzeitig mit der Haustechnik. Eine Feuershow ist übrigens keine Pyrotechnik; ein Pyrotechniker ist nicht nötig.</p>
+<h2>Feuershow zur Hochzeit in Düsseldorf</h2>
+<p>Bei Hochzeiten gelten im Prinzip dieselben Fragen, nur dass das Brautpaar sie selten selbst stellen möchte. Geben Sie Nuno einfach den Kontakt Ihrer Location oder Ihres Hochzeitsplaners, dann wird der Rest direkt abgestimmt. Gut passt der Showblock nach dem Eröffnungstanz oder zur blauen Stunde draußen. Mehr dazu unter <a href="/de/feuershow-hochzeit/">Feuershow Hochzeit</a>.</p>
+<h2>Preis, Rechnung und Anfrage</h2>
+<p>Eine Feuershow in Düsseldorf kostet zwischen 350 und 1500 Euro, je nach Dauer und Umfang. Die Anfahrt aus Zeist, das Material und die Sicherheitsausrüstung sind eingerechnet. Für die Buchhaltung von Firmen und Agenturen gibt es eine ordentliche Rechnung aus den Niederlanden, ausgewiesen mit seiner Umsatzsteuer-Identifikationsnummer. Nuno arbeitet seit siebzehn Jahren mit Feuer, war bei SBS6, RTL 4 und VTM im Fernsehen und steht bei 4,9 von 5 aus 136 <a href="/de/bewertungen/">Bewertungen</a>. Schicken Sie Datum, Location und gewünschtes Format über das <a href="/de/kontakt/">Kontaktformular</a>; die Preisübersicht finden Sie unter <a href="/de/feuerspucker-kosten/">Was kostet ein Feuerspucker?</a></p>
+""",
+ "faq": [
+  ("Unsere Location verlangt einen Versicherungsnachweis. Ist das ein Problem?",
+   "Nein. Nuno ist versichert, und Anfragen von Locations nach Versicherung und Sicherheitsablauf sind bei Firmenveranstaltungen normal. Leiten Sie die Anforderungen der Location einfach mit Ihrer Anfrage weiter oder nennen Sie einen Ansprechpartner dort. So ist vor dem Veranstaltungstag geklärt, wo aufgebaut wird und wie groß die Sicherheitszone ist."),
+  ("Ist eine Feuershow in einer Messehalle möglich?",
+   "In den meisten Messehallen sind offene Flammen nicht erlaubt, und dagegen lässt sich wenig machen. Für Messestände und Abendveranstaltungen in Hallen sind eine Fakirshow mit Nagelbrett, Glas und Schwertern oder Mentalismus die passenden Alternativen. Findet der Messeabend dagegen in einem Restaurant oder Hotel mit Außenfläche statt, kann die Feuershow draußen stattfinden."),
+  ("Präsentiert Nuno auch auf Englisch?",
+   "Ja. Nuno präsentiert auf Deutsch, Englisch, Französisch und Niederländisch. Bei internationalen Gästen, wie sie in Düsseldorf bei Firmen- und Messeveranstaltungen häufig sind, wird die Sprache vorher mit Ihnen abgestimmt. Die Feuershow selbst kommt ohnehin weitgehend ohne Worte aus, Sprache spielt vor allem bei Moderation und Mentalismus eine Rolle."),
+  ("Kann die Show am Rheinufer oder im Medienhafen stattfinden?",
+   "Grundsätzlich ja, wenn genug Platz und Höhe vorhanden sind und der Eigentümer der Fläche einverstanden ist. Öffentliche Flächen gehören der Stadt; dort sollte der Veranstalter vorher beim Ordnungsamt nachfragen. Auf privaten Terrassen und Höfen entscheidet die Location. Nuno hilft Ihnen mit den Angaben, die für diese Abstimmung gebraucht werden."),
+  ("Wie früh sollten wir für ein Firmenevent anfragen?",
+   "Je früher, desto einfacher ist die Abstimmung mit Location und Haustechnik. Vor allem in Messewochen und zur Weihnachtsfeier-Zeit sind viele Abende gleichzeitig verplant. Ein Angebot bekommen Sie immer innerhalb von 24 Stunden. Je genauer Ihre Angaben zu Ort, Uhrzeit und Raumhöhe sind, desto präziser ist dieses Angebot von Anfang an."),
+ ],
+},
+ ("de", "feuerspucker-duisburg"): {
+ "title": "Feuerspucker in Duisburg buchen: Feuershow in Halle, Hafen und Vereinsheim",
+ "seo_title": "🔥 Feuerspucker Duisburg buchen | Feuershow Ruhrgebiet",
+ "seo_desc": "Feuerspucker in Duisburg: Feuershow in Industriehalle, am Hafen oder beim Stadtteilfest im westlichen Ruhrgebiet. 350–1500 € all-in, Angebot in 24 Stunden.",
+ "body": """
+<p><strong>Eine Feuershow in Duisburg passt zu alten Hallen, Hafenkanten und Vereinsheimen genauso wie zum Stadtteilfest. Nuno, Feuerkünstler aus Zeist mit siebzehn Jahren Erfahrung, kommt ins westliche Ruhrgebiet und nennt Ihnen innerhalb von 24 Stunden einen Komplettpreis von 350 bis 1500 Euro, in dem die Anfahrt schon steckt.</strong></p>
+<h2>Industriekultur als Bühne für Feuer</h2>
+<p>Kaum eine Region hat so viele Veranstaltungsorte mit Stahl, Backstein und Beton wie das Ruhrgebiet. Ehemalige Werkshallen, Gebläsehallen und Freiflächen zwischen Hochöfen – der Landschaftspark Duisburg-Nord ist das bekannteste Beispiel für diese Art von Location – geben einer Feuershow einen Rahmen, den ein Festsaal nicht bieten kann. Flammen vor rostigem Stahl wirken anders als vor einer Hotelfassade.</p>
+<p>Solche Orte haben praktische Vorteile: Viel ist nicht brennbar, und Hallen sind oft hoch. Trotzdem lohnt sich ein genauer Blick. In umgebauten Industriehallen hängen häufig Stoffbahnen, Lichttraversen und Kabel unter der Decke, und für Veranstaltungen gibt es meist eine eigene Hausordnung. Drinnen ist eine Feuershow möglich, wenn genug Höhe und Belüftung vorhanden sind; die Flammen werden dann kleiner gehalten, Jonglage und Body Fire treten in den Vordergrund. Ob das Feuerspucken in voller Höhe geht, klärt sich bei der Begehung vor der Show. Gerade im Winter sind solche Hallen gefragt, etwa für eine Firmen-Weihnachtsfeier, bei der die Gäste drinnen bleiben und das Feuer kurz vor dem Tor auf der Freifläche stattfindet; mehr dazu unter <a href="/de/weihnachtsfeier-silvester-show/">Weihnachtsfeier und Silvester</a>.</p>
+<h2>Am Wasser: Wind und Wetter im Hafen und am Rhein</h2>
+<p>Duisburg liegt dort, wo Ruhr und Rhein zusammenkommen, und viele Feiern finden in der Nähe des Wassers statt – am Innenhafen, auf einer Uferwiese, auf dem Gelände eines Rudervereins. Am Wasser weht fast immer etwas Wind. Für eine Feuershow ist das kein Ausschlussgrund, aber ein Planungspunkt: Die Windrichtung bestimmt, wo das Publikum steht und wo die Sicherheitszone liegt. Bei starkem Wind kann es nötig sein, das Feuerspucken zu kürzen oder wegzulassen, während Jonglage und drehendes Feuer meist weiterlaufen können. Bei Dauerregen hilft nur ein Plan B mit Dach. Fragen Sie Ihre Location deshalb frühzeitig, ob es eine überdachte Fläche oder eine Halle als Ausweichort gibt.</p>
+<h2>Vereinsheim, Turnhalle, Stadtteilfest</h2>
+<p>Nicht jede Feier in Duisburg findet in einer Industriehalle statt. Oft ist es das Vereinsheim des Kleingartenvereins, der Parkplatz hinter der Turnhalle oder ein Straßenfest im eigenen Stadtteil. Draußen reicht ein freies Feld von ungefähr sechs auf sechs Metern, über dem bis in sechs Meter Höhe nichts hängt, mit Abstand zu Pavillons, Sonnenschirmen und Bäumen. Bei Straßenfesten mit Ständen rundherum ist das der Punkt, an dem früh geplant werden sollte, denn die Stände stehen meist eng. Für Familienpublikum lässt sich die Feuershow gut mit einer <a href="/de/reptilienshow/">Reptilienshow</a> mit Schlangen und Vogelspinnen kombinieren, die tagsüber und ohne Feuer funktioniert.</p>
+<h2>Welche Showlänge passt zu welchem Anlass?</h2>
+<table>
+<thead><tr><th>Anlass</th><th>Geeignetes Format</th></tr></thead>
+<tbody>
+<tr><td>Runder <a href="/de/feuershow-geburtstag/">Geburtstag</a> im Garten oder Vereinsheim</td><td>Power-Act, 10 Minuten</td></tr>
+<tr><td>Hochzeit oder Firmenfeier in einer Halle</td><td>Showblock, 20 Minuten</td></tr>
+<tr><td>Stadtteilfest oder <a href="/de/feuershow-festival/">Festival</a> mit wechselndem Publikum</td><td>Mehrere Blöcke über den Tag oder Abend</td></tr>
+</tbody>
+</table>
+<p>Jeder Showblock folgt demselben Bogen: Feuerjonglage zum Einstieg, dann drehendes Feuer und Body Fire, zum Schluss Feuerspucken mit Feuerbällen bis etwa sechs Meter Höhe.</p>
+<h2>Versicherung, Ordnungsamt und Rechnung</h2>
+<p>Mit Zertifikat und Versicherung, eigenen Löschmitteln und einer speziellen Showflüssigkeit ist Nuno auf solche Fragen vorbereitet. Am Veranstaltungstag kommt er mit reichlich Vorlauf, schaut sich den Platz gemeinsam mit Ihnen an und markiert eine Sicherheitszone. Eine Feuershow zählt nicht als Pyrotechnik, ein Pyrotechniker ist also nicht erforderlich. Wenn die Stadt oder die Location eine Meldung wünscht, reicht der Veranstalter diese beim Ordnungsamt oder beim Betreiber ein; die Angaben dafür bekommen Sie von Nuno. Abgerechnet wird grenzüberschreitend: Sie erhalten eine Rechnung aus den Niederlanden mit Umsatzsteuer-ID.</p>
+<h2>Feuerspucker in Duisburg anfragen</h2>
+<p>Von Zeist ist Duisburg über die A12 und die A3 gut zu erreichen; der Grenzübergang bei Emmerich liegt auf dem Weg. Eine Show am Abend ist deshalb problemlos möglich, und für Sie entstehen keine Übernachtungs- oder Fahrtkosten außerhalb des Angebots. Teilen Sie über das <a href="/de/kontakt/">Kontaktformular</a> Datum, Ort, Anlass und ungefähre Gästezahl mit. Innerhalb von 24 Stunden erhalten Sie einen Festpreis ab 350 Euro, in dem Anfahrt und Material enthalten sind. Im Fernsehen war Nuno bei SBS6, RTL 4 und VTM zu sehen; seine Kunden geben ihm im Durchschnitt 4,9 von 5 (136 Bewertungen). Mehr über ihn lesen Sie unter <a href="/de/ueber-nuno/">Über Nuno</a>; Fotos vergangener Shows zeigt die <a href="/de/fotos/">Fotoseite</a>.</p>
+""",
+ "faq": [
+  ("Kann die Feuershow in einer alten Industriehalle stattfinden?",
+   "Oft ja, denn viele Hallen sind hoch und bestehen aus Stahl und Beton. Entscheidend sind die Belüftung, die Hausordnung der Location und das, was unter der Decke hängt, etwa Stoffbahnen oder Lichttechnik. Drinnen werden die Flammen kleiner gehalten. Ob das Feuerspucken in voller Höhe möglich ist, wird bei der Begehung vor der Show geklärt."),
+  ("Was ist bei Wind am Hafen oder am Rhein zu beachten?",
+   "Wind gehört am Wasser dazu. Er bestimmt aber, wo das Publikum steht und wohin die Sicherheitszone gelegt wird, damit die Flammen von den Gästen weg ziehen. Bei sehr starkem Wind kann das Feuerspucken kürzer ausfallen. Planen Sie für Sturm oder Dauerregen am besten einen überdachten Ausweichort ein."),
+  ("Reicht der Platz vor einem Vereinsheim?",
+   "Meist ja. Gebraucht wird ein freies Feld von ungefähr sechs auf sechs Metern, über dem bis in sechs Meter Höhe nichts hängt. Ein Parkplatz, eine Wiese oder ein Schotterplatz neben dem Vereinsheim genügt häufig. Schicken Sie mit der Anfrage ein Foto der Fläche, dann lässt sich vorab einschätzen, ob die volle Show möglich ist."),
+  ("Eignet sich die Feuershow für ein Stadtteilfest mit Kindern?",
+   "Ja, Feuer zieht bei Stadtteilfesten Familien an. Bei wechselndem Publikum sind mehrere kurze Blöcke über den Tag oder Abend sinnvoll, damit möglichst viele Besucher eine Show sehen. Tagsüber, wenn es für Feuer noch zu hell ist, kann eine Reptilienshow mit Schlangen und Vogelspinnen das Programm ergänzen."),
+  ("Brauche ich einen Pyrotechniker oder eine Genehmigung?",
+   "Einen Pyrotechniker brauchen Sie nicht, denn eine Feuershow ist keine Pyrotechnik. Manche Städte oder Hallenbetreiber möchten trotzdem vorher informiert werden. Diese Meldung reicht der Veranstalter beim Ordnungsamt oder beim Betreiber ein. Nuno gibt Ihnen dafür Informationen zu Ablauf, Sicherheitszone, Löschmitteln und Versicherung."),
+  ("Wie wird bezahlt, wenn der Künstler aus den Niederlanden kommt?",
+   "Sie erhalten eine Rechnung aus den Niederlanden mit Umsatzsteuer-ID, so wie bei anderen Dienstleistungen innerhalb der EU. Der Betrag entspricht dem Festpreis aus dem Angebot, in dem Anfahrt und Material schon enthalten sind. Nachträgliche Zuschläge für Kilometer oder Ausrüstung gibt es nicht."),
+ ],
+},
  ("de", "feuerspucker-kaldenkirchen"): {
  "title": "Feuerspucker in Kaldenkirchen buchen: Feuershow für Schützenfest, Zeltfest und Hochzeit im Grenzland",
  "seo_title": "🔥 Feuerspucker Kaldenkirchen | Feuershow Nettetal",
@@ -151,6 +234,241 @@ OVERRIDE = {
    "Keinen Pyrotechniker, denn die Show ist keine Pyrotechnik. Für ein öffentliches Fest auf einer Straße oder einem Platz hat der Veranstalter ohnehin Kontakt mit dem Ordnungsamt; dort erwähnen Sie die Feuershow, und Nuno stellt eine Beschreibung mit Sicherheitszone und Löschmitteln zur Verfügung. Bei privaten Feiern auf eigenem Grund ist das in der Regel nicht nötig."),
   ("Wie weit im Voraus sollte ein Unternehmen aus Krefeld buchen?",
    "Für Weihnachtsfeiern und Sommerfeste an Freitagen oder Samstagen sind die Termine früh weg; ein paar Monate Vorlauf sind dann sinnvoll. Unter der Woche und außerhalb der Saison geht es oft kurzfristiger, weil Krefeld von Zeist aus gut erreichbar ist. Eine Anfrage mit Datum kostet nichts und wird innerhalb von 24 Stunden beantwortet."),
+ ],
+},
+ ("de", "feuerspucker-moenchengladbach"): {
+ "title": "Feuerspucker in Mönchengladbach buchen: Feuershow für Verein, Hochzeit und Firma",
+ "seo_title": "🔥 Feuerspucker Mönchengladbach buchen | Feuershow",
+ "seo_desc": "Feuerspucker in Mönchengladbach buchen: Feuershow für Vereinsfest, Hochzeit oder Firmenfeier am Niederrhein. 350–1500 € inkl. Anfahrt, Angebot in 24 Std.",
+ "body": """
+<p><strong>Sie möchten einen Feuerspucker in Mönchengladbach buchen? Nuno kommt aus Zeist in den Niederlanden an den Niederrhein – für Vereinsfeste, Firmenfeiern, Hochzeiten und Geburtstage. Sie bekommen ein Angebot zwischen 350 und 1500 Euro, Anfahrt und Material inklusive, und eine Antwort innerhalb von 24 Stunden.</strong></p>
+<h2>Kommt ein Feuerkünstler aus den Niederlanden extra nach Mönchengladbach?</h2>
+<p>Ja, und der Weg ist kürzer, als viele denken. Von Zeist geht es über die Autobahn Richtung Venlo und Roermond, und hinter der Grenze ist Mönchengladbach schnell erreicht. Für Nuno ist der Niederrhein deshalb kein Sonderfall, sondern ganz normales Einsatzgebiet. Die Fahrt rechnet er in den Festpreis ein; einen Kilometerzuschlag, der nach der Veranstaltung noch auf der Rechnung auftaucht, gibt es nicht. Moderiert wird auf Deutsch – in der Regel lässt aber das Feuer die Show für sich sprechen.</p>
+<h2>Vereinsfest, Schützenfest, Stadtteilfest: wo passt eine Feuershow?</h2>
+<p>Am Niederrhein feiern Vereine viel und gern, und eine Feuershow ist dort oft der Programmpunkt, über den später noch gesprochen wird. Typische Anlässe sind das Sommerfest des Sportvereins, ein Jubiläum im Schützenverein, die Saisonabschlussfeier im Fußballverein – in einer Fußballstadt wie Mönchengladbach kein seltener Anlass – oder das Straßenfest im eigenen Viertel. Bei solchen Festen steht das Publikum meist im Halbkreis um eine Wiese oder einen Parkplatz, Kinder vorne, Erwachsene dahinter. Genau dafür ist die Show gemacht: Sie beginnt mit Feuerjonglage, wird mit drehendem Feuer und Body Fire intensiver und endet mit dem Feuerspucken, bei dem Feuerbälle bis etwa sechs Meter hoch steigen. Dasselbe gilt im Kleinen für einen runden Geburtstag auf dem Hof oder im Garten, über den Sie mehr unter <a href="/de/feuershow-geburtstag/">Feuershow zum Geburtstag</a> finden. Mehr zu größeren Bühnen lesen Sie unter <a href="/de/feuershow-festival/">Feuershow für Festivals und Stadtfeste</a>.</p>
+<h2>Wie lange sollte die Show bei Hochzeit oder Firmenfeier dauern?</h2>
+<p>Das hängt davon ab, welche Rolle das Feuer an Ihrem Abend spielen soll. Drei Varianten sind möglich:</p>
+<ul>
+<li><strong>Power-Act, 10 Minuten:</strong> ein kurzer, dichter Höhepunkt, etwa direkt nach dem Hochzeitstanz oder zur Eröffnung des Buffets.</li>
+<li><strong>Showblock, 20 Minuten:</strong> der vollständige Aufbau von der Jonglage bis zum Feuerspucken. Diese Länge wird am häufigsten gebucht.</li>
+<li><strong>Mehrere Blöcke:</strong> über den Abend verteilt, zum Beispiel ein Block bei Einbruch der Dunkelheit und ein zweiter kurz vor Mitternacht.</li>
+</ul>
+<p>Für eine <a href="/de/feuershow-hochzeit/">Feuershow zur Hochzeit</a> passt meist der Showblock, bei einer <a href="/de/feuershow-firmenfeier/">Firmenfeier</a> wird die Show gern mit Mentalismus oder einer <a href="/de/fakirshow/">Fakirshow</a> kombiniert, damit es auch drinnen etwas zu sehen gibt.</p>
+<h2>Wie viel Platz braucht die Show auf dem Vereinsgelände?</h2>
+<p>Draußen rechnen Sie mit ungefähr sechs mal sechs Metern Platz und sechs Metern Luft nach oben. Wichtig ist der Abstand zu Festzelten, Pavillons, Sonnenschirmen und tief hängenden Ästen. Ein Sportplatz, ein Schotterparkplatz neben dem Vereinsheim oder der Hof eines Bauernhofs am Stadtrand reichen in der Regel aus. Drinnen geht es auch, wenn der Saal hoch genug ist und gut belüftet wird; dann bleiben die Flammen niedriger, und Jonglage und Body Fire stehen stärker im Mittelpunkt. Nuno ist vor Beginn rechtzeitig da, geht die Fläche mit Ihnen ab, steckt eine Sicherheitszone ab und bringt eigene Löschmittel mit.</p>
+<h2>Muss ich die Feuershow beim Ordnungsamt anmelden?</h2>
+<p>Eine Feuershow ist keine Pyrotechnik. Sie brauchen also keinen Pyrotechniker und keine Genehmigung wie für ein Feuerwerk. Manche Städte, Vermieter oder Hallenbetreiber möchten trotzdem vorher Bescheid wissen. Die Meldung macht in diesem Fall der Veranstalter, also Sie, beim Ordnungsamt oder bei der Location. Nuno unterstützt Sie dabei mit Angaben zum Ablauf, zur Sicherheitszone und zur Versicherung. Er hat ein Zertifikat und eine Versicherung und verwendet eine eigens dafür gedachte Showflüssigkeit. Wer ganz ohne offene Flammen feiern möchte, kann statt Feuer auch Fakirshow oder Mentalismus buchen.</p>
+<h2>Was kostet ein Feuerspucker in Mönchengladbach?</h2>
+<p>Je nach Showlänge, Anzahl der Blöcke und Kombination mit anderen Acts kostet die Buchung 350 bis 1500 Euro. Anfahrt, Material und Sicherheitsausrüstung sind darin enthalten. Die Rechnung kommt aus den Niederlanden und trägt seine USt-ID. Nennen Sie im <a href="/de/kontakt/">Kontaktformular</a> Datum, Ort und Anlass, dann bekommen Sie innerhalb von 24 Stunden ein Angebot. Nuno hat siebzehn Jahre Erfahrung mit Feuer, Sie kennen ihn vielleicht aus dem niederländischen und belgischen Fernsehen (SBS6, RTL 4, VTM), und in 136 Bewertungen erreicht er im Schnitt 4,9 von 5. In der Nähe kommt er auch nach <a href="/de/feuerspucker-krefeld/">Krefeld</a> und Viersen.</p>
+""",
+ "faq": [
+  ("Wie schnell ist Nuno von Zeist in Mönchengladbach?",
+   "Mönchengladbach liegt nicht weit hinter der Grenze bei Venlo und Roermond, die Anfahrt ist also überschaubar. Nuno plant sie so, dass er deutlich vor Showbeginn vor Ort ist und die Fläche in Ruhe mit Ihnen abgehen kann. Die Fahrtkosten stecken bereits im Festpreis, Sie müssen sie nicht gesondert einplanen."),
+  ("Passt eine Feuershow zum Schützenfest oder Vereinsjubiläum?",
+   "Ja, gerade bei Vereinsfesten am Niederrhein funktioniert sie gut, weil das Publikum gemischt ist und gern draußen steht. Ein Sportplatz, eine Festwiese oder ein Parkplatz am Vereinsheim bietet meist genug Platz. Wichtig ist nur der Abstand zum Festzelt. Bei langen Festen lassen sich mehrere Showblöcke über den Abend verteilen."),
+  ("Können Kinder bei der Feuershow zuschauen?",
+   "Ja. Kinder stehen bei Familienfesten oft in der ersten Reihe, und die Sicherheitszone ist genau dafür da: Sie hält das Publikum auf Abstand zu den Flammen. Nuno markiert diese Zone vor der Show sichtbar. Hilfreich ist, wenn ein Erwachsener aus dem Verein mit darauf achtet, dass die Kinder hinter der Markierung bleiben."),
+  ("Brauche ich für die Feuershow eine Genehmigung der Stadt Mönchengladbach?",
+   "Eine Feuershow ist kein Feuerwerk und braucht keinen Pyrotechniker. Ob eine Meldung beim Ordnungsamt nötig ist, hängt vom Ort und von der Art der Veranstaltung ab; bei öffentlichen Festen ist es eher ein Thema als im privaten Garten. Die Meldung macht der Veranstalter. Nuno liefert Ihnen dafür die Angaben zu Ablauf, Sicherheitszone und Versicherung."),
+  ("Was passiert bei Regen?",
+   "Bei einer Feier unter freiem Himmel ist es sinnvoll, das Wetter von Anfang an mitzudenken. Für starken Regen oder Sturm lohnt es sich, einen überdachten Ausweichort zu haben, etwa eine hohe Halle mit guter Belüftung oder eine Scheune ohne brennbare Deko unter dem Dach. Sprechen Sie das bei der Anfrage an, dann kann das Angebot beide Varianten berücksichtigen."),
+  ("Kann ich die Feuershow mit einem anderen Act kombinieren?",
+   "Ja. Bei Firmenfeiern und Hochzeiten wird die Feuershow draußen oft mit Mentalismus oder einer Fakirshow drinnen ergänzt, damit der Abend zwei Höhepunkte hat. Für Familienfeste ist auch eine Reptilienshow mit Schlangen und Vogelspinnen möglich. Sie bekommen dann ein gemeinsames Angebot, ebenfalls innerhalb von 24 Stunden."),
+ ],
+},
+ ("fr", "cracheur-de-feu-bruxelles"): {
+ "title": "Cracheur de feu à Bruxelles pour événements d'entreprise, mariages et soirées",
+ "seo_title": "🔥 Cracheur de feu à Bruxelles | FR, NL, EN",
+ "seo_desc": "Cracheur de feu à Bruxelles : spectacle en français, néerlandais ou anglais, en salle ou dehors. Devis tout compris dès 350 euros, réponse en 24 heures.",
+ "body": """
+<p><strong>Un cracheur de feu à Bruxelles pour une soirée d'entreprise, un mariage ou un anniversaire ? Nuno joue en français, en néerlandais ou en anglais selon votre public, et vous fait parvenir en 24 heures un devis tout compris à partir de 350 euros, déplacement depuis Zeist et matériel inclus.</strong></p>
+<h2>Un public bilingue, souvent international</h2>
+<p>À Bruxelles, une même salle réunit facilement francophones, néerlandophones et collègues venus de toute l'Europe. Le feu se passe de traduction, mais l'introduction et les échanges avec le public comptent pour que la salle suive. Nuno les assure en français, en néerlandais, en anglais ou en allemand, et passe de l'une à l'autre si le public est mélangé. Pour un événement d'entreprise ou d'organisation dans le quartier européen, l'anglais sert souvent de langue commune ; quand vraiment personne ne partage la même langue, il peut aussi jouer presque sans paroles.</p>
+<h2>Cracher du feu dans une salle du centre : tout dépend du plafond</h2>
+<p>Beaucoup d'événements bruxellois se tiennent à l'intérieur : anciens entrepôts reconvertis, salles de réception sous verrière, hôtels, espaces de conférence. Une animation feu y est possible si la hauteur sous plafond est suffisante et la ventilation bonne. Les flammes restent alors plus basses et le spectacle met l'accent sur la jonglerie de feu et le body fire plutôt que sur les grandes boules de feu. L'accord du gestionnaire de salle et la question des détecteurs de fumée se règlent en amont, pas le soir même. Quand le plafond est trop bas ou que la salle refuse toute flamme, deux spectacles fonctionnent sans feu : le <a href="/fr/spectacle-de-fakir/">spectacle de fakir</a>, avec lit de clous, verre et épées, et le mentalisme.</p>
+<h2>Quelle formule pour un événement d'entreprise ?</h2>
+<table>
+<thead><tr><th>Formule</th><th>Durée</th><th>Pour quel moment</th></tr></thead>
+<tbody>
+<tr><td>Power-act</td><td>10 minutes</td><td>Ouverture d'une soirée, après un discours, lancement d'un produit</td></tr>
+<tr><td>Bloc spectacle</td><td>20 minutes</td><td>Le spectacle complet : jonglerie, feu tournoyant, body fire, final craché jusqu'à environ six mètres</td></tr>
+<tr><td>Plusieurs blocs</td><td>Selon la soirée</td><td>Réception puis dîner, ou soirée longue, éventuellement en alternance avec le fakir ou le mentalisme</td></tr>
+</tbody>
+</table>
+<p>Pour un gala ou une fête du personnel, le bloc de vingt minutes donne au public le temps d'entrer dans le spectacle. Pour un cocktail où les invités restent debout et circulent, la power-act de dix minutes crée un point de rendez-vous sans casser le rythme des conversations. D'autres exemples : <a href="/fr/spectacle-de-feu-entreprise/">animation feu en entreprise</a>.</p>
+<h2>Facture, TVA et assurance pour une organisation belge</h2>
+<p>Nuno établit une facture avec numéro de TVA intracommunautaire. Il est certifié et assuré. Si la commune, le propriétaire du bâtiment ou l'organisateur d'un salon exige une déclaration préalable ou une attestation, il prépare les pièces avec vous. Un spectacle de feu ne suit pas les règles des feux d'artifice ; voir l'<a href="/fr/alternative-feu-artifice/">alternative au feu d'artifice</a>.</p>
+<h2>Uccle, Woluwe, Waterloo et la périphérie</h2>
+<p>Nuno vient dans les dix-neuf communes de la Région bruxelloise et dans la périphérie : Zaventem, Overijse, Dilbeek, Waterloo, Wavre, Louvain-la-Neuve. Dans les communes flamandes de la périphérie, il présente volontiers en néerlandais. En dehors du centre, les jardins de villa et les domaines du Brabant wallon offrent souvent la place qui manque en ville : environ six mètres sur six de surface libre et six mètres de hauteur, loin des tentes et des parasols. C'est là qu'un <a href="/fr/spectacle-de-feu-mariage/">mariage</a> ou un <a href="/fr/spectacle-de-feu-anniversaire/">anniversaire</a> peut accueillir le spectacle en entier, avec les boules de feu du final.</p>
+<h2>Demander un devis à Bruxelles</h2>
+<p>Envoyez votre date, l'adresse et le nombre d'invités via la page <a href="/fr/contact/">contact</a>. Vous recevez un prix fixe sous 24 heures, sans supplément de trajet. Précisez si la fête a lieu à l'intérieur et donnez la hauteur approximative de la salle : c'est ce qui détermine la version du spectacle. Sur place, Nuno arrive largement avant l'heure prévue, repère le lieu avec vous, installe une zone de sécurité et garde ses extincteurs avec lui. Il travaille avec le feu depuis dix-sept ans et a été vu sur SBS6, RTL 4 et VTM. Les tarifs généraux figurent sur la page <a href="/fr/prix-cracheur-de-feu/">prix</a>.</p>
+""",
+ "faq": [
+  ("Un spectacle de feu est-il possible dans un hôtel ou une salle de réception ?",
+   "Souvent, oui, à deux conditions : une hauteur sous plafond suffisante et une bonne ventilation. Le gestionnaire de la salle doit aussi donner son accord. En intérieur, Nuno réduit la taille des flammes et met en avant la jonglerie de feu et le body fire. Indiquez la hauteur approximative de la salle dans votre demande, c'est le point qui décide de la version jouée."),
+  ("Nuno peut-il présenter en anglais pour un public international ?",
+   "Oui. Nuno présente en anglais, en français, en néerlandais ou en allemand, et peut alterner les langues dans une même intervention. Pour un événement dans le quartier européen ou une équipe venue de plusieurs pays, l'anglais sert souvent de langue commune. Quand le public est vraiment mélangé, il peut aussi jouer presque sans paroles : le feu parle de lui-même."),
+  ("Comment se passe la facturation pour une entreprise bruxelloise ?",
+   "Vous recevez d'abord un devis tout compris, sous 24 heures, avec le trajet depuis Zeist et le matériel inclus. Après l'événement, Nuno envoie une facture qui mentionne son numéro de TVA intracommunautaire. Il est certifié et assuré ; si votre service achats ou le lieu demande une attestation, il la fournit avant la date."),
+  ("Quelle est la différence entre la power-act et le bloc de vingt minutes ?",
+   "La power-act dure dix minutes et sert de temps fort : ouverture de soirée, après un discours, lancement d'un produit. Le bloc de vingt minutes est le spectacle complet, de la jonglerie de feu au feu tournoyant et au body fire, jusqu'aux boules de feu crachées à environ six mètres. Pour une soirée longue, plusieurs blocs sont possibles."),
+  ("Que proposer si la salle refuse toute flamme ?",
+   "Dans ce cas, Nuno propose deux spectacles sans feu. Le spectacle de fakir comprend le lit de clous, le verre et les épées. Le mentalisme est un art de scène qui donne l'impression de lire les pensées et de prédire des choix, sans aucun pouvoir surnaturel. Les deux fonctionnent dans une salle basse, pour un petit comité comme pour un grand groupe."),
+  ("Nuno vient-il aussi dans le Brabant wallon et le Brabant flamand ?",
+   "Oui. Waterloo, Wavre, Louvain-la-Neuve, Zaventem, Overijse ou Dilbeek font partie de sa zone, au même tarif de principe : le trajet est compris dans le devis. Dans les communes flamandes, il présente volontiers en néerlandais. Les jardins et domaines de la périphérie ont souvent assez de place pour le spectacle complet en extérieur, final compris."),
+ ],
+},
+ ("fr", "cracheur-de-feu-charleroi"): {
+ "title": "Cracheur de feu à Charleroi et dans le Hainaut",
+ "seo_title": "🔥 Cracheur de feu à Charleroi | Spectacle de feu",
+ "seo_desc": "Cracheur de feu à Charleroi pour soirées d'entreprise et fêtes de quartier. Devis tout compris de 350 à 1500 euros, trajet inclus, réponse sous 24 h.",
+ "body": """
+<p><strong>Vous cherchez un cracheur de feu à Charleroi ? Nuno vient de Zeist, aux Pays-Bas, pour les soirées d'entreprise, les fêtes de quartier et les événements dans tout le Hainaut. Le déplacement est inclus dans un devis tout compris entre 350 et 1500 euros, envoyé dans les 24 heures.</strong></p>
+<h2>Le Pays Noir comme décor</h2>
+<p>Charleroi a un avantage que peu de villes ont : ses anciennes halles, ateliers et sites miniers reconvertis en lieux d'événements. Une structure en acier, des murs de briques noircies, un terril en arrière-plan à la tombée de la nuit : le feu y trouve un cadre qui lui ressemble. Ces lieux ont souvent un plafond très haut, ce qui permet parfois de travailler à l'intérieur. Encore faut-il une ventilation suffisante ; dans ce cas, les flammes restent plus basses et le spectacle met l'accent sur la jonglerie et le body fire. La cour, le parking ou l'esplanade devant le bâtiment conviennent souvent mieux pour la grande finale.</p>
+<h2>Soirée d'entreprise : à quel moment placer le feu ?</h2>
+<p>Pour une réception du personnel, un lancement de produit ou une fête de fin d'année, la question n'est pas tant « quel spectacle » que « quand ». Deux formules reviennent le plus souvent :</p>
+<ul>
+<li><strong>Le power act de dix minutes</strong>, en surprise : à l'ouverture, juste après le discours de la direction, ou au moment où l'on dévoile quelque chose.</li>
+<li><strong>Le bloc de vingt minutes</strong>, avec toute la montée en puissance, placé après le repas, quand les invités sortent prendre l'air.</li>
+</ul>
+<p>Pour une soirée plus longue, Nuno répartit plusieurs blocs, éventuellement en alternance avec un <a href="/fr/spectacle-de-fakir/">spectacle de fakir</a> ou du mentalisme en salle, sans flamme. Plus de détails sur la page <a href="/fr/spectacle-de-feu-entreprise/">spectacle de feu pour entreprise</a>.</p>
+<h2>Fêtes de quartier et kermesses dans le Hainaut</h2>
+<p>Prenez par exemple une fête de rue à Marcinelle, une kermesse à Gilly ou la fête d'un comité de quartier à Montignies : ce sont des publics qui se massent volontiers tout près, enfants au premier rang. Il faut donc une zone dégagée d'environ six mètres sur six, avec six mètres de hauteur libre, loin des tonnelles, des parasols et des stands. Nuno délimite lui-même cette zone de sécurité à son arrivée et l'explique aux bénévoles. Une place, une cour d'école ou un parking fermé à la circulation suffit généralement. Le meilleur moment ? Juste après la tombée de la nuit, quand les familles sont encore là et que les flammes se voient de loin : c'est souvent ce qui fait venir les voisins qui hésitaient encore.</p>
+<p>Pour ce genre d'événement en plein air, la commune demande parfois une déclaration préalable. Un spectacle de feu ne relève pas des mêmes règles qu'un feu d'artifice, mais mieux vaut se renseigner tôt ; Nuno s'en occupe avec vous et fournit les informations dont l'administration a besoin.</p>
+<h2>Ce que le public voit, dans l'ordre</h2>
+<ol>
+<li>Jonglerie de feu : les torches enflammées volent, pour attirer les regards.</li>
+<li>Feu tournoyant : les cercles de flammes dessinent des formes dans le noir.</li>
+<li>Body fire : la flamme passe sur la peau et les bras.</li>
+<li>Crachage de feu : la finale, avec des boules de feu jusqu'à environ six mètres.</li>
+</ol>
+<p>Le spectacle fonctionne sans un mot, mais Nuno peut aussi l'animer en français, ce qui aide à garder le contact avec le public quand il faut lui demander de reculer d'un pas.</p>
+<h2>Sécurité et sérieux</h2>
+<p>Dix-sept ans de métier, des passages à la télévision sur SBS6, RTL 4 et VTM, une note de 4,9 sur 5 sur 136 avis : Nuno n'improvise pas avec le feu. Il est certifié et assuré, arrive bien avant le début, fait le tour du lieu avec vous, apporte ses propres moyens d'extinction et utilise un liquide de spectacle spécifique. Pour une entreprise, la facture mentionne un numéro de TVA intracommunautaire.</p>
+<h2>Réserver un cracheur de feu à Charleroi</h2>
+<p>Envoyez la date, le lieu et le type d'événement via le <a href="/fr/contact/">formulaire de contact</a>. Vous recevez un prix sur mesure dans les 24 heures, trajet et matériel compris. Les tarifs sont détaillés sur la page <a href="/fr/prix-cracheur-de-feu/">prix d'un cracheur de feu</a>, et les retours de clients sur la page <a href="/fr/avis/">avis</a>. Nuno se déplace aussi à <a href="/fr/cracheur-de-feu-namur/">Namur</a>, à <a href="/fr/cracheur-de-feu-mons/">Mons</a> et à Bruxelles.</p>
+""",
+ "faq": [
+  ("Peut-on faire un spectacle de feu dans une ancienne halle industrielle ?",
+   "Oui, si le plafond est assez haut et que la ventilation suit. Dans ce cas, les flammes restent plus basses et le spectacle met l'accent sur la jonglerie et le body fire. Pour la finale avec les grandes boules de feu, Nuno propose souvent de sortir dans la cour ou sur le parking. Il vérifie les lieux avec vous avant de décider."),
+  ("Combien de temps dure l'animation feu pour une soirée d'entreprise ?",
+   "Il y a trois possibilités : un power act de dix minutes en guise de surprise, un bloc de vingt minutes avec toute la montée en puissance, ou plusieurs blocs répartis sur la soirée. Pour un événement d'entreprise, le bloc de vingt minutes après le repas est le choix le plus fréquent."),
+  ("Les enfants peuvent-ils regarder de près lors d'une fête de quartier ?",
+   "Ils peuvent regarder, mais pas de trop près. Nuno délimite à son arrivée une zone de sécurité d'environ six mètres sur six et explique aux bénévoles où le public doit se tenir. Les enfants peuvent s'asseoir au premier rang, derrière cette limite, et ils voient tout parfaitement."),
+  ("Faut-il prévenir la commune pour un cracheur de feu dans le Hainaut ?",
+   "Cela dépend de la commune et du lieu. Pour une fête en plein air sur l'espace public, une déclaration préalable est souvent demandée. Un spectacle de feu n'est pas un feu d'artifice et suit d'autres règles, mais il vaut mieux se renseigner quelques semaines à l'avance. Nuno vous aide à rassembler les informations demandées."),
+  ("La facture peut-elle être adressée à une société belge ?",
+   "Oui. Nuno indique sur ses factures son numéro de TVA intracommunautaire, ce qui convient à une entreprise ou une ASBL belge qui a besoin d'une facture en bonne et due forme. Le devis est tout compris : spectacle, matériel et trajet depuis Zeist. Aucun supplément kilométrique n'est ajouté après la soirée."),
+ ],
+},
+ ("fr", "cracheur-de-feu-liege"): {
+ "title": "Cracheur de feu à Liège pour fêtes de quartier, mariages et entreprises",
+ "seo_title": "🔥 Cracheur de feu à Liège | Spectacle de feu en français",
+ "seo_desc": "Cracheur de feu à Liège, Verviers, Seraing ou Huy : spectacle de feu en français, trajet inclus. Devis de 350 à 1 500 euros tout compris sous 24 heures.",
+ "body": """
+<p><strong>Vous cherchez un cracheur de feu à Liège ? Nuno, artiste de feu installé à Zeist aux Pays-Bas, se déplace dans toute la province pour les mariages, les fêtes d'entreprise, les fêtes de quartier et les anniversaires. Il présente en français, le trajet est compris dans le prix, et le devis tout compris tombe entre 350 et 1 500 euros. Vous l'avez en main sous 24 heures.</strong></p>
+<h2>Comment se déroule le spectacle de feu ?</h2>
+<p>Dans la Cité Ardente, le surnom tombe juste : le spectacle est construit comme une montée en température. Nuno commence par la jonglerie de feu, passe au feu tournoyant et au body fire, quand les flammes glissent le long des bras et du torse, puis termine en crachant le feu, avec des boules de flammes qui montent jusqu'à six mètres environ. Deux formats existent. La power-act de dix minutes est un coup d'éclat placé au moment fort de la soirée. Le bloc de vingt minutes déroule toute la progression et c'est le format le plus réservé. Pour une longue soirée, plusieurs blocs peuvent être répartis dans le temps. Le contenu de chaque numéro est décrit sur la page <a href="/fr/spectacle-de-feu/">spectacle de feu</a>.</p>
+<h2>Fête de quartier, entreprise ou mariage dans le Condroz</h2>
+<p>Autour de Liège, les demandes ne se ressemblent pas. Un comité qui organise une fête de quartier en Outremeuse ou à Saint-Léonard veut une animation feu en plein air, visible de loin, qui rassemble les habitants au même endroit à la tombée de la nuit. Une entreprise du bassin liégeois cherche plutôt un moment marquant juste après les discours : les dix minutes de la power-act suffisent. Pour un mariage dans une ferme ou un domaine du Condroz, le bloc complet trouve sa place entre le dessert et la première danse, quand les invités sortent dans la cour. Les détails par occasion se trouvent sur les pages <a href="/fr/spectacle-de-feu-mariage/">cracheur de feu pour un mariage</a> et <a href="/fr/spectacle-de-feu-entreprise/">spectacle de feu pour entreprise</a>. Si une partie de la soirée doit rester sans flammes, le spectacle de fakir prend le relais.</p>
+<h2>Quelle place prévoir sur un quai ou une place ?</h2>
+<p>En extérieur, comptez environ six mètres sur six d'espace libre et six mètres de hauteur dégagée, à distance des tentes, tonnelles, parasols et branches basses. Un quai le long de la Meuse, un parking, une cour de ferme ou une prairie conviennent en général. Dans les rues en pente et sur les petites places du centre, le problème vient rarement de la largeur : ce sont les façades, les câbles et les guirlandes lumineuses qui limitent la hauteur. Joignez une photo de l'endroit à votre demande, cela permet de juger rapidement. À l'intérieur, une salle haute et bien ventilée permet un spectacle aux flammes plus basses, centré sur la jonglerie et le body fire.</p>
+<h2>Verviers, Seraing, Huy et l'Eurégio</h2>
+<p>Nuno ne travaille pas seulement en ville. Il se rend à Seraing, Herstal, Ans, Verviers, Spa, Huy, Waremme et dans les villages de la province, toujours avec le trajet inclus dans le devis, sans frais kilométriques ajoutés après coup. Liège est voisine de Maastricht et d'Aix-la-Chapelle : quand une fête réunit aussi des invités néerlandophones ou germanophones, Nuno présente en néerlandais, en allemand ou en anglais, ou alterne les langues. Il intervient également au <a href="/fr/cracheur-de-feu-luxembourg/">Grand-Duché de Luxembourg</a> et dans les autres villes wallonnes, comme <a href="/fr/cracheur-de-feu-namur/">Namur</a>.</p>
+<h2>La déclaration à la commune : qui s'en occupe ?</h2>
+<p>Un spectacle de feu n'est pas un feu d'artifice et ne relève pas des mêmes règles. Selon la commune ou le gestionnaire de la salle, une déclaration préalable ou une attestation peut toutefois être demandée. Nuno est certifié et assuré, et il règle ces formalités avec vous, pour que vous sachiez à l'avance quel document envoyer et à qui. Le jour J, il arrive bien avant le début, fait le tour du lieu avec vous, délimite une zone de sécurité et apporte ses propres moyens d'extinction. Il crache avec un liquide spécialement conçu pour le spectacle.</p>
+<h2>Réserver un cracheur de feu à Liège</h2>
+<p>Indiquez la date, le lieu et le type de fête via le <a href="/fr/contact/">formulaire de contact</a> ; la réponse arrive dans les 24 heures avec un prix fixe. Les formules sont détaillées sur la page <a href="/fr/prix-cracheur-de-feu/">prix d'un cracheur de feu</a>. Nuno a dix-sept ans d'expérience, les téléspectateurs le connaissent de SBS6, RTL 4 et VTM, et il obtient 4,9 sur 5 sur 136 <a href="/fr/avis/">avis</a>. Pour une société belge, la facture mentionne son numéro de TVA intracommunautaire.</p>
+""",
+ "faq": [
+  ("Nuno présente-t-il le spectacle en français à Liège ?",
+   "Oui. Nuno présente en français, et il peut aussi passer au néerlandais, à l'allemand ou à l'anglais. C'est utile autour de Liège, où une fête réunit parfois des invités venus de Maastricht ou d'Aix-la-Chapelle. Le feu lui-même se comprend sans paroles, mais l'introduction et les échanges avec le public se font dans la langue de votre salle."),
+  ("Le trajet depuis les Pays-Bas coûte-t-il un supplément ?",
+   "Non. Nuno part de Zeist, mais le déplacement est intégré au devis, que la fête ait lieu à Liège même, à Verviers, à Huy ou dans un village de la province. Vous recevez un montant tout compris, entre 350 et 1 500 euros, sans frais kilométriques ni supplément ajouté le jour même. Le matériel et le liquide spécial sont compris aussi."),
+  ("Faut-il prévenir la commune pour un cracheur de feu ?",
+   "Cela dépend de la commune et du lieu. Certaines communes ou certains gestionnaires de salle demandent une déclaration préalable ou une attestation, d'autres rien du tout. Un spectacle de feu ne suit pas les règles des feux d'artifice. Nuno est certifié et assuré, et il voit avec vous ce qu'il faut fournir et à qui, bien avant la date."),
+  ("Une fête de quartier en rue est-elle possible ?",
+   "Oui, si l'endroit offre environ six mètres sur six d'espace libre et six mètres de hauteur sans câbles, guirlandes ni balcons au-dessus. Dans les rues étroites du centre, une place, un carrefour fermé ou un parking voisin conviennent souvent mieux que la rue elle-même. Une photo du lieu jointe à la demande permet de trancher rapidement."),
+  ("Peut-on combiner le feu avec un autre spectacle ?",
+   "Oui. Pour une soirée plus longue, Nuno alterne le feu avec un spectacle de fakir, avec lit de clous, verre et épées, ou avec du mentalisme. Pour une fête de quartier en journée, le spectacle de reptiles, avec serpents et mygales, peut précéder le feu du soir. Le devis reste un seul montant pour l'ensemble."),
+  ("Nuno se déplace-t-il aussi au Luxembourg ?",
+   "Oui. Nuno joue aussi au Grand-Duché de Luxembourg, en français, en allemand ou en anglais. Le principe est le même qu'en Belgique : trajet compris, devis tout compris sous 24 heures et facture avec numéro de TVA intracommunautaire. Il travaille également à Namur, Charleroi, Mons et Bruxelles."),
+ ],
+},
+ ("fr", "cracheur-de-feu-mons"): {
+ "title": "Cracheur de feu à Mons pour mariages et fêtes communales",
+ "seo_title": "🔥 Cracheur de feu à Mons | Mariage et fêtes",
+ "seo_desc": "Cracheur de feu à Mons et dans le Borinage pour mariages et fêtes communales. Dès 350 euros, déplacement depuis Zeist compris, devis en moins de 24 h.",
+ "body": """
+<p><strong>Un cracheur de feu pour un mariage, une fête communale ou une soirée privée à Mons ? Nuno, artiste de feu basé à Zeist aux Pays-Bas, se déplace dans toute la région montoise et le Borinage. Comptez à partir de 350 euros, voyage compris, avec une réponse et un devis en moins de 24 heures.</strong></p>
+<h2>Un spectacle de feu pour votre mariage</h2>
+<p>Dans les environs de Mons, beaucoup de mariages se font dans une ferme en carré, un château ou une salle de campagne avec jardin. C'est idéal : la cour pavée ou la pelouse offre presque toujours l'espace nécessaire. Le moment le plus apprécié se situe entre le dessert et l'ouverture de la soirée dansante, quand il fait nuit et que les invités ont envie de bouger. Si le programme est déjà chargé, un court power act de dix minutes juste avant la pièce montée fait aussi son effet.</p>
+<p>Points à vérifier avec le lieu de réception : la tente ou le chapiteau doit rester à bonne distance, tout comme les guirlandes lumineuses et les arbres bas. Nuno passe ces détails en revue avec vous à l'avance. Tout ce qui concerne les mariages se trouve ici : <a href="/fr/spectacle-de-feu-mariage/">spectacle de feu mariage</a>.</p>
+<h2>Que se passe-t-il pendant le bloc de vingt minutes ?</h2>
+<p>C'est la formule la plus réservée. Nuno commence calmement par la jonglerie de feu, puis passe au feu tournoyant : les flammes tournent et tracent des cercles dans l'obscurité. Vient ensuite le body fire, où la flamme effleure la peau. Pour terminer, le crachage de feu : des boules de feu qui s'élèvent jusqu'à six mètres environ. Il présente en français, ou laisse parler le feu si les invités viennent de plusieurs pays. Pour une longue soirée, plusieurs blocs peuvent être répartis sur la nuit.</p>
+<h2>Grand-Place, beffroi et fêtes communales</h2>
+<p>Imaginez des boules de feu devant les façades de la Grand-Place, avec le beffroi éclairé au-dessus des toits : la ville offre des décors qu'on a envie de mettre en valeur. Pour un événement public dans un tel cadre, comme une fête communale, une braderie ou une soirée d'association, la déclaration préalable auprès de la Ville est en général incontournable. Nuno vous aide à la préparer : surface utilisée, horaires, mesures de sécurité.</p>
+<p>Mons est aussi une ville où l'on sait faire la fête. Le week-end du Doudou, tout le centre vit au rythme de la ducasse ; si vous organisez une fête privée ou d'entreprise ces jours-là, réservez tôt, car les salles, les traiteurs et les artistes sont très demandés. Le reste de l'année, les fêtes de village du Borinage, les kermesses et les anniversaires de cercles offrent autant d'occasions d'allumer les torches.</p>
+<h2>Et quand le feu n'est pas possible ?</h2>
+<p>Certaines salles historiques n'autorisent pas les flammes, ou le plafond est trop bas. À l'intérieur, un spectacle de feu reste envisageable avec assez de hauteur et une bonne ventilation, mais les flammes sont alors réduites. Sinon, Nuno propose d'autres numéros complets :</p>
+<ul>
+<li>le <a href="/fr/spectacle-de-fakir/">fakir</a> : lit de clous, verre brisé, épées ;</li>
+<li>le mentalisme, qui fonctionne aussi bien pour vingt personnes que pour une grande salle ;</li>
+<li>le <a href="/fr/spectacle-de-reptiles/">spectacle de reptiles</a>, avec serpents et mygales, apprécié lors des fêtes familiales.</li>
+</ul>
+<h2>Sécurité : ce que Nuno prend en charge</h2>
+<p>En dix-sept ans de spectacles, la méthode est restée la même : arriver largement en avance, faire le tour des lieux, baliser une zone d'environ six mètres sur six, dégagée jusqu'à six mètres de haut, garder ses propres extincteurs à portée de main et travailler avec un liquide de spectacle prévu pour cela. Nuno est certifié et assuré ; on a pu le voir sur SBS6, RTL 4 et VTM.</p>
+<h2>La Louvière, Tournai et les environs</h2>
+<p>Le même déplacement couvre La Louvière, Binche, Saint-Ghislain, Quaregnon ou Tournai. Le prix varie selon la formule et la date, entre 350 et 1500 euros, mais le trajet depuis Zeist est toujours inclus : pas de frais kilométriques ajoutés après coup. Pour les entreprises, la facture porte un numéro de TVA intracommunautaire. Consultez la page <a href="/fr/prix-cracheur-de-feu/">tarifs</a>, lisez les <a href="/fr/avis/">avis</a> (4,9 sur 5 sur 136 évaluations), puis envoyez votre date via le <a href="/fr/contact/">formulaire</a>. Nuno travaille aussi à <a href="/fr/cracheur-de-feu-charleroi/">Charleroi</a>, à Namur et à Liège.</p>
+""",
+ "faq": [
+  ("À quel moment du mariage placer le spectacle de feu ?",
+   "Le plus souvent entre le dessert et l'ouverture de la soirée dansante, quand il fait bien nuit. Les invités sortent, regardent vingt minutes de spectacle et reviennent dans la salle pleins d'énergie. Si l'horaire est serré, la version courte de dix minutes, le power act, placée juste avant la pièce montée fonctionne aussi très bien."),
+  ("Notre salle de réception a un chapiteau : est-ce un problème ?",
+   "Pas forcément. Il faut simplement que la zone de spectacle soit à bonne distance du chapiteau, des guirlandes lumineuses et des arbres bas, avec environ six mètres sur six de surface libre et six mètres de hauteur. Une cour pavée ou un coin de pelouse suffit souvent. Nuno regarde le plan avec vous avant la date."),
+  ("Peut-on organiser un spectacle de feu sur la Grand-Place de Mons ?",
+   "Pour un événement public sur une place du centre, il faut l'accord de la Ville et en général une déclaration préalable. Nuno vous aide à préparer le dossier : surface nécessaire, durée, mesures de sécurité et moyens d'extinction. Les décisions finales reviennent toutefois à l'administration communale."),
+  ("La salle n'accepte pas les flammes : quelles sont les alternatives ?",
+   "Nuno propose trois numéros sans feu. Le fakir avec lit de clous, verre brisé et épées, le mentalisme, qui marche en petit comité comme devant une grande salle, et le spectacle de reptiles avec serpents et mygales, souvent apprécié dans les fêtes familiales. Ils peuvent aussi compléter un spectacle de feu à l'extérieur."),
+  ("Le prix est-il le même pour Tournai ou La Louvière ?",
+   "Le tarif dépend de la formule, de la date et de la durée, et se situe entre 350 et 1500 euros. Le trajet depuis Zeist est toujours compris dans ce montant, que la fête ait lieu à Mons, à La Louvière ou à Tournai. Vous recevez un devis précis dans les 24 heures après votre demande."),
+  ("Le spectacle est-il présenté en français ?",
+   "Oui, Nuno présente en français. Il peut aussi passer à l'anglais, à l'allemand ou au néerlandais si une partie des invités ne parle pas français, ou laisser le feu parler seul quand le public est très mélangé. La jonglerie, le feu tournoyant et les boules de feu se passent de traduction."),
+ ],
+},
+ ("fr", "cracheur-de-feu-namur"): {
+ "title": "Cracheur de feu à Namur pour mariages, fêtes communales et entreprises",
+ "seo_title": "🔥 Cracheur de feu à Namur | Mariage et fête communale",
+ "seo_desc": "Cracheur de feu à Namur et dans le Namurois : mariage au château, fête communale, entreprise. Entre 350 et 1 500 euros tout compris, devis sous 24 heures.",
+ "body": """
+<p><strong>Pour un cracheur de feu à Namur, que ce soit un mariage dans un château du Namurois, une fête communale ou une soirée d'entreprise, Nuno arrive de Zeist avec tout son matériel. Il présente en français, gère lui-même la sécurité et vous adresse sous 24 heures un devis tout compris, entre 350 et 1 500 euros.</strong></p>
+<h2>Un mariage dans un château ou une ferme du Namurois</h2>
+<p>La région de Namur compte beaucoup de châteaux, de fermes en carré et de domaines loués pour les mariages. Ces lieux offrent souvent ce qu'il faut à un spectacle de feu : une cour pavée, une pelouse ou une prairie dégagée. Un bon moment se situe après le repas, à la nuit tombée, quand les invités sortent prendre l'air. En vingt minutes, Nuno passe de la jonglerie de feu au feu tournoyant, puis au body fire, avant de cracher des boules de feu jusqu'à environ six mètres, un final qui ouvre bien la piste de danse. Seul point d'attention : le chapiteau et les tonnelles doivent rester à l'écart de la zone de jeu. Plus tôt dans la journée, pendant le vin d'honneur, il peut aussi présenter du mentalisme, sans feu, au milieu des invités. Pour l'organisation du jour même, consultez la page <a href="/fr/spectacle-de-feu-mariage/">spectacle de feu pour un mariage</a>.</p>
+<h2>La Citadelle, la Meuse et la Sambre en toile de fond</h2>
+<p>Namur dispose d'un décor que peu de villes ont : la Citadelle au-dessus du confluent, les quais et les reflets sur l'eau. Pour un événement organisé au bord de l'eau ou sur une esplanade avec vue, des flammes de plusieurs mètres dans la nuit se voient de loin et donnent des photos qui restent. Pensez à l'emplacement du public : les invités face au feu, et la vue sur la Citadelle ou sur l'eau derrière l'artiste, pas dans leur dos. Dans un lieu public, la Ville ou le gestionnaire du site peut demander que le spectacle soit déclaré à l'avance ou exiger une attestation ; Nuno vous aide à préparer le dossier. Il est certifié et assuré, et un spectacle de feu ne tombe pas sous les règles des feux d'artifice.</p>
+<h2>Fêtes communales, kermesses et comités des fêtes</h2>
+<p>De Jambes à Salzinnes, et plus loin à Gembloux, Andenne, Dinant ou Fosses-la-Ville, les comités des fêtes cherchent une animation qui réunit tout le village le soir. La power-act de dix minutes convient pour clôturer une soirée ou lancer un bal ; plusieurs blocs se répartissent sur une fête plus longue. L'après-midi, le <a href="/fr/spectacle-de-reptiles/">spectacle de reptiles</a>, avec serpents et mygales, intéresse les familles, et le feu prend le relais quand il fait noir. Pour un rassemblement en plein air, prévoyez un endroit où le public peut se tenir en arc de cercle face à la zone de jeu, et non tout autour : chacun voit mieux et la zone de sécurité reste simple à tenir.</p>
+<h2>Ce que le prix comprend</h2>
+<p>Le devis ne contient qu'un seul montant. Il couvre le trajet depuis Zeist, le matériel, le liquide spécial pour spectacle, les moyens d'extinction et l'assurance. Selon la formule choisie et une éventuelle combinaison avec le fakir, le mentalisme ou les reptiles, il se situe entre 350 et 1 500 euros. Pas de frais kilométriques, pas de supplément le jour même. Les associations et les entreprises reçoivent une facture qui porte son numéro de TVA intracommunautaire. Tous les <a href="/fr/prix-cracheur-de-feu/">tarifs</a> sont expliqués en détail.</p>
+<h2>Comment Nuno travaille sur place</h2>
+<p>Dix-sept ans de métier se voient surtout dans la préparation. Nuno arrive bien avant l'heure, parcourt le lieu avec vous et choisit l'emplacement : en extérieur, une surface d'environ six mètres de côté, sans obstacle jusqu'à six mètres de haut. Il trace une zone de sécurité que le public ne franchit pas et garde ses propres extincteurs à portée de main. En salle, à condition d'avoir de la hauteur et une bonne ventilation, il réduit la taille des flammes. Aux Pays-Bas et en Flandre, on le connaît de SBS6, RTL 4 et VTM.</p>
+<h2>Réserver pour Namur et ses environs</h2>
+<p>Indiquez votre date et votre lieu via le <a href="/fr/contact/">formulaire</a> : la réponse suit dans les 24 heures. Ses clients ont laissé 136 <a href="/fr/avis/">avis</a>, pour une moyenne de 4,9 sur 5. Nuno se déplace aussi à <a href="/fr/cracheur-de-feu-charleroi/">Charleroi</a>, à <a href="/fr/cracheur-de-feu-liege/">Liège</a> et à <a href="/fr/cracheur-de-feu-mons/">Mons</a>.</p>
+""",
+ "faq": [
+  ("À quel moment du mariage placer le spectacle de feu ?",
+   "Le plus simple est après le repas, une fois la nuit tombée : les flammes ressortent mieux dans l'obscurité et les invités sortent volontiers prendre l'air. Le bloc de vingt minutes se termine par les boules de feu, ce qui enchaîne bien avec l'ouverture du bal. Si vous voulez aussi animer le vin d'honneur, le mentalisme se joue sans feu, en journée."),
+  ("Un chapiteau ou une tonnelle pose-t-il problème ?",
+   "Pas s'ils restent à bonne distance. Le spectacle a besoin d'une surface d'environ six mètres de côté, sans rien au-dessus jusqu'à six mètres de haut. Le feu ne se joue donc jamais sous un chapiteau, mais à côté, dans la cour, sur la pelouse ou dans la prairie. Nuno vérifie l'emplacement avec vous en arrivant, bien avant le début."),
+  ("Un comité des fêtes peut-il réserver Nuno ?",
+   "Oui. Un comité des fêtes, une association ou une commune reçoit, comme un particulier, un devis tout compris, avec le trajet depuis Zeist inclus. La facture porte un numéro de TVA intracommunautaire. Si la commune demande une déclaration préalable ou une attestation pour la fête, Nuno prépare les documents avec le comité, pour que tout soit prêt avant le jour même."),
+  ("Que comprend exactement le prix ?",
+   "Le montant du devis couvre tout : le trajet, le matériel, le liquide spécial pour spectacle, les extincteurs et l'assurance. Il se situe entre 350 et 1 500 euros selon la durée choisie et les éventuelles combinaisons avec le fakir, le mentalisme ou les reptiles. Aucun frais ne s'ajoute après coup, et vous recevez ce prix fixe dans les 24 heures."),
+  ("Peut-on prévoir le spectacle au bord de la Meuse ou près de la Citadelle ?",
+   "C'est possible si l'endroit offre l'espace nécessaire et si la Ville ou le gestionnaire du site donne son accord ; un lieu public demande parfois une déclaration préalable. Nuno vous aide à préparer le dossier. Pensez aussi à l'orientation : le public face au feu, avec l'eau ou la Citadelle en arrière-plan derrière l'artiste."),
+  ("Y a-t-il une animation pour l'après-midi d'une fête ?",
+   "Oui. Le spectacle de reptiles, avec des serpents et des mygales, se présente en journée et ne demande pas d'obscurité. Le spectacle de fakir, avec lit de clous, verre et épées, fonctionne lui aussi à toute heure. Le feu garde ainsi toute sa force pour la soirée. L'ensemble figure dans un seul devis."),
  ],
 },
  ("nl", "entertainer-huren"): {
@@ -634,4 +952,90 @@ FR = {}
 
 # Luxemburg in het Duits en het Frans, zonder NL-versie; wijzen naar elkaar
 LUX = {}
+LUX["de"] = {"feuerspucker-luxemburg": {
+ "stad": "Luxemburg",
+ "title": "Feuerspucker in Luxemburg buchen: Feuershow für Hochzeit, Firmenfeier und Festival",
+ "seo_title": "🔥 Feuerspucker Luxemburg buchen | Feuershow DE/FR",
+ "seo_desc": "Feuershow in Luxemburg: Feuerkünstler für Hochzeit, Firmenfeier oder Festival, Moderation auf Deutsch oder Französisch. 350–1500 € inkl. Anfahrt aus Zeist.",
+ "body": """
+<p><strong>Ja, Nuno tritt auch in Luxemburg auf – in der Stadt Luxemburg, in Esch-sur-Alzette, in der Nordstad und an der Mosel. Ehrlich gesagt: Von Zeist aus ist das eine lange Fahrt. Deshalb lohnt sich die Buchung vor allem dort, wo die Feuershow der Mittelpunkt des Abends ist. Sie zahlen 350 bis 1500 Euro einschließlich der Anfahrt und haben binnen 24 Stunden ein Angebot.</strong></p>
+<h2>Lohnt sich die Anfahrt aus den Niederlanden?</h2>
+<p>Zeist liegt in der Mitte der Niederlande, Luxemburg am anderen Ende von Belgien; die Route führt über Maastricht und Lüttich quer durch die Ardennen. Mit Anfahrt, Aufbau, Show und Rückweg ist ein Auftrag in Luxemburg für Nuno ein guter halber Tag, eher mehr. Das ist im Festpreis berücksichtigt, Sie zahlen keine Fahrtkosten extra. Es bedeutet aber auch: Für einen einzelnen Power-Act von zehn Minuten zwischen zwei Programmpunkten ist der Aufwand im Verhältnis groß. Sinnvoll ist die Buchung bei einer Hochzeit, einer Firmenfeier oder einem <a href="/de/feuershow-festival/">Festival</a>, bei dem die Show einen festen, größeren Platz im Programm bekommt – ein Showblock von zwanzig Minuten, mehrere Blöcke über den Abend oder eine Kombination mit einem zweiten Act. Diese Offenheit erspart Ihnen eine Buchung, die sich für Sie nicht rechnet.</p>
+<h2>Ein Publikum, drei Sprachen</h2>
+<p>Auf einer Feier in Luxemburg hört man Lëtzebuergesch, Deutsch und Französisch, oft noch Englisch und Portugiesisch dazu. Für die Feuershow selbst spielt das kaum eine Rolle, denn Jonglage, drehendes Feuer, Body Fire und Feuerbälle bis etwa sechs Meter Höhe versteht jeder. Wo moderiert wird, präsentiert Nuno auf Deutsch oder Französisch, auf Wunsch auch auf Englisch. Bei gemischten Gruppen ist eine Show ganz ohne Text oft die beste Wahl. Für frankophone Gäste gibt es diese Seite auch auf Französisch: <a href="/fr/cracheur-de-feu-luxembourg/">cracheur de feu au Luxembourg</a>.</p>
+<h2>Von der Hauptstadt bis in den Norden: welche Orte eignen sich?</h2>
+<p>Luxemburg ist klein, die Veranstaltungsorte sind trotzdem sehr verschieden. Einige Beispiele für typische Situationen:</p>
+<ul>
+<li><strong>Stadt Luxemburg:</strong> Firmenveranstaltungen von internationalen Unternehmen, etwa in einem Bürogebäude auf dem Kirchberg oder einem Saal in der Oberstadt. Hier ist die Frage meist, ob es draußen eine freie Fläche gibt oder ob drinnen gespielt werden muss.</li>
+<li><strong>Esch-sur-Alzette und der Süden:</strong> ehemalige Industrieflächen und Kulturhallen, in denen Feuer vor Stahl und Beton besonders gut wirkt.</li>
+<li><strong>Nordstad, Ettelbruck und Diekirch:</strong> Vereins- und Dorffeste mit viel Platz unter freiem Himmel.</li>
+<li><strong>Mosel:</strong> Hochzeiten auf Weingütern, wo eine Wiese oder ein Hof zwischen den Reben die Bühne bildet.</li>
+</ul>
+<p>Unter freiem Himmel sollte ein Quadrat von etwa sechs Metern Seitenlänge frei bleiben, ohne Zelte, Sonnenschirme oder Äste in den sechs Metern darüber. Drinnen ist die Show möglich, wenn Raumhöhe und Belüftung stimmen; das Feuer fällt dann kleiner aus.</p>
+<h2>Feuer und Mentalismus an einem Abend</h2>
+<p>Weil die Anfahrt ohnehin weit ist, bietet es sich an, zwei Programmpunkte zu verbinden: draußen die Feuershow, drinnen Mentalismus oder eine <a href="/de/fakirshow/">Fakirshow</a>. Mentalismus braucht im Gegensatz zum Feuer Sprache, deshalb wird die Sprache dafür vorab mit Ihnen festgelegt – Deutsch, Französisch oder Englisch. Für Hochzeiten finden Sie Ideen unter <a href="/de/feuershow-hochzeit/">Feuershow Hochzeit</a>, für Unternehmen unter <a href="/de/feuershow-firmenfeier/">Feuershow Firmenfeier</a>.</p>
+<h2>Rechnung, Versicherung und Anmeldung</h2>
+<p>Die Rechnung stellt Nuno als niederländischer Unternehmer mit USt-ID aus; Luxemburg und die Niederlande sind beide in der EU, die Abrechnung über die Grenze ist also unkompliziert. Seit siebzehn Jahren steht er mit Feuer auf der Bühne, hat Zertifikat und Versicherung, und aus dem Fernsehen (SBS6, RTL 4, VTM) kennt man ihn in den Niederlanden und Belgien. Am Tag selbst ist er deutlich vor Showbeginn da, prüft mit Ihnen den Platz, legt die Sicherheitszone fest und hat Löschmittel sowie seine spezielle Showflüssigkeit selbst im Gepäck. Rechtlich gilt die Feuershow nicht als Pyrotechnik. Wenn Ihre Gemeinde oder die Location vorher informiert werden möchte, übernimmt das der Veranstalter; Nuno unterstützt Sie dabei.</p>
+<h2>Termin in Luxemburg anfragen</h2>
+<p>Wochenenden in der Hochzeits- und Festivalsaison sind gefragt, und bei der Entfernung nach Luxemburg hilft eine frühe Anfrage, die Fahrt gut einzuplanen. Senden Sie Datum, Ort, Anlass und die gewünschte Sprache über das <a href="/de/kontakt/">Kontaktformular</a>. Spätestens nach 24 Stunden liegt Ihr Angebot vor, ab 350 Euro und alles inklusive. Aus 136 Kundenbewertungen ergibt sich ein Schnitt von 4,9 von 5. Fragen Sie ruhig auch nach einem zweiten Act für denselben Abend; das Angebot nennt dann einen Gesamtpreis.</p>
+""",
+ "faq": [
+  ("Warum empfiehlt Nuno für Luxemburg eher einen längeren Auftritt?",
+   "Die Fahrt aus Zeist nach Luxemburg dauert mehrere Stunden, mit Aufbau und Rückweg wird daraus ein guter halber Tag. Bei einem einzelnen Auftritt von zehn Minuten steht dieser Aufwand in keinem guten Verhältnis zum Programm. Ein Showblock von zwanzig Minuten, mehrere Blöcke oder eine Kombination mit einem zweiten Act machen die Buchung für Sie sinnvoller."),
+  ("In welcher Sprache wird die Show präsentiert?",
+   "Nuno präsentiert auf Deutsch oder Französisch, bei Bedarf auch auf Englisch. Eine Moderation auf Lëtzebuergesch gehört nicht dazu. Bei gemischtem Publikum ist eine Feuershow ohne Moderation oft die beste Lösung, weil Feuer ohne Worte verstanden wird. Für Mentalismus braucht es dagegen eine gemeinsame Sprache, die vorher mit Ihnen abgestimmt wird."),
+  ("Muss die Feuershow in Luxemburg angemeldet werden?",
+   "Das hängt von der Gemeinde und vom Ort ab. Eine Feuershow ist kein Feuerwerk, ein Pyrotechniker ist nicht nötig. Manche Gemeinden oder Locations möchten aber vorab informiert werden. Das übernimmt der Veranstalter. Nuno stellt Ihnen die nötigen Informationen zu Ablauf, Sicherheitszone und Versicherung zur Verfügung."),
+  ("Bekommen Firmen in Luxemburg eine ordentliche Rechnung?",
+   "Ja. Nuno stellt als Unternehmer aus den Niederlanden eine Rechnung mit USt-ID aus. Da beide Länder zur EU gehören, ist das ein ganz normaler grenzüberschreitender Vorgang. Der Rechnungsbetrag entspricht dem Festpreis aus dem Angebot, Anfahrt und Material inklusive, ohne spätere Zuschläge."),
+  ("Ist eine Feuershow auf einem Weingut an der Mosel möglich?",
+   "Oft ja, wenn es eine freie Fläche gibt, etwa einen Hof oder eine Wiese, mit etwa sechs Metern Seitenlänge und ohne Zelte, Sonnenschirme oder Bäume direkt darüber. Auch der Weg dorthin sollte für das Publikum gut begehbar sein. Senden Sie mit Ihrer Anfrage ein Foto des geplanten Platzes, dann lässt sich vorab einschätzen, welche Variante passt."),
+  ("Gibt es diese Informationen auch auf Französisch?",
+   "Ja. Für französischsprachige Gäste oder Kollegen gibt es eine eigene Seite auf Französisch unter cracheur de feu au Luxembourg. Da Nuno neben Deutsch, Englisch und Niederländisch auch Französisch spricht, können Sie Ihre Anfrage ebenso gut auf Französisch schicken, etwa wenn die Planung bei frankophonen Kollegen liegt."),
+ ],
+ "alts": {"de": "/de/feuerspucker-luxemburg/", "fr": "/fr/cracheur-de-feu-luxembourg/"},
+}}
+LUX["fr"] = {"cracheur-de-feu-luxembourg": {
+ "stad": "Luxembourg",
+ "title": "Cracheur de feu au Luxembourg pour mariages, galas et festivals",
+ "seo_title": "🔥 Cracheur de feu au Luxembourg | Spectacle de feu",
+ "seo_desc": "Cracheur de feu au Luxembourg pour mariages, soirées d'entreprise et festivals. Devis tout compris de 350 à 1500 euros, trajet inclus, réponse en 24 h.",
+ "body": """
+<p><strong>Un cracheur de feu au Luxembourg, c'est possible : Nuno part de Zeist, aux Pays-Bas, et le trajet représente une bonne demi-journée de route. Il vient donc surtout pour les mariages, les soirées d'entreprise et les festivals où le spectacle de feu est un moment fort de la soirée. Le prix : de 350 à 1500 euros tout compris, déplacement inclus, avec une réponse sous 24 heures.</strong></p>
+<h2>Pour quels événements le déplacement a-t-il du sens ?</h2>
+<p>Soyons francs : faire une demi-journée de route pour une démonstration de dix minutes dans une fête d'anniversaire n'est pas la formule la plus logique, ni pour vous ni pour l'artiste. Le Luxembourg convient surtout aux événements où le feu tient une vraie place dans le programme :</p>
+<ul>
+<li>un mariage, avec vingt minutes de spectacle une fois le dîner terminé ;</li>
+<li>une soirée d'entreprise ou un gala, avec plusieurs blocs répartis sur la soirée, éventuellement complétés par du fakir ou du mentalisme ;</li>
+<li>un festival ou une fête de village, où le spectacle de feu sert de tête d'affiche en fin de journée.</li>
+</ul>
+<p>Le trajet est compté dans le devis dès le départ ; vous savez donc exactement ce que vous payez. Et comme Nuno arrive toujours bien avant le début, la longue route ne se fait jamais au détriment de la préparation.</p>
+<h2>Ville de Luxembourg, Esch-sur-Alzette, Nordstad : quel lieu pour le feu ?</h2>
+<p>Le pays est petit, mais les cadres sont très différents. En <strong>Ville de Luxembourg</strong>, les soirées d'entreprise ont souvent lieu dans des espaces de réception ou des hôtels ; la question décisive est alors de savoir s'il existe une terrasse, une cour ou un parvis où l'on peut dégager un carré d'environ six mètres de côté, sans obstacle sur six mètres de hauteur. À <strong>Esch-sur-Alzette</strong>, les anciens sites sidérurgiques comme les hauts fourneaux de Belval montrent à quel point le feu s'accorde avec un décor industriel. Dans la <strong>Nordstad</strong>, autour d'Ettelbruck et de Diekirch, et plus au nord dans les Ardennes luxembourgeoises, on trouve des fermes et des domaines où une prairie ou une cour suffit largement. Les mariages au bord de la Moselle, entre les vignes, offrent eux aussi beaucoup d'espace, à condition de rester à distance des tentes et des parasols.</p>
+<p>À l'intérieur, le spectacle reste possible si la salle est assez haute et bien ventilée. Les flammes sont alors plus petites et Nuno privilégie le jonglage et le body fire plutôt que les grandes boules de feu.</p>
+<h2>Un public trilingue : français, allemand ou sans parole</h2>
+<p>À une fête luxembourgeoise, on entend souvent le luxembourgeois, le français et l'allemand à la même table, parfois l'anglais en plus dans les entreprises du Kirchberg. Nuno présente en français ou en allemand, et aussi en anglais ou en néerlandais si nécessaire. Il ne présente pas en luxembourgeois ; quand le public est très mélangé, le mieux est souvent de laisser parler les flammes, sans texte. La jonglerie, le feu tournoyant, le body fire et la finale, où les boules de feu montent à près de six mètres, se comprennent dans toutes les langues. Si votre programme est rédigé en allemand, la même offre existe en version allemande : <a href="/de/feuerspucker-luxemburg/">Feuerspucker in Luxemburg</a>.</p>
+<h2>Facture, assurance et déclaration</h2>
+<p>Pour une société luxembourgeoise, Nuno établit sa facture avec un numéro de TVA intracommunautaire, comme pour n'importe quel client européen. Il est certifié et assuré pour ses spectacles de feu. Selon la commune ou le lieu, une déclaration préalable peut être demandée ; le feu de spectacle n'est pas soumis au régime des feux d'artifice, mais c'est une question à mettre sur la liste dès la première visite du lieu. Nuno prépare ces éléments avec vous. Le jour même, il inspecte le lieu, balise une zone de sécurité, garde ses extincteurs à proximité et utilise un liquide conçu pour le spectacle.</p>
+<h2>Combiner plusieurs numéros sur une même soirée</h2>
+<p>Puisque le déplacement est fait, autant en profiter. Beaucoup de galas se prêtent à une combinaison : du mentalisme pendant le dîner, sans aucune flamme, puis un <a href="/fr/spectacle-de-feu/">spectacle de feu</a> dehors à la nuit tombée. Le <a href="/fr/spectacle-de-fakir/">fakir</a>, avec lit de clous, verre et épées, fonctionne lui aussi en salle. Pour les entreprises, voyez la page <a href="/fr/spectacle-de-feu-entreprise/">spectacle de feu entreprise</a> ; pour les festivals, la page <a href="/fr/spectacle-de-feu-festival/">spectacle de feu festival</a>.</p>
+<h2>Réserver depuis le Luxembourg</h2>
+<p>Dix-sept ans d'expérience, des apparitions télévisées sur SBS6, sur RTL 4 et sur VTM, et 4,9 sur 5 sur 136 avis. Décrivez votre événement (date, commune, programme de la soirée) via le <a href="/fr/contact/">formulaire de contact</a> ; vous recevez un devis dans les 24 heures. Les tarifs sont expliqués sur la page <a href="/fr/prix-cracheur-de-feu/">prix</a>.</p>
+""",
+ "faq": [
+  ("Pourquoi réserver un artiste qui vient des Pays-Bas ?",
+   "Nuno présente en français et en allemand, a dix-sept ans d'expérience et 136 avis pour une moyenne de 4,9 sur 5. Le trajet depuis Zeist prend une bonne demi-journée, mais il est compris dans le devis et Nuno arrive toujours bien avant le début. Pour un mariage, un gala ou un festival, la distance ne change rien au déroulement."),
+  ("Est-ce que Nuno vient pour un spectacle de dix minutes ?",
+   "Techniquement oui, mais avec une demi-journée de route, un power act isolé de dix minutes est rarement la formule la plus sensée. Au Luxembourg, Nuno vient surtout quand le feu occupe une vraie place dans la soirée : un bloc de vingt minutes, plusieurs blocs, ou un spectacle de feu combiné avec du fakir ou du mentalisme."),
+  ("Nuno peut-il présenter en luxembourgeois ?",
+   "Non. Il présente en français, en allemand, en anglais ou en néerlandais. Avec un public luxembourgeois, le français ou l'allemand fonctionne en général très bien, et quand les invités parlent des langues très différentes, le spectacle de feu peut se dérouler sans texte. Une version allemande de cette page existe aussi pour vos invités ou collègues germanophones."),
+  ("Comment se passe la facturation pour une entreprise luxembourgeoise ?",
+   "Nuno établit une facture avec numéro de TVA intracommunautaire, comme pour tout client professionnel dans l'Union européenne. Le montant couvre le spectacle, le matériel et le déplacement depuis Zeist. Comptez de 350 à 1500 euros, en fonction de la formule retenue ; le devis vous parvient dans les 24 heures."),
+  ("Faut-il une autorisation pour un spectacle de feu au Luxembourg ?",
+   "Il n'y a pas de règle unique au Grand-Duché. Certaines communes ou certains gestionnaires de salle demandent une déclaration préalable, d'autres non. Le feu de spectacle n'est pas traité comme un feu d'artifice. Nuno vous aide à répondre aux questions de la commune ou du lieu : surface, durée, zone de sécurité et moyens d'extinction."),
+  ("Le spectacle peut-il avoir lieu à l'intérieur, par exemple dans un hôtel ?",
+   "C'est possible si la salle est suffisamment haute et bien ventilée, et si l'établissement est d'accord. Les flammes sont alors plus petites et le numéro repose surtout sur le jonglage et le body fire. Si la salle ne le permet pas, le mentalisme ou le fakir offrent une alternative complète, et le feu peut se faire sur la terrasse."),
+ ],
+ "alts": {"de": "/de/feuerspucker-luxemburg/", "fr": "/fr/cracheur-de-feu-luxembourg/"},
+}}
 

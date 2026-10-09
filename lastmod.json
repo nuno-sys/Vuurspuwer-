@@ -28,8 +28,8 @@
 "h": "736c636136861dc6"
 },
 "/de/": {
-"d": "2026-09-03",
-"h": "a5fe957e56e98938"
+"d": "2026-10-09",
+"h": "64dec5835a2f2330"
 },
 "/de/bewertungen/": {
 "d": "2026-09-05",
@@ -65,23 +65,23 @@
 },
 "/de/feuerspucker-aachen/": {
 "d": "2026-10-09",
-"h": "7a741d3305d35e3a"
+"h": "103ea0754914f98b"
 },
 "/de/feuerspucker-duesseldorf/": {
-"d": "2026-08-31",
-"h": "fdcb68df7b6a44fd"
+"d": "2026-10-09",
+"h": "9b5d7a1cc372888f"
 },
 "/de/feuerspucker-duisburg/": {
-"d": "2026-08-31",
-"h": "0033f377b088273f"
+"d": "2026-10-09",
+"h": "b124e01595f6954a"
 },
 "/de/feuerspucker-kaldenkirchen/": {
 "d": "2026-10-09",
-"h": "a29ba941fb0374bd"
+"h": "9f96768e4321b857"
 },
 "/de/feuerspucker-kleve/": {
 "d": "2026-10-09",
-"h": "57fd378f2f9a729a"
+"h": "37f40bec7031a43e"
 },
 "/de/feuerspucker-kosten/": {
 "d": "2026-08-31",
@@ -89,11 +89,15 @@
 },
 "/de/feuerspucker-krefeld/": {
 "d": "2026-10-09",
-"h": "eeaa707cd78d2af3"
+"h": "fc8301237e7580d5"
+},
+"/de/feuerspucker-luxemburg/": {
+"d": "2026-10-09",
+"h": "dcd4c9c052ad1990"
 },
 "/de/feuerspucker-moenchengladbach/": {
-"d": "2026-08-31",
-"h": "6e43829bb2070f03"
+"d": "2026-10-09",
+"h": "69a34637176f250c"
 },
 "/de/feuerspucker-workshop/": {
 "d": "2026-08-31",
@@ -260,8 +264,8 @@
 "h": "5f26a1a303c89299"
 },
 "/fr/": {
-"d": "2026-09-03",
-"h": "77d2c07754575fd7"
+"d": "2026-10-09",
+"h": "4bc8944325160661"
 },
 "/fr/a-propos-de-nuno/": {
 "d": "2026-08-31",
@@ -284,24 +288,28 @@
 "h": "a2cd804a4c8f3841"
 },
 "/fr/cracheur-de-feu-bruxelles/": {
-"d": "2026-08-31",
-"h": "0e475adbfb3ffd92"
+"d": "2026-10-09",
+"h": "7e47d158c504d5bc"
 },
 "/fr/cracheur-de-feu-charleroi/": {
-"d": "2026-08-31",
-"h": "1b266bc5fd3522a1"
+"d": "2026-10-09",
+"h": "64eaf12dcf32be92"
 },
 "/fr/cracheur-de-feu-liege/": {
-"d": "2026-08-31",
-"h": "e3f22c0314a9a19b"
+"d": "2026-10-09",
+"h": "67b004c17b60f386"
+},
+"/fr/cracheur-de-feu-luxembourg/": {
+"d": "2026-10-09",
+"h": "6d66888a681d120c"
 },
 "/fr/cracheur-de-feu-mons/": {
-"d": "2026-08-31",
-"h": "68ca68d5fb9e4660"
+"d": "2026-10-09",
+"h": "386c78052e92261b"
 },
 "/fr/cracheur-de-feu-namur/": {
-"d": "2026-08-31",
-"h": "3ab065d8a5238356"
+"d": "2026-10-09",
+"h": "01f7bef5541ecb91"
 },
 "/fr/evjf-evg-activite/": {
 "d": "2026-08-31",
