@@ -26,6 +26,15 @@ I.PAGES["en"].update(OCCI.EN)
 I.PAGES["de"].update(OCCI.DE)
 I.PAGES["fr"].update(OCCI.FR)
 
+# De reptielenshow in en/de/fr. De oude /de/Reptilienshow/ haalde 10,3%
+# doorklik op positie 11,4 — de hoogste van de site — en was in september ten
+# onrechte naar /de/feuershow/ geleid. Zie reptiel_i18n.py.
+import reptiel_i18n as REP
+I.SLUGS.update(REP.SLUGS)
+I.PAGES["en"].update(REP.EN)
+I.PAGES["de"].update(REP.DE)
+I.PAGES["fr"].update(REP.FR)
+
 TODAY = date.today().isoformat()
 MONTHS_NL = ["", "januari", "februari", "maart", "april", "mei", "juni", "juli",
              "augustus", "september", "oktober", "november", "december"]
@@ -68,6 +77,14 @@ CITIES = [
     "vuurspuwer-boeken-in-brussel", "vuurspuwer-boeken-in-brugge",
     "vuurspuwer-boeken-in-leuven", "vuurspuwer-boeken-in-liege",
     "vuurspuwer-boeken-in-mechelen",
+    # Oktober 2026 teruggezet. Deze drie haalden in de Search Console-export
+    # over zes maanden aantoonbaar verkeer (Maastricht 10 klikken op 149
+    # vertoningen = 6,7% CTR, Roeselare 7 op 144 = 4,9%, Apeldoorn 3 op 92 =
+    # 3,3%) en waren in september ten onrechte meegegaan in de samenvoeging.
+    # Ze krijgen hieronder een eigen tekst; de herschreven tekst uit de
+    # export wordt niet hergebruikt.
+    "vuurspuwer-boeken-in-maastricht", "vuurspuwer-boeken-in-roeselare",
+    "vuurspuwer-boeken-in-apeldoorn",
     "spectaculaire-vuurspuwer-aachen-maak-uw-evenement-in-de-keizerstad-onvergetelijk",
     "vuurspuwer-inhuren-in-krefeld-een-vlammend-spektakel-voor-uw-event",
     "vuurspuwer-monchengladbach-spectaculaire-vuurshows-net-over-de-grens",
@@ -83,6 +100,9 @@ CITY_LABEL = {
     "vuurspuwer-boeken-in-brussel": "Brussel", "vuurspuwer-boeken-in-brugge": "Brugge",
     "vuurspuwer-boeken-in-leuven": "Leuven", "vuurspuwer-boeken-in-liege": "Luik",
     "vuurspuwer-boeken-in-mechelen": "Mechelen",
+    "vuurspuwer-boeken-in-maastricht": "Maastricht",
+    "vuurspuwer-boeken-in-roeselare": "Roeselare",
+    "vuurspuwer-boeken-in-apeldoorn": "Apeldoorn",
     "spectaculaire-vuurspuwer-aachen-maak-uw-evenement-in-de-keizerstad-onvergetelijk": "Aachen",
     "vuurspuwer-inhuren-in-krefeld-een-vlammend-spektakel-voor-uw-event": "Krefeld",
     "vuurspuwer-monchengladbach-spectaculaire-vuurshows-net-over-de-grens": "Mönchengladbach",
@@ -2331,6 +2351,9 @@ _STAD_REGIO = {
  "vuurspuwer-boeken-in-leuven": ("Vlaams-Brabant", "Aarschot, Tienen en Diest"),
  "vuurspuwer-boeken-in-liege": ("de provincie Luik", "Verviers, Seraing en Hoei"),
  "vuurspuwer-boeken-in-mechelen": ("de provincie Antwerpen", "Lier, Vilvoorde en Willebroek"),
+ "vuurspuwer-boeken-in-maastricht": ("Zuid-Limburg en de Euregio", "Heerlen, Sittard-Geleen en Valkenburg"),
+ "vuurspuwer-boeken-in-roeselare": ("West-Vlaanderen", "Izegem, Torhout en Tielt"),
+ "vuurspuwer-boeken-in-apeldoorn": ("de Veluwe", "Deventer, Zutphen en Barneveld"),
  "spectaculaire-vuurspuwer-aachen-maak-uw-evenement-in-de-keizerstad-onvergetelijk":
    ("de grensregio", "Vaals, Kerkrade en Heerlen"),
  "vuurspuwer-inhuren-in-krefeld-een-vlammend-spektakel-voor-uw-event":
@@ -2370,6 +2393,9 @@ def stad_faq(slug, city):
 # Eindhoven heette "Hove", Breda droeg nog het sjabloon "[Jouw Bedrijfsnaam]".
 _CITY_H1 = {
  "vuurspuwer-boeken-in-eindhoven": "Vuurspuwer inhuren in Eindhoven: vuurshow in de Lichtstad",
+ "vuurspuwer-boeken-in-maastricht": "Vuurspuwer inhuren in Maastricht: vuurshow in Zuid-Limburg",
+ "vuurspuwer-boeken-in-roeselare": "Vuurspuwer inhuren in Roeselare: vuurshow in West-Vlaanderen",
+ "vuurspuwer-boeken-in-apeldoorn": "Vuurspuwer inhuren in Apeldoorn: vuurshow op de Veluwe",
  "vuurspuwer-boeken-in-breda": "Vuurspuwer inhuren in Breda: maak uw feest onvergetelijk",
  "vuurspuwer-boeken-in-liege": "Vuurspuwer inhuren in Luik (Liège): spectaculaire vuurshow"
 }
@@ -2389,6 +2415,49 @@ _CITY_BODY = {
 <p>Een <a href="/vuurshow-bedrijfsfeest/">bedrijfsfeest</a> als opening of grande finale, een <a href="/vuurshow-bruiloft/">bruiloft</a> bij de avondopening, een <a href="/vuurshow-festival/">festival</a> als publiekstrekker of een <a href="/vuurshow-verjaardag/">verjaardag of jubileum</a> als complete verrassing. Ook een <a href="/workshop-vuurspuwen/">workshop vuurspuwen</a> als teambuilding is in Eindhoven en omgeving te boeken.</p>
 <h2>Vuurspuwer boeken in Eindhoven</h2>
 <p>Stuur je datum en locatie via het <a href="/contact-3/">aanvraagformulier</a> of via WhatsApp; binnen 24 uur heb je een prijs op maat. Bekijk het <a href="/wat-kost-een-vuurspuwer/">prijzenoverzicht</a> of lees de <a href="/beoordelingen/">beoordelingen</a> van eerdere opdrachtgevers. Nuno komt ook in Helmond, Veldhoven, Best en de rest van Noord-Brabant; de reis zit altijd in de offerte.</p>
+""",
+ "vuurspuwer-boeken-in-maastricht": """
+<p><strong>Een vuurspuwer inhuren in Maastricht? Nuno komt vanuit Zeist naar Zuid-Limburg voor bedrijfsfeesten, bruiloften, festivals en verjaardagen. De reis zit in de prijs: één all-in offerte tussen &euro;350 en &euro;1500 en binnen 24 uur antwoord.</strong></p>
+<h2>Vuurshow in Maastricht: wat je kunt verwachten</h2>
+<p>De show begint rustig met vuurjongleren, bouwt op via draaiend vuur en body fire, en eindigt met het vuurspuwen: vuurballen tot zo'n zes meter hoog. Een power-act van tien minuten werkt als verrassing op het hoogtepunt van de avond; het showblok van twintig minuten is de volledige opbouw en wordt het meest geboekt. Voor een avondvullend programma verdeelt Nuno meerdere blokken over de avond, eventueel afgewisseld met een <a href="/fakir-show-inhuren/">fakirshow</a> of mentalisme.</p>
+<h2>Drielandenpunt: Nederlands, Duits, Frans of Engels</h2>
+<p>Maastricht ligt tegen Belgi&euml; en Duitsland aan, en op een feest in deze regio zit zelden &eacute;&eacute;n taal aan tafel. Dat is voor een vuurshow geen probleem: vuur heeft geen taal nodig, en Nuno presenteert in het Nederlands, Duits, Frans of Engels, of zonder tekst als het gezelschap gemengd is. Voor een opdrachtgever aan de andere kant van de grens verandert er niets aan de werkwijze; de offerte is ook dan all-in, inclusief reis.</p>
+<h2>Buiten of binnen in Zuid-Limburg</h2>
+<p>Buiten is het uitgangspunt: ongeveer zes bij zes meter vrije ruimte en zes meter vrije hoogte, weg van tenten, parasols en overhangend groen. Een binnenplaats, een terras, een parkeerplaats of een weiland in het Heuvelland is meestal ruim genoeg. In de binnenstad is hoogte vaker de beperking dan breedte; dat loopt Nuno vooraf met je door. Binnen kan ook, mits de zaal hoog genoeg is en goed geventileerd wordt &mdash; de vlammen blijven dan lager en het accent verschuift naar jongleren en body fire. Is open vuur echt geen optie, dan zijn de fakirshow en mentalisme volwaardige alternatieven zonder vuur.</p>
+<h2>Carnaval, vastelaovend en de rest van het jaar</h2>
+<p>Limburg heeft een eigen feestkalender. Een vuuract past bij een zittingsavond, een tentfeest, een jubileum van een vereniging of de opening van een optocht &mdash; maar net zo goed bij een bedrijfsfeest op een bedrijventerrein of een bruiloft in het Heuvelland. Voor de wintermaanden is er <a href="/kerst-nieuwjaar-entertainment/">kerst- en nieuwjaarsentertainment</a>, en in oktober de <a href="/halloween/">halloweenshow</a>.</p>
+<h2>Veiligheid</h2>
+<p>Nuno werkt al zeventien jaar met vuur en is bekend van SBS6, RTL 4 en VTM. Hij komt ruim voor aanvang, loopt de locatie met je door, zet een veiligheidszone uit en heeft eigen blusmiddelen bij zich. Hij is verzekerd en werkt met een speciale showvloeistof. Een vuurshow valt onder andere regels dan vuurwerk; sommige locaties of gemeenten willen een melding vooraf, en daar helpt hij je bij.</p>
+<h2>Vuurspuwer boeken in Maastricht</h2>
+<p>Stuur je datum en locatie via het <a href="/contact-3/">aanvraagformulier</a> of via WhatsApp; binnen 24 uur heb je een prijs op maat. Bekijk het <a href="/wat-kost-een-vuurspuwer/">prijzenoverzicht</a> of lees de <a href="/beoordelingen/">beoordelingen</a>. Nuno komt ook in Heerlen, Sittard-Geleen, Valkenburg, Kerkrade en de rest van Limburg, en over de grens in <a href="/vuurspuwer-boeken-in-liege/">Luik</a> en <a href="/de/feuerspucker-aachen/">Aachen</a>; de reis zit altijd in de offerte.</p>
+""",
+ "vuurspuwer-boeken-in-roeselare": """
+<p><strong>Een vuurspuwer inhuren in Roeselare? Nuno komt naar West-Vlaanderen voor bedrijfsfeesten, bruiloften, festivals, tentfeesten en verjaardagen. De reis zit in de prijs: &eacute;&eacute;n all-in offerte tussen &euro;350 en &euro;1500 en binnen 24 uur antwoord.</strong></p>
+<h2>Vuurshow in Roeselare: wat je kunt verwachten</h2>
+<p>De show opent met vuurjongleren, gaat over in draaiend vuur en body fire, en eindigt met het vuurspuwen: vuurballen tot zo'n zes meter hoog. Tien minuten als verrassingsact op het hoogtepunt, twintig minuten voor de volledige opbouw, of meerdere blokken verdeeld over de avond. Een <a href="/fakir-show-inhuren/">fakirshow</a> of mentalisme kan ertussen als afwisseling.</p>
+<h2>Tentfeesten, verenigingen en bedrijven</h2>
+<p>West-Vlaanderen is een streek van tentfeesten, dorpskermissen, verenigingsjubilea en familiebedrijven die hun personeel een avond aanbieden. Een vuuract werkt daar goed omdat hij geen podium en geen geluidsinstallatie van jou nodig heeft: Nuno brengt alles mee en de act is van ver zichtbaar. Bij een tentfeest gebeurt het vuurwerk buiten de tent, met het publiek in de opening &mdash; dat is vaak het mooiste beeld van de avond. Ook een <a href="/vuurspuwer-boeken-voor-buurtfeest/">buurtfeest</a> of <a href="/vuurshow-festival/">festival</a> is een goede gelegenheid.</p>
+<h2>Buiten of binnen</h2>
+<p>Buiten is het uitgangspunt: ongeveer zes bij zes meter vrije ruimte en zes meter vrije hoogte, weg van tenten, zeilen en parasols. Een parking, een plein, een weide of een binnenkoer is meestal ruim genoeg. Binnen kan als de zaal hoog genoeg is en goed geventileerd wordt; de vlammen blijven dan lager en het accent verschuift naar jongleren en body fire. Is open vuur geen optie, dan zijn de fakirshow en mentalisme volwaardige alternatieven zonder vuur.</p>
+<h2>Veiligheid en de Belgische praktijk</h2>
+<p>Nuno werkt al zeventien jaar met vuur en is bekend van SBS6, RTL 4 en VTM. Hij komt ruim voor aanvang, overloopt de locatie met je, bakent een veiligheidszone af en heeft eigen blusmiddelen bij zich. Hij is verzekerd en werkt met een speciale showvloeistof. In Belgi&euml; vraagt de gemeente of de zaaluitbater soms een melding of een attest vooraf; zeg het tijdig, dan regelt hij de papieren kant mee. Een vuurshow valt onder andere regels dan vuurwerk.</p>
+<h2>Vuurspuwer boeken in Roeselare</h2>
+<p>Stuur je datum en locatie via het <a href="/contact-3/">aanvraagformulier</a> of via WhatsApp; binnen 24 uur heb je een prijs op maat. Bekijk het <a href="/wat-kost-een-vuurspuwer/">prijzenoverzicht</a> of lees de <a href="/beoordelingen/">beoordelingen</a>. Nuno komt ook in Izegem, Torhout, Tielt, Kortrijk, Oostende en de rest van West-Vlaanderen, en in <a href="/vuurspuwer-boeken-in-brugge/">Brugge</a> en <a href="/vuurspuwer-boeken-in-gent/">Gent</a>; de reis zit altijd in de offerte.</p>
+""",
+ "vuurspuwer-boeken-in-apeldoorn": """
+<p><strong>Een vuurspuwer inhuren in Apeldoorn? Nuno komt vanuit Zeist naar de Veluwe voor bedrijfsfeesten, bruiloften, festivals en verjaardagen. De reis zit in de prijs: &eacute;&eacute;n all-in offerte tussen &euro;350 en &euro;1500 en binnen 24 uur antwoord.</strong></p>
+<h2>Vuurshow in Apeldoorn: wat je kunt verwachten</h2>
+<p>De show begint met vuurjongleren, bouwt op via draaiend vuur en body fire, en eindigt met het vuurspuwen: vuurballen tot zo'n zes meter hoog. Een power-act van tien minuten als verrassing, een showblok van twintig minuten voor de volledige opbouw, of meerdere blokken over de avond verdeeld. Een <a href="/fakir-show-inhuren/">fakirshow</a> of mentalisme kan ertussen.</p>
+<h2>Ruimte genoeg op de Veluwe &mdash; en dat helpt</h2>
+<p>Apeldoorn en omgeving hebben wat een vuurshow het liefst heeft: buitenruimte. Een landgoedtuin, een erf, een camping of vakantiepark, een festivalveld of een bedrijfsterrein biedt doorgaans moeiteloos de zes bij zes meter vrije ruimte en zes meter vrije hoogte die nodig zijn. Let wel op het seizoen: bij lange droogte in de bosrijke omgeving kan een gemeente of terreineigenaar beperkingen stellen aan open vuur. Nuno overlegt dat vooraf en heeft eigen blusmiddelen bij zich; lukt het niet, dan zijn de fakirshow en mentalisme volwaardige alternatieven zonder vuur.</p>
+<h2>Binnen een vuurshow in Apeldoorn</h2>
+<p>Binnen kan ook, mits de zaal hoog genoeg is en goed geventileerd wordt. De vlammen blijven dan lager en het accent verschuift naar jongleren en body fire. Veel zalen in de regio hebben de hoogte wel; de ventilatie is meestal de bepalende factor.</p>
+<h2>Voor welke gelegenheid</h2>
+<p>Een <a href="/vuurshow-bedrijfsfeest/">bedrijfsfeest</a> als opening of finale, een <a href="/vuurshow-bruiloft/">bruiloft</a> bij de avondopening, een <a href="/vuurshow-festival/">festival</a> als publiekstrekker, een <a href="/vuurshow-verjaardag/">verjaardag of jubileum</a> als verrassing. Ook een <a href="/workshop-vuurspuwen/">workshop vuurspuwen</a> als teambuilding is op de Veluwe te boeken &mdash; buitenruimte is daarvoor juist een voordeel.</p>
+<h2>Veiligheid</h2>
+<p>Nuno werkt al zeventien jaar met vuur en is bekend van SBS6, RTL 4 en VTM. Hij komt ruim voor aanvang, loopt de locatie met je door, zet een veiligheidszone uit en heeft eigen blusmiddelen bij zich. Hij is verzekerd en werkt met een speciale showvloeistof. Een vuurshow valt onder andere regels dan vuurwerk; sommige locaties willen een melding vooraf, en daar helpt hij je bij.</p>
+<h2>Vuurspuwer boeken in Apeldoorn</h2>
+<p>Stuur je datum en locatie via het <a href="/contact-3/">aanvraagformulier</a> of via WhatsApp; binnen 24 uur heb je een prijs op maat. Bekijk het <a href="/wat-kost-een-vuurspuwer/">prijzenoverzicht</a> of lees de <a href="/beoordelingen/">beoordelingen</a>. Nuno komt ook in Deventer, Zutphen, Barneveld, Arnhem, Zwolle en de rest van Gelderland en Overijssel; de reis zit altijd in de offerte.</p>
 """,
 }
 for slug in CITIES:
