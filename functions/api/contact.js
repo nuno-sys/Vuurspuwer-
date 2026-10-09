@@ -130,11 +130,39 @@ function rowsHtml(d, labels) {
    gissen of Google, Instagram of mond-tot-mond het werk deed. Alleen
    eerste-partij en alleen voor de duur van de sessie; er gaat niets naar
    derden en het staat niet in de bevestiging aan de klant. */
+// AI-assistenten die met een klikbare bron antwoorden. Een klik daarvandaan
+// komt binnen met de hostnaam van de assistent als verwijzer, of (ChatGPT,
+// Perplexity) met utm_source. Ze staan vóór de gewone zoekmachines, anders
+// telt gemini.google.com als "Google" en copilot.microsoft.com als onbekend.
+// Google AI Mode en AI Overviews zijn niet te onderscheiden van gewoon Google:
+// die verwijzen als google.com.
+const AI_BRONNEN = [
+  // [hostnaam van de verwijzer, waarde van utm_source, naam]
+  [/(^|\.)chatgpt\.com$|^chat\.openai\.com$/, /^(chatgpt|openai)(\.com)?$/, "ChatGPT"],
+  [/(^|\.)perplexity\.ai$/, /^perplexity(\.ai)?$/, "Perplexity"],
+  [/^gemini\.google\.com$|^bard\.google\.com$/, /^gemini(\.google\.com)?$/, "Gemini"],
+  [/^copilot\.microsoft\.com$|^copilot\.cloud\.microsoft$/, /^copilot(\.microsoft\.com)?$/, "Microsoft Copilot"],
+  [/(^|\.)claude\.ai$/, /^claude(\.ai)?$/, "Claude"],
+  [/^chat\.mistral\.ai$/, /^(le-?chat|mistral)(\.ai)?$/, "Mistral Le Chat"],
+  [/(^|\.)deepseek\.com$/, /^deepseek(\.com)?$/, "DeepSeek"],
+  [/(^|\.)grok\.com$/, /^grok(\.com)?$/, "Grok"],
+  [/(^|\.)meta\.ai$/, /^meta\.ai$/, "Meta AI"],
+  [/(^|\.)you\.com$/, /^you\.com$/, "You.com"],
+  [/(^|\.)poe\.com$/, /^poe(\.com)?$/, "Poe"],
+];
+function aiNaam(tekst, soort) {
+  const t = String(tekst || "").toLowerCase().trim();
+  for (const [host, utm, naam] of AI_BRONNEN) if ((soort === "utm" ? utm : host).test(t)) return naam;
+  return "";
+}
+
 function bronNaam(verwijzer, utm) {
   if (utm.utm_source) {
     // het Google-bedrijfsprofiel zet zijn markering in utm_medium
     const m = `${utm.utm_source} ${utm.utm_medium || ""}`.toLowerCase();
     if (m.includes("bedrijfsprofiel") || m.includes("gbp")) return "Google-bedrijfsprofiel";
+    const ai = aiNaam(utm.utm_source, "utm");
+    if (ai) return `${ai} (AI-assistent)`;
     return utm.utm_source + (utm.utm_medium ? ` (${utm.utm_medium})` : "");
   }
   if (utm.gclid) return "Google Ads";
@@ -142,6 +170,8 @@ function bronNaam(verwijzer, utm) {
   let host = "";
   try { host = new URL(verwijzer).hostname.replace(/^www\./, ""); } catch { return "onbekend"; }
   if (host.endsWith("vuurspuwer.com")) return "eigen site";
+  const ai = aiNaam(host, "host");
+  if (ai) return `${ai} (AI-assistent)`;
   if (host.includes("google")) return "Google (organisch)";
   if (host.includes("bing")) return "Bing";
   if (host.includes("duckduckgo")) return "DuckDuckGo";

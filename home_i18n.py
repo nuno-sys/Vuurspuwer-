@@ -751,6 +751,7 @@ _LD = {
  "en": {
   "\"name\": \"Nederland\"": "\"name\": \"Netherlands\"",
   "\"name\": \"België\"": "\"name\": \"Belgium\"",
+  "\"name\": \"Luxemburg\"": "\"name\": \"Luxembourg\"",
   "\"name\": \"Duits grensgebied\"": "\"name\": \"German border region\"",
   "\"name\": \"Shows en acts\"": "\"name\": \"Shows and acts\"",
   "\"name\": \"Vuurshow\"": "\"name\": \"Fire show\"",
@@ -907,6 +908,7 @@ _LD = {
  "fr": {
   "\"name\": \"Nederland\"": "\"name\": \"Pays-Bas\"",
   "\"name\": \"België\"": "\"name\": \"Belgique\"",
+  "\"name\": \"Luxemburg\"": "\"name\": \"Luxembourg\"",
   "\"name\": \"Duits grensgebied\"": "\"name\": \"Région frontalière allemande\"",
   "\"name\": \"Shows en acts\"": "\"name\": \"Spectacles et numéros\"",
   "\"name\": \"Vuurshow\"": "\"name\": \"Spectacle de feu\"",

@@ -469,26 +469,26 @@ _OFFER_TXT = {
 # dragen. De namen, adressen en id's blijven gelijk; alleen de
 # beschrijvende velden volgen de taal van de pagina.
 _LD_I18N = {
- "nl": {"biz": "Vuurspuwer, fakir en mentalist voor bedrijfsfeesten, festivals, bruiloften en themafeesten in Nederland en België.",
-        "nl": "Nederland", "be": "België", "de": "Deutschland",
+ "nl": {"biz": "Vuurspuwer, fakir en mentalist voor bedrijfsfeesten, festivals, bruiloften en themafeesten in Nederland, België, Luxemburg en de Duitse grensregio.",
+        "nl": "Nederland", "be": "België", "de": "Duitsland", "lu": "Luxemburg", "nrw": "Noordrijn-Westfalen",
         "job": "Vuurspuwer, fakir, mentalist en reptielenshow-artiest",
         "pers": "Professioneel vuurspuwer en fakir met 17 jaar ervaring, bekend van SBS6, RTL, VTM en optredens voor o.a. Walibi, Julianatoren en IKEA.",
         "cap": "Portret van vuurspuwer Nuno",
         "kent": ["Vuurspuwen", "Fakirshow", "Mentalisme", "Reptielenshow", "Workshop vuurspuwen", "Veiligheid bij vuurshows"]},
- "en": {"biz": "Fire breather, fakir and mentalist for corporate events, festivals, weddings and theme parties in the Netherlands and Belgium.",
-        "nl": "Netherlands", "be": "Belgium", "de": "Germany",
+ "en": {"biz": "Fire breather, fakir and mentalist for corporate events, festivals, weddings and theme parties in the Netherlands, Belgium, Luxembourg and the German border region.",
+        "nl": "Netherlands", "be": "Belgium", "de": "Germany", "lu": "Luxembourg", "nrw": "North Rhine-Westphalia",
         "job": "Fire breather, fakir, mentalist and reptile show artist",
         "pers": "Professional fire breather and fakir with 17 years of experience, known from SBS6, RTL, VTM and performances for Walibi, Julianatoren and IKEA, among others.",
         "cap": "Portrait of fire breather Nuno",
         "kent": ["Fire breathing", "Fakir show", "Mentalism", "Reptile show", "Fire-breathing workshop", "Fire show safety"]},
- "de": {"biz": "Feuerspucker, Fakir und Mentalist für Firmenfeiern, Festivals, Hochzeiten und Mottopartys in den Niederlanden und Belgien.",
-        "nl": "Niederlande", "be": "Belgien", "de": "Deutschland",
+ "de": {"biz": "Feuerspucker, Fakir und Mentalist für Firmenfeiern, Festivals, Hochzeiten und Mottopartys in den Niederlanden, Belgien, Luxemburg und der deutschen Grenzregion.",
+        "nl": "Niederlande", "be": "Belgien", "de": "Deutschland", "lu": "Luxemburg", "nrw": "Nordrhein-Westfalen",
         "job": "Feuerspucker, Fakir, Mentalist und Reptilienshow-Künstler",
         "pers": "Professioneller Feuerspucker und Fakir mit 17 Jahren Erfahrung, bekannt aus SBS6, RTL, VTM und Auftritten u. a. für Walibi, Julianatoren und IKEA.",
         "cap": "Porträt von Feuerspucker Nuno",
         "kent": ["Feuerspucken", "Fakirshow", "Mentalismus", "Reptilienshow", "Feuerspucker-Workshop", "Sicherheit bei Feuershows"]},
- "fr": {"biz": "Cracheur de feu, fakir et mentaliste pour fêtes d'entreprise, festivals, mariages et fêtes à thème aux Pays-Bas et en Belgique.",
-        "nl": "Pays-Bas", "be": "Belgique", "de": "Allemagne",
+ "fr": {"biz": "Cracheur de feu, fakir et mentaliste pour fêtes d'entreprise, festivals, mariages et fêtes à thème aux Pays-Bas, en Belgique, au Luxembourg et dans la région frontalière allemande.",
+        "nl": "Pays-Bas", "be": "Belgique", "de": "Allemagne", "lu": "Luxembourg", "nrw": "Rhénanie-du-Nord-Westphalie",
         "job": "Cracheur de feu, fakir, mentaliste et artiste de spectacle de reptiles",
         "pers": "Cracheur de feu et fakir professionnel avec 17 ans d'expérience, connu de SBS6, RTL, VTM et de prestations pour Walibi, Julianatoren et IKEA, entre autres.",
         "cap": "Portrait du cracheur de feu Nuno",
@@ -525,10 +525,19 @@ _BUSINESS_LD = {
                "https://entertainershow.com/artiest/vuurspuwer-nuno/"],
 }
 
+def _werkgebied(lang):
+    """Waar Nuno optreedt: heel Nederland, België en Luxemburg, en in Duitsland
+    de grensregio. Alle Duitse steden op de site (Aachen, Düsseldorf, Duisburg,
+    Krefeld, Mönchengladbach, Kleve, Kaldenkirchen) liggen in Noordrijn-
+    Westfalen; heel Duitsland claimen zou niet kloppen."""
+    T = _LD_I18N[lang]
+    return [_land(lang, "nl"), _land(lang, "be"), _land(lang, "lu"),
+            {"@type": "AdministrativeArea", "name": T["nrw"],
+             "containedInPlace": _land(lang, "de")}]
+
 def business_ld(lang="nl"):
     T = _LD_I18N[lang]
-    return {**_BUSINESS_LD, "description": T["biz"],
-            "areaServed": [_land(lang, "nl"), _land(lang, "be")]}
+    return {**_BUSINESS_LD, "description": T["biz"], "areaServed": _werkgebied(lang)}
 
 # De auteur/artiest als volwaardige entiteit op élke pagina (E-E-A-T):
 # zoekmachines koppelen zo alle artikelen en shows aan één herkenbaar
@@ -3065,8 +3074,7 @@ for p in posts:
             "description": text_of(p["body"], 240),
             "url": f"{SITE}/{p['slug']}/",
             "provider": {"@id": f"{SITE}/#business"},
-            "areaServed": [{"@type": "Country", "name": "Nederland"},
-                           {"@type": "Country", "name": "België"}],
+            "areaServed": _werkgebied("nl"),
             "offers": {"@type": "AggregateOffer", "priceCurrency": "EUR",
                        "lowPrice": "350", "highPrice": "1500", "offerCount": "6",
                        "description": "Power-act van 10 minuten vanaf €350, showblok van "
@@ -4398,55 +4406,112 @@ _inkey = open("indexnow-key.txt").read().strip()
 open(os.path.join(OUT, f"{_inkey}.txt"), "w").write(_inkey)
 
 # llms.txt: index voor AI-assistenten volgens llmstxt.org — een H1, een
-# samenvatting en secties met echte markdown-links [titel](url): omschrijving
-open(os.path.join(OUT, "llms.txt"), "w", encoding="utf-8").write(f"""# Vuurspuwer Nuno
+# samenvatting en secties met echte markdown-links [titel](url): omschrijving.
+# Sinds oktober 2026 grotendeels opgebouwd uit wat de bouw zelf maakt (steden,
+# taalversies, aantallen), zodat het bestand niet meer achterloopt op de site:
+# de handgeschreven versie wees voor mentalisme nog naar /entertainer-huren/,
+# kende Luxemburg niet en noemde 229 pagina's waar het er 195 waren. Een link
+# naar een pagina die niet bestaat laat de bouw omvallen (zie onder).
+def _llm_lijst(paren):
+    return "\n".join(f"- [{t}]({SITE}{u}): {o}" if o else f"- [{t}]({SITE}{u})" for t, u, o in paren)
 
-> Professionele vuurspuwer, fakir, mentalist en reptielenshow-artiest met 17 jaar ervaring. Optredens in heel Nederland en België (en de Duitse grensregio), vanuit Zeist (NL). Beoordeeld met 4,9/5 uit 136 reviews. Prijzen van €350 tot €1500 per show. Bekend van SBS6, RTL 4, VTM, Uri Geller, Walibi Fright Nights, Julianatoren en Emporium. Volledig gecertificeerd.
+_llm_nl_steden = sorted(((f"Vuurspuwer {CITY_LABEL[c]}", f"/{c}/", "") for c in CITIES
+                         if not any(k in c for k in ("aachen", "krefeld", "monchengladbach", "kaldenkirchen", "kleve"))),
+                        key=lambda x: x[0])
+_llm_regio = {l: [(n, u, "") for n, u in regio_steden(l)] for l in ("de", "fr")}
+_LLM_TAALDIENSTEN = [("vuurspuwer-inhuren", {"en": "Fire show", "de": "Feuershow", "fr": "Spectacle de feu"}),
+                     ("fakir-show-inhuren", {"en": "Fakir show", "de": "Fakirshow", "fr": "Spectacle de fakir"}),
+                     ("mentalist-boeken", {"en": "Hire a mentalist", "de": "Mentalist buchen", "fr": "Mentaliste"}),
+                     ("workshop-vuurspuwen", {"en": "Fire-breathing workshop", "de": "Feuerspucker-Workshop", "fr": "Atelier cracheur de feu"}),
+                     ("reptielenhow", {"en": "Reptile show", "de": "Reptilienshow", "fr": "Spectacle de reptiles"}),
+                     ("wat-kost-een-vuurspuwer", {"en": "Prices", "de": "Preise", "fr": "Tarifs"}),
+                     ("contact-3", {"en": "Contact", "de": "Kontakt", "fr": "Contact"})]
+def _llm_taal(l):
+    return [(naam[l], I.url_of(l, sl), "") for sl, naam in _LLM_TAALDIENSTEN if sl in I.SLUGS]
 
-Boekingen lopen via het aanvraagformulier of WhatsApp; reactie binnen 24 uur. De volledige site-inhoud in platte tekst staat in [llms-full.txt]({SITE}/llms-full.txt).
+_LLMS = f"""# Vuurspuwer Nuno
+
+> Professionele vuurspuwer, fakir, mentalist en reptielenshow-artiest met 17 jaar ervaring, gevestigd in Zeist (NL). Treedt op in heel Nederland, België en Luxemburg en in de Duitse grensregio (Noordrijn-Westfalen). Beoordeeld met 4,9/5 uit 136 reviews. Prijzen van €350 tot €1500 per optreden, altijd all-in inclusief reis en materiaal. Bekend van SBS6, RTL 4, VTM, Uri Geller, Walibi Fright Nights, Julianatoren en Emporium. Volledig gecertificeerd en verzekerd. Presenteert in het Nederlands, Engels, Duits en Frans.
+
+Boekingen lopen via het aanvraagformulier of WhatsApp; reactie met een offerte binnen 24 uur. De volledige site-inhoud in platte tekst staat in [llms-full.txt]({SITE}/llms-full.txt).
+
+## Snelle feiten
+- Wie: Nuno, vuurspuwer, fakir, mentalist en reptielenshow-artiest; handelsnaam Vuurspuwer Nuno (Nuno Art), KvK 98164325, btw NL005311537B71
+- Waar: vanuit Zeist (provincie Utrecht) in heel Nederland, België en Luxemburg en in de Duitse grensregio
+- Wat: vuurshow, vlammenshow, fakirshow, mentalisme, reptielenshow, workshop vuurspuwen, Halloween-acts, combinaties
+- Prijs: €350 tot €1500 per optreden, all-in (reis, materiaal, verzekering); offerte binnen 24 uur
+- Binnen of buiten: vuurshow bij voorkeur buiten (ongeveer 6×6 m vrij en 6 m hoogte), binnen met voldoende hoogte en ventilatie; fakirshow, mentalisme en reptielenshow werken binnen zonder open vuur
+- Talen: Nederlands, Engels, Duits, Frans
+- Beoordeling: 4,9 uit 5 op 136 beoordelingen
+- Contact: +31 6 200 207 23 (telefoon en WhatsApp) · nuno@vuurspuwer.com
 
 ## Shows en diensten
-- [Vuurshow]({SITE}/vuurspuwer-inhuren/): choreografie van vuurspuwen, vuurjongleren en body fire, 5–30 min, ook als duo met danseres
-- [Fakirshow]({SITE}/fakir-show-inhuren/): spijkerbed, glaslopen en zwaarden, met het publiek als deel van de act
-- [Workshop vuurspuwen]({SITE}/workshop-vuurspuwen/): zelf leren vuurspuwen — teambuilding, vrijgezellen- en bedrijfsfeesten
-- [Halloween-acts]({SITE}/halloween/): duivelse vuurshows en horror-fakir, bekend van de Walibi Fright Nights
-- [Reptielenshow]({SITE}/reptielenhow/): educatieve ontmoeting met exotische slangen
-- [Mentalisme]({SITE}/entertainer-huren/): gedachtelezen en psychologische illusies, ook binnen inzetbaar
-- [Themafeesten]({SITE}/entertainer-huren-voor-bedrijfsfeest/): complete themaproducties van 1001 Nacht tot Caribbean
+{_llm_lijst([
+ ("Vuurspuwer inhuren", "/vuurspuwer-inhuren/", "vuurshow met vuurjongleren, draaiend vuur, body fire en vuurballen tot zo'n zes meter, ook als duo met danseres"),
+ ("Vuurshow boeken", "/vuurshow-boeken/", "opbouw van een show, power-act (10 min), showblok (20 min) of avondprogramma, wat de locatie nodig heeft"),
+ ("Vlammenshow", "/vlammenshow/", "wat je ziet, hoe een vuurbal ontstaat, verschil met vuurwerk"),
+ ("Fakirshow", "/fakir-show-inhuren/", "spijkerbed, glaslopen en zwaarden, met het publiek als deel van de act; binnen en zonder vuur"),
+ ("Mentalist boeken", "/mentalist-boeken/", "mentalisme als tafelrondgang of podiumblok, zonder vuur, voor 20 tot honderden gasten"),
+ ("Mentalist op een bedrijfsfeest", "/mentalist-bedrijfsfeest/", "hoe je mentalisme inplant in een zakelijk programma"),
+ ("Reptielenshow", "/reptielenhow/", "slangen, vogelspinnen en andere reptielen; binnen, zonder vuur, alle leeftijden"),
+ ("Workshop vuurspuwen", "/workshop-vuurspuwen/", "zelf leren vuurspuwen onder begeleiding, vanaf 18 jaar, één tot twee uur, buiten"),
+ ("Halloween-acts", "/halloween/", "duivelse vuurshow en horror-fakir"),
+ ("Entertainer inhuren", "/entertainer-huren/", "keuzehulp: welke act past bij welk feest"),
+])}
 
 ## Gelegenheden
-- [Bruiloften]({SITE}/vuurshow-bruiloft/): romantische vuurshow bij de eerste dans of avondopening, vaak toegestaan waar vuurwerk verboden is
-- [Bedrijfsfeesten]({SITE}/vuurshow-bedrijfsfeest/): opening of grande finale voor personeelsfeesten en klantevents, op factuur
-- [Verjaardagen en jubilea]({SITE}/vuurshow-verjaardag/): verrassingsact aan huis, in de tuin of op de oprit
-- [Festivals]({SITE}/vuurshow-festival/): tot vijf sets van 20 minuten per dag, met technische rider
-- [Vrijgezellenfeesten]({SITE}/vrijgezellenfeest/): workshop vuurspuwen met de hele groep
-- [Vuurwerk-alternatief]({SITE}/vuurwerk-alternatief/): spektakel dat wél mag waar vuurwerk verboden is
-- [Kerst en nieuwjaar]({SITE}/kerst-nieuwjaar-entertainment/): winterspektakel voor kerstborrels en oud & nieuw
+{_llm_lijst([
+ ("Bruiloften", "/vuurshow-bruiloft/", "vuurshow bij de avondopening, vaak toegestaan waar vuurwerk verboden is"),
+ ("Bedrijfsfeesten", "/vuurshow-bedrijfsfeest/", "opening of finale voor personeelsfeesten en klantevents, op factuur"),
+ ("Verjaardagen en jubilea", "/vuurshow-verjaardag/", ""),
+ ("Festivals", "/vuurshow-festival/", "meerdere sets per dag"),
+ ("Vrijgezellenfeesten", "/vrijgezellenfeest/", "workshop vuurspuwen met de hele groep"),
+ ("Alternatief voor vuurwerk", "/vuurwerk-alternatief/", "een vuurshow is geen vuurwerk en mag vaak waar vuurwerk verboden is"),
+ ("Kerst en oud & nieuw", "/kerst-nieuwjaar-entertainment/", ""),
+])}
 
-## Prijzen en boeken
-- [Prijzen en pakketten]({SITE}/wat-kost-een-vuurspuwer/): power-act 10 min vanaf €350, showblok 20 min vanaf €450, volledige show 30 min vanaf €595, festivalpakket tot 5×20 min €950–€1500
-- [Contact en offerte]({SITE}/contact-3/): aanvraagformulier, antwoord binnen 24 uur
-- [Beoordelingen]({SITE}/beoordelingen/): 4,9/5 uit 136 reviews van opdrachtgevers
-- [Over Nuno]({SITE}/over-nuno/): 17 jaar ervaring, tv-optredens bij SBS6, RTL en VTM
-- Telefoon/WhatsApp: +31 6 200 207 23 · E-mail: nuno@vuurspuwer.com · KvK 98164325
+## Prijzen, boeken en vertrouwen
+{_llm_lijst([
+ ("Wat kost een vuurspuwer", "/wat-kost-een-vuurspuwer/", "alle pakketten van €350 tot €1500 en wat de prijs bepaalt"),
+ ("Contact en offerte", "/contact-3/", "aanvraagformulier, antwoord binnen 24 uur"),
+ ("Beoordelingen", "/beoordelingen/", "4,9/5 uit 136 reviews"),
+ ("Over Nuno", "/over-nuno/", "17 jaar ervaring, tv-optredens bij SBS6, RTL 4 en VTM"),
+])}
 
-## Media
-- [Foto's]({SITE}/fotos/): galerij met licenseerbare showfoto's
-- [Video's]({SITE}/videos/): showreels van vuur- en fakiracts
-- [Locaties]({SITE}/locaties-vuurshows-nederland-belgie/): alle steden in Nederland en België
-- [Vuur-woordenboek]({SITE}/vuur-woordenboek/): 19 termen uit de vuur- en fakirwereld uitgelegd, van poi en body fire tot pyrotechniek — ook in het [Engels]({SITE}/en/fire-glossary/), [Duits]({SITE}/de/feuer-glossar/) en [Frans]({SITE}/fr/glossaire-du-feu/)
+## Kennis
+{_llm_lijst([
+ ("Wat is een fakir", "/betekenis-en-geschiedenis-van-fakir/", "betekenis van faqir, fakir versus derwisj, sadhoe en yogi, waarom een spijkerbed geen pijn doet"),
+ ("Wat is mentalisme", "/wat-is-mentalisme/", "verschil met goochelen, illusionisme en hypnose"),
+ ("Wat is vuurspuwen en hoe werkt het", "/wat-is-vuurspuwen-en-hoe-werkt-het/", ""),
+ ("Vuur-woordenboek", "/vuur-woordenboek/", "termen uit de vuur- en fakirwereld"),
+])}
 
-## Talen
-- [Nederlands]({SITE}/): hoofdversie
-- [English]({SITE}/en/): fire breather for hire in the Netherlands & Belgium
-- [Deutsch]({SITE}/de/): Feuerspucker für NRW und die Grenzregion
-- [Français]({SITE}/fr/): cracheur de feu pour la Belgique francophone
+## Werkgebied: steden in Nederland en België
+{_llm_lijst(_llm_nl_steden)}
+- [Alle locaties]({SITE}/locaties-vuurshows-nederland-belgie/): overzicht per regio
+
+## Deutsch — Grenzregion und Luxemburg
+{_llm_lijst([("Startseite", "/de/", "")] + _llm_taal("de") + _llm_regio["de"])}
+
+## Français — Belgique francophone et Luxembourg
+{_llm_lijst([("Accueil", "/fr/", "")] + _llm_taal("fr") + _llm_regio["fr"])}
+
+## English
+{_llm_lijst([("Home", "/en/", "")] + _llm_taal("en"))}
 
 ## Optional
-- [Volledige inhoud (llms-full.txt)]({SITE}/llms-full.txt): alle pagina's, veelgestelde vragen en reviews in platte tekst
-- [Sitemap]({SITE}/sitemap.xml): alle 229 pagina's met afbeeldingen en video's
+- [Volledige inhoud (llms-full.txt)]({SITE}/llms-full.txt): alle hoofdpagina's, stadspagina's in vier talen, veelgestelde vragen en reviews in platte tekst
+- [Sitemap]({SITE}/sitemap.xml): alle {len(urls)} pagina's met afbeeldingen en video's, ook per taal: [nl]({SITE}/sitemap-nl.xml), [en]({SITE}/sitemap-en.xml), [de]({SITE}/sitemap-de.xml), [fr]({SITE}/sitemap-fr.xml)
 - [Blog]({SITE}/blog/): artikelen over vuurshows, veiligheid en evenementen
-""")
+"""
+# elke link in llms.txt moet naar een bestaande pagina of bestand wijzen
+_llm_dood = [u for u in re.findall(r"\]\(" + re.escape(SITE) + r"(/[^)]*)\)", _LLMS)
+             if not (os.path.exists(os.path.join(OUT, u.strip("/"), "index.html"))
+                     or os.path.exists(os.path.join(OUT, u.strip("/")))
+                     or u in ("/", "/llms-full.txt"))]   # llms-full.txt volgt hieronder
+if _llm_dood:
+    raise SystemExit("  ✖ llms.txt verwijst naar pagina's die niet bestaan: " + ", ".join(_llm_dood))
+open(os.path.join(OUT, "llms.txt"), "w", encoding="utf-8").write(_LLMS)
 
 # llms-full.txt: de complete inhoud in platte tekst, zodat ChatGPT, Claude,
 # Gemini en Perplexity de site in één bestand kunnen inlezen
@@ -4464,9 +4529,11 @@ def _dist_main(pth):
     m = re.search(r"<main.*?</main>", h, re.S)
     return title, _plain(m.group(0) if m else "")
 
-_FULL = ["vuurspuwer-inhuren", "fakir-show-inhuren", "workshop-vuurspuwen",
-         "reptielenhow", "entertainer-huren", "entertainer-huren-voor-bedrijfsfeest",
-         "halloween", "wat-kost-een-vuurspuwer", "over-nuno",
+_FULL = ["vuurspuwer-inhuren", "vuurshow-boeken", "vlammenshow", "fakir-show-inhuren",
+         "mentalist-boeken", "wat-is-mentalisme", "mentalist-bedrijfsfeest",
+         "workshop-vuurspuwen", "reptielenhow", "entertainer-huren",
+         "entertainer-huren-voor-bedrijfsfeest", "vuurwerk-alternatief", "halloween",
+         "wat-kost-een-vuurspuwer", "betekenis-en-geschiedenis-van-fakir", "over-nuno",
          "locaties-vuurshows-nederland-belgie", "contact-3"]
 parts = ["# Vuurspuwer Nuno — volledige inhoud (vuurspuwer.com)\n",
          "> Automatisch gegenereerd uit de live site. Index: "
@@ -4500,6 +4567,20 @@ parts.append("## Reviews van opdrachtgevers (4,9/5 uit 136 beoordelingen)\n\n" +
 parts.append("## Blogartikelen\n\n" +
              "\n".join(f"- [{p['title']}]({SITE}/{p['slug']}/)" for p in posts
                           if p["slug"] not in _SAMENVOEGEN))
+
+# De Duitse en Franse grenssteden en Luxemburg hebben sinds oktober 2026 elk
+# een eigen tekst; die gaan volledig mee, net als de hoofdpagina's per taal.
+for _fl, _fkop in (("de", "Deutsch: Feuerspucker in der Grenzregion und in Luxemburg"),
+                   ("fr", "Français : cracheur de feu en Belgique francophone et au Luxembourg"),
+                   ("en", "English: fire breather, fakir and mentalist")):
+    _fpaden = [I.url_of(_fl, _s) for _s, _n in _LLM_TAALDIENSTEN if _s in I.SLUGS and _s != "contact-3"]
+    _fpaden += [u for _n, u in regio_steden(_fl)] if _fl in ("de", "fr") else []
+    _fblok = []
+    for _fp in _fpaden:
+        if not os.path.exists(os.path.join(OUT, _fp.strip("/"), "index.html")): continue
+        _ft, _fb = _dist_main(_fp)
+        _fblok.append(f"### {_ft}\nURL: {SITE}{_fp}\n\n{_fb}\n")
+    parts.append(f"## {_fkop}\n\n" + "\n".join(_fblok))
 
 _city_paths = sorted(u for u, _ in urls if u.count("/") == 2 and
                      any(k in u for k in ("vuurspuwer-", "fakirshow-", "workshop-vuurspuwen-",

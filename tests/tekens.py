@@ -26,7 +26,8 @@ for root, _, files in os.walk(DIST):
         for m in VREEMD.finditer(s):
             ctx = s[max(0, m.start()-30):m.end()+30].replace("\n", " ")
             print(f"  ✖ {slug}: vreemd teken U+{ord(m.group(0)):04X} in …{ctx}…"); fouten += 1; break
-        if slug not in TOEGESTAAN:
+        # llms-full.txt neemt de fakir-pagina in platte tekst over, dus ook het woord
+        if slug not in TOEGESTAAN and not (slug == "." and f == "llms-full.txt"):
             m = re.search(r"[؀-ۿ]", s)
             if m:
                 print(f"  ✖ {slug}: Arabisch schrift buiten de fakir-pagina"); fouten += 1
