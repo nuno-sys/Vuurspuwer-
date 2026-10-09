@@ -1,4 +1,4 @@
-# Indexeer-dagplan 2026-10-08
+# Indexeer-dagplan 2026-10-09
 
 Google kent géén open aanmeld-API voor gewone pagina's, dus deze tien
 adressen zijn met de hand aan te melden. Klik een link, druk op
@@ -6,20 +6,20 @@ adressen zijn met de hand aan te melden. Klik een link, druk op
 
 | # | Pagina | Aanmelden bij Google |
 |---|---|---|
-| 1 | `waar-kun-je-een-entertainer-inhuren` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fwaar-kun-je-een-entertainer-inhuren%2F) |
-| 2 | `wat-is-de-beste-tijd-van-het-jaar-voor-een-vuurshow-het-complete-antwoord-door-vuurspuwer-nuno` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fwat-is-de-beste-tijd-van-het-jaar-voor-een-vuurshow-het-complete-antwoord-door-vuurspuwer-nuno%2F) |
-| 3 | `wat-is-de-culturele-betekenis-van-fakirisme-het-complete-antwoord-door-vuurspuwer-nuno` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fwat-is-de-culturele-betekenis-van-fakirisme-het-complete-antwoord-door-vuurspuwer-nuno%2F) |
-| 4 | `wat-is-de-geschiedenis-van-vuurspuwen-het-complete-antwoord-door-vuurspuwer-nuno` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fwat-is-de-geschiedenis-van-vuurspuwen-het-complete-antwoord-door-vuurspuwer-nuno%2F) |
-| 5 | `wat-is-de-minimale-benodigde-ruimte-voor-een-vuurshow-buiten-faq` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fwat-is-de-minimale-benodigde-ruimte-voor-een-vuurshow-buiten-faq%2F) |
-| 6 | `wat-is-vuurspuwen-en-hoe-werkt-het` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fwat-is-vuurspuwen-en-hoe-werkt-het%2F) |
-| 7 | `wat-kost-een-fakirshow-met-spijkerbed-per-uur-het-complete-antwoord-door-vuurspuwer-nuno` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fwat-kost-een-fakirshow-met-spijkerbed-per-uur-het-complete-antwoord-door-vuurspuwer-nuno%2F) |
-| 8 | `wat-zijn-de-populairste-themas-voor-een-fakirshow-het-complete-antwoord-door-vuurspuwer-nuno` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fwat-zijn-de-populairste-themas-voor-een-fakirshow-het-complete-antwoord-door-vuurspuwer-nuno%2F) |
-| 9 | `wordt-de-show-aangepast-aan-het-thema-van-het-evenement-het-complete-antwoord-door-vuurspuwer-nuno` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fwordt-de-show-aangepast-aan-het-thema-van-het-evenement-het-complete-antwoord-door-vuurspuwer-nuno%2F) |
-| 10 | `zijn-er-speciale-vergunningen-nodig-voor-vuurspuwen-faq` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fzijn-er-speciale-vergunningen-nodig-voor-vuurspuwen-faq%2F) |
+| 1 | `zo-organiseer-je-een-geslaagd-verrassingsfeestje` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fzo-organiseer-je-een-geslaagd-verrassingsfeestje%2F) |
+| 2 | `homepage` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2F) |
+| 3 | `beoordelingen` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fbeoordelingen%2F) |
+| 4 | `contact-3` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fcontact-3%2F) |
+| 5 | `de/feuershow-firmenfeier` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Ffeuershow-firmenfeier%2F) |
+| 6 | `de/halloween` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Fhalloween%2F) |
+| 7 | `en/fire-show-corporate-event` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fen%2Ffire-show-corporate-event%2F) |
+| 8 | `en/halloween` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fen%2Fhalloween%2F) |
+| 9 | `fr/halloween` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Ffr%2Fhalloween%2F) |
+| 10 | `fr/spectacle-de-feu-entreprise` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Ffr%2Fspectacle-de-feu-entreprise%2F) |
 
 ## Automatisch verstuurd
 
 - IndexNow: 200 (10 adressen)
 - Bing API: overgeslagen (geen BING_API_KEY ingesteld)
 
-_Volgende ronde: 2026-10-09_
+_Volgende ronde: 2026-10-10_
