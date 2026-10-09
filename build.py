@@ -35,6 +35,33 @@ I.PAGES["en"].update(REP.EN)
 I.PAGES["de"].update(REP.DE)
 I.PAGES["fr"].update(REP.FR)
 
+# De schrijfronde van oktober 2026 (teksten_2026_10.py): nieuwe teksten voor
+# bestaande pagina's (OVERRIDE), drie nieuwe mentalisme-pagina's (NL), hun
+# taalversies (SLUGS/EN/DE/FR) en Luxemburg in het Duits en Frans (LUX).
+import teksten_2026_10 as TX
+I.SLUGS.update(TX.SLUGS)
+I.PAGES["en"].update(TX.EN)
+I.PAGES["de"].update(TX.DE)
+I.PAGES["fr"].update(TX.FR)
+NP.NL.update(TX.NL)
+for _l, _d in TX.LUX.items():
+    I.STANDALONE_REGIO.setdefault(_l, {}).update(_d)
+def _tx(lang, slug, d):
+    """d met de nieuwe tekst van de schrijfronde eroverheen, als die er is."""
+    o = TX.OVERRIDE.get((lang, slug))
+    return {**d, **o} if o else d
+for _l, _m in I.REGIO_SLUGS.items():
+    for _nl, _loc in _m.items():
+        if _nl in I.REGIO_PAGES.get(_l, {}):
+            I.REGIO_PAGES[_l][_nl] = _tx(_l, _loc, I.REGIO_PAGES[_l][_nl])
+for _l in list(I.STANDALONE_REGIO):
+    for _loc in list(I.STANDALONE_REGIO[_l]):
+        I.STANDALONE_REGIO[_l][_loc] = _tx(_l, _loc, I.STANDALONE_REGIO[_l][_loc])
+for _s in list(NP.NL):
+    NP.NL[_s] = _tx("nl", _s, NP.NL[_s])
+for _s in list(OCC.NL):
+    OCC.NL[_s] = _tx("nl", _s, OCC.NL[_s])
+
 TODAY = date.today().isoformat()
 MONTHS_NL = ["", "januari", "februari", "maart", "april", "mei", "juni", "juli",
              "augustus", "september", "oktober", "november", "december"]
@@ -2408,31 +2435,31 @@ _CITY_BODY = {
 <h2>Vuurshow in Eindhoven: wat je kunt verwachten</h2>
 <p>Een show van Nuno begint rustig met vuurjongleren, bouwt op via draaiend vuur en body fire, en eindigt met het vuurspuwen: vuurballen tot zo'n zes meter hoog. Een power-act van tien minuten past als verrassing op het hoogtepunt van de avond; het showblok van twintig minuten is de volledige opbouw en wordt het meest geboekt. Voor een avondvullend programma verdeelt hij meerdere blokken over de avond, eventueel afgewisseld met een <a href="/fakir-show-inhuren/">fakirshow</a> of mentalisme.</p>
 <h2>Buiten of binnen in Eindhoven</h2>
-<p>Buiten is het uitgangspunt: ongeveer zes bij zes meter vrije ruimte en zes meter vrije hoogte, weg van tenten en parasols. Een bedrijfsterrein, een terras, een parkeerplaats of een festivalveld is meestal ruim genoeg. Binnen kan het ook als de zaal hoog genoeg is en goed geventileerd wordt; de vlammen blijven dan lager en het accent verschuift naar jongleren en body fire. Is open vuur echt geen optie, dan zijn de fakirshow en mentalisme volwaardige alternatieven zonder vuur.</p>
+<p>Buiten is het uitgangspunt: ongeveer zes bij zes meter vrije ruimte en zes meter vrije hoogte, weg van tenten en parasols. Een bedrijfsterrein, een terras, een parkeerplaats of een festivalveld is meestal ruim genoeg. Binnen kan het ook als de zaal hoog genoeg is en goed geventileerd wordt; de vlammen blijven dan lager en het accent verschuift naar jongleren en body fire. Staat de locatie geen open vuur toe, dan is de fakirshow of mentalisme het alternatief: even spectaculair, zonder vlam.</p>
 <h2>Veiligheid, ook bij een vuurshow in de stad</h2>
-<p>Nuno werkt al zeventien jaar met vuur en is bekend van SBS6, RTL 4 en VTM. Hij komt ruim voor aanvang, loopt de locatie met je door, bepaalt de veiligheidszone en heeft eigen blusmiddelen bij zich. Hij is verzekerd en werkt met een speciale showvloeistof. Een vuurshow valt onder andere regels dan vuurwerk; sommige locaties willen wel een melding vooraf, en daar helpt hij je bij.</p>
+<p>Zeventien jaar vuur, en optredens voor SBS6, RTL 4 en VTM: Nuno weet hoe je op een stedelijke locatie veilig werkt. Hij is er ruim van tevoren, bepaalt met jou de veiligheidszone, brengt eigen blusmiddelen mee en gebruikt een showvloeistof die voor dit doel gemaakt is. Hij is verzekerd. Een vuurshow valt onder andere regels dan vuurwerk; sommige locaties willen wel een melding vooraf, en daar helpt hij je bij.</p>
 <h2>Voor welke gelegenheid</h2>
 <p>Een <a href="/vuurshow-bedrijfsfeest/">bedrijfsfeest</a> als opening of grande finale, een <a href="/vuurshow-bruiloft/">bruiloft</a> bij de avondopening, een <a href="/vuurshow-festival/">festival</a> als publiekstrekker of een <a href="/vuurshow-verjaardag/">verjaardag of jubileum</a> als complete verrassing. Ook een <a href="/workshop-vuurspuwen/">workshop vuurspuwen</a> als teambuilding is in Eindhoven en omgeving te boeken.</p>
 <h2>Vuurspuwer boeken in Eindhoven</h2>
 <p>Stuur je datum en locatie via het <a href="/contact-3/">aanvraagformulier</a> of via WhatsApp; binnen 24 uur heb je een prijs op maat. Bekijk het <a href="/wat-kost-een-vuurspuwer/">prijzenoverzicht</a> of lees de <a href="/beoordelingen/">beoordelingen</a> van eerdere opdrachtgevers. Nuno komt ook in Helmond, Veldhoven, Best en de rest van Noord-Brabant; de reis zit altijd in de offerte.</p>
 """,
  "vuurspuwer-boeken-in-maastricht": """
-<p><strong>Een vuurspuwer inhuren in Maastricht? Nuno komt vanuit Zeist naar Zuid-Limburg voor bedrijfsfeesten, bruiloften, festivals en verjaardagen. De reis zit in de prijs: één all-in offerte tussen &euro;350 en &euro;1500 en binnen 24 uur antwoord.</strong></p>
+<p><strong>Een vuurspuwer inhuren in Maastricht? Nuno rijdt vanuit Zeist naar Zuid-Limburg voor bedrijfsfeesten, bruiloften, festivals en verjaardagen, en de rit naar het zuiden zit al in de offerte: tussen &euro;350 en &euro;1500 all-in, met binnen 24 uur een prijs op maat.</strong></p>
 <h2>Vuurshow in Maastricht: wat je kunt verwachten</h2>
 <p>De show begint rustig met vuurjongleren, bouwt op via draaiend vuur en body fire, en eindigt met het vuurspuwen: vuurballen tot zo'n zes meter hoog. Een power-act van tien minuten werkt als verrassing op het hoogtepunt van de avond; het showblok van twintig minuten is de volledige opbouw en wordt het meest geboekt. Voor een avondvullend programma verdeelt Nuno meerdere blokken over de avond, eventueel afgewisseld met een <a href="/fakir-show-inhuren/">fakirshow</a> of mentalisme.</p>
 <h2>Drielandenpunt: Nederlands, Duits, Frans of Engels</h2>
 <p>Maastricht ligt tegen Belgi&euml; en Duitsland aan, en op een feest in deze regio zit zelden &eacute;&eacute;n taal aan tafel. Dat is voor een vuurshow geen probleem: vuur heeft geen taal nodig, en Nuno presenteert in het Nederlands, Duits, Frans of Engels, of zonder tekst als het gezelschap gemengd is. Voor een opdrachtgever aan de andere kant van de grens verandert er niets aan de werkwijze; de offerte is ook dan all-in, inclusief reis.</p>
 <h2>Buiten of binnen in Zuid-Limburg</h2>
-<p>Buiten is het uitgangspunt: ongeveer zes bij zes meter vrije ruimte en zes meter vrije hoogte, weg van tenten, parasols en overhangend groen. Een binnenplaats, een terras, een parkeerplaats of een weiland in het Heuvelland is meestal ruim genoeg. In de binnenstad is hoogte vaker de beperking dan breedte; dat loopt Nuno vooraf met je door. Binnen kan ook, mits de zaal hoog genoeg is en goed geventileerd wordt &mdash; de vlammen blijven dan lager en het accent verschuift naar jongleren en body fire. Is open vuur echt geen optie, dan zijn de fakirshow en mentalisme volwaardige alternatieven zonder vuur.</p>
+<p>Buiten is het uitgangspunt: ongeveer zes bij zes meter vrije ruimte en zes meter vrije hoogte, weg van tenten, parasols en overhangend groen. Een binnenplaats, een terras, een parkeerplaats of een weiland in het Heuvelland is meestal ruim genoeg. In de binnenstad is hoogte vaker de beperking dan breedte; dat loopt Nuno vooraf met je door. Binnen kan ook, mits de zaal hoog genoeg is en goed geventileerd wordt &mdash; de vlammen blijven dan lager en het accent verschuift naar jongleren en body fire. Mag er op jouw locatie helemaal geen open vuur, kies dan voor de fakirshow of mentalisme: dezelfde avond, zonder vlam.</p>
 <h2>Carnaval, vastelaovend en de rest van het jaar</h2>
 <p>Limburg heeft een eigen feestkalender. Een vuuract past bij een zittingsavond, een tentfeest, een jubileum van een vereniging of de opening van een optocht &mdash; maar net zo goed bij een bedrijfsfeest op een bedrijventerrein of een bruiloft in het Heuvelland. Voor de wintermaanden is er <a href="/kerst-nieuwjaar-entertainment/">kerst- en nieuwjaarsentertainment</a>, en in oktober de <a href="/halloween/">halloweenshow</a>.</p>
-<h2>Veiligheid</h2>
-<p>Nuno werkt al zeventien jaar met vuur en is bekend van SBS6, RTL 4 en VTM. Hij komt ruim voor aanvang, loopt de locatie met je door, zet een veiligheidszone uit en heeft eigen blusmiddelen bij zich. Hij is verzekerd en werkt met een speciale showvloeistof. Een vuurshow valt onder andere regels dan vuurwerk; sommige locaties of gemeenten willen een melding vooraf, en daar helpt hij je bij.</p>
+<h2>Veiligheid in een oude binnenstad</h2>
+<p>Zeventien jaar werken met vuur, en optredens voor SBS6, RTL 4 en VTM: Nuno weet wat een historische locatie vraagt. Hij is er ruim voor aanvang, bepaalt samen met jou waar de veiligheidszone komt, neemt zijn eigen blusmiddelen mee en gebruikt een showvloeistof die voor dit werk bedoeld is. Hij is verzekerd. Omdat een vuurshow geen vuurwerk is, gelden er andere regels; wil de gemeente Maastricht of de locatie een melding vooraf, dan regelt hij die met je.</p>
 <h2>Vuurspuwer boeken in Maastricht</h2>
-<p>Stuur je datum en locatie via het <a href="/contact-3/">aanvraagformulier</a> of via WhatsApp; binnen 24 uur heb je een prijs op maat. Bekijk het <a href="/wat-kost-een-vuurspuwer/">prijzenoverzicht</a> of lees de <a href="/beoordelingen/">beoordelingen</a>. Nuno komt ook in Heerlen, Sittard-Geleen, Valkenburg, Kerkrade en de rest van Limburg, en over de grens in <a href="/vuurspuwer-boeken-in-liege/">Luik</a> en <a href="/de/feuerspucker-aachen/">Aachen</a>; de reis zit altijd in de offerte.</p>
+<p>Stuur je datum en locatie via het <a href="/contact-3/">aanvraagformulier</a> of via WhatsApp en je hebt binnen 24 uur een prijs. Wil je eerst weten wat een show kost, kijk dan bij <a href="/wat-kost-een-vuurspuwer/">wat een vuurspuwer kost</a>; de <a href="/beoordelingen/">beoordelingen</a> vertellen hoe eerdere opdrachtgevers het ervaarden. Nuno komt ook in Heerlen, Sittard-Geleen, Valkenburg, Kerkrade en de rest van Limburg, en over de grens in <a href="/vuurspuwer-boeken-in-liege/">Luik</a> en <a href="/de/feuerspucker-aachen/">Aachen</a>; de reis zit altijd in de offerte.</p>
 """,
  "vuurspuwer-boeken-in-roeselare": """
-<p><strong>Een vuurspuwer inhuren in Roeselare? Nuno komt naar West-Vlaanderen voor bedrijfsfeesten, bruiloften, festivals, tentfeesten en verjaardagen. De reis zit in de prijs: &eacute;&eacute;n all-in offerte tussen &euro;350 en &euro;1500 en binnen 24 uur antwoord.</strong></p>
+<p><strong>Een vuurspuwer inhuren in Roeselare? Nuno komt naar West-Vlaanderen voor bedrijfsfeesten, bruiloften, festivals, tentfeesten en verjaardagen. Je betaalt geen aparte verplaatsingskosten: de offerte ligt tussen &euro;350 en &euro;1500, alles inbegrepen, en je hebt hem binnen 24 uur.</strong></p>
 <h2>Vuurshow in Roeselare: wat je kunt verwachten</h2>
 <p>De show opent met vuurjongleren, gaat over in draaiend vuur en body fire, en eindigt met het vuurspuwen: vuurballen tot zo'n zes meter hoog. Tien minuten als verrassingsact op het hoogtepunt, twintig minuten voor de volledige opbouw, of meerdere blokken verdeeld over de avond. Een <a href="/fakir-show-inhuren/">fakirshow</a> of mentalisme kan ertussen als afwisseling.</p>
 <h2>Tentfeesten, verenigingen en bedrijven</h2>
@@ -2440,12 +2467,12 @@ _CITY_BODY = {
 <h2>Buiten of binnen</h2>
 <p>Buiten is het uitgangspunt: ongeveer zes bij zes meter vrije ruimte en zes meter vrije hoogte, weg van tenten, zeilen en parasols. Een parking, een plein, een weide of een binnenkoer is meestal ruim genoeg. Binnen kan als de zaal hoog genoeg is en goed geventileerd wordt; de vlammen blijven dan lager en het accent verschuift naar jongleren en body fire. Is open vuur geen optie, dan zijn de fakirshow en mentalisme volwaardige alternatieven zonder vuur.</p>
 <h2>Veiligheid en de Belgische praktijk</h2>
-<p>Nuno werkt al zeventien jaar met vuur en is bekend van SBS6, RTL 4 en VTM. Hij komt ruim voor aanvang, overloopt de locatie met je, bakent een veiligheidszone af en heeft eigen blusmiddelen bij zich. Hij is verzekerd en werkt met een speciale showvloeistof. In Belgi&euml; vraagt de gemeente of de zaaluitbater soms een melding of een attest vooraf; zeg het tijdig, dan regelt hij de papieren kant mee. Een vuurshow valt onder andere regels dan vuurwerk.</p>
+<p>Bij een tentfeest staat het publiek dichtbij en staat er zeil in de buurt; precies daarom overloopt Nuno de plek vooraf met je en bakent hij de zone af waar het vuur blijft. Hij brengt zijn eigen blusmiddelen mee, gebruikt een showvloeistof die voor dit werk is gemaakt en is verzekerd. Zeventien jaar ervaring en optredens voor SBS6, RTL 4 en VTM zitten daarachter. In Belgi&euml; vraagt de gemeente of de zaaluitbater soms een melding of een attest vooraf; zeg het tijdig, dan regelt hij de papieren kant mee. Een vuurshow valt onder andere regels dan vuurwerk.</p>
 <h2>Vuurspuwer boeken in Roeselare</h2>
-<p>Stuur je datum en locatie via het <a href="/contact-3/">aanvraagformulier</a> of via WhatsApp; binnen 24 uur heb je een prijs op maat. Bekijk het <a href="/wat-kost-een-vuurspuwer/">prijzenoverzicht</a> of lees de <a href="/beoordelingen/">beoordelingen</a>. Nuno komt ook in Izegem, Torhout, Tielt, Kortrijk, Oostende en de rest van West-Vlaanderen, en in <a href="/vuurspuwer-boeken-in-brugge/">Brugge</a> en <a href="/vuurspuwer-boeken-in-gent/">Gent</a>; de reis zit altijd in de offerte.</p>
+<p>Laat via het <a href="/contact-3/">aanvraagformulier</a> of via WhatsApp weten welke datum en welke plek, en je krijgt binnen 24 uur een prijs. De tarieven staan op <a href="/wat-kost-een-vuurspuwer/">de prijzenpagina</a>, en bij de <a href="/beoordelingen/">beoordelingen</a> lees je wat Vlaamse en Nederlandse opdrachtgevers ervan vonden. Nuno komt ook in Izegem, Torhout, Tielt, Kortrijk, Oostende en de rest van West-Vlaanderen, en in <a href="/vuurspuwer-boeken-in-brugge/">Brugge</a> en <a href="/vuurspuwer-boeken-in-gent/">Gent</a>; de reis zit altijd in de offerte.</p>
 """,
  "vuurspuwer-boeken-in-apeldoorn": """
-<p><strong>Een vuurspuwer inhuren in Apeldoorn? Nuno komt vanuit Zeist naar de Veluwe voor bedrijfsfeesten, bruiloften, festivals en verjaardagen. De reis zit in de prijs: &eacute;&eacute;n all-in offerte tussen &euro;350 en &euro;1500 en binnen 24 uur antwoord.</strong></p>
+<p><strong>Een vuurspuwer inhuren in Apeldoorn? Vanuit Zeist is de Veluwe dichtbij, dus Nuno komt er voor bedrijfsfeesten, bruiloften, festivals en verjaardagen zonder dat reiskosten een rol spelen: je krijgt binnen 24 uur een offerte tussen &euro;350 en &euro;1500 waar alles al in zit.</strong></p>
 <h2>Vuurshow in Apeldoorn: wat je kunt verwachten</h2>
 <p>De show begint met vuurjongleren, bouwt op via draaiend vuur en body fire, en eindigt met het vuurspuwen: vuurballen tot zo'n zes meter hoog. Een power-act van tien minuten als verrassing, een showblok van twintig minuten voor de volledige opbouw, of meerdere blokken over de avond verdeeld. Een <a href="/fakir-show-inhuren/">fakirshow</a> of mentalisme kan ertussen.</p>
 <h2>Ruimte genoeg op de Veluwe &mdash; en dat helpt</h2>
@@ -2454,17 +2481,34 @@ _CITY_BODY = {
 <p>Binnen kan ook, mits de zaal hoog genoeg is en goed geventileerd wordt. De vlammen blijven dan lager en het accent verschuift naar jongleren en body fire. Veel zalen in de regio hebben de hoogte wel; de ventilatie is meestal de bepalende factor.</p>
 <h2>Voor welke gelegenheid</h2>
 <p>Een <a href="/vuurshow-bedrijfsfeest/">bedrijfsfeest</a> als opening of finale, een <a href="/vuurshow-bruiloft/">bruiloft</a> bij de avondopening, een <a href="/vuurshow-festival/">festival</a> als publiekstrekker, een <a href="/vuurshow-verjaardag/">verjaardag of jubileum</a> als verrassing. Ook een <a href="/workshop-vuurspuwen/">workshop vuurspuwen</a> als teambuilding is op de Veluwe te boeken &mdash; buitenruimte is daarvoor juist een voordeel.</p>
-<h2>Veiligheid</h2>
-<p>Nuno werkt al zeventien jaar met vuur en is bekend van SBS6, RTL 4 en VTM. Hij komt ruim voor aanvang, loopt de locatie met je door, zet een veiligheidszone uit en heeft eigen blusmiddelen bij zich. Hij is verzekerd en werkt met een speciale showvloeistof. Een vuurshow valt onder andere regels dan vuurwerk; sommige locaties willen een melding vooraf, en daar helpt hij je bij.</p>
+<h2>Veiligheid tussen de bomen</h2>
+<p>Op de Veluwe is de vraag zelden of er ruimte is, maar of de omgeving droog is. Nuno kijkt daar vooraf naar, kiest met jou de plek met de minste begroeiing in de buurt en zet daar de veiligheidszone uit. Zijn blusmiddelen en showvloeistof neemt hij zelf mee, hij is verzekerd, en hij doet dit werk al zeventien jaar &mdash; onder meer voor SBS6, RTL 4 en VTM. Een vuurshow is geen vuurwerk en valt onder andere regels; vraagt een terreineigenaar of de gemeente om een melding, dan helpt hij je daarbij.</p>
 <h2>Vuurspuwer boeken in Apeldoorn</h2>
-<p>Stuur je datum en locatie via het <a href="/contact-3/">aanvraagformulier</a> of via WhatsApp; binnen 24 uur heb je een prijs op maat. Bekijk het <a href="/wat-kost-een-vuurspuwer/">prijzenoverzicht</a> of lees de <a href="/beoordelingen/">beoordelingen</a>. Nuno komt ook in Deventer, Zutphen, Barneveld, Arnhem, Zwolle en de rest van Gelderland en Overijssel; de reis zit altijd in de offerte.</p>
+<p>Geef je datum en locatie door via het <a href="/contact-3/">aanvraagformulier</a> of via WhatsApp; binnen 24 uur ligt er een prijs. Op <a href="/wat-kost-een-vuurspuwer/">de prijzenpagina</a> zie je vooraf wat elke vorm kost, en de <a href="/beoordelingen/">beoordelingen</a> laten zien hoe het bij anderen ging. Nuno komt ook in Deventer, Zutphen, Barneveld, Arnhem, Zwolle en de rest van Gelderland en Overijssel; de reis zit altijd in de offerte.</p>
 """,
+}
+# Zinnen die letterlijk op twee stadspagina's stonden (tests/sjabloon.py):
+# per stad een eigen formulering, zodat geen twee pagina's dezelfde zin delen.
+_CITY_FIX = {
+ "vuurspuwer-boeken-in-gent": (
+   ("op om de mogelijkheden te bespreken.",
+    "op; dan bekijken we samen wat er op uw locatie in Gent mogelijk is."),),
+ "vuurspuwer-boeken-in-groningen": (
+   ("op om de mogelijkheden te bespreken.",
+    "op en vertel wat u voor ogen heeft; u hoort binnen 24 uur wat het kost."),),
+ "vuurspuwer-boeken-in-leuven": (
+   ('Meer informatie over vuurspuwen kunt u vinden op <a href="https://nl.wikipedia.org/wiki/Vuurspuwen">Wikipedia</a>.',
+    'Wat vuurspuwen technisch inhoudt, leest u in het <a href="/vuur-woordenboek/">vuur-woordenboek</a>.'),),
 }
 for slug in CITIES:
     p = pages.get(slug)
     if not p: missing.append(slug); continue
     if slug in _CITY_H1: p = {**p, "title": _CITY_H1[slug]}
     if slug in _CITY_BODY: p = {**p, "body": _CITY_BODY[slug]}
+    for _van, _naar in _CITY_FIX.get(slug, ()):
+        if _van not in p["body"]:
+            raise SystemExit(f"  \u2716 stadsfix {slug}: {_van!r} niet gevonden")
+        p = {**p, "body": p["body"].replace(_van, _naar, 1)}
     city = CITY_LABEL[slug]
     others = [(CITY_LABEL[s], s) for s in CITIES if s != slug][:8]
     near = ('<section class="wrap bay"><h2 class="bay__title">Ook in de <em>buurt</em></h2>'
@@ -3026,6 +3070,11 @@ for slug in KEEP_PAGES:
     p = pages.get(slug)
     if not p: missing.append(slug); continue
     if slug in _KEEP_TITEL: p = {**p, "title": _KEEP_TITEL[slug]}
+    if slug in _NIEUWE_TEKST: p = {**p, "body": _NIEUWE_TEKST[slug]}
+    _o = TX.OVERRIDE.get(("nl", slug))
+    if _o:
+        p = {**p, **{k: _o[k] for k in ("title", "seo_title", "seo_desc", "body") if k in _o}}
+        if _o.get("faq"): _PAGINA_FAQ[slug] = _o["faq"]
     if slug == "locaties-vuurshows-nederland-belgie":
         p = {**p, "title": HUBL.HUB["title"], "seo_title": HUBL.HUB["seo_title"],
              "seo_desc": HUBL.HUB["seo_desc"], "body": HUBL.HUB["body"]}
@@ -3435,7 +3484,10 @@ for _slug, _NPG in NP.NL.items():
         _extra += ('<section class="wrap bay"><div class="prose--page" style="max-width:none">'
                    + PC._fotorij(_NPG["fotos"]) + "</div></section>")
     _extra += occ_links("nl")
-    write(_slug, render(_p, "page", PC.show_schema(_slug, _NPG), _extra, alternates=None))
+    # vlammenshow en vuurshow-boeken zijn bewust NL-only; de mentalisme-
+    # pagina's hebben wél een Engelse, Duitse en Franse versie (I.SLUGS)
+    _alts = alternates_for(_slug) if _slug in I.SLUGS else None
+    write(_slug, render(_p, "page", PC.show_schema(_slug, _NPG), _extra, alternates=_alts))
     built.append(_slug)
 print(f"  {len(NP.NL)} nieuwe zoekwoordpagina's (nl) gebouwd")
 
@@ -3460,6 +3512,20 @@ for slug_nl in I.SLUGS:
     alts = alternates_for(slug_nl)
     for l, pth in alts.items():
         LANG_ALTS[pth] = alts
+
+def regio_faq(lang, path, faq):
+    """FAQ-blok en FAQPage-schema voor een grensstadpagina, of leeg.
+
+    Sinds oktober 2026 heeft elke Duitse en Franse stadspagina een eigen
+    tekst én eigen vragen; daarvoor deelden ze één sjabloon zonder FAQ."""
+    if not faq: return "", []
+    html = lang_faq_html(lang, faq)
+    ld = [{"@context": "https://schema.org", "@type": "FAQPage",
+           "@id": SITE + path + "#faq", "inLanguage": I.HTML_LANG[lang],
+           "mainEntity": [{"@type": "Question", "name": q,
+                           "acceptedAnswer": {"@type": "Answer", "text": a}}
+                          for q, a in faq]}]
+    return html, ld
 
 for lang in I.LANGS:
     for nl_slug, T in sorted(I.PAGES[lang].items()):
@@ -3528,7 +3594,8 @@ for lang in I.LANGS:
                "url": SITE + path, "inLanguage": I.HTML_LANG[lang],
                "provider": {"@id": f"{SITE}/#business"},
                "areaServed": {"@type": "City", "name": R["stad"]}}]
-        write(f"{lang}/{loc}", render(p, "page", ld, regio_links(lang, skip=path),
+        _rx, _rld = regio_faq(lang, path, R.get("faq"))
+        write(f"{lang}/{loc}", render(p, "page", ld + _rld, _rx + regio_links(lang, skip=path),
                                       lang=lang, path=path, alternates=alts))
         built.append(f"{lang}/{loc}")
     # steden zonder NL-tegenhanger (Düsseldorf, Duisburg, Namur, Charleroi, Mons)
@@ -3545,8 +3612,14 @@ for lang in I.LANGS:
                "url": SITE + path, "inLanguage": I.HTML_LANG[lang],
                "provider": {"@id": f"{SITE}/#business"},
                "areaServed": {"@type": "City", "name": R["stad"]}}]
-        write(f"{lang}/{loc}", render(p, "page", ld, regio_links(lang, skip=path),
-                                      lang=lang, path=path))
+        # Luxemburg bestaat in het Duits én het Frans zonder NL-versie: die
+        # twee verwijzen via "alts" naar elkaar
+        _salts = R.get("alts")
+        if _salts:
+            for _ap in _salts.values(): LANG_ALTS[_ap] = _salts
+        _rx, _rld = regio_faq(lang, path, R.get("faq"))
+        write(f"{lang}/{loc}", render(p, "page", ld + _rld, _rx + regio_links(lang, skip=path),
+                                      lang=lang, path=path, alternates=_salts))
         built.append(f"{lang}/{loc}")
 print(f"  vertaalde pagina's: {sum(len(I.PAGES[l]) for l in I.LANGS)} + "
       f"{sum(len(I.REGIO_PAGES[l]) for l in I.REGIO_PAGES)} regiopagina's (en/de/fr)")
@@ -3790,6 +3863,7 @@ def _dichtstbij(slug):
     if re.search(r"bedrijfsfeest|personeelsfeest", slug):return "/vuurshow-bedrijfsfeest/"
     if re.search(r"verjaardag", slug):            return "/vuurshow-verjaardag/"
     if re.search(r"festival", slug):              return "/vuurshow-festival/"
+    if re.search(r"mentalis|gedachtenlez", slug): return "/mentalist-boeken/"
     if re.search(r"entertainer", slug):           return "/entertainer-huren/"
     # stads- en locatieberichten (vuurspuwer-<plaats>-...): alleen naar de
     # stadspagina als het écht dezelfde stad is. Anders niets: een 404 is
@@ -3950,6 +4024,7 @@ print(f"  samengevoegd: {len(_SAMENVOEGEN)} dubbele gelegenheidspagina's naar hu
 _GENERIEK = {"/en/fire-show/", "/de/feuershow/", "/fr/spectacle-de-feu/"}
 _ONDERWERP = {
  "de": [
+  (r"mentalis|gedankenles|mind-read|mentaliste", "/de/mentalist-buchen/"),
   (r"aachen|aken", "/de/feuerspucker-aachen/"),
   (r"krefeld", "/de/feuerspucker-krefeld/"),
   (r"kleve|kleef", "/de/feuerspucker-kleve/"),
@@ -3977,6 +4052,7 @@ _ONDERWERP = {
   (r"feuerspuck|feuerschluck|mieten|buchen|feuershow", "/de/feuershow/"),
  ],
  "en": [
+  (r"mentalis|gedankenles|mind-read|mentaliste", "/en/mentalist-hire/"),
   (r"fakir", "/en/fakir-show/"),
   (r"workshop|course|lesson", "/en/fire-breathing-workshop/"),
   (r"price|cost|prijs|kosten|rate|quote", "/en/fire-breather-prices/"),
@@ -3997,6 +4073,7 @@ _ONDERWERP = {
   (r"fire-breath|fire-eat|hire|fire-show", "/en/fire-show/"),
  ],
  "fr": [
+  (r"mentalis|gedankenles|mind-read|mentaliste", "/fr/mentaliste-spectacle/"),
   (r"bruxelles|brussel", "/fr/cracheur-de-feu-bruxelles/"),
   (r"charleroi", "/fr/cracheur-de-feu-charleroi/"),
   (r"li[eè]ge|luik", "/fr/cracheur-de-feu-liege/"),
