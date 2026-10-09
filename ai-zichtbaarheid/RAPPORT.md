@@ -17,6 +17,8 @@ Geen problemen gevonden: robots.txt laat alle zoek- en antwoordcrawlers toe, de 
 | Googlebot | Google, AI Overviews en Gemini | toegestaan | doorgelaten |
 | Bingbot | Bing, Copilot en deels ChatGPT | toegestaan | doorgelaten |
 | Applebot | Apple / Siri | toegestaan | doorgelaten |
+| DuckAssistBot | DuckDuckGo AI-antwoorden | – | – |
+| MistralAI-User | Mistral opent een pagina | – | – |
 | Google-Extended | Gemini-training (geen zoekverkeer) | toegestaan | – |
 | GPTBot | OpenAI-training (geen zoekverkeer) | toegestaan | doorgelaten |
 | ClaudeBot | Anthropic-training (geen zoekverkeer) | toegestaan | doorgelaten |

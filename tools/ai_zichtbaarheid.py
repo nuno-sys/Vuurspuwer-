@@ -343,6 +343,8 @@ AI_CRAWLERS = [
     ("Googlebot", "Google, AI Overviews en Gemini", True),
     ("Bingbot", "Bing, Copilot en deels ChatGPT", True),
     ("Applebot", "Apple / Siri", True),
+    ("DuckAssistBot", "DuckDuckGo AI-antwoorden", True),
+    ("MistralAI-User", "Mistral opent een pagina", True),
     ("Google-Extended", "Gemini-training (geen zoekverkeer)", False),
     ("GPTBot", "OpenAI-training (geen zoekverkeer)", False),
     ("ClaudeBot", "Anthropic-training (geen zoekverkeer)", False),
@@ -368,7 +370,8 @@ def beoordeel_robots(tekst):
 
 def _geweigerd(status, kop, lijf):
     kop = {k.lower(): v for k, v in kop.items()}
-    return (status in (401, 403, 429, 503) or kop.get("cf-mitigated") == "challenge"
+    # 402: Cloudflare pay per crawl
+    return (status in (401, 402, 403, 429, 503) or kop.get("cf-mitigated") == "challenge"
             or "Just a moment..." in lijf[:5000])
 
 def toegang():
@@ -379,9 +382,12 @@ def toegang():
     if status != 200:
         w.append(f"robots.txt geeft HTTP {status}")
         robots = ""
-    uit["robots_cloudflare"] = "Cloudflare Managed" in robots or "cloudflare.com" in robots.lower()
+    # Cloudflare zet zijn blok vóór de eigen robots.txt: "# BEGIN Cloudflare
+    # Managed content" met Content-signal en Disallow-regels voor trainingsbots
+    uit["robots_cloudflare"] = "Cloudflare Managed" in robots or "content-signal" in robots.lower()
     if uit["robots_cloudflare"]:
-        w.append("Cloudflare voegt eigen regels toe aan robots.txt (beheerde robots.txt)")
+        w.append("Cloudflare voegt eigen regels toe aan robots.txt (beheerde robots.txt); "
+                 "trainingsbots uitsluiten is prima, zoek- en antwoordcrawlers niet")
     uit["robots"] = beoordeel_robots(robots) if robots else {}
     for tok, voor, zoek in AI_CRAWLERS:
         if robots and not uit["robots"][tok] and zoek:
@@ -564,7 +570,7 @@ def zelftest():
         ok = all(rb.values())
         fout += not ok
         print(f"  {'ok  ' if ok else 'FOUT'} eigen robots.txt laat alle crawlers toe: {ok}")
-    ok = _geweigerd(403, {}, "") and _geweigerd(200, {"CF-Mitigated": "challenge"}, "") \
+    ok = _geweigerd(403, {}, "") and _geweigerd(402, {}, "") and _geweigerd(200, {"CF-Mitigated": "challenge"}, "") \
         and not _geweigerd(200, {}, "<html>")
     fout += not ok
     print(f"  {'ok  ' if ok else 'FOUT'} weigering herkennen")
