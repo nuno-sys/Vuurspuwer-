@@ -64,8 +64,8 @@
 "h": "1c805344e9ffbfed"
 },
 "/de/feuerspucker-aachen/": {
-"d": "2026-08-31",
-"h": "da28d59b3b287ff8"
+"d": "2026-10-09",
+"h": "7a741d3305d35e3a"
 },
 "/de/feuerspucker-duesseldorf/": {
 "d": "2026-08-31",
@@ -76,20 +76,20 @@
 "h": "0033f377b088273f"
 },
 "/de/feuerspucker-kaldenkirchen/": {
-"d": "2026-08-31",
-"h": "e5cd1eef967de3de"
+"d": "2026-10-09",
+"h": "a29ba941fb0374bd"
 },
 "/de/feuerspucker-kleve/": {
-"d": "2026-08-31",
-"h": "a5d02172472a796b"
+"d": "2026-10-09",
+"h": "57fd378f2f9a729a"
 },
 "/de/feuerspucker-kosten/": {
 "d": "2026-08-31",
 "h": "e6ca7776d77e2c2d"
 },
 "/de/feuerspucker-krefeld/": {
-"d": "2026-08-31",
-"h": "bc92abb1f18a616d"
+"d": "2026-10-09",
+"h": "eeaa707cd78d2af3"
 },
 "/de/feuerspucker-moenchengladbach/": {
 "d": "2026-08-31",
@@ -232,8 +232,8 @@
 "h": "c5083eb3b9443bda"
 },
 "/entertainer-huren/": {
-"d": "2026-09-18",
-"h": "94c8d95091df3b05"
+"d": "2026-10-09",
+"h": "34553491e8a97bc1"
 },
 "/entertainer-inhuren-hoe-kies-je-de-perfecte-act-voor-jouw-evenement/": {
 "d": "2026-08-31",
@@ -415,6 +415,14 @@
 "d": "2026-09-18",
 "h": "a6f12f806a8db671"
 },
+"/mentalist-bedrijfsfeest/": {
+"d": "2026-10-09",
+"h": "5b45b375d661b275"
+},
+"/mentalist-boeken/": {
+"d": "2026-10-09",
+"h": "a4a9d014d4939abf"
+},
 "/over-nuno/": {
 "d": "2026-09-14",
 "h": "655e0471c81c576b"
@@ -464,8 +472,8 @@
 "h": "a57bf507bc5581ce"
 },
 "/vlammenshow/": {
-"d": "2026-09-18",
-"h": "bcc77cb109d89315"
+"d": "2026-10-09",
+"h": "c9211a2917c0f3fc"
 },
 "/vrijgezellenfeest/": {
 "d": "2026-09-18",
@@ -484,8 +492,8 @@
 "h": "e6d3c409fe926c5c"
 },
 "/vuurshow-boeken/": {
-"d": "2026-09-18",
-"h": "b48c03757d503121"
+"d": "2026-10-09",
+"h": "cdaa3a36dd6915f1"
 },
 "/vuurshow-bruiloft/": {
 "d": "2026-09-18",
@@ -696,8 +704,8 @@
 "h": "e90db82fbdc470a6"
 },
 "/vuurwerk-alternatief/": {
-"d": "2026-09-18",
-"h": "6593cd8a11a12360"
+"d": "2026-10-09",
+"h": "984acd660675824a"
 },
 "/vuurwerkshow-of-vuurshow-wat-mag-nog/": {
 "d": "2026-09-18",
@@ -722,6 +730,10 @@
 "/wat-is-de-minimale-benodigde-ruimte-voor-een-vuurshow-buiten-faq/": {
 "d": "2026-09-02",
 "h": "6e66fa7d31fe06fe"
+},
+"/wat-is-mentalisme/": {
+"d": "2026-10-09",
+"h": "834fd26651d2cbbf"
 },
 "/wat-is-vuurspuwen-en-hoe-werkt-het/": {
 "d": "2026-09-18",
