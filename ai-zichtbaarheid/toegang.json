@@ -1,5 +1,5 @@
 {
- "datum": "2026-10-09",
+ "datum": "2026-10-12",
  "waarschuwingen": [],
  "robots_status": 200,
  "robots_cloudflare": false,
@@ -13,6 +13,8 @@
   "Googlebot": true,
   "Bingbot": true,
   "Applebot": true,
+  "DuckAssistBot": true,
+  "MistralAI-User": true,
   "Google-Extended": true,
   "GPTBot": true,
   "ClaudeBot": true
@@ -51,6 +53,14 @@
    "geweigerd": false
   },
   "Applebot": {
+   "status": 200,
+   "geweigerd": false
+  },
+  "DuckAssistBot": {
+   "status": 200,
+   "geweigerd": false
+  },
+  "MistralAI-User": {
    "status": 200,
    "geweigerd": false
   },

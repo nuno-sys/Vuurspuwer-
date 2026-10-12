@@ -2,7 +2,7 @@
 
 Gemaakt door `tools/ai_zichtbaarheid.py`. Per vraag: ★ = vuurspuwer.com geciteerd als bron, ✓ = Nuno genoemd zonder bronvermelding, ○ = een pagina van vuurspuwer.com is wel opgehaald maar niet aangehaald (de eerste stap), · = niet genoemd, – = niet gemeten of fout.
 
-## Kunnen AI-crawlers de site lezen? (live gecontroleerd op 2026-10-09)
+## Kunnen AI-crawlers de site lezen? (live gecontroleerd op 2026-10-12)
 
 Geen problemen gevonden: robots.txt laat alle zoek- en antwoordcrawlers toe, de site weigert hun user-agent niet, en llms.txt, llms-full.txt en de sitemap zijn bereikbaar.
 
@@ -17,8 +17,8 @@ Geen problemen gevonden: robots.txt laat alle zoek- en antwoordcrawlers toe, de 
 | Googlebot | Google, AI Overviews en Gemini | toegestaan | doorgelaten |
 | Bingbot | Bing, Copilot en deels ChatGPT | toegestaan | doorgelaten |
 | Applebot | Apple / Siri | toegestaan | doorgelaten |
-| DuckAssistBot | DuckDuckGo AI-antwoorden | – | – |
-| MistralAI-User | Mistral opent een pagina | – | – |
+| DuckAssistBot | DuckDuckGo AI-antwoorden | toegestaan | doorgelaten |
+| MistralAI-User | Mistral opent een pagina | toegestaan | doorgelaten |
 | Google-Extended | Gemini-training (geen zoekverkeer) | toegestaan | – |
 | GPTBot | OpenAI-training (geen zoekverkeer) | toegestaan | doorgelaten |
 | ClaudeBot | Anthropic-training (geen zoekverkeer) | toegestaan | doorgelaten |
