@@ -1811,6 +1811,22 @@ body.is-locked .nav__call{ opacity:0; pointer-events:none; transition:opacity .3
   color:var(--smoke);
 }
 .foot__bar a:hover{ color:var(--flame); }
+.foot__network{
+  display:flex;
+  flex:0 0 100%;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:.4rem .75rem;
+  font-family:var(--f-body);
+  font-size:var(--t-sm);
+  letter-spacing:normal;
+  text-transform:none;
+}
+.foot__network a{
+  color:var(--ink-dim);
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
 
 /* ============================================================
    The burn — nothing on this page arrives; it catches fire.
