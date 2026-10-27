@@ -640,7 +640,9 @@ def _augment_rich_results(graph, lang, page_desc=None, page_img=None, page_url=N
 # menulinks, labels en teksten omgezet per taal. Alles wat geen eigen
 # vertaling heeft, blijft gewoon naar de NL-pagina wijzen.
 _FOOTER_LABELS = {
- "en": {">Reptielenshow<": ">Reptile show<", ">Workshop vuurspuwen<": ">Fire-breathing workshop<",
+ "en": {">Ontdek ook<": ">Discover more<",
+        'aria-label="Ontdek ook"': 'aria-label="Discover more"',
+        ">Reptielenshow<": ">Reptile show<", ">Workshop vuurspuwen<": ">Fire-breathing workshop<",
         ">Mentalisme<": ">Mentalism<", ">Themafeesten<": ">Theme parties<",
         ">Over Nuno<": ">About Nuno<", ">Prijzen<": ">Prices<", "💍 Vuurshows per gelegenheid": "💍 Fire shows by occasion", "📍 Vuurspuwer per stad": "📍 Fire breather by city", "🎃 Halloween per stad": "🎃 Halloween by city", "⚔️ Fakirshow per stad": "⚔️ Fakir show by city", "💨 Workshop per stad": "💨 Workshop by city", ">Bruiloften<": ">Weddings<", ">Bedrijfsfeesten<": ">Corporate events<", ">🎄 Kerst &amp; nieuwjaar<": ">🎄 Christmas &amp; New Year<", ">Beoordelingen<": ">Reviews<", ">Locaties<": ">Locations<",
         ">Aanvraagformulier<": ">Request form<", ">Algemene voorwaarden<": ">Terms &amp; conditions<",
@@ -662,7 +664,9 @@ _FOOTER_LABELS = {
         '<span class="vh">(opent in een nieuw tabblad)</span>': '<span class="vh">(opens in a new tab)</span>',
         "Vuurspuwer, fakir en mentalist. Boekbaar in Nederland, Belgi&euml; en daarbuiten.": 'Fire breather, fakir and mentalist. Available in the Netherlands, Belgium and beyond.',
         "Nederland, Belgi&euml; &amp; internationaal": "Netherlands, Belgium &amp; international"},
- "de": {">Reptielenshow<": ">Reptilienshow<", ">Workshop vuurspuwen<": ">Feuerspucker-Workshop<",
+ "de": {">Ontdek ook<": ">Auch entdecken<",
+        'aria-label="Ontdek ook"': 'aria-label="Auch entdecken"',
+        ">Reptielenshow<": ">Reptilienshow<", ">Workshop vuurspuwen<": ">Feuerspucker-Workshop<",
         ">Mentalisme<": ">Mentalismus<", ">Themafeesten<": ">Mottopartys<",
         ">Over Nuno<": ">Über Nuno<", ">Prijzen<": ">Preise<", "💍 Vuurshows per gelegenheid": "💍 Feuershows nach Anlass", "📍 Vuurspuwer per stad": "📍 Feuerspucker nach Stadt", "🎃 Halloween per stad": "🎃 Halloween nach Stadt", "⚔️ Fakirshow per stad": "⚔️ Fakirshow nach Stadt", "💨 Workshop per stad": "💨 Workshop nach Stadt", ">Bruiloften<": ">Hochzeiten<", ">Bedrijfsfeesten<": ">Firmenfeiern<", ">🎄 Kerst &amp; nieuwjaar<": ">🎄 Weihnachten &amp; Silvester<", ">Beoordelingen<": ">Bewertungen<", ">Locaties<": ">Standorte<",
         ">Aanvraagformulier<": ">Anfrageformular<", ">Algemene voorwaarden<": ">AGB<",
@@ -684,7 +688,9 @@ _FOOTER_LABELS = {
         '<span class="vh">(opent in een nieuw tabblad)</span>': '<span class="vh">(&ouml;ffnet in neuem Tab)</span>',
         "Vuurspuwer, fakir en mentalist. Boekbaar in Nederland, Belgi&euml; en daarbuiten.": 'Feuerspucker, Fakir und Mentalist. Buchbar in den Niederlanden, Belgien und dar&uuml;ber hinaus.',
         "Nederland, Belgi&euml; &amp; internationaal": "Niederlande, Belgien &amp; international"},
- "fr": {">Reptielenshow<": ">Spectacle de reptiles<", ">Workshop vuurspuwen<": ">Atelier cracheur de feu<",
+ "fr": {">Ontdek ook<": ">À découvrir aussi<",
+        'aria-label="Ontdek ook"': 'aria-label="À découvrir aussi"',
+        ">Reptielenshow<": ">Spectacle de reptiles<", ">Workshop vuurspuwen<": ">Atelier cracheur de feu<",
         ">Mentalisme<": ">Mentalisme<", ">Themafeesten<": ">Fêtes à thème<",
         ">Over Nuno<": ">À propos de Nuno<", ">Prijzen<": ">Tarifs<", "💍 Vuurshows per gelegenheid": "💍 Spectacles de feu par occasion", "📍 Vuurspuwer per stad": "📍 Cracheur de feu par ville", "🎃 Halloween per stad": "🎃 Halloween par ville", "⚔️ Fakirshow per stad": "⚔️ Spectacle de fakir par ville", "💨 Workshop per stad": "💨 Atelier par ville", ">Bruiloften<": ">Mariages<", ">Bedrijfsfeesten<": ">Fêtes d'entreprise<", ">🎄 Kerst &amp; nieuwjaar<": ">🎄 Noël &amp; Nouvel An<", ">Beoordelingen<": ">Avis<", ">Locaties<": ">Villes<",
         ">Aanvraagformulier<": ">Formulaire de demande<", ">Algemene voorwaarden<": ">Conditions générales<",
