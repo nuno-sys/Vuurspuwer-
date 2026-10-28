@@ -12,18 +12,21 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
-          ref: claude/vuurspuwer-cloudflare-migration-xcvttf
-      - name: Preserve source and update only the same footer in existing compiled HTML
+          ref: main
+      - name: Verify production preimages and add only the same footer anchor
         run: |
           python3 - <<'PY'
           import hashlib,json,re,subprocess
           from pathlib import Path
-          raw=Path('index.html').read_bytes()
-          assert hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()=='6dc37847b68fbcfc500324647afa622148b3ed46','Tested template changed'
+          def blob(p):
+              raw=p.read_bytes();return hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()
+          assert blob(Path('index.html'))=='00e6fd1ffabb5bcec09e032b6ba00cd265041e25','Reviewed source changed'
+          assert blob(Path('dist/index.html'))=='ea1cefd298c7707bafb4110554fe7e2e19a2d95b','Reviewed production output changed'
           marker='<a href="https://eurozena.com/">EuroZena</a>'
-          add='<span aria-hidden="true">&middot;</span><a href="https://astronivo.com/">AstroNivo</a>'
+          add='\n      <span aria-hidden="true">&middot;</span>\n      <a href="https://astronivo.com/">AstroNivo</a>'
           rows=[]
-          for name in subprocess.check_output(['git','ls-files','dist'],text=True).splitlines():
+          names=['index.html',*subprocess.check_output(['git','ls-files','dist'],text=True).splitlines()]
+          for name in names:
               p=Path(name)
               if p.suffix!='.html':continue
               raw=p.read_bytes();text=raw.decode();footers=list(re.finditer(r'<footer\b[^>]*>.*?</footer>',text,re.I|re.S))
@@ -31,7 +34,7 @@ jobs:
               if not relevant:continue
               assert len(relevant)==1 and relevant[0].group().count(marker)==1,(name,'ambiguous footer')
               before=relevant[0];old=before.group()
-              if 'href="https://astronivo.com/"' in old:raise AssertionError('Already changed output requires fresh review: '+name)
+              assert 'href="https://astronivo.com/"' not in old,('Already updated',name)
               new=old.replace(marker,marker+add)
               changed=text[:before.start()]+new+text[before.end():]
               assert changed.replace(add,'',1)==text,(name,'non-footer difference')
@@ -40,15 +43,15 @@ jobs:
               p.write_bytes(changed.encode())
               rows.append({'path':name,'before_sha256':hashlib.sha256(raw).hexdigest(),'after_sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'only_addition':add})
           paths={r['path'] for r in rows}
-          assert {'dist/index.html','dist/en/index.html','dist/de/index.html','dist/fr/index.html'}<=paths
-          assert len(paths)>=100
+          assert {'index.html','dist/index.html','dist/en/index.html','dist/de/index.html','dist/fr/index.html'}<=paths,sorted(paths)
+          assert len(paths)>=100,len(paths)
           modified=set(subprocess.check_output(['git','diff','--name-only'],text=True).splitlines());assert modified==paths
           out=Path('footer-output-evidence');out.mkdir()
-          (out/'validated-output.json').write_text(json.dumps({'pages':len(rows),'source_unchanged':True,'non_footer_bytes_unchanged':True,'files':rows},indent=2)+'\n')
+          (out/'validated-output.json').write_text(json.dumps({'branch':'main','pages':len(rows)-1,'source_and_output_consistent':True,'non_footer_bytes_unchanged':True,'files':rows},indent=2)+'\n')
           (out/'paths.txt').write_text('\n'.join(sorted(paths))+'\n')
-          print(json.dumps({'validated_footer_only_pages':len(rows)}))
+          print(json.dumps({'validated_footer_only_pages':len(rows)-1,'template':True}))
           PY
-      - name: Commit only the validated static pages to the existing production branch
+      - name: Commit only the validated template and static pages to production
         run: |
           set -euo pipefail
           python3 - <<'PY'
@@ -60,8 +63,8 @@ jobs:
           PY
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git commit -m 'Publish only the AstroNivo footer anchor in existing static pages'
-          git push origin HEAD:refs/heads/claude/vuurspuwer-cloudflare-migration-xcvttf
+          git commit -m 'Add only AstroNivo beside the existing related-site footer links'
+          git push origin HEAD:refs/heads/main
           git rev-parse HEAD > footer-output-evidence/commit.txt
       - uses: actions/upload-artifact@v4
         if: always()
