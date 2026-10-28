@@ -1,0 +1,91 @@
+name: Owner requested ordinary corporate footer links
+on:
+  push:
+    branches: [maintenance/astronivo-footer-20261028]
+    paths: [.github/workflows/footer-links-follow.yml]
+permissions:
+  contents: write
+concurrency:
+  group: vuurspuwer-footer-only
+  cancel-in-progress: false
+jobs:
+  footer:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+      - name: Change only corporate footer link attributes and preserve every other byte
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import hashlib,json,re,subprocess
+          from pathlib import Path
+          from html.parser import HTMLParser
+          out=Path('footer-follow-evidence');out.mkdir()
+          before_commit=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+          p=Path('brand_projects.py');raw=p.read_bytes()
+          assert hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()=='97b8b4aa67bc27c877b22254131497057c205c11','Template source drift'
+          old=raw.decode();assert old.count(' rel="nofollow"')==1
+          new=old.replace(' rel="nofollow"','')
+          compile(new,'brand_projects.py','exec');p.write_bytes(new.encode())
+          changed=['brand_projects.py'];rows=[]
+          hosts=['euroacts.com','astronivo.com','eurozena.com']
+          class Links(HTMLParser):
+              def __init__(self):super().__init__();self.anchors=[]
+              def handle_starttag(self,tag,attrs):
+                  if tag=='a':self.anchors.append(dict(attrs))
+          names=['index.html']+subprocess.check_output(['git','ls-files','dist'],text=True).splitlines()
+          for name in names:
+              p=Path(name)
+              if p.suffix!='.html':continue
+              raw=p.read_bytes();text=raw.decode()
+              matches=list(re.finditer(r'<details\b[^>]*data-brand-projects[^>]*>.*?</details>',text,re.S))
+              if not matches:continue
+              assert len(matches)==1,(name,'multiple corporate disclosures')
+              match=matches[0];block=match.group()
+              parser=Links();parser.feed(block)
+              assert len(parser.anchors)==3 and {a.get('href') for a in parser.anchors}=={'https://'+h+'/' for h in hosts},name
+              assert all(a.get('rel')=='nofollow' for a in parser.anchors),name
+              assert block.count(' rel="nofollow"')==3,name
+              updated=block.replace(' rel="nofollow"','')
+              result=text[:match.start()]+updated+text[match.end():]
+              assert result.replace(updated,block,1)==text,(name,'unrelated change')
+              parser=Links();parser.feed(updated)
+              assert len(parser.anchors)==3 and all(not a.get('rel') for a in parser.anchors)
+              assert not re.search(r'\sopen(?:\s|=|>)',updated.split('>',1)[0]+'>'),name
+              p.write_bytes(result.encode());changed.append(name)
+              rows.append({'path':name,'before_sha256':hashlib.sha256(raw).hexdigest(),'after_sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'only_change':'three corporate nofollow attributes removed'})
+          assert len(rows)>=187
+          assert {'index.html','dist/index.html','dist/en/index.html','dist/de/index.html','dist/fr/index.html'}<=set(changed)
+          namespace={};exec(compile(new,'brand_projects.py','exec'),namespace)
+          for lang in namespace['COPY']:
+              result=namespace['render'](lang);parser=Links();parser.feed(result)
+              assert len(parser.anchors)==3 and all(not a.get('rel') for a in parser.anchors)
+              assert 'data-brand-projects' in result
+          assert set(subprocess.check_output(['git','diff','--name-only'],text=True).splitlines())==set(changed)
+          (out/'paths.json').write_text(json.dumps(changed))
+          (out/'scope.json').write_text(json.dumps({'before_commit':before_commit,'pages':len(rows),'languages':list(namespace['COPY']),'layout_changed':False,'text_changed':False,'style_changed':False,'only_corporate_link_attributes_changed':True,'files':rows},indent=2)+'\n')
+          (out/'source.patch').write_text(subprocess.check_output(['git','diff','--','index.html','brand_projects.py'],text=True))
+          print(json.dumps({'validated_pages':len(rows),'languages':len(namespace['COPY'])}))
+          PY
+      - name: Publish only the tested template and compiled footer changes to existing main
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json,subprocess
+          from pathlib import Path
+          paths=json.loads(Path('footer-follow-evidence/paths.json').read_text())
+          subprocess.run(['git','add','-f','--',*paths],check=True)
+          assert set(subprocess.check_output(['git','diff','--cached','--name-only'],text=True).splitlines())==set(paths)
+          subprocess.run(['git','-c','user.name=github-actions[bot]','-c','user.email=41898282+github-actions[bot]@users.noreply.github.com','commit','-m','Use ordinary corporate footer links as requested by owner; preserve all layout and content'],check=True)
+          subprocess.run(['git','push','origin','HEAD:refs/heads/main'],check=True)
+          Path('footer-follow-evidence/commit.txt').write_text(subprocess.check_output(['git','rev-parse','HEAD'],text=True))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: footer-follow-vuurspuwer-${{ github.run_id }}-${{ github.run_attempt }}
+          path: footer-follow-evidence/
+          retention-days: 30
