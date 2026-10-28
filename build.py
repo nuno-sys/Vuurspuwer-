@@ -2007,6 +2007,8 @@ def _contextlinks(slug, doc):
     return doc.replace(anker, met, 1)
 
 def write(slug, doc):
+    from brand_projects import localize as localize_brand_projects
+    doc = localize_brand_projects(doc)
     doc = _contextlinks(slug, doc)
     doc = _avifize(doc)
     path = f"/{slug}/" if slug else "/"

@@ -4552,3 +4552,14 @@ html.cookie-open, html.cookie-open body{ overflow:hidden; }
   .espart{ transition:none; }
   .espart:hover{ transform:none; }
 }
+
+/* Secondary ownership information: accessible without JavaScript. */
+footer .brand-projects{display:block;max-inline-size:44ch;min-inline-size:0;margin-block:8px 0;margin-inline-end:auto;text-align:start;font-size:12px;line-height:1.7;color:var(--ink-dim)}
+footer .foot__bar>.brand-projects{flex-basis:100%}
+footer .brand-projects>summary{display:list-item;list-style:disclosure-closed inside;cursor:pointer;min-block-size:36px;padding:6px 0;font:inherit;color:inherit}
+footer .brand-projects[open]>summary{list-style-type:disclosure-open}
+footer .brand-projects>summary:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+footer .brand-projects p{margin:8px 0 10px;font:inherit;color:inherit}
+footer .brand-projects ul{list-style:none;margin:0;padding:0}
+footer .brand-projects li{display:block;margin:0;padding:0}
+footer .brand-projects a{display:inline-block;min-block-size:28px;padding:2px 0;font:inherit;color:inherit;text-decoration:underline;text-underline-offset:3px}
