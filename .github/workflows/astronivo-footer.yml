@@ -13,6 +13,8 @@ jobs:
       - uses: actions/checkout@v5
         with:
           ref: claude/vuurspuwer-cloudflare-migration-xcvttf
+      - name: Install the existing image build dependency
+        run: python3 -m pip install --disable-pip-version-check Pillow==12.3.0
       - name: Add only the exact requested ordinary link
         run: |
           python3 - <<'PY'
