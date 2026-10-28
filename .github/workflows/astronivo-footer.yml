@@ -1,0 +1,68 @@
+name: AstroNivo footer link only
+on:
+  push:
+    branches: [maintenance/astronivo-footer-20261028]
+    paths: [.github/workflows/astronivo-footer.yml]
+permissions:
+  contents: write
+jobs:
+  footer:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: claude/vuurspuwer-cloudflare-migration-xcvttf
+      - name: Add only the exact requested ordinary link
+        run: |
+          python3 - <<'PY'
+          import hashlib,json,subprocess
+          from pathlib import Path
+          p=Path('index.html');raw=p.read_bytes()
+          assert hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()=='00e6fd1ffabb5bcec09e032b6ba00cd265041e25','Source changed; stop for review'
+          old='<a href="https://eurozena.com/">EuroZena</a>\n    </nav>'
+          add='\n      <span aria-hidden="true">&middot;</span>\n      <a href="https://astronivo.com/">AstroNivo</a>'
+          text=raw.decode();assert text.count(old)==1
+          changed=text.replace(old,old.replace('\n    </nav>',add+'\n    </nav>'))
+          assert changed.replace(add,'',1)==text
+          p.write_text(changed)
+          out=Path('footer-evidence');out.mkdir()
+          (out/'change.patch').write_text(subprocess.check_output(['git','diff','--','index.html'],text=True))
+          PY
+      - name: Build the existing site and verify generated footer links
+        run: |
+          set -euo pipefail
+          python3 build.py > footer-evidence/build.txt 2>&1
+          python3 - <<'PY'
+          import re,json
+          from pathlib import Path
+          checked=0
+          for p in Path('dist').rglob('*.html'):
+              text=p.read_text()
+              footers=re.findall(r'<footer\b[^>]*>.*?</footer>',text,re.I|re.S)
+              relevant=[f for f in footers if 'https://euroacts.com/' in f]
+              for footer in relevant:
+                  for host,label in [('euroacts.com','EuroActs'),('eurozena.com','EuroZena'),('astronivo.com','AstroNivo')]:
+                      assert footer.count('href="https://'+host+'/"')==1,(str(p),host)
+                      assert '<a href="https://'+host+'/">'+label+'</a>' in footer,(str(p),host)
+                  checked+=1
+          assert checked>10
+          Path('footer-evidence/validation.json').write_text(json.dumps({'generated_pages_checked':checked,'ordinary_links':True,'styles_changed':False},indent=2))
+          print(json.dumps({'generated_pages_checked':checked}))
+          PY
+      - name: Save only the source footer for the existing Pages production build
+        run: |
+          set -euo pipefail
+          git add -- index.html
+          test "$(git diff --cached --name-only)" = 'index.html'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Add AstroNivo to the existing related-sites footer without changing the page'
+          git push origin HEAD:refs/heads/claude/vuurspuwer-cloudflare-migration-xcvttf
+          git rev-parse HEAD > footer-evidence/commit.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: vuurspuwer-footer-${{ github.run_id }}
+          path: footer-evidence/
+          retention-days: 14
