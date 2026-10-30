@@ -1,4 +1,4 @@
-# Indexeer-dagplan 2026-10-29
+# Indexeer-dagplan 2026-10-30
 
 Google kent géén open aanmeld-API voor gewone pagina's, dus deze tien
 adressen zijn met de hand aan te melden. Klik een link, druk op
@@ -6,14 +6,20 @@ adressen zijn met de hand aan te melden. Klik een link, druk op
 
 | # | Pagina | Aanmelden bij Google |
 |---|---|---|
-| 1 | `waar-kun-je-een-entertainer-inhuren` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fwaar-kun-je-een-entertainer-inhuren%2F) |
-| 2 | `wat-is-de-minimale-benodigde-ruimte-voor-een-vuurshow-buiten-faq` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fwat-is-de-minimale-benodigde-ruimte-voor-een-vuurshow-buiten-faq%2F) |
-| 3 | `wat-is-vuurspuwen-en-hoe-werkt-het` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fwat-is-vuurspuwen-en-hoe-werkt-het%2F) |
-| 4 | `zijn-er-speciale-vergunningen-nodig-voor-vuurspuwen-faq` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fzijn-er-speciale-vergunningen-nodig-voor-vuurspuwen-faq%2F) |
+| 1 | `de/halloween` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Fhalloween%2F) |
+| 2 | `en/halloween` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fen%2Fhalloween%2F) |
+| 3 | `fr/halloween` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Ffr%2Fhalloween%2F) |
+| 4 | `homepage` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2F) |
+| 5 | `contact-3` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fcontact-3%2F) |
+| 6 | `de/feuershow-firmenfeier` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fde%2Ffeuershow-firmenfeier%2F) |
+| 7 | `en/fire-show-corporate-event` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fen%2Ffire-show-corporate-event%2F) |
+| 8 | `fr/spectacle-de-feu-entreprise` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Ffr%2Fspectacle-de-feu-entreprise%2F) |
+| 9 | `beoordelingen` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fbeoordelingen%2F) |
+| 10 | `zo-organiseer-je-een-geslaagd-verrassingsfeestje` | [openen in Search Console](https://search.google.com/search-console/inspect?resource_id=sc-domain%3Avuurspuwer.com&id=https%3A%2F%2Fvuurspuwer.com%2Fzo-organiseer-je-een-geslaagd-verrassingsfeestje%2F) |
 
 ## Automatisch verstuurd
 
-- IndexNow: 200 (4 adressen)
+- IndexNow: 200 (10 adressen)
 - Bing API: overgeslagen (geen BING_API_KEY ingesteld)
 
-_Volgende ronde: 2026-10-30_
+_Volgende ronde: 2026-10-31_
