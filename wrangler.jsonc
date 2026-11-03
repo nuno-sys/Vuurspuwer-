@@ -1,12 +1,27 @@
-// Cloudflare Workers: serveer de gebouwde site uit ./dist.
-// Zonder dit bestand pakt een Worker-deploy de repo-root en bestaan
-// de onderliggende pagina's (bijv. /vuurspuwer-inhuren/) niet.
+// Cloudflare Worker voor vuurspuwer.com
+//
+// - ./dist is de complete statische site (build.py, staat in de repo) en
+//   wordt rechtstreeks door Cloudflare geserveerd, inclusief _headers en
+//   _redirects. Zonder "directory" pakt een deploy de repo-root en bestaan
+//   de onderliggende pagina's (bijv. /vuurspuwer-inhuren/) niet.
+// - Alleen /api/* draait Worker-code: worker/index.js → functions/api/*
+//   (boekingsformulier en opvolging). De rest raakt de Worker nooit.
+// - OPVOLG (KV) staat bewust zonder id: wrangler maakt de namespace bij de
+//   eerste deploy zelf aan in het account waarin gedeployed wordt.
+// - Geheimen staan NOOIT hier. In het dashboard: Worker "vuurspuwer" →
+//   Settings → Variables and Secrets: RESEND_API_KEY, ANTHROPIC_API_KEY,
+//   OPVOLG_SLEUTEL (zelfde waarde als het GitHub-secret).
 {
   "name": "vuurspuwer",
+  "main": "worker/index.js",
   "compatibility_date": "2026-08-30",
   "assets": {
     "directory": "./dist",
+    "binding": "ASSETS",
     "html_handling": "auto-trailing-slash",
-    "not_found_handling": "404-page"
-  }
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*"]
+  },
+  "kv_namespaces": [{ "binding": "OPVOLG" }],
+  "observability": { "enabled": true }
 }
