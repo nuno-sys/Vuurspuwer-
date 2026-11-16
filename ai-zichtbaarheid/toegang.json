@@ -1,8 +1,10 @@
 {
- "datum": "2026-11-09",
- "waarschuwingen": [],
+ "datum": "2026-11-16",
+ "waarschuwingen": [
+  "Cloudflare voegt eigen regels toe aan robots.txt (beheerde robots.txt); trainingsbots uitsluiten is prima, zoek- en antwoordcrawlers niet"
+ ],
  "robots_status": 200,
- "robots_cloudflare": false,
+ "robots_cloudflare": true,
  "robots": {
   "OAI-SearchBot": true,
   "ChatGPT-User": true,
@@ -84,7 +86,7 @@
   },
   "/sitemap.xml": {
    "status": 200,
-   "type": "application/xml"
+   "type": "application/xml; charset=utf-8"
   }
  }
 }

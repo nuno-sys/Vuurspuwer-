@@ -2,9 +2,9 @@
 
 Gemaakt door `tools/ai_zichtbaarheid.py`. Per vraag: ★ = vuurspuwer.com geciteerd als bron, ✓ = Nuno genoemd zonder bronvermelding, ○ = een pagina van vuurspuwer.com is wel opgehaald maar niet aangehaald (de eerste stap), · = niet genoemd, – = niet gemeten of fout.
 
-## Kunnen AI-crawlers de site lezen? (live gecontroleerd op 2026-11-09)
+## Kunnen AI-crawlers de site lezen? (live gecontroleerd op 2026-11-16)
 
-Geen problemen gevonden: robots.txt laat alle zoek- en antwoordcrawlers toe, de site weigert hun user-agent niet, en llms.txt, llms-full.txt en de sitemap zijn bereikbaar.
+- ⚠ Cloudflare voegt eigen regels toe aan robots.txt (beheerde robots.txt); trainingsbots uitsluiten is prima, zoek- en antwoordcrawlers niet
 
 | crawler | voor | robots.txt | site |
 |---|---|---|---|
